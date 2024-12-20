@@ -7,6 +7,9 @@
     public readonly StateBase Gliding;
     public readonly StateBase Attacking;
     public readonly StateBase DodgeRoll;
+    public readonly StateBase HurtState;
+    public readonly StateBase Death;
+
     
     public PlayerStates(Player player)
     {
@@ -17,5 +20,9 @@
         Gliding = new GlidingState(player);
         Attacking = new AttackingState(player);
         DodgeRoll = new DodgeRollState(player);
+
+        HurtState = new HurtState(player);
+
+        Death = new DeathState(player);
     }
 }

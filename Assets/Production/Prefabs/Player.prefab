@@ -4949,6 +4949,8 @@ MonoBehaviour:
   deceleration: 10
   currentMovementLerpSpeed: 100
   maxJumpHoldTime: 0
+  knockbackDuration: 0.2
+  knockbackSpeed: 10
   airBorneMovementFactor: 1
   fallMultiplier: 7
   jumpVelocityFalloff: 8
@@ -4965,7 +4967,7 @@ MonoBehaviour:
     Speed:
       baseValue: 14
     JumpForce:
-      baseValue: 12
+      baseValue: 16
     MaxHealth:
       baseValue: 6
     AttackSpeedMultiplier:
@@ -5009,8 +5011,10 @@ MonoBehaviour:
   isHoldingDodge: 0
   isAttacking: 0
   AirComboDone: 0
+  hitDirection: {x: 0, y: 0, z: 0}
   fadeImage: {fileID: 0}
   crossfadeController: {fileID: 0}
+  isInvulnerable: 0
 --- !u!114 &2974869042834182435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15776,15 +15780,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.569973
+      value: -38.080345
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 105.04141
+      value: 119.073
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.06179
+      value: 308.3014
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
