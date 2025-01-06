@@ -98,12 +98,12 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -121,25 +121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e6077ee5708eb45b00735993ed16a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionPrompt: E - Pickup Yeast of Power
-  disabledPrompt: Cannot interact
-  promptYOffset: 1.5
-  promptXOffset: 0
-  promptZOffset: 0
-  hudParent: {fileID: 0}
-  interactDistance: 5
-  isDisabled: 0
+  option: {fileID: 11400000, guid: a0b273ea1ef418e419e480d131e05ef1, type: 2}
   interactionActions:
-  - action: {fileID: 11400000, guid: 0bc009f30c697ca499e1143da9d849ae, type: 2}
-    parameters:
-    - skibidi
   - action: {fileID: 11400000, guid: 738a1be2e325a1145bb93269c4296ad8, type: 2}
     parameters:
     - skibidi
-  upgradeOptions:
-  - {fileID: 11400000, guid: 4c2ad7e5d0149324783edc80d41a40e6, type: 2}
-  - {fileID: 11400000, guid: 160c588ef0f42544f82a86ccbad2d0df, type: 2}
-  - {fileID: 11400000, guid: 07a2fdf1414d5364ebb84dd4e4cbdac6, type: 2}
 --- !u!1 &3030290548714589633
 GameObject:
   m_ObjectHideFlags: 0

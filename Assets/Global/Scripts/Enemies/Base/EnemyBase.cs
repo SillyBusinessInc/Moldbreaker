@@ -154,9 +154,9 @@ namespace EnemiesNS
         [Tooltip("OPTIONAL: Reference to the NavMeshAgent of this enemy. Has Default")]
         [SerializeField]
         public NavMeshAgent agent;
-
-        [Tooltip("Reference to this enemy's weapon")]
-        [SerializeField] public Collider weapon;
+        
+        // [Tooltip("Reference to this enemy's weapon")]
+        // [SerializeField] public Collider weapon;
 
         [Tooltip("Reference to this Enemy's walking particle system")]
         public ParticleSystem particleSystemWalk;
@@ -322,11 +322,11 @@ namespace EnemiesNS
             if (attackRecoveryElapsed >= attackRecoveryTime) toggleIsRecovering(false);
         }
 
-        public virtual void PlayerHit(PlayerObject playerObject, int damage)
+        public virtual void PlayerHit(PlayerObject playerObject, int damage, Vector3 direction)
         {
             Player player = playerObject.GetComponentInParent<Player>();
             if (!player) return;
-            player.OnHit(damage);
+            player.OnHit(damage, transform.forward);
             player.ApplyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 
