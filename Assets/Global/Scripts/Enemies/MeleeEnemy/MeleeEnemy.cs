@@ -4,6 +4,31 @@ namespace EnemiesNS
 {
     public class MeleeEnemy : EnemyBase
     {
+        public enum AttackType
+        {
+            Stab = 0,
+            Slam = 1,
+            Slash = 2,
+            Slash360 = 3,
+            BruteSlash = 4
+        }
+
+        public AttackType attackType;
+
+        // check if chosen attack is valid for this enemy
+        public virtual bool IsValidAttack(AttackType attackType)
+        {
+            return attackType == AttackType.Stab ||
+                   attackType == AttackType.Slam ||
+                   attackType == AttackType.Slash ||
+                   attackType == AttackType.Slash360;
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            if (!IsValidAttack(attackType)) Debug.LogWarning($"{attackType} is not valid for this type of enemy", this);
+        }
         private bool playerHit = false;
 
         //
@@ -20,11 +45,11 @@ namespace EnemiesNS
             playerHit = false;
         }
 
-        public override void PlayerHit(PlayerObject playerObject, int damage)
+        public override void PlayerHit(PlayerObject playerObject, int damage, Vector3 knockback)
         {
             if (playerHit) return;
             playerHit = true;
-            base.PlayerHit(playerObject, damage);
+            base.PlayerHit(playerObject, damage, knockback);
         }
 
         protected override void SetupStateMachine()
