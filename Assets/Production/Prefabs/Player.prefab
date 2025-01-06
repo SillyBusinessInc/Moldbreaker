@@ -4998,8 +4998,8 @@ MonoBehaviour:
   collidersEnemy: []
   groundCheckDistance: 0.70628166
   targetVelocity: {x: 0, y: -0.9044733, z: 0}
-  timeLeftGrounded: 899.9406
-  timeLastDodge: 898.4612
+  timeLeftGrounded: 0
+  timeLastDodge: 0
   currentWalkingPenalty: 1
   awaitingNewState: 0
   maxWalkingPenalty: 0.5
