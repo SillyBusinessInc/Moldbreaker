@@ -4949,6 +4949,8 @@ MonoBehaviour:
   deceleration: 10
   currentMovementLerpSpeed: 100
   maxJumpHoldTime: 0
+  knockbackDuration: 0.2
+  knockbackSpeed: 10
   airBorneMovementFactor: 1
   fallMultiplier: 7
   jumpVelocityFalloff: 8
@@ -4996,8 +4998,8 @@ MonoBehaviour:
   collidersEnemy: []
   groundCheckDistance: 0.70628166
   targetVelocity: {x: 0, y: -0.9044733, z: 0}
-  timeLeftGrounded: 899.9406
-  timeLastDodge: 898.4612
+  timeLeftGrounded: 0
+  timeLastDodge: 0
   currentWalkingPenalty: 1
   awaitingNewState: 0
   maxWalkingPenalty: 0.5
@@ -5009,8 +5011,10 @@ MonoBehaviour:
   isHoldingDodge: 0
   isAttacking: 0
   AirComboDone: 0
+  hitDirection: {x: 0, y: 0, z: 0}
   fadeImage: {fileID: 0}
   crossfadeController: {fileID: 0}
+  isInvulnerable: 0
 --- !u!114 &2974869042834182435
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,78 +1,98 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UpgradeOptions : Reference
 {
-    [HideInInspector]
-    public List<UpgradeOption> options;
-    [HideInInspector]
-    public bool isShown = false;
+    [HideInInspector] public UpgradeOption option;
+    public UpgradeOptionLogic UpgradeOptionLogic;
+    [HideInInspector] public bool isShown = false;
+
+    public InputActionAsset inputActionAsset;
+    private UnityEngine.InputSystem.Utilities.ReadOnlyArray<InputActionMap> ActionMap;
+    private InputActionMap UIActionMap;
+
+    public List<ActionParamPair> interactionActions;
+
+    protected new void Awake() {
+        base.Awake();
+        gameObject.SetActive(false);
+
+        ActionMap = inputActionAsset.actionMaps;
+        foreach (var actionMap in ActionMap) {
+            if (actionMap.name == "UI") {
+                UIActionMap = actionMap;
+            }
+        }
+        
+        DisableUIInput();
+    }
 
     [ContextMenu("SHOW")]
-    public void ShowOptions()
+    public void ShowOption()
     {
+        EnableUIInput();
         isShown = true;
+        SetCursorState(true, CursorLockMode.None);
         Time.timeScale = 0;
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Debug.Log(transform.GetChild(i).gameObject.name);
-            Transform child = transform.GetChild(i);
-            child.gameObject.SetActive(true);
-            SetOptions(options[i], i);
+        gameObject.SetActive(true);
+
+        if (option != null) {
+            UpgradeOptionLogic.data = option;
         }
     }
 
     [ContextMenu("HIDE")]
-    public void HideOptions()
+    public void HideOption()
     {
         Time.timeScale = 1;
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Transform child = transform.GetChild(i);
-            child.gameObject.SetActive(false);
-        }
+        SetCursorState(false, CursorLockMode.Locked);
+        gameObject.SetActive(false);
         isShown = false;
+        DisableUIInput();
+    }
+    
+    void SetCursorState(bool cursorVisible, CursorLockMode lockMode) {
+        Cursor.visible = cursorVisible;
+        Cursor.lockState = lockMode;
     }
 
-    public void SetOptions(UpgradeOption upgrade, int index)
-    {
-        transform.GetChild(index).GetComponent<UpgradeOptionLogic>().SetPanelData(upgrade);
-    }
-
-    public GameObject GetOption(int index)
-    {
-        transform.GetChild(index).gameObject.SetActive(true);
-        return transform.GetChild(index).gameObject; ;
-    }
-
-    void Update()
-    {
+    public void Confirm(InputAction.CallbackContext ctx) {
         if (!isShown) return;
 
-        if (Input.GetKeyDown("1"))
-        {
-            foreach (ActionParamPair action in options[0].interactionActions)
-            {
+        if (ctx.started && option != null) {
+            foreach(ActionParamPair action in option.interactionActions) {
                 action.InvokeAction();
             }
-            HideOptions();
+
+            foreach(ActionParamPair action in interactionActions) {
+                action.InvokeAction();
+                GlobalReference.AttemptInvoke(Events.STATISTIC_CHANGED);
+            }
         }
-        else if (Input.GetKeyDown("2"))
-        {
-            foreach (ActionParamPair action in options[1].interactionActions)
-            {
-                action.InvokeAction();
+        HideOption();
+    }
+
+    void EnableUIInput() {
+        // enable UI actionmap and disable all other actionmap
+        // to make sure at this moment you can only use the UI actionmap
+        foreach (var actionMap in ActionMap) {
+            if (actionMap.name == "UI") {
+                UIActionMap.Enable();
+            } else {
+                actionMap.Disable();
             }
-            HideOptions();
         }
-        else if (Input.GetKeyDown("3"))
-        {
-            foreach (ActionParamPair action in options[2].interactionActions)
-            {
-                action.InvokeAction();
+    }
+
+    void DisableUIInput() {
+        // disable ui actionmap and enable the rest
+        foreach (var actionMap in ActionMap) {
+            if (actionMap.name == "UI") {
+                UIActionMap.Disable();
+            } else {
+                actionMap.Enable();
             }
-            HideOptions();
         }
     }
 }
