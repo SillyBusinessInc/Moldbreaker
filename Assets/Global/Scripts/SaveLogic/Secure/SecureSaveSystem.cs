@@ -30,7 +30,7 @@ public abstract class SecureSaveSystem
     public T Get<T>(string id) {
         // check if type is a seriallized object that requires special handling
         if (SerializableData.AllowedType(typeof(T)) == AllowedTypeReturnOption.ALLOWED_STRINGIFY) {
-            return JsonUtility.FromJson<T>(Get<string>(id));
+            return JsonConvert.DeserializeObject<SerializableWrapper<T>>(Get<string>(id)).Item;
         }
         // check if the value exists in this save system
         if (!saveables.ContainsKey(id)) {
@@ -46,7 +46,7 @@ public abstract class SecureSaveSystem
         if (IsLocked) return;
         // check if type is a seriallized object that requires special handling
         if (SerializableData.AllowedType(typeof(T)) == AllowedTypeReturnOption.ALLOWED_STRINGIFY) {
-            Set(id, JsonUtility.ToJson(value));
+            Set(id, JsonConvert.SerializeObject(new SerializableWrapper<T>(value)));
             return;
         }
         // check if the value exists in this save system
@@ -67,7 +67,7 @@ public abstract class SecureSaveSystem
         if (result == AllowedTypeReturnOption.DISALLOWED) Debug.LogError($"cannot save [{id}] because [{type}] is not a securely saveable type");
         // check if type is a seriallized object that requires special handling
         else if (result == AllowedTypeReturnOption.ALLOWED_STRINGIFY) {
-            Add(id, JsonUtility.ToJson(defaultValue));
+            Add(id, JsonConvert.SerializeObject(new SerializableWrapper<T>(defaultValue)));
             return;
         }
         // add value to the save system
@@ -77,7 +77,7 @@ public abstract class SecureSaveSystem
     /// <summary> Saves all data stored in the save system to a file </summary>
     public void SaveAll() {
         // open file to write to
-        using (FileStream stream = new(SavePath, FileMode.Create)) {
+        using (FileStream stream = new(SavePath, FileMode.OpenOrCreate)) {
             // create serializable data object for storing
             SerializableData data = new();
             // populate data object with values from the save system
@@ -120,7 +120,15 @@ public abstract class SecureSaveSystem
     /// <summary> Debug Method: Lists all values of the given type </summary>
     public void ListAll<T>() {
         foreach (KeyValuePair<string, ISecureSaveable> saveable in saveables) {
-            if (saveable.Value is SecureSaveable<T> t) Debug.Log($"{t.Id}: {t.Value}");
+            if (saveable.Value is SecureSaveable<T> t) Debug.Log($"[{Prefix}] {t.Id}: [{t.Value.GetType().Name}] {t.Value}");
+        }
+    }
+
+    [Serializable]
+    public class SerializableWrapper<T> {
+        public T Item;
+        public SerializableWrapper(T item_) {
+            Item = item_;
         }
     }
 }

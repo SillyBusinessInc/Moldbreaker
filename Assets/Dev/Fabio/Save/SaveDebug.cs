@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary> Debug mono behaviour class for testing save system on Start() </summary>
@@ -18,6 +19,8 @@ public class SaveDebug : MonoBehaviour
         s.ListAll<Vector2>();
         s.ListAll<Vector3>();
         s.ListAll<Vector4>();
+        s.ListAll<List<int>>();
+        s.ListAll<Dictionary<int, int>>();
         s.ListAll<DebugItem>();
     }
 }
@@ -33,7 +36,9 @@ public class DebugSaveSystem : SecureSaveSystem {
         Add("Vector2", new Vector2(1, 2));
         Add("Vector3", new Vector3(2, 3, 4));
         Add("Vector4", new Vector4(3, 4, 5, 6));
-        Add("Item", new DebugItem(1, "yes"));
+        Add("List", new List<int>() {1, 2, 3, 4});
+        Add("Dict", new Dictionary<string, int>() { {"1", 10}, {"2", 20} });
+        Add("Item", new DebugItem(1, "yes", true, new() {1, 2, 3, 4, 5}));
         Add("another_int", 10);
     }
 }
@@ -43,8 +48,12 @@ public class DebugSaveSystem : SecureSaveSystem {
 public class DebugItem {
     public int num;
     public string text;
-    public DebugItem(int _num, string _text) {
+    public bool newsomething;
+    public List<int> items;
+    public DebugItem(int _num, string _text, bool _newsomething, List<int> _items) {
         num = _num;
         text = _text;
+        newsomething = _newsomething;
+        items = _items;
     }
 }

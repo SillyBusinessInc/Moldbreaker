@@ -5,6 +5,7 @@ public class PauseLogic : MonoBehaviour
 {
     public GameObject Menu;
     public GameObject Upgrades;
+    public GameObject YoP;
     private bool isPaused;
 
 
@@ -18,13 +19,12 @@ public class PauseLogic : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape) && IsLoadingSceneLoaded()) { 
-            isPaused = !isPaused;
-            // Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked; 
-            // Cursor.visible = !Cursor.visible;
-
-            Menu.SetActive(!Menu.activeSelf); 
-            Upgrades.SetActive(!Upgrades.activeSelf); 
-            Time.timeScale = isPaused ? 0f : 1f;
+            if (!YoP.activeSelf) {
+                isPaused = !isPaused;
+                Menu.SetActive(!Menu.activeSelf); 
+                // Upgrades.SetActive(!Upgrades.activeSelf); 
+                Time.timeScale = isPaused ? 0f : 1f;
+            }
         }
 
         if (isPaused == true) {
@@ -48,10 +48,9 @@ public class PauseLogic : MonoBehaviour
     }
 
     public void ContinueGame() {
-        Debug.Log(" !!! ContinueGame !!! ");
         isPaused = false;
         Menu.SetActive(!Menu.activeSelf); 
-        Upgrades.SetActive(!Upgrades.activeSelf); 
+        // Upgrades.SetActive(!Upgrades.activeSelf); 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1f;
@@ -62,7 +61,8 @@ public class PauseLogic : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Menu.SetActive(!Menu.activeSelf); 
-        Upgrades.SetActive(!Upgrades.activeSelf); 
+        // Upgrades.SetActive(!Upgrades.activeSelf); 
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Settings");
     }
 
@@ -71,7 +71,8 @@ public class PauseLogic : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Menu.SetActive(!Menu.activeSelf); 
-        Upgrades.SetActive(!Upgrades.activeSelf); 
+        // Upgrades.SetActive(!Upgrades.activeSelf);
+        Time.timeScale = 1f; 
         SceneManager.LoadScene("Menu");
     }
 }
