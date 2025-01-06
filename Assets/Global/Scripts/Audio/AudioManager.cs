@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AudioManager : Reference
 {
+
     [Header("Audio Source")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource SFXSource;
@@ -57,5 +58,11 @@ public class AudioManager : Reference
     {
         SFXSource.loop = false;
         SFXSource.Stop();
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
     }
 }
