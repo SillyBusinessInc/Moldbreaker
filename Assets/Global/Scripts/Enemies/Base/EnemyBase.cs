@@ -319,11 +319,11 @@ namespace EnemiesNS
             if (attackRecoveryElapsed >= attackRecoveryTime) toggleIsRecovering(false);
         }
 
-        public virtual void PlayerHit(PlayerObject playerObject, int damage)
+        public virtual void PlayerHit(PlayerObject playerObject, int damage, Vector3 direction)
         {
             Player player = playerObject.GetComponentInParent<Player>();
             if (!player) return;
-            player.OnHit(damage);
+            player.OnHit(damage, transform.forward);
             player.ApplyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 

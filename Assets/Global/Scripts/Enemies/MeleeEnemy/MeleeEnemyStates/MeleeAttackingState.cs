@@ -4,13 +4,22 @@ namespace EnemiesNS
 {
     public class MeleeAttackingState : BaseAttackingState
     {
-        public MeleeAttackingState(MeleeEnemy enemy) : base(enemy) {}
+        public MeleeAttackingState(MeleeEnemy enemy) : base(enemy) { }
 
         public override void Enter()
         {
-            enemy.animator.SetInteger("Attack_var", 0);
-            enemy.animator.SetBool("Attack", true);
-            base.Enter();
+            if (enemy is MeleeEnemy meleeEnemy)
+            {
+                if (meleeEnemy.IsValidAttack(meleeEnemy.attackType))
+                {
+                    meleeEnemy.animator.SetInteger("Attack_var", (int)meleeEnemy.attackType);
+                    meleeEnemy.animator.SetBool("Attack", true);
+                }
+                else
+                {
+                    Debug.LogWarning($"{meleeEnemy.attackType} is not valid for this type of enemy", meleeEnemy);
+                }
+            }
         }
 
         public override void Exit()
@@ -22,8 +31,11 @@ namespace EnemiesNS
 
         protected override void Attack()
         {
-            enemy.animator.SetTrigger("PlayAttack");
-            base.Attack();
+            if (enemy is MeleeEnemy meleeEnemy)
+            {
+                if (meleeEnemy.IsValidAttack(meleeEnemy.attackType)) enemy.animator.SetTrigger("PlayAttack");
+                base.Attack();
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,12 +11,12 @@ public abstract class StateBase
         Player = player;
     }
 
-    public virtual void Enter() {}
-    public virtual void Exit() {}
-    public virtual void Update() {}
-    public virtual void FixedUpdate() {}
-    public virtual void OnCollisionEnter(Collision collision) {}
-    public virtual void OnCollisionExit(Collision collision) {}
+    public virtual void Enter() { }
+    public virtual void Exit() { }
+    public virtual void Update() { }
+    public virtual void FixedUpdate() { }
+    public virtual void OnCollisionEnter(Collision collision) { }
+    public virtual void OnCollisionExit(Collision collision) { }
 
     // Input handling
     public virtual void Move(InputAction.CallbackContext ctx)
@@ -24,7 +25,8 @@ public abstract class StateBase
         if (ctx.performed && Player.currentState != Player.states.Walking && Player.isGrounded)
         {
             Player.SetState(Player.states.Walking);
-        }else if (ctx.canceled && Player.currentState == Player.states.Walking)
+        }
+        else if (ctx.canceled && Player.currentState == Player.states.Walking)
         {
             Player.SetState(Player.states.Idle);
         }
@@ -46,7 +48,7 @@ public abstract class StateBase
                 Player.SetState(Player.states.DodgeRoll);
             }
         }
-        if (ctx.canceled) 
+        if (ctx.canceled)
         {
             Player.isHoldingDodge = false;
         }
@@ -59,8 +61,9 @@ public abstract class StateBase
             if (Player.isGrounded)
             {
                 Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
-                Player.playerAnimationsHandler.SetBool("IsJumpingBool",true);
-            }else
+                Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
+            }
+            else
             {
                 Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
             }
@@ -68,7 +71,7 @@ public abstract class StateBase
             Player.isHoldingJump = true;
             Player.SetState(Player.states.Jumping);
         }
-        if (ctx.canceled) 
+        if (ctx.canceled)
         {
             Player.isHoldingJump = false;
         }
@@ -83,7 +86,7 @@ public abstract class StateBase
         }
     }
 
-    public virtual void Crouch(InputAction.CallbackContext ctx) {}
+    public virtual void Crouch(InputAction.CallbackContext ctx) { }
 
     public virtual void Attack(InputAction.CallbackContext ctx)
     {
@@ -93,13 +96,22 @@ public abstract class StateBase
         }
     }
 
+    public virtual void Hurt(Vector3 direction)
+    {
+        Player.hitDirection = direction;
+        Player.SetState(Player.states.HurtState);
+    }
+
     // general movement logic
-    protected float ApplyGravity(float yValue) {
-        if (yValue < Player.jumpVelocityFalloff || yValue > 0 && !Player.isHoldingJump && !Player.isHoldingDodge) {
+    protected float ApplyGravity(float yValue)
+    {
+        if (yValue < Player.jumpVelocityFalloff || yValue > 0 && !Player.isHoldingJump && !Player.isHoldingDodge)
+        {
             yValue += Player.fallMultiplier * Physics.gravity.y * Time.deltaTime;
             Player.debug_lineColor = Color.red;
         }
-        else {
+        else
+        {
             Player.debug_lineColor = Color.yellow;
         }
         return yValue;

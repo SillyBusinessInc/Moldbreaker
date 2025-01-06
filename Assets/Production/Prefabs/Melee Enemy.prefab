@@ -5067,12 +5067,13 @@ MonoBehaviour:
   DeathParticleOrigin: {fileID: 1608619491930234734}
   target: {fileID: 0}
   animator: {fileID: 5452983560052617153}
-  agent: {fileID: 0}
+  agent: {fileID: 5608345331629188897}
   weapon: {fileID: 9053967190554233472}
   particleSystemWalk: {fileID: 877088373767564327}
   VFXLayer: 0
   currentStateName: 
   agentIsStopped: 0
+  attackType: 0
 --- !u!195 &5608345331629188897
 NavMeshAgent:
   m_ObjectHideFlags: 0
