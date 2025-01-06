@@ -7,12 +7,16 @@ public class Room
     // field
     public int id;
     public RoomType roomType;
+    public bool unlocked;
+    public bool finished;
 
     // constructor
-    public Room(int id_, RoomType roomType_)
+    public Room(int id_, RoomType roomType_, bool unlocked_ = false)
     {
         id = id_;
         roomType = roomType_;
+        unlocked = unlocked_;
+        finished = false;
     }
 
     public bool IsStandard()

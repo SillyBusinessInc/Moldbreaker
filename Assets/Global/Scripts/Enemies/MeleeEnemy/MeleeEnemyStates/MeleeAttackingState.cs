@@ -29,12 +29,31 @@ namespace EnemiesNS
             base.Exit();
         }
 
+        public override void Update()
+        {
+            if (IsWithinAttackRange() && canAttack())
+            {
+                FacePlayer();
+                if (IsFacingPlayer())
+                {
+                    Attack();
+                }
+            }
+            base.Update();
+        }
+
         protected override void Attack()
         {
-            if (enemy is MeleeEnemy meleeEnemy)
+            if (enemy is not MeleeEnemy meleeEnemy) return;
+
+            if (meleeEnemy.IsValidAttack(meleeEnemy.attackType))
             {
-                if (meleeEnemy.IsValidAttack(meleeEnemy.attackType)) enemy.animator.SetTrigger("PlayAttack");
-                base.Attack();
+                enemy.animator.SetTrigger("PlayAttack");
+                base.Attack(); // This will increment attacksThisState and set inAttackAnim
+            }
+            else
+            {
+                Debug.LogWarning($"{meleeEnemy.attackType} is not valid for this type of enemy", meleeEnemy);
             }
         }
     }

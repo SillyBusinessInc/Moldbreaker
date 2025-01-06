@@ -39,4 +39,9 @@ public enum Events
     PLAYER_ATTACK_STARTED = 18,
     PLAYER_ATTACK_ENDED = 19,
     #endregion
+    #region enemy attack
+    ENEMY_ATTACK_STARTED = 20,
+    ENEMY_ATTACK_ENDED = 21,
+    ENEMY_TO_IDLE = 22
+    #endregion
 }
