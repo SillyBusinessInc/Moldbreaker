@@ -11,6 +11,7 @@ public class FlipAttack : TailAttack
     public override void Start()
     {
         base.Start();
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyPoundVoice);
         player.Tail.slamObject.transform.localScale = new Vector3(3, 1, 3);
         player.Tail.slamObject.transform.localScale *=
             player.Tail.tailStatistic.slamObjectSize.GetValue();
