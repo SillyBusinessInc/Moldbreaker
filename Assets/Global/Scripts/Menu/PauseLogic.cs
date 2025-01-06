@@ -5,6 +5,7 @@ public class PauseLogic : MonoBehaviour
 {
     public GameObject Menu;
     public GameObject Upgrades;
+    public GameObject YoP;
     private bool isPaused;
 
 
@@ -18,10 +19,12 @@ public class PauseLogic : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape) && IsLoadingSceneLoaded()) { 
-            isPaused = !isPaused;
-            Menu.SetActive(!Menu.activeSelf); 
-            // Upgrades.SetActive(!Upgrades.activeSelf); 
-            Time.timeScale = isPaused ? 0f : 1f;
+            if (!YoP.activeSelf) {
+                isPaused = !isPaused;
+                Menu.SetActive(!Menu.activeSelf); 
+                // Upgrades.SetActive(!Upgrades.activeSelf); 
+                Time.timeScale = isPaused ? 0f : 1f;
+            }
         }
 
         if (isPaused == true) {
