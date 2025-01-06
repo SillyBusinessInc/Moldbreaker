@@ -78,8 +78,9 @@ public class RoomTransitionDoor : Interactable
         // foreach (var secret in player.playerStatistic.Calories)
         // {
         //     Debug.Log("Secret: " + secret);
-        //         calories.Add(secret);
+        //     calories.Add(secret);
         // }
+        // Debug.Log(calories.Count);
         // saveData.Set("calories", calories);
         // Debug.Log("Saved Crumbs: " + saveData.Get<int>("crumbs"));
         // Debug.Log("Saved Calories: " + player.playerStatistic.Calories.Count);
@@ -89,8 +90,10 @@ public class RoomTransitionDoor : Interactable
         
         //to reset everything that was picked up
         player.playerStatistic.CaloriesCount = 0;
+        player.playerStatistic.CrumbsCount = 0;
         player.playerStatistic.Calories.Clear();
         player.playerStatistic.Crumbs = 0;
+
         
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {

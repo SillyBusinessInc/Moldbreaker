@@ -30,10 +30,12 @@ public class Calories : Collectable
 
     public override void OnCollect()
     {
+        GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CollectedCalorie = true;
         if (collected)
         {
             return;
         }
+        
         GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.Calories.Add(caloriesId);
     }
 

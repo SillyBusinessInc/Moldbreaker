@@ -8,10 +8,14 @@ public class CaloriesUI : MonoBehaviour
     private TextMeshProUGUI text; // Reference to the TextMeshProUGUI component
     private PlayerStatistic playerStats; // Reference to the player's statistics
     private int caloriesCountExtra = 0;
+    [SerializeField] private float fadeDuration = 1f;
+    private float fadeProgress = 0f;
+    [SerializeField]private CanvasGroup canvasGroup;
+    [SerializeField]private GameObject pauseScreen;
 
     void Start()
     {
-        //find by tag calories
+        fadeProgress = fadeDuration * 4f;
         
         // Get the player's statistics from your player reference
         playerStats = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic;
@@ -27,21 +31,62 @@ public class CaloriesUI : MonoBehaviour
 
     void Update()
     {
-        //if the calories count is 0, set it to the amount of calories in the scene
+        // Reset fade when a new coin is collected
+        if (playerStats.CollectedCalorie)
+        {
+            fadeProgress = 0f;
+            playerStats.CollectedCalorie = false;
+        }
+
+        // Fade in (first segment), hold at 1 (second segment), then fade out (third segment)
+        if (!pauseScreen.activeSelf)
+        {
+            fadeProgress += Time.deltaTime;
+
+            if (fadeProgress < fadeDuration)
+            {
+                float t = fadeProgress / fadeDuration; // 0 to 1
+                canvasGroup.alpha = Mathf.Lerp(0f, 2f, t*4);
+            }
+            else if (fadeProgress < fadeDuration * 2f)
+            {
+                canvasGroup.alpha = 1f; // hold at 1
+            }
+            else if (fadeProgress < fadeDuration * 3f)
+            {
+                float t = (fadeProgress - fadeDuration * 2f) / fadeDuration; // 0 to 1
+                canvasGroup.alpha = Mathf.Lerp(1f, 0f, t*2);
+            }
+            else
+            {
+                canvasGroup.alpha = 0f;
+            }
+        }
+        else
+        {   
+            if (text.text == "0/0")
+            {
+                canvasGroup.alpha = 0f;
+            }
+            else
+            {
+                canvasGroup.alpha = pauseScreen.activeSelf ? 1f : 0f;
+            }
+        }
+            
+
+        // Maintain existing logic
         if (playerStats.CaloriesCount == 0)
         {
             playerStats.CaloriesCount = GameObject.FindGameObjectsWithTag("Calories").Count();
         }
 
         CollectableSave savedFile = null;
-        
-        // make a save file for the current scene where the object is in and not the base scene to make it unique
-        if(GameObject.FindGameObjectsWithTag("Calories").FirstOrDefault() != null){
+        if (GameObject.FindGameObjectsWithTag("Calories").FirstOrDefault() != null)
+        {
             savedFile = new CollectableSave(GameObject.FindGameObjectsWithTag("Calories").First().scene.name);
         }
 
-        // Check if the amount of calories in the save file is less than the amount of calories the player has collected so far
-        // this is done because those calories that are saved are destroyed or grayed out so they can't be collected again
         if (savedFile != null)
         {
             if (savedFile.Get<List<string>>("calories").Count() < playerStats.CaloriesCount)
@@ -49,13 +94,10 @@ public class CaloriesUI : MonoBehaviour
                 caloriesCountExtra = savedFile.Get<List<string>>("calories").Count();
             }
         }
-        
 
-        // now add the calories to text count
         if (text != null)
         {
-            // Assuming `playerStats.Calories` holds the calories to display
-            text.text = caloriesCountExtra+playerStats.Calories.Count()+"/"+playerStats.CaloriesCount;
+            text.text = (caloriesCountExtra + playerStats.Calories.Count()) + "/" + playerStats.CaloriesCount;
         }
     }
 }

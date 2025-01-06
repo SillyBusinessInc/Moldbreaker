@@ -33,6 +33,9 @@ public class PlayerStatistic
     }
     public List<string> Calories;
     public int CaloriesCount;
+    public int CrumbsCount;
+    public bool CollectedCrumb = false;
+    public bool CollectedCalorie = false;
     // this is for the current stats of the player
     public CurrentStatistic Speed = new(12f);
     public CurrentStatistic JumpForce = new(8f);
