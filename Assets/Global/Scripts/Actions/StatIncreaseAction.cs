@@ -7,7 +7,6 @@ public enum UpgradeType { Modify, Multiply }
 public class StatIncreaseAction : ThreeParamAction
 {
     [SerializeField] private PlayerStatistic playerStatistic;
-    [SerializeField] private string param2 = "value";
 
     [Tooltip("The type of upgrade to apply to the stat")]
     [SerializeField] private UpgradeType param3;

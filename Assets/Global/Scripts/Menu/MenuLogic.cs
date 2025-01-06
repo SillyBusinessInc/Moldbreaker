@@ -6,6 +6,11 @@ public class MenuLogic : MonoBehaviour
     [SerializeField] private Confirmation confirmation;
     [SerializeField] private Image fadeImage;
     
+    void Start() {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    
     public void OnNewRun() => UILogic.FadeToScene("Loading", fadeImage, this);
     public void OnUpgrades() => UILogic.FadeToScene("Loading", fadeImage, this);
     public void OnArchive() => UILogic.FadeToScene("Loading", fadeImage, this);

@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 public class RoomTransitionDoor : Interactable
 {
     [Header("Materials")]
-    [SerializeField] private Material lockedMaterial;
-    [SerializeField] private Material unlockedMaterial;
+    [SerializeField] private GameObject portalEffect;
     [Header("References")]
     [SerializeField] private Animator animator;
-    [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
-    [HideInInspector] public RoomType nextRoomType;
-    public int nextRoomId;
+    [SerializeField] private int nextRoomIndex;
+    public RoomType nextRoomType; // made public for structure change
+    public int nextRoomId; // made public for structure change
     private int roomAmounts;
+    [SerializeField] private bool enableOnRoomFinish;
 
     private GameManagerReference gameManagerReference;
     private CrossfadeController crossfadeController;
@@ -25,17 +25,21 @@ public class RoomTransitionDoor : Interactable
     private void Awake()
     {
         IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
-        GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
         crossfadeController = GlobalReference.GetReference<CrossfadeController>();
+        portalEffect?.SetActive(false);
     }
 
     public void Initialize()
     {
         gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
+        
+        if (enableOnRoomFinish) GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
+        else IsDisabled = !gameManagerReference.GetRoom(nextRoomId).unlocked;
+
         doorManager = GlobalReference.GetReference<DoorManager>();
         roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
-        int randomIndex = Random.Range(1, roomAmounts + 1);
-        nextRoomName = nextRoomType.ToString() + "_" + randomIndex;
+        // int randomIndex = Random.Range(1, roomAmounts + 1); // disabled for structure change
+        nextRoomName = nextRoomType.ToString() + "_" + nextRoomIndex;
     }
 
     private void RoomFinished()
@@ -45,7 +49,10 @@ public class RoomTransitionDoor : Interactable
 
     public override void OnInteract(ActionMetaData _)
     {
-        Debug.Log("OnTriggerEnter Happend");
+        // unlock next level
+        Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
+        if (nextLevel != null) nextLevel.unlocked = true;
+        
         StartCoroutine(LoadNextRoom());
     }
 
@@ -66,13 +73,14 @@ public class RoomTransitionDoor : Interactable
                 currentScenename = scene.name;
             }
         }
-
+        
+        Debug.Log($"next: {nextRoomName}, nextId: {nextRoomId}, nextIndex: {nextRoomIndex}");
         SceneManager.LoadScene(nextRoomName, LoadSceneMode.Additive);
 
         var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
         if (gameManagerReference != null)
         {
-            doorManager.currentId = nextRoomId; 
+            doorManager.currentId = nextRoomId;
             Room nextRoom = gameManagerReference.GetRoom(nextRoomId);
             if (nextRoom != null)
             {
@@ -100,18 +108,21 @@ public class RoomTransitionDoor : Interactable
 
     public override void OnDisableInteraction()
     {
-        doorMesh.SetMaterials(new List<Material> { lockedMaterial });
+
     }
 
     public override void OnEnableInteraction()
     {
-        doorMesh.SetMaterials(new List<Material> { unlockedMaterial });
+        portalEffect?.SetActive(true);
+        animator.SetTrigger("TriggerDoorOpen");
+        animator.SetTrigger("TriggerDoorRight");
     }
 
     private void OpenDoorAnimation()
     {
         if (IsDisabled) return;
         animator.SetTrigger("TriggerDoorOpen");
+        animator.SetTrigger("TriggerDoorRight");
     }
 
     [ContextMenu("Unlock Door")] void UnlockDoorTest() => IsDisabled = false;

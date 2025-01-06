@@ -15,6 +15,10 @@ public class Player : MonoBehaviour
     public float deceleration = 0.5f;
     public float currentMovementLerpSpeed = 100;
 
+    [Header("Knockback Settings")]
+    public float knockbackDuration;
+    public float knockbackSpeed;
+
     [Header("Jumping Settings")]
     public float maxJumpHoldTime = 0.2f;
     public float airBorneMovementFactor = 0.5f;
@@ -78,11 +82,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isHoldingDodge = false;
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool AirComboDone = false;
+    [HideInInspector] public Vector3 hitDirection;
     // private PlayerInputActions inputActions;
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
     [SerializeField] private CrossfadeController crossfadeController;
-    private bool isInvulnerable = false;
+    
+    [HideInInspector] public bool isInvulnerable = false;
 
     void Awake()
     {
@@ -147,7 +153,6 @@ public class Player : MonoBehaviour
     }
 
     private void GroundCheck()
-
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
@@ -203,6 +208,7 @@ public class Player : MonoBehaviour
 
     public void SetState(StateBase newState)
     {
+        if (currentState == states.Death) return;
         // stop active coroutine
         if (activeCoroutine != null)
         {
@@ -284,13 +290,14 @@ public class Player : MonoBehaviour
 
     // TO BE CHANGED ===============================================================================================================================
     // If we go the event route this should change right?
-    public void OnHit(float damage)
+    public void OnHit(float damage, Vector3 direction)
     {
         if (isInvulnerable) return;
+        currentState.Hurt(direction);
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
         if (playerStatistic.Health <= 0) OnDeath();
-
+        
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
         AddMold(5f); // add 5% to the moldmeter
     }
@@ -328,11 +335,10 @@ public class Player : MonoBehaviour
     }
 
     // If we go the event route this should change right?
-    [ContextMenu("Die!!!!!")]
     private void OnDeath()
     {
         StartCoroutine(DeathScreen());
-    }
+    }   
     private IEnumerator DeathScreen()
     {
         Debug.Log("Player died", this);
