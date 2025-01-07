@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 public class SpikeField : MonoBehaviour
 {
@@ -34,6 +35,16 @@ public class SpikeField : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         GameObject entity = collision.gameObject;
+
+        if (tagHandlers.TryGetValue(entity.tag, out var handler))
+        {
+            handler(entity);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject entity = other.gameObject;
         if (tagHandlers.TryGetValue(entity.tag, out var handler))
         {
             handler(entity);
@@ -44,26 +55,25 @@ public class SpikeField : MonoBehaviour
     {
         if (player == null) return;
 
-        if (AddToHitEntities(entity))
+        if (CheckAndAddToHitEntities(entity))
         {
             player.Player.OnHit(damage, Vector3.up);
-            //ApplyKnockback(player.Player.gameObject);
         }
     }
 
     private void HandleEnemy(GameObject entity)
     {
-        EnemyBase enemy = entity.GetComponent<EnemyBase>();
+
+        var enemy = entity.GetComponent<EnemiesNS.EnemyBase>();
         if (enemy == null) return;
 
-        if (AddToHitEntities(entity))
+        if (CheckAndAddToHitEntities(entity))
         {
-            enemy.OnHit(enemyDamage);
-            ApplyKnockback(enemy.gameObject);
+            enemy.OnHit(enemyDamage, knockbackForce, leapForce);
         }
     }
 
-    private bool AddToHitEntities(GameObject entity)
+    private bool CheckAndAddToHitEntities(GameObject entity)
     {
         if (!hitEntities.Contains(entity))
         {
@@ -72,23 +82,6 @@ public class SpikeField : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    private void ApplyKnockback(GameObject entity)
-    {
-        Vector3 knockbackVelocity = CalculateKnockback(entity);
-        player.Player.ApplyKnockback(knockbackVelocity, 3);
-    }
-
-    public virtual Vector3 CalculateKnockback(GameObject entityObject)
-    {
-        Vector3 directionToEntity = entityObject.transform.position - transform.position;
-        directionToEntity.Normalize();
-
-        Vector3 knockbackVelocity = directionToEntity * knockbackForce;
-        knockbackVelocity.y = leapForce; // Add upward velocity for a leap
-
-        return knockbackVelocity * 3;
     }
 
     // Coroutine to re-enable the spike cone after a delay

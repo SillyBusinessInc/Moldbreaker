@@ -230,7 +230,12 @@ namespace EnemiesNS
 
             if (force > 0)
             {
-                Vector3 kb = ApplyKnockbackToGO.CalculateKnockback(this.gameObject, target.gameObject, force, leapForce);
+                // backwards knockback
+                Vector3 kb = -transform.forward * force;
+
+                // apply knockback
+                kb.y += leapForce;
+
                 DoKnockback(kb, knockbackStunTime);
             }
 
@@ -248,12 +253,14 @@ namespace EnemiesNS
 
 
 
-        public void DoKnockback(Vector3 knockback, float duration)
+        public void   DoKnockback(Vector3 knockback, float duration)
         {
 
             FreezeMovement(true);
             rb.isKinematic = false;
             rb.useGravity = true;
+
+            // apply knockback
             rb.AddForce(knockback, ForceMode.Impulse);
 
             StartCoroutine(AfterKnockback(duration));
@@ -370,7 +377,6 @@ namespace EnemiesNS
             Player player = playerObject.GetComponentInParent<Player>();
             if (!player) return;
             player.OnHit(damage, transform.forward);
-            player.ApplyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 
         public virtual void EnableWeaponHitBox() { }

@@ -14,7 +14,6 @@ namespace EnemiesNS
         }
 
         public AttackType attackType;
-        public Collider weapon;
         private bool playerHit = false;
 
         protected override void Start()

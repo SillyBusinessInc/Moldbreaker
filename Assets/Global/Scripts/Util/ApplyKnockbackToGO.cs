@@ -63,13 +63,19 @@ public static class ApplyKnockbackToGO
             Debug.LogWarning("Source or target GameObject is null. Knockback not calculated.");
             return Vector3.zero;
         }
+
         // Calculate direction from source to target
         Vector3 direction = (target.transform.position - source.transform.position).normalized;
 
-        // Apply knockback force and leap force
+        // Create a vector with constant magnitude equal to knockbackForce
         Vector3 knockbackVelocity = direction * knockbackForce;
-        knockbackVelocity.y = leapForce; // Add upward velocity for a leap
 
+        // Add upward force for leap
+        knockbackVelocity.y += leapForce;
+
+        Debug.Log($"Knockback: {knockbackVelocity}");
         return knockbackVelocity;
     }
+
+
 }
