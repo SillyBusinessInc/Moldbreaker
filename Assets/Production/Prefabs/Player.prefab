@@ -4948,9 +4948,9 @@ MonoBehaviour:
   acceleration: 2
   deceleration: 10
   currentMovementLerpSpeed: 100
-  maxJumpHoldTime: 0
   knockbackDuration: 0.2
   knockbackSpeed: 10
+  maxJumpHoldTime: 0
   airBorneMovementFactor: 1
   fallMultiplier: 7
   jumpVelocityFalloff: 8
@@ -4967,7 +4967,7 @@ MonoBehaviour:
     Speed:
       baseValue: 14
     JumpForce:
-      baseValue: 16
+      baseValue: 12
     MaxHealth:
       baseValue: 6
     AttackSpeedMultiplier:
@@ -5222,6 +5222,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 240a80f8-ed49-4386-a66d-6815dc6de553
+    m_ActionName: 'UI/Confirm[/Keyboard/space,/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

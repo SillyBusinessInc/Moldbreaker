@@ -9,14 +9,13 @@ public class DodgeRollState : StateBase
 
     public override void Enter()
     {
-
         // return if on cooldown
         if (Time.time < Player.timeLastDodge + Player.playerStatistic.DodgeCooldown.GetValue())
         {
             ExitDodge();
             return;
         }
-
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().dashSfx);
         // play particleSystem
         Player.particleSystemDash.Play();
         

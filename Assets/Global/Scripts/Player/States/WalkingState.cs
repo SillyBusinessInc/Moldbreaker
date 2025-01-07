@@ -2,19 +2,31 @@ using UnityEngine;
 
 public class WalkingState : StateBase
 {
-    public WalkingState(Player player) : base(player) {}
-
     public Vector3 debug_hitpos;
+    public bool playSound;
+    public float activesoundAfterTime;
+    public WalkingState(Player player) : base(player) { }
+
     public override void Update()
     {
+        if (activesoundAfterTime >= Player.soundAfterTime)
+        {
+            if (playSound)
+            {
+                GlobalReference.GetReference<AudioManager>().PlaySFXOnRepeat(GlobalReference.GetReference<AudioManager>().walkingSound);
+                playSound = false;
+            }
+        }
+        activesoundAfterTime += Time.deltaTime;
         Player.playerAnimationsHandler.resetStates();
         Player.playerAnimationsHandler.SetBool("IsRunning", true);
-        
+
         // perform ground check first
-        if (!Player.isGrounded) {
+        if (!Player.isGrounded)
+        {
             Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
         }
-        
+
         // calculate walking direction and speed
         if (Player.GetDirection() != Vector3.zero) Player.currentWalkingPenalty += Player.acceleration * Time.deltaTime;
         else Player.currentWalkingPenalty -= Player.acceleration * Time.deltaTime;
@@ -27,7 +39,7 @@ public class WalkingState : StateBase
         float linearY = ApplyGravity(Player.rb.linearVelocity.y);
 
         // slow down on turn
-        Vector3 flatLinearVelocity = new(Player.rb.linearVelocity.x, 0 ,Player.rb.linearVelocity.z);
+        Vector3 flatLinearVelocity = new(Player.rb.linearVelocity.x, 0, Player.rb.linearVelocity.z);
         if (Vector3.Angle(flatLinearVelocity, newTargetVelocity) > 45) Player.rb.linearVelocity *= 0.2f;
 
         // apply force
@@ -40,12 +52,14 @@ public class WalkingState : StateBase
     public override void Enter()
     {
         // play particleSystem
+        activesoundAfterTime = 0.0f;
+        playSound = true;
         Player.particleSystemWalk.Play();
     }
 
     public override void Exit()
     {
-        // stop particleSystem
+        GlobalReference.GetReference<AudioManager>().StopSFXLoop();
         Player.particleSystemWalk.Stop();
     }
 }
