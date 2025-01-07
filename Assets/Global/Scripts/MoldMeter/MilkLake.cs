@@ -48,7 +48,7 @@ public class MilkLake : MonoBehaviour
                 timeSinceLastMold += Time.deltaTime;
                 if (timeSinceLastMold >= 1f) {
                     Player player = GlobalReference.GetReference<PlayerReference>().Player;
-                    player.AddMold(addMoldPerSecond);
+                    player.OnHit(addMoldPerSecond, Vector3.zero);
                     timeSinceLastMold = 0f;
                 }
             }
