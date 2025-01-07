@@ -45,11 +45,11 @@ public class MilkLake : MonoBehaviour
                 );
 
                 // will add mold every second
-                timeSinceLastMold += Time.deltaTime;
-                if (timeSinceLastMold >= 1f) {
+                timeSinceLastMold -= Time.deltaTime;
+                if (timeSinceLastMold <= 0f) {
                     Player player = GlobalReference.GetReference<PlayerReference>().Player;
                     player.OnHit(addMoldPerSecond, Vector3.zero);
-                    timeSinceLastMold = 0f;
+                    timeSinceLastMold = 1f;
                 }
             }
         }
@@ -64,6 +64,7 @@ public class MilkLake : MonoBehaviour
                 playerObjectTransform.rotation.eulerAngles.y, 
                 playerObjectTransform.rotation.eulerAngles.z
             );
+            timeSinceLastMold = 0f;
         }
     }
 }
