@@ -11,11 +11,13 @@ public class HealthMeter : MonoBehaviour
     private Coroutine moveCoroutine;
     [SerializeField] private float animationDuration = 0.5f; // Duration for smooth movement
     private float savedHealthPercentage = -1;
+    private float PlayerMaxHealth;
 
-    void Awake()
+    void Start()
     {
         player = GlobalReference.GetReference<PlayerReference>().Player;
         GlobalReference.SubscribeTo(Events.MOLDMETER_CHANGED, UpdateHealthMeter);
+        PlayerMaxHealth = player.playerStatistic.Health;
 
     }
 
@@ -28,7 +30,7 @@ public class HealthMeter : MonoBehaviour
 
     public void UpdateHealthMeter()
     {
-        healthPercentage = player.playerStatistic.Health/6*100;
+        healthPercentage = player.playerStatistic.Health/PlayerMaxHealth*100;
         // if (moldPercentage < 100) moldPercentage += 0.01f;
         if (savedHealthPercentage == healthPercentage) return;
         savedHealthPercentage = healthPercentage;
