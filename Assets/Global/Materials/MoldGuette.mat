@@ -134,7 +134,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _MoldStrength: 0.67
+    - _MoldStrength: 1
     - _Mold_Strength: 0
     - _Normal_Blend: 1
     - _OcclusionStrength: 1
