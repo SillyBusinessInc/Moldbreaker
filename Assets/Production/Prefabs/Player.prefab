@@ -10681,7 +10681,7 @@ MonoBehaviour:
     increaseTailSpeed:
       baseValue: 1
     comboResetTime:
-      baseValue: 0.5
+      baseValue: 0.6
     leftTailDamage:
       baseValue: 10
     rightTailDamage:
@@ -10689,11 +10689,11 @@ MonoBehaviour:
     flipTailDamage:
       baseValue: 20
     leftTailCooldown:
-      baseValue: 0
+      baseValue: 0.1
     rightTailCooldown:
-      baseValue: 0
+      baseValue: 0.1
     flipTailCooldown:
-      baseValue: 0
+      baseValue: 0.1
     forwardSpeedAttack:
       baseValue: 15
   attackIndex: 0

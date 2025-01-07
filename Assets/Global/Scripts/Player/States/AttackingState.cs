@@ -16,12 +16,12 @@ public class AttackingState : StateBase
     public override void Enter()
     {
         var tail = Player.Tail.currentTail;
-        if (Player.AirComboDone)
+        if (Player.AirComboDone || !(Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime) || tail.currentCombo.Count == 0)
         {
-            Player.SetState(Player.states.Falling);
+            if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
+            else Player.SetState(Player.states.Falling);
             return;
         }
-
         Player.targetVelocity *= 0;
         Player.rb.linearVelocity *= 0;
         Player.Tail.activeCooldownTime = 0.0f;

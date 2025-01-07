@@ -1,10 +1,12 @@
 using System.Linq;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "LeftTail")]
 public class LeftTailAttack : TailAttack
 {
-    public LeftTailAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
+    public LeftTailAttack(string Name, float damage, float cooldown) : base(Name, damage) {}
 
     public override void Start()
     {
@@ -23,4 +25,5 @@ public class LeftTailAttack : TailAttack
         player.playerAnimationsHandler.SetInt("AttackType", 1);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }
+
 }

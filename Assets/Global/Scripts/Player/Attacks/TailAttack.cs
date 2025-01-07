@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class TailAttack : Attack
 {
-    public TailAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
+    public TailAttack(string Name, float damage) : base(Name, damage) {}
     
     protected Player player;
     public float duration;
