@@ -63,6 +63,12 @@ EditorBuildSettings:
     path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/MOLDORB_3.unity
     guid: fbfe5f0ce270a4bea897789b9fca06e3
   - enabled: 0
+    path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/PARKOUR_2.unity
+    guid: 29463877f09ff4466b5f83e4da1f0af7
+  - enabled: 0
+    path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/PARKOUR_3.unity
+    guid: 37913b8b046a7460a8f7dc678fe1ea5a
+  - enabled: 0
     path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/WAVESURVIVAL_2.unity
     guid: 101a8cf9193e440bf988f1109eaac57e
   - enabled: 0
@@ -74,6 +80,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Production/Scenes/ENTRANCE_1.unity
     guid: 1df51c1def2b1054bb5897dff6dbc5cd
+  - enabled: 1
+    path: Assets/Production/Scenes/PARKOUR_3.unity
+    guid: b83ac253aa4fbd344a817f031d3c9d5b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5ee5558464c699340918ebc2380ce47a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
