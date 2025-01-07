@@ -259,7 +259,7 @@ public class Player : MonoBehaviour
         if (targetVelocity.magnitude > 0.1f)
         {
             Vector3 direction = Vector3.ProjectOnPlane(targetVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 0.2f));
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
         }
     }
 

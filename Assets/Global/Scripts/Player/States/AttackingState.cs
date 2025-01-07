@@ -21,8 +21,7 @@ public class AttackingState : StateBase
             Player.SetState(Player.states.Falling);
             return;
         }
-        var forwardDirection = Vector3.ProjectOnPlane(GlobalReference.GetReference<PlayerReference>().PlayerCamera.transform.forward, Vector3.up).normalized;
-        Player.rb.MoveRotation(Quaternion.LookRotation(forwardDirection));
+
         Player.targetVelocity *= 0;
         Player.rb.linearVelocity *= 0;
         Player.Tail.activeCooldownTime = 0.0f;

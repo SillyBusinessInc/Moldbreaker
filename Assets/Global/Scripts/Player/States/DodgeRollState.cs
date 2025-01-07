@@ -9,27 +9,35 @@ public class DodgeRollState : StateBase
 
     public override void Enter()
     {
+
         // return if on cooldown
         if (Time.time < Player.timeLastDodge + Player.playerStatistic.DodgeCooldown.GetValue())
         {
             ExitDodge();
             return;
         }
-        var forwardDirection = Vector3.ProjectOnPlane(GlobalReference.GetReference<PlayerReference>().PlayerCamera.transform.forward, Vector3.up).normalized;
-        Player.rb.MoveRotation(Quaternion.LookRotation(forwardDirection));
+
         // play particleSystem
         Player.particleSystemDash.Play();
         
         Player.timeLastDodge = Time.time;
         Player.playerAnimationsHandler.SetBool("Dodgerolling", true);
 
+        // find direction
+        Vector3 dodgeDirection = Player.GetDirection();
+
         // set timer after which we can change state
         timer = Player.dodgeRollDuration;
         Player.canDodgeRoll = false;
 
+        // force forward position if the player isn't directly giving us a direction
+        if (dodgeDirection == Vector3.zero) dodgeDirection = Player.rb.transform.forward.normalized;
+
         // apply force
-        Player.rb.linearVelocity = forwardDirection * Player.dodgeRollSpeed;
+        Player.rb.linearVelocity = dodgeDirection * Player.dodgeRollSpeed;
         Player.targetVelocity = new(Player.targetVelocity.x, 0, Player.targetVelocity.z);
+
+        // player.animator.SetTrigger("DodgeRoll");
     }
 
     public override void Exit()
