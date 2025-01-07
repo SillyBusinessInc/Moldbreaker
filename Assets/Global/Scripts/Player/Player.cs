@@ -14,10 +14,13 @@ public class Player : MonoBehaviour
     public float acceleration = 2;
     public float deceleration = 0.5f;
     public float currentMovementLerpSpeed = 100;
+    
+    public float soundAfterTime = 0.5f;
 
     [Header("Knockback Settings")]
     public float knockbackDuration;
     public float knockbackSpeed;
+
 
     [Header("Jumping Settings")]
     public float maxJumpHoldTime = 0.2f;
@@ -296,6 +299,7 @@ public class Player : MonoBehaviour
         currentState.Hurt(direction);
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
         if (playerStatistic.Health <= 0) OnDeath();
         
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);

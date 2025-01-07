@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +21,12 @@ public class GameManagerReference : Reference
     }
 
     public void Initialize() {
-        table = new();
+        // table = new(); // disabled for structure change
+        AddRoom(0, RoomType.ENTRANCE, true); // added for structure change
+        AddRoom(1, RoomType.COMBAT, true); // added for structure change
+        AddRoom(2, RoomType.COMBAT); // added for structure change
+        AddRoom(3, RoomType.COMBAT); // added for structure change
+
         activeRoom = GetRoom(0);
         GlobalReference.GetReference<DoorManager>().Initialize();
     }
@@ -30,8 +36,8 @@ public class GameManagerReference : Reference
     public Room activeRoom;
     private readonly List<Room> rooms = new();
 
-    public void AddRoom(int id, RoomType roomType) {
-        if (rooms.Where((x) => x.id == id).Count() == 0) rooms.Add(new(id, roomType));
+    public void AddRoom(int id, RoomType roomType, bool unlocked = false) {
+        if (rooms.Where((x) => x.id == id).Count() == 0) rooms.Add(new(id, roomType, unlocked));
     }
     
     public void RemoveRoom(int id) {
@@ -40,6 +46,7 @@ public class GameManagerReference : Reference
     }
 
     public Room GetRoom(int id) => rooms.Where((x) => x.id == id).FirstOrDefault();
+    public List<Room> GetRooms() => rooms;
     public void ResetRooms() => rooms.Clear();
 
     public List<Room> GetNextRooms() {
