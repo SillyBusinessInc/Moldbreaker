@@ -65,7 +65,6 @@ public class RoomTransitionDoor : Interactable
     public IEnumerator LoadRoomCoroutine()
     {
         var player = GlobalReference.GetReference<PlayerReference>().Player;
-        Debug.Log(GetNonBaseSceneName("BaseScene"));
 
         CollectableSave saveData = new CollectableSave(GetNonBaseSceneName("BaseScene"));
         saveData.LoadAll();
@@ -77,15 +76,9 @@ public class RoomTransitionDoor : Interactable
         
         foreach (var secret in player.playerStatistic.Calories)
         {
-            Debug.Log("Secret: " + secret);
             calories.Add(secret);
         }
-        Debug.Log(calories.Count);
         saveData.Set("calories", calories);
-        Debug.Log("Saved Crumbs: " + saveData.Get<int>("crumbs"));
-        Debug.Log("Saved Calories: " + player.playerStatistic.Calories.Count);
-        Debug.Log("Saved Calories: " + saveData.Get<List<string>>("calories").Count);
-        Debug.Log("---------------------------------------------------------------------");
         saveData.SaveAll();
         
         //to reset everything that was picked up
@@ -108,9 +101,6 @@ public class RoomTransitionDoor : Interactable
         Debug.Log($"next: {nextRoomName}, nextId: {nextRoomId}, nextIndex: {nextRoomIndex}");
         saveData = new CollectableSave(nextRoomName);
         saveData.LoadAll();
-        Debug.Log("loaded scene: " + nextRoomName);
-        Debug.Log("Loaded Crumbs: " + saveData.Get<int>("crumbs"));
-        Debug.Log("Loaded Calories: " + saveData.Get<List<string>>("calories").Count);
         player.playerStatistic.caloriesCountExtra = saveData.Get<List<string>>("calories").Count;
         player.playerStatistic.CaloriesCollected = saveData.Get<List<string>>("calories");
         SceneManager.LoadScene(nextRoomName, LoadSceneMode.Additive);
