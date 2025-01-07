@@ -20,10 +20,26 @@ public class SettingsLogic : MonoBehaviour
     [SerializeField] private Button confirm;
     [SerializeField] private Button back;
 
+    private AudioManager[] soundManagerList;
+    private AudioManager soundManager;
+    private AudioSource musicSource;
+    private AudioSource sfxSource;
+    // private float masterVolume;
+
+
     void Start(){ 
         LoadFromSave();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        CalculateSPXSourceVolume(masterVolume.value, effectsVolume.value);
+        CalculateMusicSourceVolume(masterVolume.value, musicVolume.value);
+    }
+
+    void FindSoundManager() {
+        soundManagerList = FindObjectsByType<AudioManager>(FindObjectsSortMode.None);
+        soundManager = soundManagerList[0];
+        musicSource = soundManager.musicSource;
+        sfxSource = soundManager.SFXSource;
     }
     
     void Update() => UpdateButtonState();
@@ -63,10 +79,35 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.Set("resolution_width", resX);
         GlobalReference.Settings.Set("resolution_height", resY);
     }
+
+    public void CalculateMusicSourceVolume(float masterVolume, float sourceVolume) {
+        FindSoundManager();
+        musicSource.volume = masterVolume * sourceVolume;
+    }
+    public void CalculateSPXSourceVolume(float masterVolume, float sourceVolume) {
+        FindSoundManager();
+        sfxSource.volume = masterVolume * sourceVolume;
+    }
+
+
     public void OnFullscreenChange(bool value) => GlobalReference.Settings.Set("fullscreen", value);
-    public void OnMasterVolumeChange(float value) => GlobalReference.Settings.Set("master_volume", value);
-    public void OnEffectsVolumeChange(float value) => GlobalReference.Settings.Set("effects_volume", value);
-    public void OnMusicVolumeChange(float value) => GlobalReference.Settings.Set("music_volume", value);
+
+    public void OnMasterVolumeChange(float value) {
+        CalculateSPXSourceVolume(value, effectsVolume.value);
+        CalculateMusicSourceVolume(value, musicVolume.value);
+        GlobalReference.Settings.Set("master_volume", value);
+    }
+    
+    public void OnEffectsVolumeChange(float value) {
+        CalculateSPXSourceVolume(masterVolume.value, effectsVolume.value);
+        GlobalReference.Settings.Set("effects_volume", value);
+    }
+
+    public void OnMusicVolumeChange(float value) {
+        CalculateMusicSourceVolume(masterVolume.value, musicVolume.value);
+        GlobalReference.Settings.Set("music_volume", value);
+    } 
+
     public void OnBrightnessChange(float value) => GlobalReference.Settings.Set("brightness", value);
     public void OnBack() {
         GlobalReference.Settings.SaveAll();

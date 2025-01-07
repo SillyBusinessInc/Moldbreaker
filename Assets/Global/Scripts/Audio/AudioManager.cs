@@ -4,8 +4,8 @@ public class AudioManager : Reference
 {
 
     [Header("Audio Source")]
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource SFXSource;
+    [SerializeField] public AudioSource musicSource;
+    [SerializeField] public AudioSource SFXSource;
 
     [Header("Audio Clip")]
     public AudioClip bradleySweepRVoice;
