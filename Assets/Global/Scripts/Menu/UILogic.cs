@@ -10,7 +10,6 @@ public static class UILogic
     public static void FadeToScene(string sceneName, Image fadeImage, MonoBehaviour target) {
         if (listening) listening = false;
         else return;
-        
         SetAlpha(0, fadeImage);
         fadeImage.gameObject.SetActive(true);
         target.StartCoroutine(Fade(sceneName, fadeImage));

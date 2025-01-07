@@ -120,10 +120,6 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 5f)]
         public float knockbackStunTime = 0.5f;
-        [Tooltip("Healthbar prefab for this enemy")]
-        public GameObject healthBarPrefab;
-        [Tooltip("Damage popup for this enemy")]
-        public damagePopUp damagePopUp;
         [HideInInspector]
         public bool canAttack = true;
         [HideInInspector]
@@ -188,6 +184,11 @@ namespace EnemiesNS
         [SerializeField]
         protected bool agentIsStopped = false;
 
+        [Header("Visual")]
+        [SerializeField] private SkinnedMeshRenderer moldRenderer;
+        private float targetMoldPercentage = 1;
+        private float currentMoldPercentage = 1;
+
         //TODO: this is a quick fix to get the demo out the door, make this nicer
         // this should be cleaned up and placed higher up somewhere
 
@@ -205,17 +206,15 @@ namespace EnemiesNS
             agentIsStopped = agent.isStopped;
             UpdateTimers();
             currentState?.Update();
+
+            currentMoldPercentage -= (currentMoldPercentage - targetMoldPercentage) * 2 * Time.deltaTime;
+            moldRenderer.material.SetFloat("_MoldStrength", currentMoldPercentage > 0 ? currentMoldPercentage * 0.6f + 0.2f : currentMoldPercentage);
         }
 
         protected void FxedUpdate() => currentState?.FixedUpdate();
 
         public virtual void OnHit(int damage, float force = 0f, float leapForce = 0f)
         {
-            if (healthBarPrefab != null)
-            {
-                healthBarPrefab.SetActive(true);
-            }
-            damagePopUp.SetUp(damage);
             health -= damage;
             if (animator) animator.SetTrigger("PlayDamageFlash");
 
@@ -239,7 +238,11 @@ namespace EnemiesNS
                 DoKnockback(kb, knockbackStunTime);
             }
 
+            float p = health/(float)maxHealth;
+            Debug.LogWarning($"[{p}] health: {health}, maxHealth: {maxHealth}");
+            targetMoldPercentage = p;
         }
+
         protected virtual void OnDeath()
         {
             HealthBarDestroy = true;
@@ -406,10 +409,17 @@ namespace EnemiesNS
         }
         public void DeathAnimEnded()
         {
+            targetMoldPercentage = 0;
+            // if (animator) animator.SetBool("Idle", true);
+            currentMoldPercentage = 0;
+
+            GetComponentInChildren<Collider>().enabled = false;
+
+            GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
             // animator is on the Model's GameObject, so we can reach that GameObject through this.
             if (animator)
             {
-                animator.gameObject.SetActive(false);
+                StartCoroutine(DisableAfter(animator.gameObject, 0.5f));
             }
 
             // Instantiate and play the death particle effect
@@ -421,6 +431,10 @@ namespace EnemiesNS
             StartCoroutine(DestroyAfterParticles(particleSystemDeath));
         }
 
+        public IEnumerator DisableAfter(GameObject obj, float time) {
+            yield return new WaitForSeconds(time);
+            obj.SetActive(false);
+        }
 
         //
         // When creating your own enemy, override this to use your enemy specific BaseStates class. And set the set to your desired default state.

@@ -9,7 +9,7 @@ public class FlipCollidor : MonoBehaviour
         if (!Collider.gameObject.CompareTag("Enemy") ||
             Collider.GetComponent<EnemiesNS.EnemyBase>() == null
         ) return;
-        
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().poundAttackSFX);
         float actualDamage = player.Tail.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
 
         float knockbackForce = player.playerStatistic.KnockbackForce.GetValue();
