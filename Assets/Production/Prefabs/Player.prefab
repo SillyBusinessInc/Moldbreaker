@@ -5243,6 +5243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6197816e955f0db409561e705c307c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBradleyWaffletail: {fileID: 5047965941708763177}
 --- !u!114 &1671110380266321935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15834,15 +15835,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.668311
+      value: 9.569973
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 101.26
+      value: 105.04141
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18.178772
+      value: 28.06179
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
