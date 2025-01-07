@@ -8,7 +8,6 @@ public class MilkLake : MonoBehaviour
 
     private GameObject playerObject;
     private Transform playerObjectTransform;
-    private Boolean isCloned = false;
 
     private void Start()
     {
