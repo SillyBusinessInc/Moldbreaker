@@ -244,7 +244,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7826449289132614321}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -403,6 +403,10 @@ PrefabInstance:
     - target: {fileID: 6489856951256798042, guid: d35f10358ac5502408aeeb385d8591d5, type: 3}
       propertyPath: m_Name
       value: Floor_Circled
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489856951256798042, guid: d35f10358ac5502408aeeb385d8591d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6489856951256798042, guid: d35f10358ac5502408aeeb385d8591d5, type: 3}
       propertyPath: m_TagString
