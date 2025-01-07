@@ -20,11 +20,15 @@ public class Calories : Collectable
         }
 
         List<string> calories = saveData.Get<List<string>>("calories");
-        if (calories.Contains(caloriesId))
+        if (GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CaloriesCollected.Contains(caloriesId))
         {
             // gray shader or destroy or something TODO
             collected = true;
-            // Destroy(gameObject);
+            
+            //get the material of the object
+            Material material = GetComponent<MeshRenderer>().material;
+            //lower opacity
+            material.color = new Color(material.color.r, material.color.g, material.color.b, 0.5f);
         }
     }
 

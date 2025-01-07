@@ -7,7 +7,6 @@ public class CaloriesUI : MonoBehaviour
 {
     private TextMeshProUGUI text; // Reference to the TextMeshProUGUI component
     private PlayerStatistic playerStats; // Reference to the player's statistics
-    private int caloriesCountExtra = 0;
     [SerializeField] private float fadeDuration = 1f;
     private float fadeProgress = 0f;
     [SerializeField]private CanvasGroup canvasGroup;
@@ -81,23 +80,9 @@ public class CaloriesUI : MonoBehaviour
             playerStats.CaloriesCount = GameObject.FindGameObjectsWithTag("Calories").Count();
         }
 
-        CollectableSave savedFile = null;
-        if (GameObject.FindGameObjectsWithTag("Calories").FirstOrDefault() != null)
-        {
-            savedFile = new CollectableSave(GameObject.FindGameObjectsWithTag("Calories").First().scene.name);
-        }
-
-        if (savedFile != null)
-        {
-            if (savedFile.Get<List<string>>("calories").Count() < playerStats.CaloriesCount)
-            {
-                caloriesCountExtra = savedFile.Get<List<string>>("calories").Count();
-            }
-        }
-
         if (text != null)
         {
-            text.text = (caloriesCountExtra + playerStats.Calories.Count()) + "/" + playerStats.CaloriesCount;
+            text.text = playerStats.caloriesCountExtra + playerStats.Calories.Count() + "/" + playerStats.CaloriesCount;
         }
     }
 }

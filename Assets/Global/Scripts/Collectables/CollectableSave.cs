@@ -3,7 +3,7 @@ using System.Collections.Generic;
 public class CollectableSave : SecureSaveSystem
 {
     public string name;
-    public CollectableSave(string name_) {name = name_;}
+    public CollectableSave(string name_) : base() {name = name_;}
 
     protected override string Prefix => name;
 
