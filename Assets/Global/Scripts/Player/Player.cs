@@ -209,6 +209,7 @@ public class Player : MonoBehaviour
     public void SetState(StateBase newState)
     {
         if (currentState == states.Death) return;
+        if(currentState == states.Attacking && newState == states.Attacking) return;
         // stop active coroutine
         if (activeCoroutine != null)
         {

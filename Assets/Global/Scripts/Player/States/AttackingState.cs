@@ -1,6 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 public class AttackingState : StateBase
 {
     public AttackingState(Player player) : base(player) { }
@@ -16,11 +16,13 @@ public class AttackingState : StateBase
     public override void Enter()
     {
         var tail = Player.Tail.currentTail;
-        if (Player.AirComboDone || !(Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime) || tail.currentCombo.Count == 0)
+        if (Player.AirComboDone)
         {
             Player.SetState(Player.states.Falling);
             return;
         }
+        var forwardDirection = Vector3.ProjectOnPlane(GlobalReference.GetReference<PlayerReference>().PlayerCamera.transform.forward, Vector3.up).normalized;
+        Player.rb.MoveRotation(Quaternion.LookRotation(forwardDirection));
         Player.targetVelocity *= 0;
         Player.rb.linearVelocity *= 0;
         Player.Tail.activeCooldownTime = 0.0f;
