@@ -16,6 +16,12 @@ public class HealthMeter : MonoBehaviour
     {
         player = GlobalReference.GetReference<PlayerReference>().Player;
         GlobalReference.SubscribeTo(Events.MOLDMETER_CHANGED, UpdateHealthMeter);
+
+    }
+
+    void Initialize() {
+        Vector3 currentScale = HealthMeterImage.localScale;
+        HealthMeterImage.localScale = new Vector3(-currentScale.x, currentScale.y, currentScale.z);
     }
 
     void Update() => UpdateHealthMeter();
@@ -31,9 +37,6 @@ public class HealthMeter : MonoBehaviour
         HealthPercentageText.text = healthPercentage.ToString(decimals) + '%';
 
         float barWidth = GetComponent<RectTransform>().rect.width;
-        // float targetPosX = (1 - healthPercentage / 100) * -1 * barWidth + barWidth * 0.01f;
-        // Vector2 targetPosition = new(targetPosX, HealthMeterImage.anchoredPosition.y);
-
         float targetPosX = (healthPercentage / 100) * barWidth;
         Vector2 targetPosition = new(targetPosX, HealthMeterImage.anchoredPosition.y);
 
