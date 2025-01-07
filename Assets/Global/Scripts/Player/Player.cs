@@ -331,7 +331,7 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     private void OnDeath()
     {
-        StartCoroutine(DeathScreen());
+        SetState(states.Death);
     }   
     private IEnumerator DeathScreen()
     {
