@@ -296,6 +296,8 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
+        if (currentState == states.Death) return;
+        
         if (isInvulnerable) return;
         if(direction != Vector3.zero)
            currentState.Hurt(direction);
