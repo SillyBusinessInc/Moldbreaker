@@ -5012,8 +5012,6 @@ MonoBehaviour:
   facingPlayerVarianceAngle: 5
   attackKnockback: 0
   knockbackStunTime: 0
-  healthBarPrefab: {fileID: 8031919820526876126}
-  damagePopUp: {fileID: 7870432643424124585}
   canAttack: 1
   isRecovering: 0
   attackCooldownElapsed: 0
@@ -5025,11 +5023,11 @@ MonoBehaviour:
   target: {fileID: 0}
   animator: {fileID: 1937094336905328084}
   agent: {fileID: 5608345331629188897}
-  weapon: {fileID: 0}
   particleSystemWalk: {fileID: 3941124687225673657}
   VFXLayer: 0
   currentStateName: 
   agentIsStopped: 0
+  moldRenderer: {fileID: 7652038006987101353}
   bulletSpawnPoint: {fileID: 183695346255901166}
   bulletPrefab: {fileID: 1033295440354773173, guid: c709c6fb45dfccf41a4fe46fbac3a9ae, type: 3}
   moveRadiusAfterAttacking: 13.8
@@ -5116,6 +5114,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemy_toast_ranged_anim
       objectReference: {fileID: 0}
+    - target: {fileID: 6684295394808222897, guid: f994444d57c2b304595f310b1abfbede, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684295394808222897, guid: f994444d57c2b304595f310b1abfbede, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684295394808222897, guid: f994444d57c2b304595f310b1abfbede, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0afb7bd6aa21ef943a18e3ca8fa20ace, type: 2}
+    - target: {fileID: 6684295394808222897, guid: f994444d57c2b304595f310b1abfbede, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d62bff3273469045b8e9c04e9d96f72, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5175,6 +5189,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 3267703782720431196}
+--- !u!137 &7652038006987101353 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6684295394808222897, guid: f994444d57c2b304595f310b1abfbede, type: 3}
+  m_PrefabInstance: {fileID: 3959476857624313880}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8036947746398982643 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2775877231347559957, guid: f994444d57c2b304595f310b1abfbede, type: 3}
@@ -5296,21 +5315,5 @@ PrefabInstance:
 --- !u!224 &2840633372587601158 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6126508531114296545, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
-  m_PrefabInstance: {fileID: 8245613781749852647}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7870432643424124585 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2258320768371595086, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
-  m_PrefabInstance: {fileID: 8245613781749852647}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ff3416fecc9ee04db60148ad163da20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &8031919820526876126 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2096797852946635833, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
   m_PrefabInstance: {fileID: 8245613781749852647}
   m_PrefabAsset: {fileID: 0}
