@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 7212912972713009954}
   - component: {fileID: 1897356974275043131}
   - component: {fileID: 4231780908695770274}
-  - component: {fileID: 1247494256576710700}
+  - component: {fileID: 4826796266682812417}
   m_Layer: 4
   m_Name: Milk
   m_TagString: Water
@@ -171,7 +171,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1247494256576710700
+--- !u!114 &4826796266682812417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
