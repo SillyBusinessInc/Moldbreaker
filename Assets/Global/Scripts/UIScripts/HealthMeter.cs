@@ -20,9 +20,6 @@ public class HealthMeter : MonoBehaviour
 
     void Start() {
         player = GlobalReference.GetReference<PlayerReference>().Player;
-    }
-
-    void Initialize() {
         Vector3 currentScale = HealthMeterImage.localScale;
         HealthMeterImage.localScale = new Vector3(-currentScale.x, currentScale.y, currentScale.z);
     }
@@ -32,8 +29,6 @@ public class HealthMeter : MonoBehaviour
     public void UpdateHealthMeter()
     {
         if (PlayerMaxHealth == -1) PlayerMaxHealth = player.playerStatistic.Health;
-
-        Debug.Log("PlayerMaxHealth : " + PlayerMaxHealth);
         healthPercentage = player.playerStatistic.Health/PlayerMaxHealth*100;
         // if (moldPercentage < 100) moldPercentage += 0.01f;
         if (savedHealthPercentage == healthPercentage) return;
