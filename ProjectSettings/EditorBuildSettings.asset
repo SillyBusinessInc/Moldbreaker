@@ -75,7 +75,7 @@ EditorBuildSettings:
     path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/WAVESURVIVAL_3.unity
     guid: 169855ad7e25849f2a0f3e383607f424
   - enabled: 1
-    path: Assets/Production/Scenes/ENTRANCE_1.unity
+    path: Assets/Production/Scenes/PARKOUR_3.unity
     guid: b83ac253aa4fbd344a817f031d3c9d5b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5ee5558464c699340918ebc2380ce47a, type: 2}
