@@ -296,23 +296,13 @@ public class Player : MonoBehaviour
     public void OnHit(float damage, Vector3 direction)
     {
         if (isInvulnerable) return;
-        currentState.Hurt(direction);
+        if(direction != Vector3.zero)
+           currentState.Hurt(direction);
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
         GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
         if (playerStatistic.Health <= 0) OnDeath();
-        
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
-        AddMold(5f); // add 5% to the moldmeter
-    }
-
-    public void AddMold(float percentage)
-    {
-        playerStatistic.Moldmeter += percentage;
-        GlobalReference.AttemptInvoke(Events.MOLDMETER_CHANGED);
-
-        isInvulnerable = true;
-        StartCoroutine(InvulnerabilityTimer());
     }
 
     private IEnumerator InvulnerabilityTimer()
@@ -343,8 +333,7 @@ public class Player : MonoBehaviour
     {
         CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
         saveData.LoadAll();
-
-        StartCoroutine(DeathScreen());
+        SetState(states.Death);
     }   
     private IEnumerator DeathScreen()
     {

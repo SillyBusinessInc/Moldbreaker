@@ -12,6 +12,7 @@ TagManager:
   - Calories
   - Crumbs
   - Platform
+  - Water
   layers:
   - Default
   - TransparentFX
