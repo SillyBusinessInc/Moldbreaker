@@ -20,7 +20,12 @@ public class SettingsLogic : MonoBehaviour
     [SerializeField] private Button confirm;
     [SerializeField] private Button back;
 
-    void Start() => LoadFromSave();
+    void Start(){ 
+        LoadFromSave();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    
     void Update() => UpdateButtonState();
     
     public static Resolution[] Resolutions => Screen.resolutions.Reverse().ToArray();

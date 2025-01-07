@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class UpgradeOptions : Reference
 {
     [HideInInspector] public UpgradeOption option;
+    [SerializeField] private UpgradeList UpgradesUIList;
     public UpgradeOptionLogic UpgradeOptionLogic;
     [HideInInspector] public bool isShown = false;
 
@@ -69,6 +70,8 @@ public class UpgradeOptions : Reference
                 action.InvokeAction();
                 GlobalReference.AttemptInvoke(Events.STATISTIC_CHANGED);
             }
+            
+            UpgradesUIList.AddUpgrade(option);
         }
         HideOption();
     }

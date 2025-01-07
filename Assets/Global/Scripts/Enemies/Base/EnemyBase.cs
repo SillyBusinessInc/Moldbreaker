@@ -158,9 +158,9 @@ namespace EnemiesNS
         [Tooltip("OPTIONAL: Reference to the NavMeshAgent of this enemy. Has Default")]
         [SerializeField]
         public NavMeshAgent agent;
-
-        [Tooltip("Reference to this enemy's weapon")]
-        [SerializeField] public Collider weapon;
+        
+        // [Tooltip("Reference to this enemy's weapon")]
+        // [SerializeField] public Collider weapon;
 
         [Tooltip("Reference to this Enemy's walking particle system")]
         public ParticleSystem particleSystemWalk;
