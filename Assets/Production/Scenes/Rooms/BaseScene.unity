@@ -243,53 +243,13 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 3697226104033809261, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7722653136578928598, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 47187334}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
 --- !u!1 &47187330 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5019536426410142992, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
   m_PrefabInstance: {fileID: 47187329}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &47187331 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8927032835729698575, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-  m_PrefabInstance: {fileID: 47187329}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &47187332 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4967681329817621116, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-  m_PrefabInstance: {fileID: 47187329}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &47187333 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7722653136578928598, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-  m_PrefabInstance: {fileID: 47187329}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &47187334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 47187333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e38e270aec20c4b30bde94b9ab6592f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HealthPercentageText: {fileID: 47187331}
-  healthPercentage: 0
-  HealthMeterImage: {fileID: 47187332}
-  animationDuration: 0.5
 --- !u!1001 &343043677
 PrefabInstance:
   m_ObjectHideFlags: 0
