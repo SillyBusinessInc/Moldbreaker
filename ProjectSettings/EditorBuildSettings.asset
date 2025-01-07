@@ -26,8 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Production/Scenes/Rooms/MOLDORB/MOLDORB_1.unity
     guid: 60cf097bb0f6d044dbce4be863896dff
-  - enabled: 1
-    path: Assets/Production/Scenes/Rooms/ENTRANCE_1/ENTRANCE_1.unity
+  - enabled: 0
+    path: Assets/Production/Scenes/Rooms/ENTRANCE_1/ENTRANCE_none.unity
     guid: 7c96780ea309c994599df5dac4696fd2
   - enabled: 1
     path: Assets/Production/Scenes/Rooms/COMBAT/COMBAT_4.unity
@@ -74,6 +74,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/WAVESURVIVAL_3.unity
     guid: 169855ad7e25849f2a0f3e383607f424
+  - enabled: 1
+    path: Assets/Production/Scenes/ENTRANCE_1.unity
+    guid: 1df51c1def2b1054bb5897dff6dbc5cd
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5ee5558464c699340918ebc2380ce47a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
