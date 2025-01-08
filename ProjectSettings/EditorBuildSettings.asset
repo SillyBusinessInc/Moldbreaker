@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Production/Scenes/Rooms/MOLDORB/MOLDORB_1.unity
     guid: 60cf097bb0f6d044dbce4be863896dff
   - enabled: 0
-    path: Assets/Production/Scenes/Rooms/ENTRANCE_1/ENTRANCE_1.unity
+    path: Assets/Production/Scenes/Rooms/ENTRANCE_1/ENTRANCE_none.unity
     guid: 7c96780ea309c994599df5dac4696fd2
   - enabled: 0
     path: Assets/Production/Scenes/Rooms/COMBAT/COMBAT_4.unity
@@ -63,19 +63,22 @@ EditorBuildSettings:
     path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/MOLDORB_3.unity
     guid: fbfe5f0ce270a4bea897789b9fca06e3
   - enabled: 0
-    path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/PARKOUR_2.unity
-    guid: 29463877f09ff4466b5f83e4da1f0af7
-  - enabled: 0
-    path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/PARKOUR_3.unity
-    guid: 37913b8b046a7460a8f7dc678fe1ea5a
-  - enabled: 0
     path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/WAVESURVIVAL_2.unity
     guid: 101a8cf9193e440bf988f1109eaac57e
   - enabled: 0
     path: Assets/Dev/Tessa/AdditiveSceneTransition/Scenes/WAVESURVIVAL_3.unity
     guid: 169855ad7e25849f2a0f3e383607f424
   - enabled: 1
-    path: Assets/Production/Scenes/Rooms/ENTRANCE_1.unity
+    path: Assets/Production/Scenes/Rooms/PARKOUR_1.unity
+    guid: e8e66f4f7508f214a8c3610df6ba93ff
+  - enabled: 1
+    path: Assets/Production/Scenes/ENTRANCE_1.unity
+    guid: 1df51c1def2b1054bb5897dff6dbc5cd
+  - enabled: 1
+    path: Assets/Production/Scenes/PARKOUR_3.unity
+    guid: b83ac253aa4fbd344a817f031d3c9d5b
+  - enabled: 1
+    path: Assets/Production/Scenes/Rooms/PARKOUR_2.unity
     guid: a231ada15b2362c49a836303967c0f28
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5ee5558464c699340918ebc2380ce47a, type: 2}

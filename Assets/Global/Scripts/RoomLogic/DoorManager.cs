@@ -22,7 +22,7 @@ public class DoorManager : Reference
     void Update()
     {
         if (Time.timeScale == 0) return;
-        if (currentId != 0 && currentId != previousId)
+        if (currentId != previousId)
         {
             previousId = currentId;
             doors = GameObject.FindGameObjectsWithTag("DoorPrefab").ToList();
@@ -85,9 +85,10 @@ public class DoorManager : Reference
 
     void SetupDoors()
     {
-        LoadConnectedRooms();
-        DeactivateExtraDoors();
-        ConnectDoorsToRooms();
+        // LoadConnectedRooms(); // disabled for structure change
+        // DeactivateExtraDoors(); // disabled for structure change
+        // ConnectDoorsToRooms(); // disabled for structure change
+        connectedRooms = gameManagerReference.GetRooms(); // added for structure change
         doors.ForEach(x => x.GetComponent<RoomTransitionDoor>().Initialize());
     }
 }

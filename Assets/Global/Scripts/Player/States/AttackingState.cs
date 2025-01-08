@@ -1,6 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 public class AttackingState : StateBase
 {
     public AttackingState(Player player) : base(player) { }
@@ -18,7 +18,8 @@ public class AttackingState : StateBase
         var tail = Player.Tail.currentTail;
         if (Player.AirComboDone || !(Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime) || tail.currentCombo.Count == 0)
         {
-            Player.SetState(Player.states.Falling);
+            if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
+            else Player.SetState(Player.states.Falling);
             return;
         }
         Player.targetVelocity *= 0;
