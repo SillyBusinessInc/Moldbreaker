@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Utilities;
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "FlipTail")]
 public class FlipAttack : TailAttack
 {
-    public FlipAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
+    public FlipAttack(string Name, float damage) : base(Name, damage) {}
 
     public override void Start()
     {
@@ -35,6 +35,5 @@ public class FlipAttack : TailAttack
         yield return new WaitForSeconds(duration / 2);
         if (player.isGrounded) player.SetState(player.movementInput.magnitude > 0 ? player.states.Walking : player.states.Idle);
         else player.SetState(player.states.Falling);
-        player.Tail.cooldownTime = cooldown;
     }
 }

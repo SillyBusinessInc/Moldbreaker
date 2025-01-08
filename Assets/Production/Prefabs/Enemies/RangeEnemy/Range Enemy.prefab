@@ -4903,6 +4903,7 @@ GameObject:
   - component: {fileID: 2293031165561674432}
   - component: {fileID: 5608345331629188897}
   - component: {fileID: 3267703782720431196}
+  - component: {fileID: 1461559809609474824}
   m_Layer: 8
   m_Name: Range Enemy
   m_TagString: Enemy
@@ -5031,6 +5032,33 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 183695346255901166}
   bulletPrefab: {fileID: 1033295440354773173, guid: c709c6fb45dfccf41a4fe46fbac3a9ae, type: 3}
   moveRadiusAfterAttacking: 13.8
+--- !u!54 &1461559809609474824
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4316266649658499361}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5503590916145919650
 GameObject:
   m_ObjectHideFlags: 0
