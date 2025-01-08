@@ -40,6 +40,7 @@ public class UpgradeOptions : Reference
 
         if (option != null) {
             UpgradeOptionLogic.data = option;
+            UpgradeOptionLogic.SetData();
         }
     }
 
