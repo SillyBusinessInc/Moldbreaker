@@ -15807,6 +15807,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7737760009069398831, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
+      propertyPath: m_Antialiasing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7737760009069398831, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8725880648538270242, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: IgnoreTag
       value: 
