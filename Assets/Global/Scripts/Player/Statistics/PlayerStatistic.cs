@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 // IF you want to make this a Scriptable ,
@@ -25,11 +26,18 @@ public class PlayerStatistic
         set => moldmeter = value > 0 ? value : 0;
     }
 
-    private int crumbs;
-    public int Crumbs {
+    [HideInInspector]private int crumbs;
+    [HideInInspector]public int Crumbs {
         get => crumbs;
         set => crumbs = value > 0 ? value : 0;
     }
+    [HideInInspector]public List<string> Calories;
+    [HideInInspector]public int CaloriesCount;
+    [HideInInspector]public int CrumbsCount;
+    [HideInInspector]public bool CollectedCrumb = false;
+    [HideInInspector]public bool CollectedCalorie = false;
+    [HideInInspector]public int caloriesCountExtra = 0;
+    [HideInInspector]public List<string> CaloriesCollected;
 
     // this is for the current stats of the player
     public CurrentStatistic Speed = new(12f);
