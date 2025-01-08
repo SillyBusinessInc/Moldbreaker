@@ -13,7 +13,11 @@ public class UpgradeOptionLogic : MonoBehaviour
     {
         upgradeName = transform.GetChild(0).GetComponent<TMP_Text>();
         description = transform.GetChild(1).GetComponent<TMP_Text>();
+        SetData();
+    }
 
+    public void SetData()
+    {
         image.sprite = data.image;
         upgradeName.text = data.name;
         description.text = data.description ?? "Hmm yes, yeast of power. So powerful";
