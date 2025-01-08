@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 239489633635650894}
   - component: {fileID: 450390526324848744}
   - component: {fileID: 8226474486151301847}
+  - component: {fileID: 2983283748611165487}
   m_Layer: 0
   m_Name: Interactable Object
   m_TagString: Untagged
@@ -127,6 +128,22 @@ MonoBehaviour:
   - action: {fileID: 11400000, guid: 738a1be2e325a1145bb93269c4296ad8, type: 2}
     parameters:
     - skibidi
+--- !u!114 &2983283748611165487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214069170431982120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c8a4ac2f144f0e9a11a127746044f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobHeight: 0.5
+  bobSpeed: 2
+  rotationSpeed: 30
+  rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!1 &3030290548714589633
 GameObject:
   m_ObjectHideFlags: 0
