@@ -47,7 +47,11 @@ public class PlayerStatistic
     public CurrentStatistic AttackDamageMultiplier = new(1f);
     public CurrentStatistic DodgeCooldown = new(1f);
     public CurrentStatistic DoubleJumpsCount = new(1f);
-
+    public CurrentStatistic CanDodge = new(0f); 
+    // 0 means can dodge, 1 means can't dodge
+    // DodgeCount is also possible, however, we are planning to have 1 dodge anyways, and doing it like this is 1 simple if check
+    // instead if i would do a dodgeCount, it would be a lot more changes to make it all work
+    
     public void Generate() {
         GlobalReference.PermanentPlayerStatistic.Generate();
         
@@ -58,5 +62,6 @@ public class PlayerStatistic
         AttackDamageMultiplier.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.AttackDamageMultiplier);
         DodgeCooldown.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.DodgeCooldown);
         DoubleJumpsCount.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.DoubleJumpsCount);
+        CanDodge.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.DoubleJumpsCount);
     }
 }
