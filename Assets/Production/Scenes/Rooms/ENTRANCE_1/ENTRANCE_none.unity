@@ -28275,6 +28275,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Range Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4316266649658499361, guid: d8b2e166b36c47d42a61ebf445269bef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33495,6 +33499,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: YeastOfPower
       objectReference: {fileID: 0}
+    - target: {fileID: 8226474486151301847, guid: 2e066b6c687266a4a960f4ade0c48dbb, type: 3}
+      propertyPath: option
+      value: 
+      objectReference: {fileID: 11400000, guid: 37c239daaa4a944408899fd811d24177, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
