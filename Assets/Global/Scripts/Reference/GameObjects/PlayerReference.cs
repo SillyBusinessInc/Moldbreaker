@@ -33,4 +33,5 @@ public class PlayerReference : Reference
        get => cinemachineCamera ? cinemachineCamera : cinemachineCamera = GetComponentInChildren<CinemachineCamera>();
     }
 
+    public GameObject playerBradleyWaffletail;
 }

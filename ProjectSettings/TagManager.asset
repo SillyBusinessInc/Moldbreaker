@@ -10,6 +10,7 @@ TagManager:
   - PlayerPrefeb
   - DoorPrefab
   - Platform
+  - Water
   layers:
   - Default
   - TransparentFX
