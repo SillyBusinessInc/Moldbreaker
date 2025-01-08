@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2825412911922700759}
   - component: {fileID: 8755546635335571347}
   - component: {fileID: 3963220967355223277}
+  - component: {fileID: 7223914121714937498}
   m_Layer: 0
   m_Name: Calories
   m_TagString: Calories
@@ -125,4 +126,20 @@ MonoBehaviour:
   pickupSpeed: 0.1
   isLocked: 0
   isStatic: 0
-  caloriesId: 
+  collected: 0
+--- !u!114 &7223914121714937498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807422766324228492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c8a4ac2f144f0e9a11a127746044f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobHeight: 0.3
+  bobSpeed: 2
+  rotationSpeed: 40
+  rotationAxis: {x: 0, y: 1, z: 0}

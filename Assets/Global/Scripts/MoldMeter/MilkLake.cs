@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class MilkLake : MonoBehaviour
 {
-    [SerializeField] private float addMoldPerSecond = 1f;
+    [SerializeField] private float intervalSeconds = 1f;
+    [SerializeField] private float addMoldPerInterval = 1f;
     private float timeSinceLastMold = 0f;
 
     private GameObject playerObject;
@@ -48,8 +49,8 @@ public class MilkLake : MonoBehaviour
                 timeSinceLastMold -= Time.deltaTime;
                 if (timeSinceLastMold <= 0f) {
                     Player player = GlobalReference.GetReference<PlayerReference>().Player;
-                    player.OnHit(addMoldPerSecond, Vector3.zero);
-                    timeSinceLastMold = 1f;
+                    player.OnHit(addMoldPerInterval, Vector3.zero);
+                    timeSinceLastMold = intervalSeconds;
                 }
             }
         }
