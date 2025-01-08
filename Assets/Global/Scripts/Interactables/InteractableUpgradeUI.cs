@@ -14,9 +14,7 @@ public class InteractableUpgradeUI : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerObject>() == null) return;
         
-        if (option != null) {
-            GlobalReference.GetReference<UpgradeOptions>().option = option;
-        }
+        GlobalReference.GetReference<UpgradeOptions>().option = option;
             
         GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().powerUpPickUp);
         GlobalReference.GetReference<UpgradeOptions>().ShowOption();
