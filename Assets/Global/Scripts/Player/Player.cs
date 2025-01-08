@@ -212,6 +212,7 @@ public class Player : MonoBehaviour
     public void SetState(StateBase newState)
     {
         if (currentState == states.Death) return;
+        if(currentState == states.Attacking && newState == states.Attacking) return;
         // stop active coroutine
         if (activeCoroutine != null)
         {
@@ -261,7 +262,7 @@ public class Player : MonoBehaviour
         if (targetVelocity.magnitude > 0.1f)
         {
             Vector3 direction = Vector3.ProjectOnPlane(targetVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 0.2f));
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
         }
     }
 
@@ -295,6 +296,8 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
+        if (currentState == states.Death) return;
+        
         if (isInvulnerable) return;
         if(direction != Vector3.zero)
            currentState.Hurt(direction);
