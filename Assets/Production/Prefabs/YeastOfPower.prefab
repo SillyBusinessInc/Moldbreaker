@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1360957640237804370
 Transform:
   m_ObjectHideFlags: 0
@@ -172,8 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455d52077d176a844bf2e6f8912ef2a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToEnable:
-  - {fileID: 214069170431982120}
+  objectsToEnable: []
   enableEvent: 2
 --- !u!1001 &4296935496435829860
 PrefabInstance:
