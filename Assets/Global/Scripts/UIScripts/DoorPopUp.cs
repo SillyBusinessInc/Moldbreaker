@@ -13,8 +13,9 @@ public class DoorPopUp : MonoBehaviour
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI crumbs;
     [SerializeField] private List<RawImage> calories;
-    [SerializeField] private GameObject canvas;
     private CollectableSave saveData;
+    [SerializeField] private Animator animator;
+    private bool isPopupVisible = false;
 
     void Start()
     {
@@ -31,19 +32,21 @@ public class DoorPopUp : MonoBehaviour
         UpdateCaloriesDisplay(savedCaloriesTrimmed);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isPopupVisible)
         {
-            canvas.SetActive(true);
+            isPopupVisible = true; // Mark popup as visible
+            animator.SetTrigger("open");
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isPopupVisible)
         {
-            canvas.SetActive(false);
+            isPopupVisible = false; // Mark popup as not visible
+            animator.SetTrigger("close");
         }
     }
 
