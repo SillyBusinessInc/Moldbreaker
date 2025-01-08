@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -183,12 +184,22 @@ namespace EnemiesNS
         [SerializeField] private SkinnedMeshRenderer moldRenderer;
         private float targetMoldPercentage = 1;
         private float currentMoldPercentage = 1;
-
-        //TODO: this is a quick fix to get the demo out the door, make this nicer
-        // this should be cleaned up and placed higher up somewhere
-
+        
+        [SerializeField] private List<Renderer> mainModelRenderers;
+        [SerializeField] private GameObject celebModel;
+        
+        protected void SetCelebrateModel(bool value)
+        {
+            foreach (var renderer in mainModelRenderers)
+            {
+                renderer.enabled = !value;
+            }
+            celebModel.SetActive(value);
+        }
+        
         protected virtual void Start()
         {
+            SetCelebrateModel(false);
             maxHealth = health;
             spawnPos = this.transform.position;
             setReferences();
@@ -231,6 +242,7 @@ namespace EnemiesNS
         {
             HealthBarDestroy = true;
             ChangeState(states.Dead);
+            SetCelebrateModel(true);
         }
 
         protected virtual void OnDestroy()
