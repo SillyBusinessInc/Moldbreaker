@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f58623c8fcc854e88b271402b2c7d0, type: 3}
   m_Name: ExtraDodge
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: af4dacaaeff95914e81f8b33d78a9efc, type: 3}
+  image: {fileID: 21300000, guid: 0a91b3cbabc0e5142a8590ce5048656b, type: 3}
   name: Fart Day
   description: Gain 1 extra dodge/dash
   rarity: 4
