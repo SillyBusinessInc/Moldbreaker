@@ -5035,7 +5035,7 @@ MonoBehaviour:
   idleWaitTime: 0
   isIdling: 0
   roamRange: 15
-  roamingSpeed: 3.5
+  roamingSpeed: 16.7
   roamingAcceleration: 8
   spawnPos: {x: 0, y: 0, z: 0}
   roamDestination: {x: 0, y: 0, z: 0}
@@ -5052,7 +5052,7 @@ MonoBehaviour:
   attackCooldown: 2
   attackRecoveryTime: 0.3
   attacksPerCooldown: 1
-  attackDamage: 1
+  attackDamage: 16.6
   facingPlayerVarianceAngle: 5
   attackKnockback: 0
   knockbackStunTime: 0.5

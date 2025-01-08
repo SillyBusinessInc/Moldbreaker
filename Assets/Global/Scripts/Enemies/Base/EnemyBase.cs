@@ -102,8 +102,8 @@ namespace EnemiesNS
 
         [Tooltip("The base damage of the attack")]
         [SerializeField]
-        [Range(0, 10)]
-        public int attackDamage = 1;
+        [Range(0f, 100f)]
+        public float attackDamage = (1f/6f) * 100f; // It did 1 damage for 6 hp before, but its now 100 HP, and i am to lazy to calculate the new value
 
         [Tooltip("The angle the enemy can be off while trying to face the player")]
         [SerializeField]
@@ -322,7 +322,7 @@ namespace EnemiesNS
             if (attackRecoveryElapsed >= attackRecoveryTime) toggleIsRecovering(false);
         }
 
-        public virtual void PlayerHit(PlayerObject playerObject, int damage, Vector3 direction)
+        public virtual void PlayerHit(PlayerObject playerObject, float damage, Vector3 direction)
         {
             Player player = playerObject.GetComponentInParent<Player>();
             if (!player) return;
