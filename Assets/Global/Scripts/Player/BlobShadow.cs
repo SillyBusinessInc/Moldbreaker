@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BlobShadowController : MonoBehaviour
+public class BlobShadow : MonoBehaviour
 {
     public Transform player; // The player or object the shadow follows
     //public LayerMask groundLayer; // LayerMask to identify the ground
