@@ -4948,6 +4948,7 @@ MonoBehaviour:
   acceleration: 2
   deceleration: 10
   currentMovementLerpSpeed: 100
+  soundAfterTime: 0.5
   knockbackDuration: 0.2
   knockbackSpeed: 10
   maxJumpHoldTime: 0
@@ -4964,12 +4965,19 @@ MonoBehaviour:
   minIdleTime: 5
   invulnerabilityTime: 0.5
   playerStatistic:
+    Calories: []
+    CaloriesCount: 0
+    CrumbsCount: 0
+    CollectedCrumb: 0
+    CollectedCalorie: 0
+    caloriesCountExtra: 0
+    CaloriesCollected: []
     Speed:
       baseValue: 14
     JumpForce:
       baseValue: 20
     MaxHealth:
-      baseValue: 6
+      baseValue: 100
     AttackSpeedMultiplier:
       baseValue: 1
     AttackDamageMultiplier:
@@ -15847,19 +15855,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.04962256
+      value: 0.049874764
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.014102805
+      value: -0.014071794
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9819911
+      value: 0.9819856
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.18174791
+      value: -0.1817109
       objectReference: {fileID: 0}
     - target: {fileID: 1850711288717789347, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_Name
@@ -15883,19 +15891,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.04962256
+      value: 0.049874764
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.014102805
+      value: -0.014071794
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9819911
+      value: 0.9819856
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.18174791
+      value: -0.1817109
       objectReference: {fileID: 0}
     - target: {fileID: 7368220910572632056, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x

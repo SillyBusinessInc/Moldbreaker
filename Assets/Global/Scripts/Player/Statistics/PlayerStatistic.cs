@@ -42,7 +42,7 @@ public class PlayerStatistic
     // this is for the current stats of the player
     public CurrentStatistic Speed = new(12f);
     public CurrentStatistic JumpForce = new(8f);
-    public CurrentStatistic MaxHealth = new(6f);
+    public CurrentStatistic MaxHealth = new(100f);
     public CurrentStatistic AttackSpeedMultiplier = new(1f);
     public CurrentStatistic AttackDamageMultiplier = new(1f);
     public CurrentStatistic DodgeCooldown = new(1f);
