@@ -778,7 +778,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.6
+  m_fontSize: 27.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1126,6 +1126,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 102833748539256997, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
+      propertyPath: dashSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 65823360d5c4b5e479a45d0070db837a, type: 3}
+    - target: {fileID: 102833748539256997, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
+      propertyPath: deathSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 8514771c3371eaf468ed8a5b00bd4f9f, type: 3}
+    - target: {fileID: 102833748539256997, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
+      propertyPath: walkingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c0410b547cee24a42bb337a4b3df0954, type: 3}
+    - target: {fileID: 102833748539256997, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
+      propertyPath: poundAttackSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: defb339c906731d428d27dec7e09a24b, type: 3}
+    - target: {fileID: 102833748539256997, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
+      propertyPath: enemyThankYousfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 827a7357cf03e9a4b8e56ff48adc7ae8, type: 3}
+    - target: {fileID: 102833748539256997, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
+      propertyPath: bradleyPoundVoice
+      value: 
+      objectReference: {fileID: 8300000, guid: 9608bee2764b50042b6588093d323be6, type: 3}
+    - target: {fileID: 102833748539256997, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
+      propertyPath: gameOverScreenSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 87e8bb086afdd5e4e97970c9780e9db9, type: 3}
+    - target: {fileID: 102833748539256997, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
+      propertyPath: bradleySweepLVoice
+      value: 
+      objectReference: {fileID: 8300000, guid: 4b574d5521ba8794f867d45c5b24ae5f, type: 3}
+    - target: {fileID: 102833748539256997, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
+      propertyPath: bradleySweepRVoice
+      value: 
+      objectReference: {fileID: 8300000, guid: 94bc259c091ad5e45a3c03aab62291b9, type: 3}
     - target: {fileID: 1445882148181956449, guid: 8beb502169d03dd4f84f37c53e95e8a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.27158162
