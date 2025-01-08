@@ -1,25 +1,35 @@
+using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DeathMenu : MonoBehaviour
 {
     public GameObject Menu;
     [HideInInspector]
     public bool isDead = false;
+    [HideInInspector]
+    public PreviousLevel previousLevel;
+    [SerializeField] private Button retry;
+    [SerializeField] private Image fadeImage;
 
 
     void Start()
     {
+        previousLevel = GlobalReference.GetReference<PreviousLevel>();
         Menu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
     }
 
     void Update()
     {
         if (isDead)
         {
-            Time.timeScale = 0f;
+            if (!Menu.activeSelf) Menu.SetActive(true);
+            retry.interactable = previousLevel.prevLevel.IsUnityNull() ? false : true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -37,7 +47,8 @@ public class DeathMenu : MonoBehaviour
         Menu.SetActive(!Menu.activeSelf);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        Time.timeScale = 1f;
+        Debug.Log($"{previousLevel.prevLevel} | {SceneManager.GetSceneByBuildIndex(previousLevel.prevLevel)}");
+        if (!previousLevel.prevLevel.IsUnityNull()) UILogic.FadeToScene("Loading", fadeImage, this);
     }
 
     public void QuitGame()
@@ -46,7 +57,7 @@ public class DeathMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Menu.SetActive(!Menu.activeSelf);
-        Time.timeScale = 1f;
+
         SceneManager.LoadScene("Menu");
     }
 }

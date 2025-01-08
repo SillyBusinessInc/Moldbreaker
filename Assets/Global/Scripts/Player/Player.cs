@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public float acceleration = 2;
     public float deceleration = 0.5f;
     public float currentMovementLerpSpeed = 100;
-    
+
     public float soundAfterTime = 0.5f;
 
     [Header("Knockback Settings")]
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
     [SerializeField] private CrossfadeController crossfadeController;
-    
+
     [HideInInspector] public bool isInvulnerable = false;
 
     void Awake()
@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); 
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
 
     }
 
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour
     public void SetState(StateBase newState)
     {
         if (currentState == states.Death) return;
-        if(currentState == states.Attacking && newState == states.Attacking) return;
+        if (currentState == states.Attacking && newState == states.Attacking) return;
         // stop active coroutine
         if (activeCoroutine != null)
         {
@@ -297,10 +297,10 @@ public class Player : MonoBehaviour
     public void OnHit(float damage, Vector3 direction)
     {
         if (currentState == states.Death) return;
-        
+
         if (isInvulnerable) return;
-        if(direction != Vector3.zero)
-           currentState.Hurt(direction);
+        if (direction != Vector3.zero)
+            currentState.Hurt(direction);
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
         GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
@@ -330,17 +330,21 @@ public class Player : MonoBehaviour
         playerStatistic.Health += reward;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
-    
+
     // If we go the event route this should change right?
     private void OnDeath()
     {
         CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
         saveData.LoadAll();
         SetState(states.Death);
-    }   
+    }
+
+    public void FadeToDeathScreen()
+    {
+        StartCoroutine(DeathScreen());
+    }
     private IEnumerator DeathScreen()
     {
-        Debug.Log("Player died", this);
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
     }

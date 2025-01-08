@@ -18,9 +18,10 @@ public class DeathLogic : MonoBehaviour
     private IEnumerator GameOver()
     {
         yield return StartCoroutine(crossfadeController.Crossfade_End());
-        yield return StartCoroutine(WaitForFewSecond());
-        yield return StartCoroutine(crossfadeController.Crossfade_Start());
         deathMenu.isDead = true;
+        // yield return StartCoroutine(WaitForFewSecond());
+        // yield return StartCoroutine(crossfadeController.Crossfade_Start());
+
         // SceneManager.LoadScene("Menu");
     }
 
