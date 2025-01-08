@@ -39,6 +39,11 @@ public class AudioManager : Reference
 
     public AudioClip walkingSound;
 
+    private float masterVolume_value;
+    private float effectsVolume_value;
+    private float musicVolume_value;
+
+
     public void PlaySFX(AudioClip clip)
     {
         if (clip == null) return;
@@ -65,4 +70,20 @@ public class AudioManager : Reference
         base.Awake();
         DontDestroyOnLoad(gameObject);
     }
+
+    void Start() {
+        CalculateMusicSourceVolume();
+        CalculateSPXSourceVolume();
+    }
+    public void CalculateMusicSourceVolume() {
+        masterVolume_value = GlobalReference.Settings.Get<float>("master_volume");
+        musicVolume_value = GlobalReference.Settings.Get<float>("music_volume");
+        musicSource.volume = masterVolume_value * musicVolume_value;
+    }
+    public void CalculateSPXSourceVolume() {
+        masterVolume_value = GlobalReference.Settings.Get<float>("master_volume");
+        effectsVolume_value = GlobalReference.Settings.Get<float>("effects_volume");
+        SFXSource.volume = masterVolume_value * effectsVolume_value;
+    }
+
 }

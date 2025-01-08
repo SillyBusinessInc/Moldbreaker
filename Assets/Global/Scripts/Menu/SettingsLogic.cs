@@ -31,8 +31,6 @@ public class SettingsLogic : MonoBehaviour
         LoadFromSave();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        CalculateSPXSourceVolume(masterVolume.value, effectsVolume.value);
-        CalculateMusicSourceVolume(masterVolume.value, musicVolume.value);
     }
 
     void FindSoundManager() {
@@ -63,6 +61,9 @@ public class SettingsLogic : MonoBehaviour
         effectsVolume.value = GlobalReference.Settings.Get<float>("effects_volume");
         musicVolume.value = GlobalReference.Settings.Get<float>("music_volume");
         brightness.value = GlobalReference.Settings.Get<float>("brightness");
+        CalculateSPXSourceVolume(masterVolume.value, effectsVolume.value);
+        CalculateMusicSourceVolume(masterVolume.value, musicVolume.value);
+
         GlobalReference.Settings.IsLocked = false;
     }
 
