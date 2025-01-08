@@ -39,6 +39,8 @@ public class AudioManager : Reference
 
     public AudioClip walkingSound;
 
+    public AudioClip jumpSound;
+
     public void PlaySFX(AudioClip clip)
     {
         if (clip == null) return;
