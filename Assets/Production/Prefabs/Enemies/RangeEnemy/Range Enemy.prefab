@@ -5009,7 +5009,7 @@ MonoBehaviour:
   attackCooldown: 2
   attackRecoveryTime: 1.07
   attacksPerCooldown: 3
-  attackDamage: 1
+  attackDamage: 16.6
   facingPlayerVarianceAngle: 5
   attackKnockback: 0
   knockbackStunTime: 0
