@@ -2,9 +2,6 @@ using UnityEngine;
 using System;
 public class AudioManager : MonoBehaviour
 {
-    [Header("Audio Source")]
-    public AudioSource musicSource, sfxSource;
-
     [Header("Audio Sounds")]
     public Sound[] musicSounds, sfxSounds;
 
@@ -22,25 +19,27 @@ public class AudioManager : MonoBehaviour
     {
         Sound s = Array.Find(musicSounds, x => x.name == name);
         if (s == null) return;
-        musicSource.clip = s.clip;
-        musicSource.Play();
+        s.audioSource.clip = s.clip;
+        s.audioSource.Play();
     }
 
     public void PlaySFX(string name)
     {
         Sound s = Array.Find(sfxSounds, x => x.name == name);
         if (s == null) return;
-        sfxSource.clip = s.clip;
-        sfxSource.Play();
+        s.audioSource.clip = s.clip;
+        s.audioSource.Play();
     }
 
-    public void StopMusicSource()
+    public void StopMusicSound(string name)
     {
-        Instance.musicSource.Stop();
+        Sound s = Array.Find(musicSounds, x => x.name == name);
+        s.audioSource.Stop();
     }
 
-    public void StopSFXSource()
+    public void StopSFXSound(string name)
     {
-        Instance.sfxSource.Stop();
+        Sound s = Array.Find(sfxSounds, x => x.name == name);
+        s.audioSource.Stop();
     }
 }

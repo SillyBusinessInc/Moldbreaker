@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class AudioRunScene : MonoBehaviour
 {
-    public string audioClipName;
+    public string audioSongName;
 
     public void Start()
     {
-        AudioManager.Instance.PlayMusic(audioClipName);
+        AudioManager.Instance.PlayMusic(audioSongName);
     }
 
     void OnDestroy()
     {
-        AudioManager.Instance.StopMusicSource();
+        AudioManager.Instance.StopMusicSound(audioSongName);
     }
 }
