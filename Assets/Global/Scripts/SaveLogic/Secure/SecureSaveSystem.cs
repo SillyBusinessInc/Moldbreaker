@@ -87,6 +87,10 @@ public abstract class SecureSaveSystem
             // convert data object to file data for save storage
             BinaryWriter writer = new(stream);
             string jsonText = JsonConvert.SerializeObject(data);
+            
+            //to see the json text
+            // Debug.Log(jsonText);
+
             byte[] plainTextBytes = Encoding.UTF8.GetBytes(jsonText);
             // write data to file
             writer.Write(Convert.ToBase64String(plainTextBytes));
