@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PreviousLevel : Reference
+public class PreviousLevel : MonoBehaviour
 {
-    public static PreviousLevel Instance { get; private set; } // Singleton instance
-    public int prevLevel;
+    public static PreviousLevel Instance { get; private set; }
+    public int prevLevel = -1;
 
-    protected override void Awake()
+    protected void Awake()
     {
         // Check if an instance of this script already exists
         if (Instance != null && Instance != this)
@@ -17,7 +17,6 @@ public class PreviousLevel : Reference
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        base.Awake();
     }
 
     void Start()
@@ -28,6 +27,5 @@ public class PreviousLevel : Reference
     private void SetPreviousLevel()
     {
         prevLevel = SceneManager.GetSceneAt(1).buildIndex; // i hate how not safe this is but yeah [0] = basescene, [1] = level
-        Debug.Log($"prevLevel set to: {prevLevel}");
     }
 }

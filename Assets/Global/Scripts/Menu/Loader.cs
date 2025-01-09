@@ -14,11 +14,9 @@ public class Loader : MonoBehaviour
     private Phase nextPhase;
     private int currentPhase;
     private int totalPhases;
-    private PreviousLevel previousLevel;
 
     void Start()
     {
-        previousLevel = GlobalReference.GetReference<PreviousLevel>();
         loadingBar = transform.GetChild(0).GetComponent<Image>();
         message = transform.GetChild(1).GetComponent<TMP_Text>();
         loadingBar.fillAmount = loadingProgress;
@@ -61,7 +59,7 @@ public class Loader : MonoBehaviour
                 break;
 
             case Phase.LOADROOM:
-                nextPhase = LoadRoom(previousLevel?.prevLevel);
+                nextPhase = LoadRoom(PreviousLevel.Instance?.prevLevel);
                 break;
 
             case Phase.INITBASE:
@@ -103,7 +101,8 @@ public class Loader : MonoBehaviour
     private Phase LoadRoom(int? level)
     {
         message.text = "Baking the bread world...";
-        if (level.HasValue)
+
+        if (PreviousLevel.Instance != null && level.HasValue && level.Value > 0)
         {
             SceneManager.LoadScene(level.Value, LoadSceneMode.Additive);
         }
@@ -111,6 +110,7 @@ public class Loader : MonoBehaviour
         {
             SceneManager.LoadScene("ENTRANCE_1", LoadSceneMode.Additive);
         }
+
         return Phase.INITBASE;
     }
 
