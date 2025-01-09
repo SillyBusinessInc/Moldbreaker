@@ -39,7 +39,8 @@ public class Player : MonoBehaviour
     public float maxIdleTime = 20f;
     public float minIdleTime = 5f;
     [SerializeField] private float invulnerabilityTime = 0.5f;
-
+    [SerializeField] private Transform cameraTarget;
+    private Vector3 defaultCameraTarget = Vector3.zero;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -116,7 +117,7 @@ public class Player : MonoBehaviour
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); 
-
+        defaultCameraTarget = cameraTarget.localPosition;
     }
 
     void Update()
@@ -129,6 +130,15 @@ public class Player : MonoBehaviour
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
         UpdateVisualState();
+    }
+
+    // Setting the height to null will reset the height to default
+    public void setCameraHeight(float? height)
+    {
+        if (height == null)
+            cameraTarget.localPosition = defaultCameraTarget;
+        else
+            cameraTarget.localPosition = new Vector3(0, (float)height, 0);
     }
 
     private void attackingAnimation() => isAttacking = true;

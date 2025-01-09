@@ -54,6 +54,7 @@ public class RoomTransitionDoor : Interactable
         if (nextLevel != null) nextLevel.unlocked = true;
         
         StartCoroutine(LoadNextRoom());
+        GlobalReference.GetReference<PlayerReference>().Player.setCameraHeight(null); // height reset to default
     }
 
     private IEnumerator LoadNextRoom()

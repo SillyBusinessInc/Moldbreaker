@@ -9,6 +9,10 @@ public class Calories : Collectable
     private CollectableSave saveData;
     public bool collected;
 
+    //make a variable to give a number from 1 to 3
+    [Range(1, 3)]
+    [SerializeField]private int progressionOrder = 1;
+
     void Awake()
     {
         saveData = new CollectableSave(gameObject.scene.name);
@@ -50,7 +54,7 @@ public class Calories : Collectable
             // ID is already assigned; no need to regenerate.
             return;
         }
-        string key = gameObject.scene.name+"_"+transform.position.ToString();
+        string key = gameObject.scene.name + ">>>UNIQUE_DELIMITER>>>" + transform.position.ToString() + ">>>UNIQUE_DELIMITER>>>" + progressionOrder;
         caloriesId = key;
     }
 }
