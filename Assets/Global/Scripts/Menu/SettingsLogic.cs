@@ -1,20 +1,19 @@
-using System;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class SettingsLogic : MonoBehaviour
 {
     [SerializeField] private Image fadeImage;
 
     [Header("Imports")]
-    [SerializeField] private TMP_Dropdown resolution;
-    [SerializeField] private Toggle fullscreen;
+    [SerializeField] private TMP_Dropdown screenModeDropdown;
+
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
     [SerializeField] private Slider musicVolume;
-    [SerializeField] private Slider brightness;
 
     [SerializeField] private Button cancel;
     [SerializeField] private Button confirm;
@@ -24,7 +23,6 @@ public class SettingsLogic : MonoBehaviour
     private AudioManager soundManager;
     private AudioSource musicSource;
     private AudioSource sfxSource;
-    // private float masterVolume;
 
 
     void Start(){ 
@@ -42,28 +40,14 @@ public class SettingsLogic : MonoBehaviour
     
     void Update() => UpdateButtonState();
     
-    public static Resolution[] Resolutions => Screen.resolutions.Reverse().ToArray();
-
     private void LoadFromSave() {
-        resolution.options = new();
-        foreach (Resolution r in Resolutions) {
-            resolution.options.Add(new($"{r.width} x {r.height}"));
-        }
-
         GlobalReference.Settings.IsLocked = true;
-        int resX = GlobalReference.Settings.Get<int>("resolution_width");
-        int resY = GlobalReference.Settings.Get<int>("resolution_height");
-        Resolution res = Resolutions.Where((x) => x.width == resX && x.height == resY).FirstOrDefault();
-        resolution.value = -1;
-        resolution.value = Array.IndexOf(Resolutions, res);
-        fullscreen.isOn = GlobalReference.Settings.Get<bool>("fullscreen");
         masterVolume.value = GlobalReference.Settings.Get<float>("master_volume");
         effectsVolume.value = GlobalReference.Settings.Get<float>("effects_volume");
         musicVolume.value = GlobalReference.Settings.Get<float>("music_volume");
-        brightness.value = GlobalReference.Settings.Get<float>("brightness");
+        screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
         CalculateSPXSourceVolume(masterVolume.value, effectsVolume.value);
         CalculateMusicSourceVolume(masterVolume.value, musicVolume.value);
-
         GlobalReference.Settings.IsLocked = false;
     }
 
@@ -74,12 +58,6 @@ public class SettingsLogic : MonoBehaviour
     }
     
     #region button event methods
-    public void OnResolutionChange(int value) {
-        int resX = Resolutions[value].width;
-        int resY = Resolutions[value].height;
-        GlobalReference.Settings.Set("resolution_width", resX);
-        GlobalReference.Settings.Set("resolution_height", resY);
-    }
 
     public void CalculateMusicSourceVolume(float masterVolume, float sourceVolume) {
         FindSoundManager();
@@ -122,4 +100,30 @@ public class SettingsLogic : MonoBehaviour
         LoadFromSave();
     }
     #endregion
+
+
+    public void ChangeScreenMode()
+    {
+        int mode = screenModeDropdown.value;
+        switch (mode)
+        {
+            case 0: // Windowed
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+
+            case 1: // Borderless Fullscreen
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+
+            case 2: // Fullscreen
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+
+            default:
+                break;
+        } 
+        GlobalReference.Settings.Set("screen_mode", mode);
+        Debug.Log("ScreenMode : " + Screen.fullScreenMode);
+    }
+
 }
