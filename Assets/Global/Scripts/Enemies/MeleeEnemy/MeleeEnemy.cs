@@ -14,6 +14,14 @@ namespace EnemiesNS
         }
 
         public AttackType attackType;
+        public Collider weapon;
+        private bool playerHit = false;
+
+        protected override void Start()
+        {
+            base.Start();
+            if (!IsValidAttack(attackType)) Debug.LogWarning($"{attackType} is not valid for this type of enemy", this);
+        }
 
         // check if chosen attack is valid for this enemy
         public virtual bool IsValidAttack(AttackType attackType)
@@ -23,13 +31,6 @@ namespace EnemiesNS
                    attackType == AttackType.Slash ||
                    attackType == AttackType.Slash360;
         }
-
-        protected override void Start()
-        {
-            base.Start();
-            if (!IsValidAttack(attackType)) Debug.LogWarning($"{attackType} is not valid for this type of enemy", this);
-        }
-        private bool playerHit = false;
 
         //
         // called in animations as events
@@ -45,7 +46,7 @@ namespace EnemiesNS
             playerHit = false;
         }
 
-        public override void PlayerHit(PlayerObject playerObject, int damage, Vector3 knockback)
+        public override void PlayerHit(PlayerObject playerObject, float damage, Vector3 knockback)
         {
             if (playerHit) return;
             playerHit = true;

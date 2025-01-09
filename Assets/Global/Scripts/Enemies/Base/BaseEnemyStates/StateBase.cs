@@ -19,6 +19,7 @@ namespace EnemiesNS
 
         public virtual void Update()
         {
+            
             enemy.animator.SetFloat("WalkingSpeed", enemy.agent.velocity.magnitude);
             CalculateDistanceToPlayer(); // do we want to calculate on every frame?
             CheckState();
@@ -34,17 +35,14 @@ namespace EnemiesNS
         {
             // dead or alive check
             if (enemy.currentState == enemy.states.Dead) return;
-
             // check to see if enemy is still recovering from attacking
             if (enemy.isRecovering || enemy.inAttackAnim) return;
-
             // attack
             if (enemy.currentState != enemy.states.Attacking && enemy.canAttack && IsWithinAttackRange())
             {
                 enemy.ChangeState(enemy.states.Attacking);
                 return;
             }
-
             // chase
             if (enemy.isWaiting) return;
             if (enemy.currentState == enemy.states.Chasing) return;
