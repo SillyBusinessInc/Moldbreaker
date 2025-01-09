@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: 0a91b3cbabc0e5142a8590ce5048656b, type: 3}
   name: Dough Dash
-  description: Gain 1 extra dash
+  description: Unlock the ability do dash! Dashing dodges attacks.
   rarity: 4
   interactionActions:
   - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
