@@ -1226,7 +1226,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1109660873}
   sfxSource: {fileID: 1067581118}
-  musicSounds: []
+  musicSounds:
+  - name: 
+    description: 
+    clip: {fileID: 0}
   sfxSounds:
   - name: AttackVOX1
     description: Bradley sweep attack 1 voice
@@ -1277,6 +1280,17 @@ MonoBehaviour:
   - name: ShotExplosion
     description: When the enemy bullet explodes
     clip: {fileID: 8300000, guid: 37633378415d92941af484db1aaecaf6, type: 3}
+  - name: PortalSFX
+    description: When you go through a portal
+    clip: {fileID: 8300000, guid: 185793fbc9ea1224fb13bd7842745e1d, type: 3}
+  - name: Footstep
+    description: Bradley footsteps, maybe find a way to play it quicker and at random
+      pitch (look up how to make footstep sounds Unity on youtube or somethin)
+    clip: {fileID: 8300000, guid: 1e565dad17a2a1a43af7a2a1bf947d19, type: 3}
+  - name: Death
+    description: Bradley footsteps, maybe find a way to play it quicker and at random
+      pitch (look up how to make footstep sounds Unity on youtube or somethin)
+    clip: {fileID: 8300000, guid: 531b0290167005248babe7fb83fb7209, type: 3}
 --- !u!1 &1637263717
 GameObject:
   m_ObjectHideFlags: 0
