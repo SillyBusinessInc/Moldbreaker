@@ -14,6 +14,13 @@ public class Player : MonoBehaviour
     public float acceleration = 2;
     public float deceleration = 0.5f;
     public float currentMovementLerpSpeed = 100;
+    
+    public float soundAfterTime = 0.5f;
+
+    [Header("Knockback Settings")]
+    public float knockbackDuration;
+    public float knockbackSpeed;
+
 
     [Header("Jumping Settings")]
     public float maxJumpHoldTime = 0.2f;
@@ -31,7 +38,8 @@ public class Player : MonoBehaviour
     public float maxIdleTime = 20f;
     public float minIdleTime = 5f;
     [SerializeField] private float invulnerabilityTime = 0.5f;
-
+    [SerializeField] private Transform cameraTarget;
+    private Vector3 defaultCameraTarget = Vector3.zero;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -78,11 +86,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isHoldingDodge = false;
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool AirComboDone = false;
+    [HideInInspector] public Vector3 hitDirection;
     // private PlayerInputActions inputActions;
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
     [SerializeField] private CrossfadeController crossfadeController;
-    private bool isInvulnerable = false;
+    
+    [HideInInspector] public bool isInvulnerable = false;
 
     void Awake()
     {
@@ -102,7 +112,7 @@ public class Player : MonoBehaviour
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); 
-
+        defaultCameraTarget = cameraTarget.localPosition;
     }
 
     void Update()
@@ -114,6 +124,15 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
+    }
+
+    // Setting the height to null will reset the height to default
+    public void setCameraHeight(float? height)
+    {
+        if (height == null)
+            cameraTarget.localPosition = defaultCameraTarget;
+        else
+            cameraTarget.localPosition = new Vector3(0, (float)height, 0);
     }
 
     private void attackingAnimation() => isAttacking = true;
@@ -147,7 +166,6 @@ public class Player : MonoBehaviour
     }
 
     private void GroundCheck()
-
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
@@ -203,6 +221,8 @@ public class Player : MonoBehaviour
 
     public void SetState(StateBase newState)
     {
+        if (currentState == states.Death) return;
+        if(currentState == states.Attacking && newState == states.Attacking) return;
         // stop active coroutine
         if (activeCoroutine != null)
         {
@@ -252,7 +272,7 @@ public class Player : MonoBehaviour
         if (targetVelocity.magnitude > 0.1f)
         {
             Vector3 direction = Vector3.ProjectOnPlane(targetVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 0.2f));
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
         }
     }
 
@@ -284,24 +304,18 @@ public class Player : MonoBehaviour
 
     // TO BE CHANGED ===============================================================================================================================
     // If we go the event route this should change right?
-    public void OnHit(float damage)
+    public void OnHit(float damage, Vector3 direction)
     {
+        if (currentState == states.Death) return;
+        
         if (isInvulnerable) return;
+        if(direction != Vector3.zero)
+           currentState.Hurt(direction);
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
         if (playerStatistic.Health <= 0) OnDeath();
-
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
-        AddMold(5f); // add 5% to the moldmeter
-    }
-
-    public void AddMold(float percentage)
-    {
-        playerStatistic.Moldmeter += percentage;
-        GlobalReference.AttemptInvoke(Events.MOLDMETER_CHANGED);
-
-        isInvulnerable = true;
-        StartCoroutine(InvulnerabilityTimer());
     }
 
     private IEnumerator InvulnerabilityTimer()
@@ -328,11 +342,12 @@ public class Player : MonoBehaviour
     }
     
     // If we go the event route this should change right?
-    [ContextMenu("Die!!!!!")]
     private void OnDeath()
     {
-        StartCoroutine(DeathScreen());
-    }
+        CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        saveData.LoadAll();
+        SetState(states.Death);
+    }   
     private IEnumerator DeathScreen()
     {
         Debug.Log("Player died", this);

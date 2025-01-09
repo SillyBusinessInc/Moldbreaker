@@ -25,16 +25,10 @@ namespace EnemiesNS
         {
             if (enemy.target == null) enemy.ChangeState(enemy.states.Idle);
 
-            // If the player is in range, attempt to face them
-            if (IsWithinAttackRange() && canAttack())
-            {
-                FacePlayer();
-                if (IsFacingPlayer()) Attack();
-            }
+            
 
             // check if we can still attack, then early return so we dont run the base update and dont trigger attack cooldown.
             if (attacksThisState < enemy.attacksPerCooldown && IsWithinAttackRange()) return;
-
             enemy.toggleCanAttack(false);
             base.Update();
         }
@@ -56,13 +50,14 @@ namespace EnemiesNS
             // Calculate the rotation required to face the player
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
 
-            // Smoothly rotate towards the player
-            enemy.transform.rotation = Quaternion.Slerp(
+            // Smoothly rotate towards the player using Lerp
+            enemy.transform.rotation = Quaternion.RotateTowards(
                 enemy.transform.rotation,
                 targetRotation,
-                Time.deltaTime * enemy.agent.angularSpeed
+                enemy.agent.angularSpeed * Time.deltaTime
             );
         }
+        
 
         protected bool IsFacingPlayer()
         {

@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MoldGuette
-  m_Shader: {fileID: -6465566751694194690, guid: 0f3bca365517f754284608667504a239, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 1139604dab26a634a9683bb30fea842b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -134,7 +134,8 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _MoldStrength: 0.67
+    - _MoldScale: 35
+    - _MoldStrength: 1
     - _Mold_Strength: 0
     - _Normal_Blend: 1
     - _OcclusionStrength: 1

@@ -1,14 +1,17 @@
 using System.Linq;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "LeftTail")]
 public class LeftTailAttack : TailAttack
 {
-    public LeftTailAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
+    public LeftTailAttack(string Name, float damage, float cooldown) : base(Name, damage) {}
 
     public override void Start()
     {
         base.Start();
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleySweepLVoice);
         player.Tail.tailCanDoDamage = true;
         player.Tail.tailDoDamage = player.Tail.tailStatistic.leftTailDamage.GetValue();
         player.Tail.tailDoDamage *= player.playerStatistic.AttackDamageMultiplier.GetValue();
@@ -23,4 +26,5 @@ public class LeftTailAttack : TailAttack
         player.playerAnimationsHandler.SetInt("AttackType", 1);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }
+
 }
