@@ -88,7 +88,13 @@ public class RoomTransitionDoor : Interactable
         player.playerStatistic.Calories.Clear();
         player.playerStatistic.Crumbs = 0;
 
-        
+        RoomSave saveRoomData = new RoomSave();
+        saveRoomData.LoadAll();
+        List<int> finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
+        finishedLevels.Add(nextRoomId);
+        saveRoomData.Set("finishedLevels", finishedLevels);
+        saveRoomData.SaveAll();
+
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
@@ -160,7 +166,7 @@ public class RoomTransitionDoor : Interactable
             .FirstOrDefault(scene => scene.name != baseSceneName && scene.isLoaded).name ?? baseSceneName;
     }
 
-    [ContextMenu("Unlock Door")] void UnlockDoorTest() => IsDisabled = false;
+    [ContextMenu("Unlock Door")]public void UnlockDoor() => IsDisabled = false;
     [ContextMenu("Lock Door")] void LockDoorTest() => IsDisabled = true;
     [ContextMenu("Open Door")] void OpenDoorTest() => OpenDoorAnimation();
     [ContextMenu("Invoke room finish event")] void InvoteRoomFinishedEvent() => GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
