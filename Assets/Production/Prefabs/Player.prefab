@@ -4964,6 +4964,7 @@ MonoBehaviour:
   maxIdleTime: 20
   minIdleTime: 5
   invulnerabilityTime: 0.5
+  cameraTarget: {fileID: 2562900229708890194}
   playerStatistic:
     Calories: []
     CaloriesCount: 0
@@ -10833,7 +10834,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1872108125282449373}
-  - component: {fileID: 8676894546493344365}
   m_Layer: 7
   m_Name: shadowQuad
   m_TagString: Player
@@ -10856,23 +10856,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4764116892959088292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8676894546493344365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7424861499066246531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd89bd1a48a7c4b439fb2a2b4c5a6c24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  maxHeight: 4
-  minScale: 1.5
-  maxScale: 4
-  offset: 0.1
 --- !u!1 &7790592947966091340
 GameObject:
   m_ObjectHideFlags: 0
