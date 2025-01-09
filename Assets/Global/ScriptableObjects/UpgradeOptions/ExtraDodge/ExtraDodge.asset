@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ExtraDodge
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: 0a91b3cbabc0e5142a8590ce5048656b, type: 3}
-  name: Fart Day
-  description: Gain 1 extra dodge/dash
+  name: Dough Dash
+  description: Gain 1 extra dash
   rarity: 4
   interactionActions:
   - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}

@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 14.36138
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 29.08738
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -32.717903
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0f8a0adb0220f7649a8a32837348f5ce, type: 2}
+      objectReference: {fileID: 2100000, guid: a5d14da9071500b46b360c4dd0dceb5e, type: 2}
     - target: {fileID: 919132149155446097, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
       propertyPath: m_Name
       value: skybox_sphere
