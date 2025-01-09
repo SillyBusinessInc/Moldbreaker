@@ -298,6 +298,19 @@ public class Player : MonoBehaviour
         rb.linearVelocity = newVelocity;
     }
 
+    public void UpdateVisualState() 
+    {
+        float strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
+        currentMoldPercentage -= (currentMoldPercentage - strength) * 2 * Time.deltaTime;
+
+        foreach (Material mat in mr.materials) {
+            mat.SetFloat("_MoldStrength", currentMoldPercentage);
+        }
+        foreach (Material mat in tailmr.materials) {
+            mat.SetFloat("_MoldStrength", currentMoldPercentage);
+        }
+    }
+
     // TO BE CHANGED ===============================================================================================================================
     // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
@@ -312,19 +325,6 @@ public class Player : MonoBehaviour
         GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
         if (playerStatistic.Health <= 0) OnDeath();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
-    }
-
-    public void UpdateVisualState() 
-    {
-        float strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
-        currentMoldPercentage -= (currentMoldPercentage - strength) * 2 * Time.deltaTime;
-        
-        foreach (Material mat in mr.materials) {
-            mat.SetFloat("_MoldStrength", currentMoldPercentage);
-        }
-        foreach (Material mat in tailmr.materials) {
-            mat.SetFloat("_MoldStrength", currentMoldPercentage);
-        }
     }
 
     private IEnumerator InvulnerabilityTimer()
