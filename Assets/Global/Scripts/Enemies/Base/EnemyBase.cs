@@ -184,16 +184,14 @@ namespace EnemiesNS
         [SerializeField] private SkinnedMeshRenderer moldRenderer;
         private float targetMoldPercentage = 1;
         private float currentMoldPercentage = 1;
-        
-        [SerializeField] private List<Renderer> mainModelRenderers;
+    
         [SerializeField] private GameObject celebModel;
         
         protected void SetCelebrateModel(bool value)
         {
-            foreach (var renderer in mainModelRenderers)
-            {
-                renderer.enabled = !value;
-            }
+            if(celebModel == null) return;
+            
+            animator.gameObject.SetActive(!value);
             celebModel.SetActive(value);
         }
         
@@ -377,7 +375,11 @@ namespace EnemiesNS
 
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
             // animator is on the Model's GameObject, so we can reach that GameObject through this.
-            if (animator)
+            if (celebModel)
+            {
+                StartCoroutine(DisableAfter(celebModel, 0.5f));
+            }
+            else if (animator)
             {
                 StartCoroutine(DisableAfter(animator.gameObject, 0.5f));
             }
