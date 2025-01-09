@@ -3714,6 +3714,18 @@ PrefabInstance:
       propertyPath: nextRoomIndex
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: levelName
+      value: PARKOUR_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: maxCrumbs
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: popupTitle
+      value: 'Level 3: Final'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4178,6 +4190,18 @@ PrefabInstance:
     - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: nextRoomIndex
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: levelName
+      value: PARKOUR_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: maxCrumbs
+      value: 56
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: popupTitle
+      value: 'Level 2:  Dash'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
