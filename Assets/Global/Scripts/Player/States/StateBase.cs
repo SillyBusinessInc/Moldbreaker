@@ -40,6 +40,8 @@ public abstract class StateBase
 
     public virtual void Dodge(InputAction.CallbackContext ctx)
     {
+        if (Player.playerStatistic.CanDodge.GetValueInt() <= 0) return;
+        
         if (ctx.started)
         {
             Player.isHoldingDodge = true;

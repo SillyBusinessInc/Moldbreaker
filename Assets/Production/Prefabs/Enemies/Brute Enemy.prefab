@@ -5034,6 +5034,7 @@ GameObject:
   - component: {fileID: 7811520418258646416}
   - component: {fileID: 3132593184975547743}
   - component: {fileID: 5736893307651846989}
+  - component: {fileID: 9164447685767049601}
   m_Layer: 8
   m_Name: Brute Enemy
   m_TagString: Enemy
@@ -5117,7 +5118,7 @@ MonoBehaviour:
   attackCooldown: 2
   attackRecoveryTime: 0.3
   attacksPerCooldown: 1
-  attackDamage: 2
+  attackDamage: 33.3
   facingPlayerVarianceAngle: 5
   attackKnockback: 0
   knockbackStunTime: 0.5
@@ -5184,6 +5185,33 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.07, y: 2.52, z: 0}
+--- !u!54 &9164447685767049601
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7668994237565754070}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &5982803325436949426
 PrefabInstance:
   m_ObjectHideFlags: 0
