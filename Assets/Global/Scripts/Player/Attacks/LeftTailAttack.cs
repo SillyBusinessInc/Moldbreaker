@@ -11,6 +11,7 @@ public class LeftTailAttack : TailAttack
     public override void Start()
     {
         base.Start();
+        AudioManager.Instance.PlaySFX("AttackVOX1");
         player.Tail.tailCanDoDamage = true;
         player.Tail.tailDoDamage = player.Tail.tailStatistic.leftTailDamage.GetValue();
         player.Tail.tailDoDamage *= player.playerStatistic.AttackDamageMultiplier.GetValue();

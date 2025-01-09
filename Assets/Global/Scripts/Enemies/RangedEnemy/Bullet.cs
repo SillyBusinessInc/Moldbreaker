@@ -44,7 +44,7 @@ namespace EnemiesNS
             }
 
 
-            // Play VFX and destroy bullet
+            AudioManager.Instance.PlaySFX("RangedShot");
             PlayImpactVFX();
             Destroy(gameObject);
         }

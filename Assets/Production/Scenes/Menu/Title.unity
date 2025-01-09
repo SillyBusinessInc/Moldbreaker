@@ -3059,7 +3059,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.7
+  m_fontSize: 52.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3606,8 +3606,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1e565dad17a2a1a43af7a2a1bf947d19, type: 3}
     audioSource: {fileID: 329116090}
   - name: Death
-    description: Bradley footsteps, maybe find a way to play it quicker and at random
-      pitch (look up how to make footstep sounds Unity on youtube or somethin)
+    description: 'Death (rip) '
     clip: {fileID: 8300000, guid: 531b0290167005248babe7fb83fb7209, type: 3}
     audioSource: {fileID: 1994147094}
   - name: Button

@@ -49,6 +49,7 @@ public class PauseLogic : MonoBehaviour
 
     public void ContinueGame() {
         isPaused = false;
+        AudioManager.Instance.PlaySFX("Button");
         Menu.SetActive(!Menu.activeSelf); 
         // Upgrades.SetActive(!Upgrades.activeSelf); 
         Cursor.lockState = CursorLockMode.Locked;
@@ -58,6 +59,7 @@ public class PauseLogic : MonoBehaviour
 
     public void Settings() {
         isPaused = false;
+        AudioManager.Instance.PlaySFX("Button");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Menu.SetActive(!Menu.activeSelf); 
@@ -68,6 +70,7 @@ public class PauseLogic : MonoBehaviour
 
     public void QuitGame() {
         isPaused = false;
+        AudioManager.Instance.PlaySFX("Button");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Menu.SetActive(!Menu.activeSelf); 

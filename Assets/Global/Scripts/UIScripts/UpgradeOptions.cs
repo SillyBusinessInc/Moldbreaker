@@ -61,7 +61,6 @@ public class UpgradeOptions : Reference
 
     public void Confirm(InputAction.CallbackContext ctx) {
         if (!isShown) return;
-
         if (ctx.started && option != null) {
             foreach(ActionParamPair action in option.interactionActions) {
                 action.InvokeAction();
@@ -74,6 +73,7 @@ public class UpgradeOptions : Reference
             
             UpgradesUIList.AddUpgrade(option);
         }
+        AudioManager.Instance.PlaySFX("PowerupPickup");
         HideOption();
     }
 

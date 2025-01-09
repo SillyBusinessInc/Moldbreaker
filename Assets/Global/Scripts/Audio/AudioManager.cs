@@ -20,6 +20,16 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(musicSounds, x => x.name == name);
         if (s == null) return;
         s.audioSource.clip = s.clip;
+        s.audioSource.loop = false;
+        s.audioSource.Play();
+    }
+
+    public void PlayMusicOnRepeat(string name)
+    {
+        Sound s = Array.Find(musicSounds, x => x.name == name);
+        if (s == null) return;
+        s.audioSource.clip = s.clip;
+        s.audioSource.loop = true;
         s.audioSource.Play();
     }
 
@@ -28,6 +38,16 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sfxSounds, x => x.name == name);
         if (s == null) return;
         s.audioSource.clip = s.clip;
+        s.audioSource.loop = false;
+        s.audioSource.Play();
+    }
+
+    public void PlaySFXOnRepeat(string name)
+    {
+        Sound s = Array.Find(sfxSounds, x => x.name == name);
+        if (s == null) return;
+        s.audioSource.clip = s.clip;
+        s.audioSource.loop = true;
         s.audioSource.Play();
     }
 

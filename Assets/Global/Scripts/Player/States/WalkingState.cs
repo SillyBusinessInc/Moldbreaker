@@ -14,6 +14,7 @@ public class WalkingState : StateBase
             if (playSound)
             {
                 playSound = false;
+                AudioManager.Instance.PlaySFXOnRepeat("Footstep");
             }
         }
         activesoundAfterTime += Time.deltaTime;
@@ -58,6 +59,7 @@ public class WalkingState : StateBase
 
     public override void Exit()
     {
+        AudioManager.Instance.StopSFXSound("Footstep");
         Player.particleSystemWalk.Stop();
     }
 }

@@ -7,7 +7,7 @@ public class AudioRunScene : MonoBehaviour
 
     public void Start()
     {
-        AudioManager.Instance.PlayMusic(audioSongName);
+        AudioManager.Instance.PlayMusicOnRepeat(audioSongName);
     }
 
     void OnDestroy()
