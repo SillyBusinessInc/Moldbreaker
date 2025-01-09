@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8639761654392125439}
   - component: {fileID: 8017524036436326028}
   m_Layer: 0
-  m_Name: collider
+  m_Name: DoorPopupInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -696,9 +696,9 @@ MonoBehaviour:
   portalEffect: {fileID: 1157105801579820702}
   animator: {fileID: 331661293486425758}
   nextRoomName: 
-  nextRoomIndex: 0
-  nextRoomType: 0
-  nextRoomId: 0
+  nextRoomIndex: 1
+  nextRoomType: 5
+  nextRoomId: 1
   enableOnRoomFinish: 0
 --- !u!65 &6563079570657421110
 BoxCollider:
