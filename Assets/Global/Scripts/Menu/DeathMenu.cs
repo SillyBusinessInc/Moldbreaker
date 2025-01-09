@@ -21,7 +21,6 @@ public class DeathMenu : MonoBehaviour
         Menu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
     }
 
     void Update()
@@ -29,7 +28,8 @@ public class DeathMenu : MonoBehaviour
         if (isDead)
         {
             if (!Menu.activeSelf) Menu.SetActive(true);
-            retry.interactable = previousLevel.prevLevel.IsUnityNull() ? false : true;
+            if (previousLevel) retry.interactable = previousLevel.prevLevel.IsUnityNull() ? false : true;
+            else retry.interactable = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -38,7 +38,6 @@ public class DeathMenu : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-
     }
 
     public void RestartLevel()
