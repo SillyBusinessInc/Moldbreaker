@@ -485,11 +485,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2151410652353034704, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
   m_PrefabInstance: {fileID: 47187329}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1343814470 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8003627217974666994, guid: 6071ba3641cae4990a9d718060ba6a52, type: 3}
-  m_PrefabInstance: {fileID: 678126744}
-  m_PrefabAsset: {fileID: 0}
 
 --- !u!114 &1343814472 stripped
 MonoBehaviour:
