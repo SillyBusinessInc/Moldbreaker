@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.7
+  m_fontSize: 25.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1227,7 +1227,56 @@ MonoBehaviour:
   musicSource: {fileID: 1109660873}
   sfxSource: {fileID: 1067581118}
   musicSounds: []
-  sfxSounds: []
+  sfxSounds:
+  - name: AttackVOX1
+    description: Bradley sweep attack 1 voice
+    clip: {fileID: 8300000, guid: 36b2ddbe41b73324584b8e29285f8e66, type: 3}
+  - name: AttackVOX2
+    description: Bradley sweep attack 2 voice
+    clip: {fileID: 8300000, guid: 96745d16b7eb36740846dea8c6d48533, type: 3}
+  - name: AttackVOX3
+    description: Bradley sweep attack 3 voice
+    clip: {fileID: 8300000, guid: 36b2ddbe41b73324584b8e29285f8e66, type: 3}
+  - name: CrumbPickup
+    description: Pickin up a crumb collectable
+    clip: {fileID: 8300000, guid: d866e57a47be3254bb27c7d66844b2dc, type: 3}
+  - name: HitEnemy
+    description: when your attack connects with an enemy they make this sound
+    clip: {fileID: 8300000, guid: 98d3fffad1e19764793a306c3dc01306, type: 3}
+  - name: Hit1
+    description: When your attack collides with an enemy
+    clip: {fileID: 8300000, guid: ca47af826d8314447a38e45fd746da0f, type: 3}
+  - name: Hit2
+    description: When your attack collides with an enemy 2nd variant, so its not
+      the exact same sound every time
+    clip: {fileID: 8300000, guid: b88dbcbe519a863498e2cfcd9f8c0f78, type: 3}
+  - name: Hit3
+    description: Final attack in combo chain
+    clip: {fileID: 8300000, guid: 08fcf9072d96e1340987bbf924f630c4, type: 3}
+  - name: PainSFX
+    description: Bradley when he gets hit
+    clip: {fileID: 8300000, guid: 311b4678350e8c34eb70db95f608255c, type: 3}
+  - name: PowerupPickup
+    description: When you pick up a Yeast of Power
+    clip: {fileID: 8300000, guid: 64c2164be47908b4e867f6c38a32f11a, type: 3}
+  - name: Dash
+    description: Dash sound effect
+    clip: {fileID: 8300000, guid: 1352eeafa9469e343bc47eb800c5d4de, type: 3}
+  - name: CaloriePickup
+    description: Pickin up a calorie sound effect
+    clip: {fileID: 8300000, guid: 777fd02f852693f4cb8f9924e7e7fa2b, type: 3}
+  - name: EnemyThx
+    description: Sound effect acfter succesfully cleanin an enemy
+    clip: {fileID: 8300000, guid: 606300814462dce4e9079961e1c38906, type: 3}
+  - name: JumpSFX
+    description: Jumpin sound effect (also on double jump)
+    clip: {fileID: 8300000, guid: bb59642d6100e0b4c832cd6fb9e488e2, type: 3}
+  - name: RangedShot
+    description: Ranged enemy when firing a shot
+    clip: {fileID: 8300000, guid: 48d691074b19a6f4293ba041fbfd7d40, type: 3}
+  - name: ShotExplosion
+    description: When the enemy bullet explodes
+    clip: {fileID: 8300000, guid: 37633378415d92941af484db1aaecaf6, type: 3}
 --- !u!1 &1637263717
 GameObject:
   m_ObjectHideFlags: 0
