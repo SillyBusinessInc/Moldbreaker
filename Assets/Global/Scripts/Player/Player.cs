@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 // using System.Numerics;
 
@@ -48,6 +49,8 @@ public class Player : MonoBehaviour
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
+    public SkinnedMeshRenderer mr;
+    public SkinnedMeshRenderer tailmr;
     public Transform orientation;
     public ParticleSystem particleSystemJump;
     public ParticleSystem particleSystemDash;
@@ -75,6 +78,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool awaitingNewState = false;
     [HideInInspector] public Coroutine activeCoroutine;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
+    private float currentMoldPercentage = 0;
+
 
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
@@ -123,6 +128,7 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
+        UpdateVisualState();
     }
 
     private void attackingAnimation() => isAttacking = true;
@@ -306,6 +312,19 @@ public class Player : MonoBehaviour
         GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
         if (playerStatistic.Health <= 0) OnDeath();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
+    }
+
+    public void UpdateVisualState() 
+    {
+        float strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
+        currentMoldPercentage -= (currentMoldPercentage - strength) * 2 * Time.deltaTime;
+        
+        foreach (Material mat in mr.materials) {
+            mat.SetFloat("_MoldStrength", currentMoldPercentage);
+        }
+        foreach (Material mat in tailmr.materials) {
+            mat.SetFloat("_MoldStrength", currentMoldPercentage);
+        }
     }
 
     private IEnumerator InvulnerabilityTimer()

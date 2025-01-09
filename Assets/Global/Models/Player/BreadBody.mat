@@ -111,7 +111,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _MoldScale: 35
-    - _MoldStrength: 0.5
+    - _MoldStrength: 0.7
     - _OcclusionStrength: 1
     - _Outline: 0
     - _Parallax: 0.02
