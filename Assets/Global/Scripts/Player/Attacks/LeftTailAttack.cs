@@ -11,7 +11,6 @@ public class LeftTailAttack : TailAttack
     public override void Start()
     {
         base.Start();
-        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleySweepLVoice);
         player.Tail.tailCanDoDamage = true;
         player.Tail.tailDoDamage = player.Tail.tailStatistic.leftTailDamage.GetValue();
         player.Tail.tailDoDamage *= player.playerStatistic.AttackDamageMultiplier.GetValue();

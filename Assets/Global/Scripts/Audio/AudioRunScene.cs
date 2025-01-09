@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class AudioRunScene : MonoBehaviour
 {
-    public AudioClip audioClip;
+    public string audioClipName;
+
     public void Start()
     {
-        GlobalReference.GetReference<AudioManager>().PlaySFXOnRepeat(audioClip);
+        AudioManager.Instance.PlayMusic(audioClipName);
     }
 
     void OnDestroy()
     {
-        GlobalReference.GetReference<AudioManager>().StopSFXLoop();
+        AudioManager.Instance.StopMusicSource();
     }
 }

@@ -13,7 +13,6 @@ public class WalkingState : StateBase
         {
             if (playSound)
             {
-                GlobalReference.GetReference<AudioManager>().PlaySFXOnRepeat(GlobalReference.GetReference<AudioManager>().walkingSound);
                 playSound = false;
             }
         }
@@ -59,7 +58,6 @@ public class WalkingState : StateBase
 
     public override void Exit()
     {
-        GlobalReference.GetReference<AudioManager>().StopSFXLoop();
         Player.particleSystemWalk.Stop();
     }
 }

@@ -1,68 +1,46 @@
 using UnityEngine;
-
-public class AudioManager : Reference
+using System;
+public class AudioManager : MonoBehaviour
 {
-
     [Header("Audio Source")]
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource SFXSource;
+    public AudioSource musicSource, sfxSource;
 
-    [Header("Audio Clip")]
-    public AudioClip bradleySweepRVoice;
+    [Header("Audio Sounds")]
+    public Sound[] musicSounds, sfxSounds;
 
-    public AudioClip bradleySweepLVoice;
+    [HideInInspector]
+    public static AudioManager Instance;
 
-    public AudioClip bradleyPoundVoice;
-
-    public AudioClip crumbPickup;
-
-    public AudioClip hitEnemy;
-
-    public AudioClip poundAttackSFX;
-
-    public AudioClip hitCollision;
-
-    public AudioClip bradleyGetsHurt;
-
-    public AudioClip powerUpPickUp;
-
-    public AudioClip healItemPickup;
-
-    public AudioClip dashSfx;
-
-    public AudioClip deathSfx;
-
-    public AudioClip gameOverScreenSFX;
-    public AudioClip calorieSFX;
-
-    public AudioClip enemyThankYousfx;
-
-    public AudioClip walkingSound;
-
-    public void PlaySFX(AudioClip clip)
+    void Awake()
     {
-        if (clip == null) return;
-        SFXSource.PlayOneShot(clip);
-    }
-
-    public void PlaySFXOnRepeat(AudioClip clip)
-    {
-        if (clip == null) return;
-        SFXSource.Stop();
-        SFXSource.clip = clip;
-        SFXSource.loop = true;
-        SFXSource.Play();
-    }
-
-    public void StopSFXLoop()
-    {
-        SFXSource.loop = false;
-        SFXSource.Stop();
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
+        if (Instance != null) Destroy(gameObject);
+        Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void PlayMusic(string name)
+    {
+        Sound s = Array.Find(musicSounds, x => x.name == name);
+        if (s == null) return;
+        musicSource.clip = s.clip;
+        musicSource.Play();
+    }
+
+    public void PlaySFX(string name)
+    {
+        Sound s = Array.Find(sfxSounds, x => x.name == name);
+        if (s == null) return;
+        sfxSource.clip = s.clip;
+        sfxSource.Play();
+    }
+
+    public void StopMusicSource()
+    {
+        Instance.musicSource.Stop();
+    }
+
+    public void StopSFXSource()
+    {
+        Instance.sfxSource.Stop();
     }
 }
