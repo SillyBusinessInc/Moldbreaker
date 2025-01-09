@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 20
   bulletLifeTime: 10
-  bulletDamage: 1
+  bulletDamage: 15
   bulletEnemyDamage: 5
   bulletDirection: {x: 0, y: 0, z: 0}
   attackKnockback: 0
