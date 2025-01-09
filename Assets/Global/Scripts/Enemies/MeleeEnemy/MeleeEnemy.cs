@@ -45,7 +45,7 @@ namespace EnemiesNS
             playerHit = false;
         }
 
-        public override void PlayerHit(PlayerObject playerObject, int damage, Vector3 knockback)
+        public override void PlayerHit(PlayerObject playerObject, float damage, Vector3 knockback)
         {
             if (playerHit) return;
             playerHit = true;

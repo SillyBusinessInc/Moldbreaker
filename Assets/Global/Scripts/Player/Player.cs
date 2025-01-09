@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 // using System.Numerics;
 
@@ -38,7 +39,8 @@ public class Player : MonoBehaviour
     public float maxIdleTime = 20f;
     public float minIdleTime = 5f;
     [SerializeField] private float invulnerabilityTime = 0.5f;
-
+    [SerializeField] private Transform cameraTarget;
+    private Vector3 defaultCameraTarget = Vector3.zero;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -48,6 +50,8 @@ public class Player : MonoBehaviour
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
+    public SkinnedMeshRenderer mr;
+    public SkinnedMeshRenderer tailmr;
     public Transform orientation;
     public ParticleSystem particleSystemJump;
     public ParticleSystem particleSystemDash;
@@ -75,6 +79,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool awaitingNewState = false;
     [HideInInspector] public Coroutine activeCoroutine;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
+    private float currentMoldPercentage = 0;
+
 
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
@@ -110,8 +116,8 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
-
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); 
+        defaultCameraTarget = cameraTarget.localPosition;
     }
 
     void Update()
@@ -123,6 +129,16 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
+        UpdateVisualState();
+    }
+
+    // Setting the height to null will reset the height to default
+    public void setCameraHeight(float? height)
+    {
+        if (height == null)
+            cameraTarget.localPosition = defaultCameraTarget;
+        else
+            cameraTarget.localPosition = new Vector3(0, (float)height, 0);
     }
 
     private void attackingAnimation() => isAttacking = true;
@@ -212,6 +228,7 @@ public class Player : MonoBehaviour
     public void SetState(StateBase newState)
     {
         if (currentState == states.Death) return;
+        if(currentState == states.Attacking && newState == states.Attacking) return;
         // stop active coroutine
         if (activeCoroutine != null)
         {
@@ -261,7 +278,7 @@ public class Player : MonoBehaviour
         if (targetVelocity.magnitude > 0.1f)
         {
             Vector3 direction = Vector3.ProjectOnPlane(targetVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 0.2f));
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
         }
     }
 
@@ -291,10 +308,25 @@ public class Player : MonoBehaviour
         rb.linearVelocity = newVelocity;
     }
 
+    public void UpdateVisualState() 
+    {
+        float strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
+        currentMoldPercentage -= (currentMoldPercentage - strength) * 2 * Time.deltaTime;
+
+        foreach (Material mat in mr.materials) {
+            mat.SetFloat("_MoldStrength", currentMoldPercentage);
+        }
+        foreach (Material mat in tailmr.materials) {
+            mat.SetFloat("_MoldStrength", currentMoldPercentage);
+        }
+    }
+
     // TO BE CHANGED ===============================================================================================================================
     // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
+        if (currentState == states.Death) return;
+        
         if (isInvulnerable) return;
         if(direction != Vector3.zero)
            currentState.Hurt(direction);
@@ -331,6 +363,8 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     private void OnDeath()
     {
+        CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        saveData.LoadAll();
         SetState(states.Death);
     }   
     private IEnumerator DeathScreen()
