@@ -5,18 +5,20 @@ public class DodgeRollState : StateBase
 {
     private float timer;
 
-    public DodgeRollState(Player player) : base(player) {}
+    public DodgeRollState(Player player) : base(player) { }
 
     public override void Enter()
     {
-        // play particleSystem
-        Player.particleSystemDash.Play();
-
         // return if on cooldown
-        if (Time.time < Player.timeLastDodge + Player.playerStatistic.DodgeCooldown.GetValue()) {
+        if (Time.time < Player.timeLastDodge + Player.playerStatistic.DodgeCooldown.GetValue())
+        {
             ExitDodge();
             return;
         }
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().dashSfx);
+        // play particleSystem
+        Player.particleSystemDash.Play();
+        
         Player.timeLastDodge = Time.time;
         Player.playerAnimationsHandler.SetBool("Dodgerolling", true);
 

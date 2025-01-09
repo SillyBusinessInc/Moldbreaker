@@ -8,34 +8,31 @@ public class MoldMeter : MonoBehaviour
     [SerializeField] private TMP_Text MoldPercentageText;
     [SerializeField] private float moldPercentage;
     [SerializeField] private RectTransform MoldMeterImage;
-    private Vector2 PositionMold;
-    private float OriginalPosX;
     private Coroutine moveCoroutine;
     [SerializeField] private float animationDuration = 0.5f; // Duration for smooth movement
-
-    void Awake()
-    {
-        PositionMold = MoldMeterImage.anchoredPosition;
-        OriginalPosX = PositionMold.x;
-    }
+    private float savedMoldPercentage = -1;
 
     void Start()
     {
         player = GlobalReference.GetReference<PlayerReference>().Player;
 
-        UpdateMoldMeter();
         GlobalReference.SubscribeTo(Events.MOLDMETER_CHANGED, UpdateMoldMeter);
     }
+
+    void Update() => UpdateMoldMeter();
 
     public void UpdateMoldMeter()
     {
         moldPercentage = player.playerStatistic.Moldmeter;
+        // if (moldPercentage < 100) moldPercentage += 0.01f;
+        if (savedMoldPercentage == moldPercentage) return;
+        savedMoldPercentage = moldPercentage;
+        
         string decimals = moldPercentage >= 100 || moldPercentage == 0 ? "F0" : "F1";
         MoldPercentageText.text = moldPercentage.ToString(decimals) + '%';
 
-        // when moldmeter is 0%, posX of mold should be -265. so it should move 2.75 per 1%
-        // when moldmeter is 100% the posX is 10
-        float targetPosX = 2.75f * moldPercentage + OriginalPosX;
+        float barWidth = GetComponent<RectTransform>().rect.width;
+        float targetPosX = (1 - moldPercentage / 100) * -1 * barWidth + barWidth * 0.01f;
         Vector2 targetPosition = new(targetPosX, MoldMeterImage.anchoredPosition.y);
 
         // Start smooth movement

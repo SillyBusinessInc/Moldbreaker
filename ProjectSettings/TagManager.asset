@@ -9,6 +9,10 @@ TagManager:
   - PlayerSpawnPoint
   - PlayerPrefeb
   - DoorPrefab
+  - Calories
+  - Crumbs
+  - Platform
+  - Water
   layers:
   - Default
   - TransparentFX

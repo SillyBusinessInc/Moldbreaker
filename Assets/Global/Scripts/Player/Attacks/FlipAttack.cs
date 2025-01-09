@@ -6,11 +6,12 @@ using UnityEngine.InputSystem.Utilities;
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "FlipTail")]
 public class FlipAttack : TailAttack
 {
-    public FlipAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
+    public FlipAttack(string Name, float damage) : base(Name, damage) {}
 
     public override void Start()
     {
         base.Start();
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyPoundVoice);
         player.Tail.slamObject.transform.localScale = new Vector3(3, 1, 3);
         player.Tail.slamObject.transform.localScale *=
             player.Tail.tailStatistic.slamObjectSize.GetValue();
@@ -28,13 +29,11 @@ public class FlipAttack : TailAttack
     public override IEnumerator SetStateIdle()
     {
         yield return new WaitForSeconds(duration / 2);
-        player.Tail.flipCanDoDamage = true;
         player.Tail.slamObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-        player.Tail.flipCanDoDamage = false;
         player.Tail.slamObject.SetActive(false);
         yield return new WaitForSeconds(duration / 2);
-        player.SetState(player.states.Idle);
-        player.Tail.cooldownTime = cooldown;
+        if (player.isGrounded) player.SetState(player.movementInput.magnitude > 0 ? player.states.Walking : player.states.Idle);
+        else player.SetState(player.states.Falling);
     }
 }

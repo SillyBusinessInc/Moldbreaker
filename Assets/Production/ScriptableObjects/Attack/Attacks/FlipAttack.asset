@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: FlipAttack
   m_EditorClassIdentifier: 
   Name: FlipAttack
-  cooldown: 0
   damage: 20
   duration: 1

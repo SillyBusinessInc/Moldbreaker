@@ -20,7 +20,7 @@ public class Tail : MonoBehaviour
     [HideInInspector] public float cooldownTime, activeCooldownTime;
     [HideInInspector] public float activeResetComboTime;
 
-    [HideInInspector] public bool tailCanDoDamage, flipCanDoDamage = false;
+    [HideInInspector] public bool tailCanDoDamage = false;
     
     [HideInInspector] public GameObject slamObject;
     [HideInInspector] public float slamObjectSize = 1.0f;
@@ -53,7 +53,7 @@ public class Tail : MonoBehaviour
             player.collidersEnemy.Contains(Collider)    ||
             Collider.GetComponent<EnemiesNS.EnemyBase>() == null
         ) return;
-
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().hitEnemy);
         player.collidersEnemy.Add(Collider);
         float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));

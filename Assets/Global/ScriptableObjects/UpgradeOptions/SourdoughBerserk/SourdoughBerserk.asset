@@ -21,7 +21,7 @@ MonoBehaviour:
     parameters:
     - AttackDamageMultiplier
     - 2
-    - Modify
+    - Multiply
   - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
     parameters:
     - MaxHealth
