@@ -7,8 +7,8 @@ public class DeathMenu : MonoBehaviour
     public GameObject Menu;
     [HideInInspector]
     public bool isDead = false;
-    [HideInInspector]
     [SerializeField] private Button retry;
+    [SerializeField] private Button quit;
     [SerializeField] private Image fadeImage;
 
 
@@ -17,6 +17,16 @@ public class DeathMenu : MonoBehaviour
         Menu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (PreviousLevel.Instance && PreviousLevel.Instance.prevLevel > 0)
+        {
+            retry.interactable = true;
+        }
+        else
+        {
+            retry.interactable = false;
+            UILogic.SelectButton(quit);
+        }
     }
 
     void Update()
@@ -24,7 +34,6 @@ public class DeathMenu : MonoBehaviour
         if (isDead)
         {
             if (!Menu.activeSelf) Menu.SetActive(true);
-            if (PreviousLevel.Instance && PreviousLevel.Instance.prevLevel > 0) retry.interactable = true;
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
