@@ -11,7 +11,6 @@ public class AnimEventsHandler : MonoBehaviour
         if (!enemy)
         {
             enemy = this.GetComponentInParent<EnemiesNS.EnemyBase>();
-            Debug.Log(enemy, this);
         }
     }
 

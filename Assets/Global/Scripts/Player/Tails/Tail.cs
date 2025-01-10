@@ -58,11 +58,17 @@ public class Tail : MonoBehaviour
         GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().hitEnemy);
         player.collidersEnemy.Add(Collider);
         float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
-
         if (Collider.gameObject.CompareTag("Enemy")) {
             Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
         } else if (Collider.gameObject.CompareTag("MoldOrb")){
             Collider.GetComponent<MoldOrb>().OnHit((int)MathF.Round(actualDamage, 0));
         }
+        
+        // displays feedback message when there's a combo
+        // if (attackIndex == currentTail.currentCombo.Count) {
+        //     player.SetRandomFeedback();
+        // }
+        player.recentHits += 1;
+        if (player.succesfullHitCounter == currentTail.currentCombo.Count - 1) player.SetRandomFeedback();
     }
 }
