@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class UpgradeOptions : Reference
 {
@@ -14,18 +15,22 @@ public class UpgradeOptions : Reference
     private InputActionMap UIActionMap;
 
     public List<ActionParamPair> interactionActions;
+    [SerializeField] private Button confirmButton;
 
-    protected new void Awake() {
+    protected new void Awake()
+    {
         base.Awake();
         gameObject.SetActive(false);
 
         ActionMap = inputActionAsset.actionMaps;
-        foreach (var actionMap in ActionMap) {
-            if (actionMap.name == "UI") {
+        foreach (var actionMap in ActionMap)
+        {
+            if (actionMap.name == "UI")
+            {
                 UIActionMap = actionMap;
             }
         }
-        
+
         DisableUIInput();
     }
 
@@ -34,11 +39,13 @@ public class UpgradeOptions : Reference
     {
         EnableUIInput();
         isShown = true;
+        UILogic.SelectButton(confirmButton);
         SetCursorState(true, CursorLockMode.None);
         Time.timeScale = 0;
         gameObject.SetActive(true);
 
-        if (option != null) {
+        if (option != null)
+        {
             UpgradeOptionLogic.data = option;
             UpgradeOptionLogic.SetData();
         }
@@ -53,48 +60,63 @@ public class UpgradeOptions : Reference
         isShown = false;
         DisableUIInput();
     }
-    
-    void SetCursorState(bool cursorVisible, CursorLockMode lockMode) {
+
+    void SetCursorState(bool cursorVisible, CursorLockMode lockMode)
+    {
         Cursor.visible = cursorVisible;
         Cursor.lockState = lockMode;
     }
 
-    public void Confirm(InputAction.CallbackContext ctx) {
+    public void Confirm(InputAction.CallbackContext ctx)
+    {
         if (!isShown) return;
 
-        if (ctx.started && option != null) {
-            foreach(ActionParamPair action in option.interactionActions) {
+        if (ctx.started && option != null)
+        {
+            foreach (ActionParamPair action in option.interactionActions)
+            {
                 action.InvokeAction();
             }
 
-            foreach(ActionParamPair action in interactionActions) {
+            foreach (ActionParamPair action in interactionActions)
+            {
                 action.InvokeAction();
                 GlobalReference.AttemptInvoke(Events.STATISTIC_CHANGED);
             }
-            
+
             UpgradesUIList.AddUpgrade(option);
         }
         HideOption();
     }
 
-    void EnableUIInput() {
+    void EnableUIInput()
+    {
         // enable UI actionmap and disable all other actionmap
         // to make sure at this moment you can only use the UI actionmap
-        foreach (var actionMap in ActionMap) {
-            if (actionMap.name == "UI") {
+        foreach (var actionMap in ActionMap)
+        {
+            if (actionMap.name == "UI")
+            {
                 UIActionMap.Enable();
-            } else {
+            }
+            else
+            {
                 actionMap.Disable();
             }
         }
     }
 
-    void DisableUIInput() {
+    void DisableUIInput()
+    {
         // disable ui actionmap and enable the rest
-        foreach (var actionMap in ActionMap) {
-            if (actionMap.name == "UI") {
+        foreach (var actionMap in ActionMap)
+        {
+            if (actionMap.name == "UI")
+            {
                 UIActionMap.Disable();
-            } else {
+            }
+            else
+            {
                 actionMap.Enable();
             }
         }
