@@ -12,8 +12,8 @@ public class MenuLogic : MonoBehaviour
     }
     
     public void OnNewRun() => UILogic.FadeToScene("Loading", fadeImage, this);
-    public void OnUpgrades() => UILogic.FadeToScene("Loading", fadeImage, this);
-    public void OnArchive() => UILogic.FadeToScene("Loading", fadeImage, this);
+    public void OnCredits() => UILogic.FadeToScene("Credits", fadeImage, this);
+    public void OnAchievements() => UILogic.FadeToScene("Achievements", fadeImage, this);
     public void OnSettings() => UILogic.FadeToScene("Settings", fadeImage, this);
     public void OnQuit() => confirmation.RequestConfirmation("Are you sure?", "Unsaved progress will be lost if you quit now", () => Application.Quit());
 }
