@@ -48,10 +48,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: af0f5778b5f105c43a53b095206315f2, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 4d097f5a361a27d4bb4bde036836f8d3, type: 2}
     - target: {fileID: 919132149155446097, guid: af0f5778b5f105c43a53b095206315f2, type: 3}
       propertyPath: m_Name
       value: BreakingPlatform 1
@@ -109,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
-  respawnDelay: 5
+  respawnDelay: 4
   canRespawn: 1
   canBreak: 1
 --- !u!95 &4581157778539090186
