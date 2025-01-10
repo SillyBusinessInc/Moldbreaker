@@ -44,7 +44,7 @@ namespace EnemiesNS
             }
 
 
-            AudioManager.Instance.PlaySFX("RangedShot");
+            AudioManager.Instance.PlaySFX("ShotExplosion");
             PlayImpactVFX();
             Destroy(gameObject);
         }

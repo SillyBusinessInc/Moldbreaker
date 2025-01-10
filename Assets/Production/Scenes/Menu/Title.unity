@@ -3059,7 +3059,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.2
+  m_fontSize: 44.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3520,7 +3520,7 @@ MonoBehaviour:
     audioSource: {fileID: 1256512229}
   - name: Level 3
     description: Level 3 background music
-    clip: {fileID: 8300000, guid: a6cedcb4ccd35824d92c8e846e001c91, type: 3}
+    clip: {fileID: 8300000, guid: 4130948901f17aa4f861d33449030afc, type: 3}
     audioSource: {fileID: 1674397298}
   - name: Credits
     description: Credits Music
@@ -3533,15 +3533,15 @@ MonoBehaviour:
   sfxSounds:
   - name: AttackVOX1
     description: Bradley sweep attack 1 voice
-    clip: {fileID: 8300000, guid: 36b2ddbe41b73324584b8e29285f8e66, type: 3}
+    clip: {fileID: 8300000, guid: 0395a15148909ca4f93f868888276df0, type: 3}
     audioSource: {fileID: 528974906}
   - name: AttackVOX2
     description: Bradley sweep attack 2 voice
-    clip: {fileID: 8300000, guid: 96745d16b7eb36740846dea8c6d48533, type: 3}
+    clip: {fileID: 8300000, guid: 71fbd3967f97c4d4887d92d4e768d736, type: 3}
     audioSource: {fileID: 492957503}
   - name: AttackVOX3
     description: Bradley sweep attack 3 voice
-    clip: {fileID: 8300000, guid: 36b2ddbe41b73324584b8e29285f8e66, type: 3}
+    clip: {fileID: 8300000, guid: 53c750c25557cee47bdc5cc810213ea9, type: 3}
     audioSource: {fileID: 190664628}
   - name: CrumbPickup
     description: Pickin up a crumb collectable
@@ -3570,7 +3570,7 @@ MonoBehaviour:
     audioSource: {fileID: 894760668}
   - name: PowerupPickup
     description: When you pick up a Yeast of Power
-    clip: {fileID: 8300000, guid: e2e3b99aa619f5f46b26cab6f5628ca7, type: 3}
+    clip: {fileID: 8300000, guid: 64c2164be47908b4e867f6c38a32f11a, type: 3}
     audioSource: {fileID: 915529540}
   - name: Dash
     description: Dash sound effect
@@ -3578,7 +3578,7 @@ MonoBehaviour:
     audioSource: {fileID: 1826425125}
   - name: CaloriePickup
     description: Pickin up a calorie sound effect
-    clip: {fileID: 8300000, guid: 1ccf54c54a0e4414cbc4dd7af42ca3da, type: 3}
+    clip: {fileID: 8300000, guid: cc73d52aecf31d04eba005b894ff6911, type: 3}
     audioSource: {fileID: 764916792}
   - name: EnemyThx
     description: Sound effect acfter succesfully cleanin an enemy
@@ -3590,7 +3590,7 @@ MonoBehaviour:
     audioSource: {fileID: 29058473}
   - name: RangedShot
     description: Ranged enemy when firing a shot
-    clip: {fileID: 8300000, guid: 48d691074b19a6f4293ba041fbfd7d40, type: 3}
+    clip: {fileID: 8300000, guid: bf93ee4e174e1214ea728800358bd86c, type: 3}
     audioSource: {fileID: 2098697110}
   - name: ShotExplosion
     description: When the enemy bullet explodes
@@ -3598,7 +3598,7 @@ MonoBehaviour:
     audioSource: {fileID: 1777831773}
   - name: PortalSFX
     description: When you go through a portal
-    clip: {fileID: 8300000, guid: 185793fbc9ea1224fb13bd7842745e1d, type: 3}
+    clip: {fileID: 8300000, guid: ea2dfd1f4e10419469c8325209f691a4, type: 3}
     audioSource: {fileID: 1606732076}
   - name: Footstep
     description: Bradley footsteps, maybe find a way to play it quicker and at random
