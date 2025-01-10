@@ -351,7 +351,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.84615386
   m_HasExitTime: 0
@@ -566,7 +566,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.84615386
   m_HasExitTime: 0
@@ -817,7 +817,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -1249,7 +1249,7 @@ AnimatorStateMachine:
     m_Position: {x: 270, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6501918426520798419}
-    m_Position: {x: 450, y: 340, z: 0}
+    m_Position: {x: 540, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5504383599750840940}
     m_Position: {x: 150, y: 500, z: 0}
@@ -1406,7 +1406,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Breadaplus|Bradley_jump_from_ground 0
-  m_Speed: 20
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1389393986276717993}
