@@ -129,12 +129,13 @@ public class Player : MonoBehaviour
     {
         var saveData = new RoomSave();
         saveData.LoadAll();
-        foreach(int i in saveData.Get<List<int>>("finishedLevels"))
+        var list = saveData.Get<List<int>>("finishedLevels");
+        for (var i = 0; i < upgrades.Count; i++)
         {
-            if (upgrades.Count >= i && i > 0)
+            if (list.Contains(i + 1))
             {
-                upgrades[i-1].interactionActions.ForEach(action => action.InvokeAction());
-            }    
+                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());   
+            }
         }
     }
     
