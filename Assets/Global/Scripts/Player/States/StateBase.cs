@@ -58,7 +58,7 @@ public abstract class StateBase
 
     public virtual void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.performed)
         {
             if (Player.isGrounded)
             {
@@ -69,7 +69,9 @@ public abstract class StateBase
             {
                 Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
             }
-
+        }
+        if (ctx.started)
+        {
             Player.isHoldingJump = true;
             Player.SetState(Player.states.Jumping);
         }
