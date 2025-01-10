@@ -1,6 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 public class AttackingState : StateBase
 {
     public AttackingState(Player player) : base(player) { }
@@ -18,7 +18,8 @@ public class AttackingState : StateBase
         var tail = Player.Tail.currentTail;
         if (Player.AirComboDone || !(Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime) || tail.currentCombo.Count == 0)
         {
-            Player.SetState(Player.states.Falling);
+            if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
+            else Player.SetState(Player.states.Falling);
             return;
         }
         Player.targetVelocity *= 0;
@@ -30,6 +31,11 @@ public class AttackingState : StateBase
         currentCombo.Start();
         Player.StartCoroutine(currentCombo.SetStateIdle());
         IncreaseIndex();
+
+        if (Player.recentHits > 0) Player.succesfullHitCounter += 1;
+        else Player.succesfullHitCounter = 0;
+        Debug.Log($"recent: {Player.recentHits}, succesfull: {Player.succesfullHitCounter}");
+        Player.recentHits = 0;
     }
 
     public override void Exit()

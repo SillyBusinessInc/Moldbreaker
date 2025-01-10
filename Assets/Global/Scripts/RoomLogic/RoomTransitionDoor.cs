@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,7 +22,6 @@ public class RoomTransitionDoor : Interactable
     private DoorManager doorManager;
 
     private string currentScenename;
-
     private void Awake()
     {
         IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
@@ -54,6 +54,9 @@ public class RoomTransitionDoor : Interactable
         if (nextLevel != null) nextLevel.unlocked = true;
         
         StartCoroutine(LoadNextRoom());
+        Player p = GlobalReference.GetReference<PlayerReference>().Player;
+        p.setCameraHeight(null); // height reset to default
+        p.Heal(p.playerStatistic.MaxHealth.GetValue());
     }
 
     private IEnumerator LoadNextRoom()
@@ -64,6 +67,36 @@ public class RoomTransitionDoor : Interactable
 
     public IEnumerator LoadRoomCoroutine()
     {
+        var player = GlobalReference.GetReference<PlayerReference>().Player;
+
+        CollectableSave saveData = new CollectableSave(GetNonBaseSceneName("BaseScene"));
+        saveData.LoadAll();
+        List<string> calories = saveData.Get<List<string>>("calories");
+        if (saveData.Get<int>("crumbs") < player.playerStatistic.Crumbs)
+        {
+            saveData.Set("crumbs", player.playerStatistic.Crumbs);
+        }
+        
+        foreach (var secret in player.playerStatistic.Calories)
+        {
+            calories.Add(secret);
+        }
+        saveData.Set("calories", calories);
+        saveData.SaveAll();
+        
+        //to reset everything that was picked up
+        player.playerStatistic.CaloriesCount = 0;
+        player.playerStatistic.CrumbsCount = 0;
+        player.playerStatistic.Calories.Clear();
+        player.playerStatistic.Crumbs = 0;
+
+        RoomSave saveRoomData = new RoomSave();
+        saveRoomData.LoadAll();
+        List<int> finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
+        finishedLevels.Add(nextRoomId);
+        saveRoomData.Set("finishedLevels", finishedLevels);
+        saveRoomData.SaveAll();
+
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
@@ -75,6 +108,10 @@ public class RoomTransitionDoor : Interactable
         }
         
         Debug.Log($"next: {nextRoomName}, nextId: {nextRoomId}, nextIndex: {nextRoomIndex}");
+        saveData = new CollectableSave(nextRoomName);
+        saveData.LoadAll();
+        player.playerStatistic.caloriesCountExtra = saveData.Get<List<string>>("calories").Count;
+        player.playerStatistic.CaloriesCollected = saveData.Get<List<string>>("calories");
         SceneManager.LoadScene(nextRoomName, LoadSceneMode.Additive);
 
         var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
@@ -101,14 +138,15 @@ public class RoomTransitionDoor : Interactable
         {
             yield return null;
         }
-
         Scene newScene = SceneManager.GetSceneByName(nextRoomName);
         SceneManager.SetActiveScene(newScene);
     }
 
     public override void OnDisableInteraction()
     {
-
+        portalEffect?.SetActive(false);
+        // TODO: implement closing animations
+        //  Not a problem though, since this method only gets called when using cheats
     }
 
     public override void OnEnableInteraction()
@@ -125,7 +163,14 @@ public class RoomTransitionDoor : Interactable
         animator.SetTrigger("TriggerDoorRight");
     }
 
-    [ContextMenu("Unlock Door")] void UnlockDoorTest() => IsDisabled = false;
+    private string GetNonBaseSceneName(string baseSceneName)
+    {
+        return Enumerable.Range(0, SceneManager.sceneCount)
+            .Select(i => SceneManager.GetSceneAt(i))
+            .FirstOrDefault(scene => scene.name != baseSceneName && scene.isLoaded).name ?? baseSceneName;
+    }
+
+    [ContextMenu("Unlock Door")]public void UnlockDoor() => IsDisabled = false;
     [ContextMenu("Lock Door")] void LockDoorTest() => IsDisabled = true;
     [ContextMenu("Open Door")] void OpenDoorTest() => OpenDoorAnimation();
     [ContextMenu("Invoke room finish event")] void InvoteRoomFinishedEvent() => GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
