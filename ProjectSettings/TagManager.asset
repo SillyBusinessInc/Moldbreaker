@@ -13,6 +13,7 @@ TagManager:
   - Crumbs
   - Platform
   - Water
+  - MoldOrb
   layers:
   - Default
   - TransparentFX

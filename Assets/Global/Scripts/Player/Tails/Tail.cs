@@ -48,14 +48,21 @@ public class Tail : MonoBehaviour
 
     public void OnTriggerEnter(Collider Collider)
     {
-        if (!Collider.gameObject.CompareTag("Enemy")    ||
+
+        if ((!Collider.gameObject.CompareTag("Enemy") && !Collider.gameObject.CompareTag("MoldOrb") ) ||
             !tailCanDoDamage                            ||
             player.collidersEnemy.Contains(Collider)    ||
-            Collider.GetComponent<EnemiesNS.EnemyBase>() == null
+            (Collider.GetComponent<EnemiesNS.EnemyBase>() == null && Collider.GetComponent<MoldOrb>() == null)
         ) return;
+
         GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().hitEnemy);
         player.collidersEnemy.Add(Collider);
         float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
-        Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+
+        if (Collider.gameObject.CompareTag("Enemy")) {
+            Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+        } else if (Collider.gameObject.CompareTag("MoldOrb")){
+            Collider.GetComponent<MoldOrb>().OnHit((int)MathF.Round(actualDamage, 0));
+        }
     }
 }

@@ -123,7 +123,6 @@ public class SettingsLogic : MonoBehaviour
                 break;
         } 
         GlobalReference.Settings.Set("screen_mode", mode);
-        Debug.Log("ScreenMode : " + Screen.fullScreenMode);
     }
 
 }
