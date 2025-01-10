@@ -379,4 +379,9 @@ public class Player : MonoBehaviour
         yield return new WaitForSecondsRealtime(time);
         isKnockedBack = false;
     }
+
+    public void SetRandomFeedback() {
+        FeedbackManager f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
+        f.SetRandomFeedback();
+    }
 }
