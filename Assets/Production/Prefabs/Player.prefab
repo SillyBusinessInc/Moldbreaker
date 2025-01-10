@@ -11010,6 +11010,7 @@ GameObject:
   - component: {fileID: 913855979342199368}
   - component: {fileID: 6253513301652981227}
   - component: {fileID: 7402443161671379184}
+  - component: {fileID: 6830046294754872340}
   m_Layer: 0
   m_Name: FeedbackSprite
   m_TagString: Untagged
@@ -11099,6 +11100,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &6830046294754872340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020379804940499854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a05f99259c41c478c4f384a4abbf7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 9011818481302874963}
 --- !u!1 &6926886560290022610
 GameObject:
   m_ObjectHideFlags: 0
