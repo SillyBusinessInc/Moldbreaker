@@ -382,7 +382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 23
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_ActionEvents.Array.data[21].m_ActionId
@@ -390,7 +390,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_ActionEvents.Array.data[22].m_ActionId
-      value: d5af2835-1bce-424e-9269-e340e85d01b9
+      value: 8feac20d-8d8e-46f5-a104-b8e6d75d705f
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionId
+      value: 3ce13c19-93a1-47ae-a48a-8d3059f61cfc
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[24].m_ActionId
+      value: 7bff5164-5403-4e5f-943c-b30727845dd8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[25].m_ActionId
+      value: 2f11c148-cf54-462e-a475-d53f39b1be1c
       objectReference: {fileID: 0}
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_ActionEvents.Array.data[21].m_ActionName
@@ -398,10 +410,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_ActionEvents.Array.data[22].m_ActionName
-      value: 'UI/Pause[/Keyboard/escape,/DualSenseGamepadHID/start]'
+      value: 'Player/LeftKey[/Keyboard/leftArrow,/DualSenseGamepadHID/dpad/left]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionName
+      value: 'Player/RightKey[/Keyboard/rightArrow,/DualSenseGamepadHID/dpad/right]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[24].m_ActionName
+      value: 'Player/DownKey[/Keyboard/downArrow,/DualSenseGamepadHID/dpad/down]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[25].m_ActionName
+      value: 'Player/UpKey[/Keyboard/upArrow,/DualSenseGamepadHID/dpad/up]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[25].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
@@ -417,6 +453,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 47187331}
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnPause
       objectReference: {fileID: 0}
@@ -427,6 +467,10 @@ PrefabInstance:
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PauseLogic, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.x
