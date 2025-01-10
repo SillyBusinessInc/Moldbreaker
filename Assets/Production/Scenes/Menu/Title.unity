@@ -3524,7 +3524,7 @@ MonoBehaviour:
     audioSource: {fileID: 1674397298}
   - name: Credits
     description: Credits Music
-    clip: {fileID: 8300000, guid: b5e07f7cfd75a9746a5433ed5e2efb84, type: 3}
+    clip: {fileID: 8300000, guid: a1fc0127ee079194f84b2a9d49781a36, type: 3}
     audioSource: {fileID: 1086897175}
   - name: Hub
     description: Hub world music
