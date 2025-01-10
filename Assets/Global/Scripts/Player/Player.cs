@@ -79,6 +79,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool awaitingNewState = false;
     [HideInInspector] public Coroutine activeCoroutine;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
+    [HideInInspector] public int recentHits = 0;
+    [HideInInspector] public int succesfullHitCounter = 0;
     private float currentMoldPercentage = 0;
 
 
@@ -384,5 +386,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(time);
         isKnockedBack = false;
+    }
+
+    public void SetRandomFeedback() {
+        succesfullHitCounter = 0;
+        FeedbackManager f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
+        f.SetRandomFeedback();
     }
 }
