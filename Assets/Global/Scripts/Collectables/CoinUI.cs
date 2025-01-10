@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEditor.SearchService;
 using System.Linq;
 
 public class CoinUI : MonoBehaviour
