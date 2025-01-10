@@ -8,18 +8,18 @@ public enum Events
     ROOM_FINISHED = 1,
     DROP_TREASURE_EVENT = 2,
     #endregion
-    
+
     #region enemy
     ENEMY_KILLED = 3,
     ENEMY_SPAWNED = 4,
     #endregion
-    
+
     #region waves
     ALL_ENEMIES_DEAD = 5,
     NORMAL_WAVE_DONE = 6,
     NORMAL_WAVE_START = 7,
     SPAWN_WAVE = 8,
-    ALL_WAVES_DONE =9,
+    ALL_WAVES_DONE = 9,
     MOLD_CORE_SPAWNED = 10,
     MOLD_CORE_KILLED = 11,
     NEXT_SPAWNER = 12,
@@ -33,7 +33,7 @@ public enum Events
     STATISTIC_CHANGED = 16,
     MOLDMETER_CHANGED = 17,
     #endregion
-    
+
     // player attacks
     #region player attack
     PLAYER_ATTACK_STARTED = 18,
@@ -42,6 +42,11 @@ public enum Events
     #region enemy attack
     ENEMY_ATTACK_STARTED = 20,
     ENEMY_ATTACK_ENDED = 21,
-    ENEMY_TO_IDLE = 22
+    ENEMY_TO_IDLE = 22,
     #endregion
+
+    //player death
+    PLAYER_DIED = 23,
+    
+    LEVELS_CHANGED = 24
 }

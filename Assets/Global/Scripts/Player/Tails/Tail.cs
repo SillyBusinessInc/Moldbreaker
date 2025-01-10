@@ -57,5 +57,12 @@ public class Tail : MonoBehaviour
         player.collidersEnemy.Add(Collider);
         float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+
+        // displays feedback message when there's a combo
+        // if (attackIndex == currentTail.currentCombo.Count) {
+        //     player.SetRandomFeedback();
+        // }
+        player.recentHits += 1;
+        if (player.succesfullHitCounter == currentTail.currentCombo.Count - 1) player.SetRandomFeedback();
     }
 }
