@@ -5065,6 +5065,9 @@ MonoBehaviour:
       baseValue: 0
     CanDodge:
       baseValue: 0
+  upgrades:
+  - {fileID: 11400000, guid: 37c239daaa4a944408899fd811d24177, type: 2}
+  - {fileID: 11400000, guid: 2855e6aa5f71e6c4cbe803f709d2daf7, type: 2}
   Tail: {fileID: 2433743845863343982}
   rb: {fileID: 8218035431276073872}
   mr: {fileID: 3837724208687949841}
@@ -5092,6 +5095,8 @@ MonoBehaviour:
   currentWalkingPenalty: 1
   awaitingNewState: 0
   maxWalkingPenalty: 0.5
+  recentHits: 0
+  succesfullHitCounter: 0
   isGrounded: 1
   debug_currentStateName: IdleState
   isKnockedBack: 0

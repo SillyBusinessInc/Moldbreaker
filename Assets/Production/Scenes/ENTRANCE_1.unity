@@ -2633,8 +2633,16 @@ PrefabInstance:
       value: GateWithUI (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: nextRoomId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: nextRoomType
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: enableOnRoomFinish
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: maxCrumbs
@@ -3154,12 +3162,20 @@ PrefabInstance:
       value: GateWithUI
       objectReference: {fileID: 0}
     - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: nextRoomId
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: nextRoomType
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: nextRoomIndex
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: enableOnRoomFinish
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: levelName
@@ -3505,12 +3521,20 @@ PrefabInstance:
       value: GateWithUI (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: nextRoomId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: nextRoomType
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: nextRoomIndex
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: enableOnRoomFinish
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: levelName
