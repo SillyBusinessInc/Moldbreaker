@@ -84,6 +84,7 @@ public class PauseLogic : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            handler.EnableInput("UI");
         }
         else
         {
@@ -91,16 +92,13 @@ public class PauseLogic : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                handler.EnableInput("UI");
-                handler.DisableInput("Player");
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                handler.DisableInput("UI");
-                handler.EnableInput("Player");
             }
+            handler.DisableInput("UI");
         }
     }
 }

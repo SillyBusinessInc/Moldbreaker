@@ -4,12 +4,15 @@ public class UIInputHandler : MonoBehaviour
 {
     public InputActionAsset inputActionAsset;
     private UnityEngine.InputSystem.Utilities.ReadOnlyArray<InputActionMap> ActionMap;
-    private InputActionMap UIActionMap;
     [SerializeField] private UpgradeOptions upgradeOptions;
 
-    public void OnConfirm(InputAction.CallbackContext ctx)
+    public void Start()
     {
-        upgradeOptions.Confirm(ctx);
+        ActionMap = inputActionAsset.actionMaps;
+    }
+    public void ConfirmUpgrade()
+    {
+        upgradeOptions.Confirm();
     }
     public void EnableInput(string mapName)
     {
@@ -19,11 +22,7 @@ public class UIInputHandler : MonoBehaviour
         {
             if (actionMap.name == mapName)
             {
-                UIActionMap.Enable();
-            }
-            else
-            {
-                actionMap.Disable();
+                actionMap.Enable();
             }
         }
     }
@@ -35,11 +34,7 @@ public class UIInputHandler : MonoBehaviour
         {
             if (actionMap.name == mapName)
             {
-                UIActionMap.Disable();
-            }
-            else
-            {
-                actionMap.Enable();
+                actionMap.Disable();
             }
         }
     }

@@ -10,34 +10,20 @@ public class UpgradeOptions : Reference
     public UpgradeOptionLogic UpgradeOptionLogic;
     [HideInInspector] public bool isShown = false;
 
-    public InputActionAsset inputActionAsset;
-    private UnityEngine.InputSystem.Utilities.ReadOnlyArray<InputActionMap> ActionMap;
-    private InputActionMap UIActionMap;
-
     public List<ActionParamPair> interactionActions;
     [SerializeField] private Button confirmButton;
+    [SerializeField] private UIInputHandler handler;
 
     protected new void Awake()
     {
         base.Awake();
         gameObject.SetActive(false);
-
-        ActionMap = inputActionAsset.actionMaps;
-        foreach (var actionMap in ActionMap)
-        {
-            if (actionMap.name == "UI")
-            {
-                UIActionMap = actionMap;
-            }
-        }
-
-        DisableUIInput();
     }
 
     [ContextMenu("SHOW")]
     public void ShowOption()
     {
-        EnableUIInput();
+        handler.EnableInput("UI");
         isShown = true;
         UILogic.SelectButton(confirmButton);
         SetCursorState(true, CursorLockMode.None);
@@ -58,7 +44,7 @@ public class UpgradeOptions : Reference
         SetCursorState(false, CursorLockMode.Locked);
         gameObject.SetActive(false);
         isShown = false;
-        DisableUIInput();
+        handler.DisableInput("UI");
     }
 
     void SetCursorState(bool cursorVisible, CursorLockMode lockMode)
@@ -67,11 +53,11 @@ public class UpgradeOptions : Reference
         Cursor.lockState = lockMode;
     }
 
-    public void Confirm(InputAction.CallbackContext ctx)
+    public void Confirm()
     {
         if (!isShown) return;
 
-        if (ctx.started && option != null)
+        if (option != null)
         {
             foreach (ActionParamPair action in option.interactionActions)
             {
@@ -87,38 +73,5 @@ public class UpgradeOptions : Reference
             UpgradesUIList.AddUpgrade(option);
         }
         HideOption();
-    }
-
-    void EnableUIInput()
-    {
-        // enable UI actionmap and disable all other actionmap
-        // to make sure at this moment you can only use the UI actionmap
-        foreach (var actionMap in ActionMap)
-        {
-            if (actionMap.name == "UI")
-            {
-                UIActionMap.Enable();
-            }
-            else
-            {
-                actionMap.Disable();
-            }
-        }
-    }
-
-    void DisableUIInput()
-    {
-        // disable ui actionmap and enable the rest
-        foreach (var actionMap in ActionMap)
-        {
-            if (actionMap.name == "UI")
-            {
-                UIActionMap.Disable();
-            }
-            else
-            {
-                actionMap.Enable();
-            }
-        }
     }
 }
