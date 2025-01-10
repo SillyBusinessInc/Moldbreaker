@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7554253879679531208
+--- !u!1001 &7494329871371889105
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -22,31 +22,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 241.24
+      value: 11.07283
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.04
+      value: -104.65011
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 156.76
+      value: -76.45163
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.50000006
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.49999994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dbc4e4fceb9f95141873937a162e9ebe, type: 3}
       propertyPath: m_Name
-      value: ChocoWafer
+      value: ChocoWafer (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
