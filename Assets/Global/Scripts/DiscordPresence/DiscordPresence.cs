@@ -29,7 +29,7 @@ public class DiscordPresence : MonoBehaviour
         InitializeDiscord();
         sessionStartTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds(); 
         UpdatePresence();
-        lastSceneName = SceneManager.GetActiveScene().name; 
+        lastSceneName = GetCurrentSceneName(); 
     }
 
     private void InitializeDiscord()
@@ -41,24 +41,43 @@ public class DiscordPresence : MonoBehaviour
 
     public void UpdatePresence()
     {
-        string currentScene = SceneManager.GetActiveScene().name;
+        string currentScene = GetCurrentSceneName();
         string details;
+        string largeImageKey = "game_icon"; // Default image key
 
-        // Update presence details based on the current scene
+        // Update presence details and image based on the current scene
         switch (currentScene)
         {
             case "Menu":
             case "Title":
             case "Loading":
                 details = "Browsing the menus";
+                largeImageKey = "game_icon"; // Default image key
+                break;
+                
+            case "Death":
+                details = "Game Over..";
+                largeImageKey = "game_icon"; // Default image key
                 break;
 
-            case "BaseScene":
-                details = "In a run!";
+            case "ENTRANCE_1":
+                details = "Chillin' in the hub!";
+                largeImageKey = "entrance"; // Use an appropriate image key
                 break;
 
-           case "Death":
-                details = "Failed a run..";
+            case "PARKOUR_1":
+                details = "Level 1";
+                largeImageKey = "parkour_1"; // Use an appropriate image key
+                break;
+
+            case "PARKOUR_2":
+                details = "Level 2";
+                largeImageKey = "parkour_2"; // Use an appropriate image key
+                break;
+
+            case "PARKOUR_3":
+                details = "Level 3";
+                largeImageKey = "parkour_3"; // Use an appropriate image key
                 break;
 
             default: // Unknown state
@@ -75,7 +94,7 @@ public class DiscordPresence : MonoBehaviour
             },
             Assets =
             {
-                LargeImage = "game_icon",
+                LargeImage = largeImageKey,
                 LargeText = "Moldbreaker: Rise of the Loaf"
             }
         };
@@ -98,12 +117,28 @@ public class DiscordPresence : MonoBehaviour
         discord.RunCallbacks();
 
         // Update presence if the scene changes
-        string currentScene = SceneManager.GetActiveScene().name;
+        string currentScene = GetCurrentSceneName();
         if (currentScene != lastSceneName)
         {
             lastSceneName = currentScene;
             UpdatePresence();
         }
+    }
+
+    private string GetCurrentSceneName()
+    {
+        // Loop through all loaded scenes and return the most specific one
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.isLoaded && scene.name != "BaseScene" && scene.name != "DontDestroyOnLoad")
+            {
+                return scene.name;
+            }
+        }
+
+        // Default to active scene if no specific match
+        return SceneManager.GetActiveScene().name;
     }
 
     private void OnApplicationQuit()
