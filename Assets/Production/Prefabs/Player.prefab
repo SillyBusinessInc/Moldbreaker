@@ -5329,16 +5329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d0b31fc8bf71a46a80a40882db9968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowKeysAction:
-    m_Name: Arrow Keys
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: a108f05e-d2c1-4d48-a245-2dd4d715cac7
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  maxComboTime: 2
+  maxComboTime: 4
 --- !u!1 &773626285719660731
 GameObject:
   m_ObjectHideFlags: 0
