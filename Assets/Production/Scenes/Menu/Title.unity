@@ -3059,7 +3059,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52.2
+  m_fontSize: 26.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3553,12 +3553,12 @@ MonoBehaviour:
     audioSource: {fileID: 188818599}
   - name: Hit1
     description: When your attack collides with an enemy
-    clip: {fileID: 8300000, guid: ca47af826d8314447a38e45fd746da0f, type: 3}
+    clip: {fileID: 8300000, guid: c39dc3aea8c7f0e429570cd2dfd8fe3f, type: 3}
     audioSource: {fileID: 431092593}
   - name: Hit2
     description: When your attack collides with an enemy 2nd variant, so its not
       the exact same sound every time
-    clip: {fileID: 8300000, guid: b88dbcbe519a863498e2cfcd9f8c0f78, type: 3}
+    clip: {fileID: 8300000, guid: a78c2bf73ee35e44aaa003ab17b292f5, type: 3}
     audioSource: {fileID: 560092112}
   - name: Hit3
     description: Final attack in combo chain
@@ -3570,7 +3570,7 @@ MonoBehaviour:
     audioSource: {fileID: 894760668}
   - name: PowerupPickup
     description: When you pick up a Yeast of Power
-    clip: {fileID: 8300000, guid: 64c2164be47908b4e867f6c38a32f11a, type: 3}
+    clip: {fileID: 8300000, guid: e2e3b99aa619f5f46b26cab6f5628ca7, type: 3}
     audioSource: {fileID: 915529540}
   - name: Dash
     description: Dash sound effect
@@ -3578,7 +3578,7 @@ MonoBehaviour:
     audioSource: {fileID: 1826425125}
   - name: CaloriePickup
     description: Pickin up a calorie sound effect
-    clip: {fileID: 8300000, guid: 777fd02f852693f4cb8f9924e7e7fa2b, type: 3}
+    clip: {fileID: 8300000, guid: 1ccf54c54a0e4414cbc4dd7af42ca3da, type: 3}
     audioSource: {fileID: 764916792}
   - name: EnemyThx
     description: Sound effect acfter succesfully cleanin an enemy
