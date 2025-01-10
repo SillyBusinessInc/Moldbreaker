@@ -5146,8 +5146,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 77982a50e99019043a16cff357215465, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6684295394808222897, guid: 77982a50e99019043a16cff357215465, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d62bff3273469045b8e9c04e9d96f72, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5255,6 +5259,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f994444d57c2b304595f310b1abfbede, type: 3}
       propertyPath: m_Name
       value: enemy_toast_ranged_anim
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f994444d57c2b304595f310b1abfbede, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6684295394808222897, guid: f994444d57c2b304595f310b1abfbede, type: 3}
       propertyPath: m_Enabled
