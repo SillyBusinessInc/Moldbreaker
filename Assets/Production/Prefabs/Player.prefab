@@ -11089,8 +11089,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c781280529a941843869e0bcac7d65e0, type: 3}
   - {fileID: 21300000, guid: 1a1354fb119e50646b3ad4bdcd96fc56, type: 3}
   - {fileID: 21300000, guid: 7d314e471b27d754dba0655a81a78093, type: 3}
-  cam: {fileID: 8661837782861090297}
-  camShaking: {fileID: 2562900229708890194}
+  cam: {fileID: 2562900229708890194}
   feedbackGameObject: {fileID: 2231020860686582798}
   linesObject: {fileID: 1146797303924416796}
 --- !u!1 &7790592947966091340

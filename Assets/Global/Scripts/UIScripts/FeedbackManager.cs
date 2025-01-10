@@ -10,14 +10,12 @@ public class FeedbackManager : MonoBehaviour
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private List<Sprite> feedbackSprites;
     [SerializeField] private Transform cam;
-    [SerializeField] private Transform camShaking;
     [SerializeField] private GameObject feedbackGameObject;
     [SerializeField] private Image linesObject;
 
     private SpriteRenderer feedbackSpriteRenderer;
     private Vector3 originalScale;
     private Transform player;
-    private bool isFeedbackActive = false;
 
     void Start()
     {
@@ -25,7 +23,8 @@ public class FeedbackManager : MonoBehaviour
         originalScale = feedbackGameObject.transform.localScale;
         player = GlobalReference.GetReference<PlayerReference>().PlayerObj.transform;
     }
-    void FixedUpdate()
+
+    void LateUpdate()
     {
         Vector3 leftPosition = player.position - player.right * 2f;
         leftPosition.y = player.position.y + 1.41f;
@@ -36,14 +35,13 @@ public class FeedbackManager : MonoBehaviour
     public void SetRandomFeedback() {
         if (feedbackSprites.Count > 0) {
             int randomNumber = Random.Range(0, feedbackSprites.Count);
+            feedbackGameObject.transform.localScale = Vector3.zero;
             feedbackSpriteRenderer.sprite = feedbackSprites[randomNumber];
-            isFeedbackActive = true;
             StartCoroutine(FeedbackAppears());
         }
     }
 
     IEnumerator FeedbackAppears() {
-        yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(LinesAppear());
         yield return StartCoroutine(Appear());
         yield return StartCoroutine(Shaking());
@@ -51,20 +49,17 @@ public class FeedbackManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(Disappear());
         yield return StartCoroutine(LinesDisappear());
-        isFeedbackActive = false;
     }
 
     // makes lines appear
     IEnumerator LinesAppear() {
-        if (!isFeedbackActive) yield break;
-
-        linesObject.rectTransform.localScale = new Vector3(100, 1, 1);
+        Vector3 initialScale = new(100, 1, 1);
         float elapsedTime = 0f;
         float time = 0.2f;
 
         while (elapsedTime < time) {
             elapsedTime += Time.deltaTime;
-            linesObject.rectTransform.localScale = Vector3.Lerp(new Vector3(100, 1, 0), Vector3.one, elapsedTime / time);
+            linesObject.rectTransform.localScale = Vector3.Lerp(initialScale, Vector3.one, elapsedTime / time);
             yield return null;
         }
 
@@ -73,15 +68,12 @@ public class FeedbackManager : MonoBehaviour
 
     // makes feedback appear
     IEnumerator Appear() {
-        if (!isFeedbackActive) yield break;
-
-        Vector3 initialScale = Vector3.zero;
         float elapsedTime = 0f;
         float time = 0.3f;
 
         while (elapsedTime < time) {
             elapsedTime += Time.deltaTime;
-            feedbackGameObject.transform.localScale = Vector3.Lerp(initialScale, originalScale, elapsedTime / time);
+            feedbackGameObject.transform.localScale = Vector3.Lerp(Vector3.zero, originalScale, elapsedTime / time);
             yield return null;
         }
 
@@ -91,8 +83,6 @@ public class FeedbackManager : MonoBehaviour
 
     // makes lines disappear
     IEnumerator LinesDisappear() {
-        if (!isFeedbackActive) yield break;
-
         float elapsedTime = 0f;
         float time = 0.2f;
 
@@ -107,8 +97,6 @@ public class FeedbackManager : MonoBehaviour
 
     // makes feedback disappear
     IEnumerator Disappear() {
-        if (!isFeedbackActive) yield break;
-
         Vector3 initialScale = originalScale;
         float elapsedTime = 0f;
         float time = 0.3f;
@@ -123,15 +111,15 @@ public class FeedbackManager : MonoBehaviour
     }
 
     IEnumerator Shaking() {
-        Vector3 startPosition = camShaking.transform.localPosition;
+        Vector3 startPosition = cam.transform.localPosition;
         float elapsedTime = 0f;
         while (elapsedTime < shakeDuration) {
             elapsedTime += Time.deltaTime;
             float strength = curve.Evaluate(elapsedTime / shakeDuration) * shakeStrength;
-            camShaking.transform.localPosition = startPosition + Random.insideUnitSphere * strength;
+            cam.transform.localPosition = startPosition + Random.insideUnitSphere * strength;
             yield return null;
         }
 
-        camShaking.transform.localPosition = new Vector3(0, 1, 0);
+        cam.transform.localPosition = new Vector3(0, 1, 0);
     }
 }
