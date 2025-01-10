@@ -142,7 +142,9 @@ public class RoomTransitionDoor : Interactable
 
     public override void OnDisableInteraction()
     {
-
+        portalEffect?.SetActive(false);
+        // TODO: implement closing animations
+        //  Not a problem though, since this method only gets called when using cheats
     }
 
     public override void OnEnableInteraction()
