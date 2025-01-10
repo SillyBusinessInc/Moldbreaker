@@ -4906,6 +4906,7 @@ GameObject:
   - component: {fileID: 1671110380266321935}
   - component: {fileID: 26064138549086305}
   - component: {fileID: 6041751897651240447}
+  - component: {fileID: 4808263581202097973}
   m_Layer: 7
   m_Name: Player
   m_TagString: PlayerPrefeb
@@ -5239,6 +5240,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 240a80f8-ed49-4386-a66d-6815dc6de553
     m_ActionName: 'UI/Confirm[/Keyboard/space,/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8feac20d-8d8e-46f5-a104-b8e6d75d705f
+    m_ActionName: 'Player/LeftKey[/Keyboard/leftArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3ce13c19-93a1-47ae-a48a-8d3059f61cfc
+    m_ActionName: 'Player/RightKey[/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7bff5164-5403-4e5f-943c-b30727845dd8
+    m_ActionName: 'Player/DownKey[/Keyboard/downArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2f11c148-cf54-462e-a475-d53f39b1be1c
+    m_ActionName: 'Player/UpKey[/Keyboard/upArrow]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5300,6 +5317,19 @@ MonoBehaviour:
   slideForceMultiplier: 10
   maxUpwardsForce: 0.1
   minForwardsForce: 0.6
+--- !u!114 &4808263581202097973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637936633501757367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d0b31fc8bf71a46a80a40882db9968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxComboTime: 4
 --- !u!1 &773626285719660731
 GameObject:
   m_ObjectHideFlags: 0
