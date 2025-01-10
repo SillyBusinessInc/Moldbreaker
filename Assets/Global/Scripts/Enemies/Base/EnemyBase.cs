@@ -240,6 +240,7 @@ namespace EnemiesNS
         {
             HealthBarDestroy = true;
             ChangeState(states.Dead);
+            agent.isStopped = true;
             SetCelebrateModel(true);
         }
 
@@ -370,7 +371,7 @@ namespace EnemiesNS
             targetMoldPercentage = 0;
             // if (animator) animator.SetBool("Idle", true);
             currentMoldPercentage = 0;
-
+            
             GetComponentInChildren<Collider>().enabled = false;
 
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
