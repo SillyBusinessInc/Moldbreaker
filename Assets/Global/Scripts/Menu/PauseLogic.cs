@@ -31,8 +31,13 @@ public class PauseLogic : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         } else {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            if (YoP.activeSelf) {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            } else{
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
 
     }
