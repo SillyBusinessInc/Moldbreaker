@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,7 +15,8 @@ public class Loader : MonoBehaviour
     private int currentPhase;
     private int totalPhases;
 
-    void Start() {
+    void Start()
+    {
         loadingBar = transform.GetChild(0).GetComponent<Image>();
         message = transform.GetChild(1).GetComponent<TMP_Text>();
         loadingBar.fillAmount = loadingProgress;
@@ -32,28 +34,32 @@ public class Loader : MonoBehaviour
         StartCoroutine(WaitForPhase());
     }
 
-    void Update() {
-        if (currentPhase >= totalPhases-1) targetLoadingProgress = 100;
-        loadingProgress += (targetLoadingProgress - loadingProgress) * 0.99f * Time.unscaledDeltaTime;;
+    void Update()
+    {
+        if (currentPhase >= totalPhases - 1) targetLoadingProgress = 100;
+        loadingProgress += (targetLoadingProgress - loadingProgress) * 0.99f * Time.unscaledDeltaTime; ;
 
-        loadingBar.fillAmount = Mathf.Clamp(loadingProgress/100f, 0f, 1f);
+        loadingBar.fillAmount = Mathf.Clamp(loadingProgress / 100f, 0f, 1f);
     }
 
-    private void UpdateProgress() {
+    private void UpdateProgress()
+    {
         currentPhase++;
 
-        targetLoadingProgress = 100f / (totalPhases-1) * currentPhase + Random.Range(-10f, 10f);
+        targetLoadingProgress = 100f / (totalPhases - 1) * currentPhase + Random.Range(-10f, 10f);
     }
 
-    private void NextPhase() {
+    private void NextPhase()
+    {
         UpdateProgress();
-        switch (nextPhase) {
+        switch (nextPhase)
+        {
             case Phase.LOADBASE:
                 nextPhase = LoadBaseScene();
                 break;
 
             case Phase.LOADROOM:
-                nextPhase = LoadEntranceRoom();
+                nextPhase = LoadRoom(PreviousLevel.Instance?.prevLevel);
                 break;
 
             case Phase.INITBASE:
@@ -69,12 +75,14 @@ public class Loader : MonoBehaviour
         StartCoroutine(WaitForPhase());
     }
 
-    public IEnumerator WaitForPhase() {
+    public IEnumerator WaitForPhase()
+    {
         yield return new WaitForSecondsRealtime(3);
         NextPhase();
     }
 
-    private enum Phase{
+    private enum Phase
+    {
         NONE,
         LOADBASE,
         LOADROOM,
@@ -83,25 +91,41 @@ public class Loader : MonoBehaviour
     }
 
     // loading logic
-    private Phase LoadBaseScene() {
+    private Phase LoadBaseScene()
+    {
         message.text = "Rising the bread world...";
         SceneManager.LoadScene("BaseScene", LoadSceneMode.Additive);
         return Phase.LOADROOM;
     }
 
-    private Phase LoadEntranceRoom() {
+    private Phase LoadRoom(int? level)
+    {
         message.text = "Baking the bread world...";
-        SceneManager.LoadScene("ENTRANCE_1", LoadSceneMode.Additive);
+
+        if (PreviousLevel.Instance != null && level.HasValue && level.Value > 0)
+        {
+            SceneManager.LoadScene(level.Value, LoadSceneMode.Additive);
+            // reset prevLevel after initiating load of previous level
+            PreviousLevel.Instance.ResetPreviousLevel();
+
+        }
+        else
+        {
+            SceneManager.LoadScene("ENTRANCE_1", LoadSceneMode.Additive);
+        }
+
         return Phase.INITBASE;
     }
 
-    private Phase InitializeBaseScene() {
+    private Phase InitializeBaseScene()
+    {
         message.text = "Eating the bread world...";
         GlobalReference.GetReference<GameManagerReference>().Initialize();
         return Phase.COMPLETE;
     }
 
-    private Phase CompleteLoading() {
+    private Phase CompleteLoading()
+    {
         Time.timeScale = 1;
         SceneManager.UnloadSceneAsync("Loading");
         return Phase.NONE;
