@@ -805,7 +805,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.3
+  m_fontSize: 31.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.55
+  m_fontSize: 58.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1460,7 +1460,8 @@ MonoBehaviour:
   - Did you know?;All loading screen art is concept art made by members of the team!
   - Platypus Fact:;They are adorable!
   - Did you know?;Mold is bad!
-  - Did you know?;Dying is fatal..
+  - Platypus Fact:;Males have venomous spurs on their hind legs that can really sting!
+  - Platypus Fact:;Platypus milk is believed to contain antibacterial properties
   interval: 7
 --- !u!1 &2099454007
 GameObject:
