@@ -24,7 +24,7 @@ public class DeathMenu : MonoBehaviour
         if (isDead)
         {
             if (!Menu.activeSelf) Menu.SetActive(true);
-            if (PreviousLevel.Instance != null && PreviousLevel.Instance.prevLevel > 0) retry.interactable = true;
+            if (PreviousLevel.Instance && PreviousLevel.Instance.prevLevel > 0) retry.interactable = true;
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -42,7 +42,7 @@ public class DeathMenu : MonoBehaviour
         Menu.SetActive(!Menu.activeSelf);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        if (PreviousLevel.Instance != null) UILogic.FadeToScene("Loading", fadeImage, this);
+        if (PreviousLevel.Instance) UILogic.FadeToScene("Loading", fadeImage, this);
     }
 
     public void QuitGame()
@@ -51,6 +51,7 @@ public class DeathMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Menu.SetActive(!Menu.activeSelf);
+        if (PreviousLevel.Instance) PreviousLevel.Instance.ResetPreviousLevel();
 
         SceneManager.LoadScene("Menu");
     }

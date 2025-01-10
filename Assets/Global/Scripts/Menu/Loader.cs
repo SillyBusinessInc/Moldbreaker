@@ -105,6 +105,9 @@ public class Loader : MonoBehaviour
         if (PreviousLevel.Instance != null && level.HasValue && level.Value > 0)
         {
             SceneManager.LoadScene(level.Value, LoadSceneMode.Additive);
+            // reset prevLevel after initiating load of previous level
+            PreviousLevel.Instance.ResetPreviousLevel();
+
         }
         else
         {

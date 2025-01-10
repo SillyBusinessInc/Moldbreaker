@@ -28,4 +28,9 @@ public class PreviousLevel : MonoBehaviour
     {
         prevLevel = SceneManager.GetSceneAt(1).buildIndex; // i hate how not safe this is but yeah [0] = basescene, [1] = level
     }
+
+    public void ResetPreviousLevel()
+    {
+        prevLevel = -1;
+    }
 }
