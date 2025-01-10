@@ -46,5 +46,7 @@ public enum Events
     #endregion
 
     //player death
-    PLAYER_DIED = 23
+    PLAYER_DIED = 23,
+    
+    LEVELS_CHANGED = 24
 }

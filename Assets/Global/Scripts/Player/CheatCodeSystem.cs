@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class CheatCodeSystem : MonoBehaviour
 {
     private PlayerInput playerInput;
-    public float maxComboTime = 2f; // Max time to complete the combo
+    public float maxComboTime = 4f; // Max time to complete the combo
     private float comboTimer;
     private string currentSequence = "";
-    private List<string> cheatCodes = new List<string> { "LULDR", "RLLRD", "UUDLR", "DDRLU", "UDLRRLDD"}; // Example sequences
+    private List<string> cheatCodes = new List<string> { "LULDR", "RLLRD", "UUDLR", "DDRLU", "UDLRRLDD", "DDLRRLDU"}; // Example sequences
 
     private void Awake()
     {
@@ -121,11 +121,36 @@ public class CheatCodeSystem : MonoBehaviour
                 break;
             case "UDLRRLDD":
                 Debug.Log("Cheat activated: UDLRRLDD");
-                Debug.Log("OPENING ALL DOORS TODO");
+                EnableAllLevels();
+                break;
+            case "DDLRRLDU":
+                Debug.Log("Cheat activated: DDLRRLDU");
+                DisableAllLevels();
                 break;
         }
     }
 
+    private void EnableAllLevels()
+    {
+        RoomSave saveRoomData = new();
+        var myList = new List<int>();
+        for (int i = 0; i < 25; i++)
+        {
+            myList.Add(i);
+        }
+        saveRoomData.Set("finishedLevels", myList);
+        saveRoomData.SaveAll();
+        GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED);
+    }
+
+    private void DisableAllLevels()
+    {
+        RoomSave saveRoomData = new();
+        saveRoomData.Set("finishedLevels", new List<int>());
+        saveRoomData.SaveAll();
+        GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED);
+    }
+    
     private void ResetCombo()
     {
         currentSequence = "";

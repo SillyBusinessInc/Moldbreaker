@@ -10,11 +10,20 @@ public class RoomUnlock : MonoBehaviour
     void Start()
     {
         door = GetComponent<RoomTransitionDoor>();
+        LockAndUnLock();
+        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED, LockAndUnLock);
+    }
+
+    private void LockAndUnLock()
+    {
         saveData = new RoomSave();
         saveData.LoadAll();
-        if (saveData.Get<List<int>>("finishedLevels").Contains(door.nextRoomId-1))
+        if (door.nextRoomId == 1)
         {
-            door.UnlockDoor();
+            door.IsDisabled = false;
+            return;
         }
+        
+        door.IsDisabled = !saveData.Get<List<int>>("finishedLevels").Contains(door.nextRoomId - 1);
     }
 }
