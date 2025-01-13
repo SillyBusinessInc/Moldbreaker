@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8681969421037621004}
-  - component: {fileID: 6092943224605568328}
   - component: {fileID: 8755546635335571347}
   - component: {fileID: 3963220967355223277}
   - component: {fileID: 7223914121714937498}
@@ -38,14 +37,6 @@ Transform:
   - {fileID: 6167583075971774246}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6092943224605568328
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 807422766324228492}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!135 &8755546635335571347
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -343,9 +334,17 @@ PrefabInstance:
       value: calories
       objectReference: {fileID: 0}
     - target: {fileID: 1479388916285000175, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479388916285000175, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 993858d5f50e9404aa1b1d7d691a1adc, type: 2}
+    - target: {fileID: 6990844945688383261, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6990844945688383261, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
