@@ -12,7 +12,6 @@ public class Calories : Collectable
     [Range(1, 3)]
     [SerializeField]private int progressionOrder = 1;
     public GameObject fire;
-    public GameObject core;
 
     void Awake()
     {
@@ -31,11 +30,9 @@ public class Calories : Collectable
             collected = true;
             
             // //get the material of the object
-            Material material = core.GetComponent<MeshRenderer>().material;
-            Material material2 = fire.GetComponent<MeshRenderer>().material;
-            // //lower opacity
-            material.color = new Color(material.color.r, material.color.g, material.color.b, 0.5f);
-            material2.color = new Color(material.color.r, material.color.g, material.color.b, 0.5f);
+            Material material = fire.GetComponent<MeshRenderer>().material;
+            material.SetFloat("_Alpha", 0.2f);
+            // material.color = new Color(material.color.r, material.color.g, material.color.b, 0.2f);
         }
     }
 
