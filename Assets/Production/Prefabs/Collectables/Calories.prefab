@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8755546635335571347}
   - component: {fileID: 3963220967355223277}
   - component: {fileID: 7223914121714937498}
+  - component: {fileID: 7531593975488648989}
   m_Layer: 0
   m_Name: Calories
   m_TagString: Calories
@@ -82,8 +83,11 @@ MonoBehaviour:
   pickupSpeed: 0.1
   isLocked: 0
   isStatic: 0
+  caloriesId: 
   collected: 0
   progressionOrder: 1
+  fire: {fileID: 3749221292102693029}
+  core: {fileID: 2957791120897968504}
 --- !u!114 &7223914121714937498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +104,51 @@ MonoBehaviour:
   bobSpeed: 2
   rotationSpeed: 40
   rotationAxis: {x: 0, y: 1, z: 0}
+--- !u!23 &7531593975488648989
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807422766324228492}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5616318936872576039
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,20 +334,42 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1865904516107083672, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
       propertyPath: m_Name
       value: calories
       objectReference: {fileID: 0}
+    - target: {fileID: 1479388916285000175, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 993858d5f50e9404aa1b1d7d691a1adc, type: 2}
     - target: {fileID: 6990844945688383261, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: f9177a5444aa2e943845a1ca7138ef1a, type: 2}
+    - target: {fileID: 8867937338241767861, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
+--- !u!1 &2957791120897968504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8867937338241767861, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
+  m_PrefabInstance: {fileID: 5916904572818772173}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3749221292102693029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1865904516107083672, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
+  m_PrefabInstance: {fileID: 5916904572818772173}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6167583075971774246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c519289d25a0fcc4b95b4a89dd87bebe, type: 3}
