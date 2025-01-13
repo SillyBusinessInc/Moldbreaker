@@ -5007,8 +5007,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.058112144, y: 0.75402254, z: 1.5046117}
-  m_Center: {x: 0, y: -0.40780658, z: 0.14052033}
+  m_Size: {x: 0.9823576, y: 1.2272097, z: 1.7300134}
+  m_Center: {x: -0.030358328, y: -0.34785655, z: 0.11790735}
 --- !u!114 &7061237931352835160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5052,7 +5052,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.1331055, y: 0.5000005, z: 15.442223}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 433072211419871059}
@@ -5094,19 +5094,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea785b13c1970b4eb0394112e163949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
+  health: 80
   maxHealth: 0
   idleTime: 0.5
   idleVariance: 0.5
   idleWaitElapsed: 0
   idleWaitTime: 0
   isIdling: 0
-  roamRange: 15
+  roamRange: 7
   roamingSpeed: 2
   roamingAcceleration: 5
   spawnPos: {x: 0, y: 0, z: 0}
   roamDestination: {x: 0, y: 0, z: 0}
-  chaseRange: 25
+  chaseRange: 40
   chaseSpeed: 2.8
   chaseAcceleration: 5
   minDistanceToPlayer: 2
@@ -5119,7 +5119,7 @@ MonoBehaviour:
   attackCooldown: 2
   attackRecoveryTime: 0.3
   attacksPerCooldown: 1
-  attackDamage: 33.3
+  attackDamage: 25
   facingPlayerVarianceAngle: 5
   attackKnockback: 0
   knockbackStunTime: 0.5

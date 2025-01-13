@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
-
+    [SerializeField] private List<UpgradeOption> upgrades;
     public Tail Tail;
 
     [Header("References")]
@@ -120,8 +120,25 @@ public class Player : MonoBehaviour
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
         defaultCameraTarget = cameraTarget.localPosition;
+        
+        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED,AlreadyRecievedUpgrades );
+        AlreadyRecievedUpgrades();
     }
 
+    private void AlreadyRecievedUpgrades()
+    {
+        var saveData = new RoomSave();
+        saveData.LoadAll();
+        var list = saveData.Get<List<int>>("finishedLevels");
+        for (var i = 0; i < upgrades.Count; i++)
+        {
+            if (list.Contains(i + 1))
+            {
+                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());   
+            }
+        }
+    }
+    
     void Update()
     {
         GroundCheck();

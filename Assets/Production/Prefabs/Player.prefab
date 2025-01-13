@@ -5052,7 +5052,7 @@ MonoBehaviour:
     Speed:
       baseValue: 14
     JumpForce:
-      baseValue: 20
+      baseValue: 12
     MaxHealth:
       baseValue: 100
     AttackSpeedMultiplier:
@@ -5065,6 +5065,9 @@ MonoBehaviour:
       baseValue: 0
     CanDodge:
       baseValue: 0
+  upgrades:
+  - {fileID: 11400000, guid: 37c239daaa4a944408899fd811d24177, type: 2}
+  - {fileID: 11400000, guid: 2855e6aa5f71e6c4cbe803f709d2daf7, type: 2}
   Tail: {fileID: 2433743845863343982}
   rb: {fileID: 8218035431276073872}
   mr: {fileID: 3837724208687949841}
@@ -5092,6 +5095,8 @@ MonoBehaviour:
   currentWalkingPenalty: 1
   awaitingNewState: 0
   maxWalkingPenalty: 0.5
+  recentHits: 0
+  succesfullHitCounter: 0
   isGrounded: 1
   debug_currentStateName: IdleState
   isKnockedBack: 0
@@ -5314,38 +5319,6 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIInputHandler, Assembly-CSharp
-        m_MethodName: OnConfirm
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 240a80f8-ed49-4386-a66d-6815dc6de553
-    m_ActionName: 'UI/Confirm[/Keyboard/space,/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8feac20d-8d8e-46f5-a104-b8e6d75d705f
-    m_ActionName: 'Player/LeftKey[/Keyboard/leftArrow]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3ce13c19-93a1-47ae-a48a-8d3059f61cfc
-    m_ActionName: 'Player/RightKey[/Keyboard/rightArrow]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7bff5164-5403-4e5f-943c-b30727845dd8
-    m_ActionName: 'Player/DownKey[/Keyboard/downArrow]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2f11c148-cf54-462e-a475-d53f39b1be1c
-    m_ActionName: 'Player/UpKey[/Keyboard/upArrow]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseLogic, Assembly-CSharp
         m_MethodName: OnPause
         m_Mode: 0
@@ -5360,21 +5333,21 @@ MonoBehaviour:
     m_ActionId: 580e6c79-c04d-412e-9ecd-465b97d6a3f2
     m_ActionName: 'Player/Pause[/Keyboard/escape,/DualSenseGamepadHID/start]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PauseLogic, Assembly-CSharp
-        m_MethodName: OnPause
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: d5af2835-1bce-424e-9269-e340e85d01b9
-    m_ActionName: 'UI/Pause[/Keyboard/escape,/DualSenseGamepadHID/start]'
+      m_Calls: []
+    m_ActionId: 8feac20d-8d8e-46f5-a104-b8e6d75d705f
+    m_ActionName: 'Player/LeftKey[/Keyboard/leftArrow,/DualSenseGamepadHID/dpad/left]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3ce13c19-93a1-47ae-a48a-8d3059f61cfc
+    m_ActionName: 'Player/RightKey[/Keyboard/rightArrow,/DualSenseGamepadHID/dpad/right]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7bff5164-5403-4e5f-943c-b30727845dd8
+    m_ActionName: 'Player/DownKey[/Keyboard/downArrow,/DualSenseGamepadHID/dpad/down]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2f11c148-cf54-462e-a475-d53f39b1be1c
+    m_ActionName: 'Player/UpKey[/Keyboard/upArrow,/DualSenseGamepadHID/dpad/up]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
