@@ -11,7 +11,6 @@ public class AudioManager : MonoBehaviour
 
     public AudioMixer audioMixer;
     void Awake()
-
     {
         if (Instance != null) Destroy(gameObject);
         Instance = this;
@@ -70,7 +69,6 @@ public class AudioManager : MonoBehaviour
         if (mixerString == "Master")
         {
             audioSettingSave.Set("Master", tempVolume);
-            Debug.LogWarning($"SET: {tempVolume}");
         }
         if (mixerString == "SFX")
         {
@@ -87,14 +85,11 @@ public class AudioManager : MonoBehaviour
     {
         AudioSettingSave audioSettingSave = GlobalReference.AudioSettingSave;
         audioSettingSave.LoadAll();
-        Debug.Log(audioSettingSave.Get<float>(param));
         return audioSettingSave.Get<float>(param);
     }
 
     private void PlaySound(string name, bool repeat, bool music, Vector3? location = null)
     {
-        if (location == null)
-            Debug.Log("this is the location " + location);
 
         Sound s = Array.Find(music ? musicSounds : sfxSounds, x => x.name == name);
         if (s == null) return;
@@ -111,6 +106,7 @@ public class AudioManager : MonoBehaviour
         s.audioSource.clip = s.clip;
         s.audioSource.loop = repeat;
         s.audioSource.Play();
+
     }
 
     private void LoadAllSettings()
