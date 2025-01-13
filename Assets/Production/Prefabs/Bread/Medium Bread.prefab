@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4683669308469848369, guid: dbe14c2cea24f294e9d0d685767d55f0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7f92d12085e2de6478470c58209a066a, type: 2}
     - target: {fileID: 919132149155446097, guid: dbe14c2cea24f294e9d0d685767d55f0, type: 3}
       propertyPath: m_Name
       value: Medium Bread

@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 // using System.Numerics;
 
@@ -43,12 +44,14 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
-
+    [SerializeField] private List<UpgradeOption> upgrades;
     public Tail Tail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
+    public SkinnedMeshRenderer mr;
+    public SkinnedMeshRenderer tailmr;
     public Transform orientation;
     public ParticleSystem particleSystemJump;
     public ParticleSystem particleSystemDash;
@@ -76,6 +79,10 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool awaitingNewState = false;
     [HideInInspector] public Coroutine activeCoroutine;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
+    [HideInInspector] public int recentHits = 0;
+    [HideInInspector] public int succesfullHitCounter = 0;
+    private float currentMoldPercentage = 0;
+
 
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
@@ -113,8 +120,25 @@ public class Player : MonoBehaviour
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
         defaultCameraTarget = cameraTarget.localPosition;
+        
+        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED,AlreadyRecievedUpgrades );
+        AlreadyRecievedUpgrades();
     }
 
+    private void AlreadyRecievedUpgrades()
+    {
+        var saveData = new RoomSave();
+        saveData.LoadAll();
+        var list = saveData.Get<List<int>>("finishedLevels");
+        for (var i = 0; i < upgrades.Count; i++)
+        {
+            if (list.Contains(i + 1))
+            {
+                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());   
+            }
+        }
+    }
+    
     void Update()
     {
         GroundCheck();
@@ -124,6 +148,7 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
+        UpdateVisualState();
     }
 
     // Setting the height to null will reset the height to default
@@ -302,7 +327,22 @@ public class Player : MonoBehaviour
         rb.linearVelocity = newVelocity;
     }
 
-    // TO BE CHANGED ===============================================================================================================================
+    public void UpdateVisualState()
+    {
+        float strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
+        currentMoldPercentage -= (currentMoldPercentage - strength) * 2 * Time.deltaTime;
+
+        foreach (Material mat in mr.materials)
+        {
+            mat.SetFloat("_MoldStrength", currentMoldPercentage);
+        }
+        foreach (Material mat in tailmr.materials)
+        {
+            mat.SetFloat("_MoldStrength", currentMoldPercentage);
+        }
+    }
+
+    // TO BEf CHANGED
     // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
@@ -311,7 +351,9 @@ public class Player : MonoBehaviour
         if (isInvulnerable) return;
         if (direction != Vector3.zero)
             currentState.Hurt(direction);
+
         AudioManager.Instance.PlaySFX("PainSFX");
+
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
         if (playerStatistic.Health <= 0) OnDeath();
@@ -349,9 +391,14 @@ public class Player : MonoBehaviour
         saveData.LoadAll();
         SetState(states.Death);
     }
+
+    public void FadeToDeathScreen()
+    {
+        StartCoroutine(DeathScreen());
+    }
+
     private IEnumerator DeathScreen()
     {
-        Debug.Log("Player died", this);
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
     }
@@ -360,5 +407,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(time);
         isKnockedBack = false;
+    }
+
+    public void SetRandomFeedback() {
+        succesfullHitCounter = 0;
+        FeedbackManager f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
+        f.SetRandomFeedback();
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -183,12 +184,20 @@ namespace EnemiesNS
         [SerializeField] private SkinnedMeshRenderer moldRenderer;
         private float targetMoldPercentage = 1;
         private float currentMoldPercentage = 1;
-
-        //TODO: this is a quick fix to get the demo out the door, make this nicer
-        // this should be cleaned up and placed higher up somewhere
-
+    
+        [SerializeField] private GameObject celebModel;
+        
+        protected void SetCelebrateModel(bool value)
+        {
+            if(celebModel == null) return;
+            
+            animator.gameObject.SetActive(!value);
+            celebModel.SetActive(value);
+        }
+        
         protected virtual void Start()
         {
+            SetCelebrateModel(false);
             maxHealth = health;
             spawnPos = this.transform.position;
             setReferences();
@@ -233,6 +242,8 @@ namespace EnemiesNS
             HealthBarDestroy = true;
             AudioManager.Instance.PlaySFX("EnemyThx");
             ChangeState(states.Dead);
+            agent.isStopped = true;
+            SetCelebrateModel(true);
         }
 
         protected virtual void OnDestroy()
@@ -362,12 +373,16 @@ namespace EnemiesNS
             targetMoldPercentage = 0;
             // if (animator) animator.SetBool("Idle", true);
             currentMoldPercentage = 0;
-
+            
             GetComponentInChildren<Collider>().enabled = false;
 
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
             // animator is on the Model's GameObject, so we can reach that GameObject through this.
-            if (animator)
+            if (celebModel)
+            {
+                StartCoroutine(DisableAfter(celebModel, 0.5f));
+            }
+            else if (animator)
             {
                 StartCoroutine(DisableAfter(animator.gameObject, 0.5f));
             }

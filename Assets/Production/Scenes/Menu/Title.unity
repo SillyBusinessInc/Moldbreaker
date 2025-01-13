@@ -778,15 +778,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.65
+  m_fontSize: 106.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 999
+  m_fontSizeMax: 32767
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -920,6 +920,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 496.25}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1619169705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1619169707}
+  - component: {fileID: 1619169706}
+  m_Layer: 0
+  m_Name: ScreenModeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1619169706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619169705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6e3d6a9e37e4511a42c2fb4cb3e209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1619169707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619169705}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 100.056244, y: 275.775, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1637263717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,8 +1175,8 @@ PrefabInstance:
       value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 5710593203348284918, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 421.4092
+      propertyPath: 
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5710593203348284918, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1186,3 +1230,4 @@ SceneRoots:
   - {fileID: 217722716}
   - {fileID: 1637263719}
   - {fileID: 5256246611472034319}
+  - {fileID: 1619169707}

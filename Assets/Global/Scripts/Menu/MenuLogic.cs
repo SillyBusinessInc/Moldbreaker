@@ -17,14 +17,14 @@ public class MenuLogic : MonoBehaviour
         UILogic.FadeToScene("Loading", fadeImage, this);
         AudioManager.Instance.PlaySFX("Button");
     }
-    public void OnUpgrades()
+    public void OnAchievements()
     {
-        UILogic.FadeToScene("Loading", fadeImage, this);
+        UILogic.FadeToScene("Achievements", fadeImage, this);
         AudioManager.Instance.PlaySFX("Button");
     }
-    public void OnArchive()
+    public void OnCredits()
     {
-        UILogic.FadeToScene("Loading", fadeImage, this);
+        UILogic.FadeToScene("Credits", fadeImage, this);
         AudioManager.Instance.PlaySFX("Button");
     }
     public void OnSettings()

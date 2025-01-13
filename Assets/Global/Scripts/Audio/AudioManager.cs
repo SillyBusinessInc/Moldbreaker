@@ -11,11 +11,13 @@ public class AudioManager : MonoBehaviour
 
     public AudioMixer audioMixer;
     void Awake()
+
     {
         if (Instance != null) Destroy(gameObject);
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
     void Start()
     {
         LoadAllSettings();
@@ -106,4 +108,5 @@ public class AudioManager : MonoBehaviour
         UpdateSFXVolume(audioSettingSave.Get<float>("SFX"));
         UpdateMasterVolume(audioSettingSave.Get<float>("Master"));
     }
+
 }

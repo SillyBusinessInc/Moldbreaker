@@ -425,10 +425,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -474.9999694824219,
-            "y": -264.9999694824219,
-            "width": 150.00003051757813,
-            "height": 34.00001525878906
+            "x": -491.99993896484377,
+            "y": -265.9999694824219,
+            "width": 149.99996948242188,
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -2015,7 +2015,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"eb794c09dac8553449d16b696b26ff68\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"4d35d12b715a7b14dbe535698ba76d51\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
