@@ -5073,6 +5073,7 @@ MonoBehaviour:
   particleSystemJump: {fileID: 3654745173966643205}
   particleSystemDash: {fileID: 878975008514134550}
   particleSystemWalk: {fileID: 6792631176631313089}
+  cheats: {fileID: 4808263581202097973}
   playerAnimationsHandler: {fileID: 0}
   slamCanDoDamage: 0
   attackCounter: 0
@@ -5092,6 +5093,8 @@ MonoBehaviour:
   currentWalkingPenalty: 1
   awaitingNewState: 0
   maxWalkingPenalty: 0.5
+  recentHits: 0
+  succesfullHitCounter: 0
   isGrounded: 1
   debug_currentStateName: IdleState
   isKnockedBack: 0
@@ -5449,6 +5452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxComboTime: 4
+  InvulnerableCheatActivated: 0
 --- !u!1 &773626285719660731
 GameObject:
   m_ObjectHideFlags: 0

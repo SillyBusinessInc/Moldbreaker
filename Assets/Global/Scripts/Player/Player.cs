@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
     public ParticleSystem particleSystemJump;
     public ParticleSystem particleSystemDash;
     public ParticleSystem particleSystemWalk;
+    public CheatCodeSystem cheats;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool slamCanDoDamage = false;
@@ -329,9 +330,13 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
+        // check if bradley should be invincible
+        if (cheats.InvulnerableCheatActivated) return;
+        if (isInvulnerable) return;
+
+        // check if bradley is dead
         if (currentState == states.Death) return;
 
-        if (isInvulnerable) return;
         if (direction != Vector3.zero)
             currentState.Hurt(direction);
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
@@ -388,7 +393,8 @@ public class Player : MonoBehaviour
         isKnockedBack = false;
     }
 
-    public void SetRandomFeedback() {
+    public void SetRandomFeedback()
+    {
         succesfullHitCounter = 0;
         FeedbackManager f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
         f.SetRandomFeedback();

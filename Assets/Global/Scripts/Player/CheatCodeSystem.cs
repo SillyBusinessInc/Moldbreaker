@@ -9,7 +9,7 @@ public class CheatCodeSystem : MonoBehaviour
     public float maxComboTime = 4f; // Max time to complete the combo
     private float comboTimer;
     private string currentSequence = "";
-    public bool InvincibleCheatActivated = false;
+    public bool InvulnerableCheatActivated = false;
     private List<string> cheatCodes = new List<string> { "LULDR", "RLLRD", "UUDLR", "DDRLU", "UDLRRLDD", "DDLRRLDU", "UDLRUDUD" }; // Example sequences
 
     private void Awake()
@@ -130,7 +130,7 @@ public class CheatCodeSystem : MonoBehaviour
                 break;
             case "UDLRUDUD":
                 Debug.Log("Cheat activated: UDLRUDUD");
-                ToggleInvincibility();
+                ToggleInvulnerability();
                 break;
             default:
                 break;
@@ -165,8 +165,8 @@ public class CheatCodeSystem : MonoBehaviour
         Debug.Log("Combo Reset");
     }
 
-    private void ToggleInvincibility()
+    private void ToggleInvulnerability()
     {
-        InvincibleCheatActivated = !InvincibleCheatActivated;
+        InvulnerableCheatActivated = !InvulnerableCheatActivated;
     }
 }
