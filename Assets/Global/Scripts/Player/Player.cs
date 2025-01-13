@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
     [HideInInspector] public int recentHits = 0;
     [HideInInspector] public int succesfullHitCounter = 0;
+    [HideInInspector] public bool roomInvulnerability = false;
     private float currentMoldPercentage = 0;
 
 
@@ -332,6 +333,7 @@ public class Player : MonoBehaviour
     {
         // check if bradley should be invincible
         if (cheats.InvulnerableCheatActivated) return;
+        if (roomInvulnerability) return;
         if (isInvulnerable) return;
 
         // check if bradley is dead
