@@ -1,89 +1,112 @@
 using UnityEngine;
-
-public class AudioManager : Reference
+using System;
+using UnityEngine.Audio;
+public class AudioManager : MonoBehaviour
 {
+    [Header("Audio Sounds")]
+    public Sound[] musicSounds, sfxSounds;
 
-    [Header("Audio Source")]
-    [SerializeField] public AudioSource musicSource;
-    [SerializeField] public AudioSource SFXSource;
+    [HideInInspector]
+    public static AudioManager Instance;
 
-    [Header("Audio Clip")]
-    public AudioClip bradleySweepRVoice;
+    public AudioMixer audioMixer;
+    void Awake()
 
-    public AudioClip bradleySweepLVoice;
-
-    public AudioClip bradleyPoundVoice;
-
-    public AudioClip crumbPickup;
-
-    public AudioClip hitEnemy;
-
-    public AudioClip poundAttackSFX;
-
-    public AudioClip hitCollision;
-
-    public AudioClip bradleyGetsHurt;
-
-    public AudioClip powerUpPickUp;
-
-    public AudioClip healItemPickup;
-
-    public AudioClip dashSfx;
-
-    public AudioClip deathSfx;
-
-    public AudioClip gameOverScreenSFX;
-    public AudioClip calorieSFX;
-
-    public AudioClip enemyThankYousfx;
-
-    public AudioClip walkingSound;
-
-    private float masterVolume_value;
-    private float effectsVolume_value;
-    private float musicVolume_value;
-
-
-    public void PlaySFX(AudioClip clip)
     {
-        if (clip == null) return;
-        SFXSource.PlayOneShot(clip);
-    }
-
-    public void PlaySFXOnRepeat(AudioClip clip)
-    {
-        if (clip == null) return;
-        SFXSource.Stop();
-        SFXSource.clip = clip;
-        SFXSource.loop = true;
-        SFXSource.Play();
-    }
-
-    public void StopSFXLoop()
-    {
-        SFXSource.loop = false;
-        SFXSource.Stop();
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
+        if (Instance != null) Destroy(gameObject);
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start() {
-        CalculateMusicSourceVolume();
-        CalculateSPXSourceVolume();
+    void Start()
+    {
+        LoadAllSettings();
     }
-    public void CalculateMusicSourceVolume() {
-        masterVolume_value = GlobalReference.Settings.Get<float>("master_volume");
-        musicVolume_value = GlobalReference.Settings.Get<float>("music_volume");
-        musicSource.volume = masterVolume_value * musicVolume_value;
+
+
+    public void UpdateMusicVolume(float volume) => UpdateAudio("Music", volume);
+    public void UpdateSFXVolume(float volume) => UpdateAudio("SFX", volume);
+    public void UpdateMasterVolume(float volume) => UpdateAudio("Master", volume);
+    public float GetMusicVolume() => GetVolume("Music");
+    public float GetSFXVolume() => GetVolume("SFX");
+    public float GetMasterVolume() => GetVolume("Master");
+    public void PlayMusic(string name) => PlaySound(name, false, true);
+    public void PlayMusicOnRepeat(string name) => PlaySound(name, true, true);
+    public void PlaySFX(string name) => PlaySound(name, false, false);
+    public void PlaySFXOnRepeat(string name) => PlaySound(name, true, false);
+
+
+    public void StopMusicSound(string name)
+    {
+        Sound s = Array.Find(musicSounds, x => x.name == name);
+        if (s == null) return;
+        s.audioSource.Stop();
     }
-    public void CalculateSPXSourceVolume() {
-        masterVolume_value = GlobalReference.Settings.Get<float>("master_volume");
-        effectsVolume_value = GlobalReference.Settings.Get<float>("effects_volume");
-        SFXSource.volume = masterVolume_value * effectsVolume_value;
+
+    public void StopSFXSound(string name)
+    {
+        Sound s = Array.Find(sfxSounds, x => x.name == name);
+        if (s == null) return;
+        s.audioSource.Stop();
+    }
+
+
+    private void UpdateAudio(string mixerString, float volume)
+    {
+        //values only from 0 to 8 will be accepted
+        float tempVolume = volume;
+        if (tempVolume > 8.0f)
+        {
+            tempVolume = 8.0f;
+        }
+        if (tempVolume < 0.0f)
+        {
+            tempVolume = 0.0f;
+        }
+        float convertedVolume = -80 + volume * 10;
+        audioMixer.SetFloat(mixerString, convertedVolume);
+        AudioSettingSave audioSettingSave = GlobalReference.AudioSettingSave;
+        audioSettingSave.LoadAll();
+        if (mixerString == "Master")
+        {
+            audioSettingSave.Set("Master", tempVolume);
+            Debug.LogWarning($"SET: {tempVolume}");
+        }
+        if (mixerString == "SFX")
+        {
+            audioSettingSave.Set("SFX", tempVolume);
+        }
+        if (mixerString == "Music")
+        {
+            audioSettingSave.Set("Music", tempVolume);
+        };
+        audioSettingSave.SaveAll();
+    }
+
+    private float GetVolume(string param)
+    {
+        AudioSettingSave audioSettingSave = GlobalReference.AudioSettingSave;
+        audioSettingSave.LoadAll();
+        Debug.Log(audioSettingSave.Get<float>(param));
+        return audioSettingSave.Get<float>(param);
+    }
+
+    private void PlaySound(string name, bool repeat, bool music)
+    {
+        Sound s = Array.Find(music ? musicSounds : sfxSounds, x => x.name == name);
+        if (s == null) return;
+        s.audioSource.clip = s.clip;
+        s.audioSource.loop = repeat;
+        s.audioSource.Play();
+    }
+
+    private void LoadAllSettings()
+    {
+        AudioSettingSave audioSettingSave = GlobalReference.AudioSettingSave;
+        audioSettingSave.LoadAll();
+        UpdateMusicVolume(audioSettingSave.Get<float>("Music"));
+        UpdateSFXVolume(audioSettingSave.Get<float>("SFX"));
+        UpdateMasterVolume(audioSettingSave.Get<float>("Master"));
     }
 
 }

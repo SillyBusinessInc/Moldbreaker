@@ -13,8 +13,8 @@ public class WalkingState : StateBase
         {
             if (playSound)
             {
-                GlobalReference.GetReference<AudioManager>().PlaySFXOnRepeat(GlobalReference.GetReference<AudioManager>().walkingSound);
                 playSound = false;
+                AudioManager.Instance.PlaySFXOnRepeat("Footstep");
             }
         }
         activesoundAfterTime += Time.deltaTime;
@@ -59,7 +59,7 @@ public class WalkingState : StateBase
 
     public override void Exit()
     {
-        GlobalReference.GetReference<AudioManager>().StopSFXLoop();
+        AudioManager.Instance.StopSFXSound("Footstep");
         Player.particleSystemWalk.Stop();
     }
 }

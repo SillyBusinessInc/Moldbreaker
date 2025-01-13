@@ -220,6 +220,7 @@ namespace EnemiesNS
         public virtual void OnHit(int damage)
         {
             health -= damage;
+            AudioManager.Instance.PlaySFX("HitEnemy");
             if (animator) animator.SetTrigger("PlayDamageFlash");
 
             if (health <= 0)
@@ -239,6 +240,7 @@ namespace EnemiesNS
         protected virtual void OnDeath()
         {
             HealthBarDestroy = true;
+            AudioManager.Instance.PlaySFX("EnemyThx");
             ChangeState(states.Dead);
             agent.isStopped = true;
             SetCelebrateModel(true);
