@@ -10,7 +10,7 @@ public class SettingsLogic : MonoBehaviour
 
     [Header("Imports")]
 
-    [SerializeField] private TMP_Dropdown fullscreen;
+    [SerializeField] private TMP_Dropdown screenModeDropdown;
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
     [SerializeField] private Slider musicVolume;
@@ -31,7 +31,7 @@ public class SettingsLogic : MonoBehaviour
 
     private void LoadFromSave()
     {
-        fullscreen.value = GlobalReference.Settings.Get<int>("fullscreen");
+        screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
 
         masterVolume.value = AudioManager.Instance.GetMasterVolume();
         effectsVolume.value = AudioManager.Instance.GetSFXVolume();
@@ -48,11 +48,9 @@ public class SettingsLogic : MonoBehaviour
     }
 
 
-    public void OnFullscreenChange(bool value) => GlobalReference.Settings.Set("fullscreen", value);
-    public void OnMasterVolumeChange(float value) => AudioManager.Instance.UpdateMusicVolume(value);
-    public void OnEffectsVolumeChange(float value) => AudioManager.Instance.UpdateSFXVolume(value);
-    public void OnMusicVolumeChange(float value) => AudioManager.Instance.UpdateMusicVolume(value);
-    public void OnBrightnessChange(float value) => GlobalReference.Settings.Set("brightness", value);
+    public void OnMasterVolumeChange(float value) => AudioManager.Instance.UpdateMusicVolume(value * 8);
+    public void OnEffectsVolumeChange(float value) => AudioManager.Instance.UpdateSFXVolume(value* 8);
+    public void OnMusicVolumeChange(float value) => AudioManager.Instance.UpdateMusicVolume(value* 8);
 
 
     public void OnBack()
@@ -68,5 +66,29 @@ public class SettingsLogic : MonoBehaviour
     {
         GlobalReference.Settings.LoadAll();
         LoadFromSave();
+    }
+
+    public void ChangeScreenMode()
+    {
+        int mode = screenModeDropdown.value;
+        switch (mode)
+        {
+            case 0: // Windowed
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+
+            case 1: // Borderless Fullscreen
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+
+            case 2: // Fullscreen
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+
+            default:
+                break;
+        }
+        GlobalReference.Settings.Set("screen_mode", mode);
+        Debug.Log("ScreenMode : " + Screen.fullScreenMode);
     }
 }
