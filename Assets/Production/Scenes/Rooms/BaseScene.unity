@@ -520,6 +520,10 @@ PrefabInstance:
       propertyPath: crossfadeController
       value: 
       objectReference: {fileID: 1343814472}
+    - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: playerStatistic.JumpForce.baseValue
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
