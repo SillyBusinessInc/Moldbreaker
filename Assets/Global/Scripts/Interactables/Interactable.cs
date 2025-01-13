@@ -28,6 +28,7 @@ public class Interactable : MonoBehaviour
     private bool isDisabled = false;
     private Camera playerCamera;
     private GameObject hudElement;
+    
 
     // list of scriptable objects that will be invoked when the interactable is triggered 
     [Header("Actions")]

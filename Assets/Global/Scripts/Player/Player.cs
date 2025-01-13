@@ -342,7 +342,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    // TO BE CHANGED ===============================================================================================================================
+    // TO BEf CHANGED
     // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
@@ -351,9 +351,11 @@ public class Player : MonoBehaviour
         if (isInvulnerable) return;
         if (direction != Vector3.zero)
             currentState.Hurt(direction);
+
+        AudioManager.Instance.PlaySFX("PainSFX");
+
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
-        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
         if (playerStatistic.Health <= 0) OnDeath();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
@@ -385,6 +387,7 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
         CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        AudioManager.Instance.PlaySFX("Death");
         saveData.LoadAll();
         SetState(states.Death);
     }
@@ -393,6 +396,7 @@ public class Player : MonoBehaviour
     {
         StartCoroutine(DeathScreen());
     }
+
     private IEnumerator DeathScreen()
     {
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
