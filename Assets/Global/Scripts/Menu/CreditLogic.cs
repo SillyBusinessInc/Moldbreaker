@@ -68,7 +68,7 @@ public class CreditLogic : MonoBehaviour
         brandImage = rt.GetChild(3) as RectTransform;
         SetPosition(brandImage, spacingTotal - spacingBrandImage, spacingBrandImage);
 
-        AddNext();
+        for (int i = 0; i < 10; i++) AddNext();
 
         teamImage.SetAsLastSibling();
         brandImage.SetAsLastSibling();
@@ -108,7 +108,7 @@ public class CreditLogic : MonoBehaviour
         brandImage.SetAsLastSibling();
 
         next++;
-        if (next < entries.Count() && newLineTransform.anchorMin.y >= -0.075f * (Time.time - timeSinceStart - delay) - 0.5) AddNext();
+        if (next < entries.Count() && newLineTransform.anchorMin.y >= -0.075f * (Time.time - timeSinceStart - delay)) AddNext();
     }
 
     private void SetPosition(RectTransform obj, float position, float size) 
