@@ -63,7 +63,8 @@ public abstract class StateBase
             if (Player.isGrounded)
             {
                 Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
-                Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
+                // Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
+                Player.playerAnimationsHandler.animator.SetTrigger("IsJumping");
             }
             else
             {
