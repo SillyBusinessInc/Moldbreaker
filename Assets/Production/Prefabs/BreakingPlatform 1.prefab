@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 3cda186537fcddb40aad0580e41c56de, type: 3}
+  - {fileID: 2100000, guid: 8cf6f067fda74394ca2f7d34e5802d42, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -200,7 +200,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 4.8377275, y: 0.29736683, z: 4.8029904}
   m_Center: {x: 0.0000026794853, y: 0.1486835, z: -2.3205783}
@@ -211,13 +211,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516872867537757747}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83a7ba5204c424a6c86d4baf034a1b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
-  respawnDelay: 4
+  respawnDelay: 5
   canRespawn: 1
   canBreak: 1
 --- !u!95 &4581157778539090186
@@ -228,7 +228,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516872867537757747}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: daa29601fdaa24f1e87052c6244d4c8f, type: 2}
   m_CullingMode: 0
