@@ -43,9 +43,11 @@ public class SettingsLogic : MonoBehaviour
         resolution.value = -1;
         resolution.value = Array.IndexOf(Resolutions, res);
         fullscreen.isOn = GlobalReference.Settings.Get<bool>("fullscreen");
-        masterVolume.value = GlobalReference.Settings.Get<float>("master_volume");
-        effectsVolume.value = GlobalReference.Settings.Get<float>("effects_volume");
-        musicVolume.value = GlobalReference.Settings.Get<float>("music_volume");
+
+        masterVolume.value = AudioManager.Instance.GetMasterVolume();
+        effectsVolume.value = AudioManager.Instance.GetSFXVolume();
+        musicVolume.value = AudioManager.Instance.GetMusicVolume();
+
         brightness.value = GlobalReference.Settings.Get<float>("brightness");
         GlobalReference.Settings.IsLocked = false;
     }
@@ -64,9 +66,9 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.Set("resolution_height", resY);
     }
     public void OnFullscreenChange(bool value) => GlobalReference.Settings.Set("fullscreen", value);
-    public void OnMasterVolumeChange(float value) => GlobalReference.Settings.Set("master_volume", value);
-    public void OnEffectsVolumeChange(float value) => GlobalReference.Settings.Set("effects_volume", value);
-    public void OnMusicVolumeChange(float value) => GlobalReference.Settings.Set("music_volume", value);
+    public void OnMasterVolumeChange(float value) => AudioManager.Instance.UpdateMusicVolume(value);
+    public void OnEffectsVolumeChange(float value) => AudioManager.Instance.UpdateSFXVolume(value);
+    public void OnMusicVolumeChange(float value) => AudioManager.Instance.UpdateMusicVolume(value);
     public void OnBrightnessChange(float value) => GlobalReference.Settings.Set("brightness", value);
     public void OnBack() {
         GlobalReference.Settings.SaveAll();

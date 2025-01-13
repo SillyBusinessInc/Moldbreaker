@@ -83,10 +83,10 @@ public class AudioManager : MonoBehaviour
 
     private float GetVolume(string param)
     {
-        float volume;
-        audioMixer.GetFloat(param, out volume);
-        volume = -80 + volume * 10;
-        return volume;
+        AudioSettingSave audioSettingSave = GlobalReference.AudioSettingSave;
+        audioSettingSave.LoadAll();
+        Debug.Log(audioSettingSave.Get<float>(param));
+        return audioSettingSave.Get<float>(param);
     }
 
     private void PlaySound(string name, bool repeat, bool music)
