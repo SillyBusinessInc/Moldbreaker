@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class MoldOrb : MonoBehaviour
 {
     [SerializeField] private MoldOrbManager moldOrbManager;
+    [SerializeField] private Slider healthSlider;
+
     [HideInInspector] public bool HealthBarDestroy;
     public int health = 0;
     public int maxHealth = 100;
@@ -11,10 +14,12 @@ public class MoldOrb : MonoBehaviour
 
     void Start() {
         health = maxHealth;
+        healthSlider.gameObject.SetActive(false);
     }
 
     public void OnHit(int damage)
     {
+        healthSlider.gameObject.SetActive(true);
         health -= damage;
         if (health <= 0)
         {
