@@ -15,10 +15,9 @@ public class DodgeRollState : StateBase
             ExitDodge();
             return;
         }
-        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().dashSfx);
         // play particleSystem
         Player.particleSystemDash.Play();
-        
+        AudioManager.Instance.PlaySFX("Dash");
         Player.timeLastDodge = Time.time;
         Player.playerAnimationsHandler.SetBool("Dodgerolling", true);
 

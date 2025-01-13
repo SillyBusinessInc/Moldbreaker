@@ -45,6 +45,7 @@ public class Calories : Collectable
         }
         
         GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.Calories.Add(caloriesId);
+        AudioManager.Instance.PlaySFX("CaloriePickup");
     }
 
     private void GeneratePersistentId()
