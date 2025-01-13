@@ -114,6 +114,7 @@ public class CheatCodeSystem : MonoBehaviour
                 break;
             case "UUDLR":
                 Debug.Log("Cheat activated: UUDLR");
+                InvulnerableCheatActivated = false;
                 GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero);
                 break;
             case "DDRLU":
