@@ -156,6 +156,7 @@ public class CheatCodeSystem : MonoBehaviour
         saveRoomData.Set("finishedLevels", new List<int>());
         saveRoomData.SaveAll();
         GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED);
+        GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero);
     }
 
     private void ResetCombo()

@@ -26,7 +26,6 @@ public class RoomTransitionDoor : Interactable
     {
         IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
         crossfadeController = GlobalReference.GetReference<CrossfadeController>();
-        portalEffect?.SetActive(false);
     }
 
     public void Initialize()

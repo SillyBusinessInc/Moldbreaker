@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.153, y: 1.509, z: 2.02}
-  m_LocalScale: {x: 0.36766845, y: 0.36766845, z: 0.36766845}
+  m_LocalScale: {x: 0.92817307, y: 0.92817307, z: 0.92817307}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 660394441855443353}
@@ -109,8 +109,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7584204
+  m_Center: {x: 0.034403577, y: 0.047693193, z: 0}
 --- !u!114 &2418611893023789269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 20
   bulletLifeTime: 10
-  bulletDamage: 1
+  bulletDamage: 15
   bulletEnemyDamage: 5
   bulletDirection: {x: 0, y: 0, z: 0}
   attackKnockback: 0
