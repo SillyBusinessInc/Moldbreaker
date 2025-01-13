@@ -9,7 +9,8 @@ public class CheatCodeSystem : MonoBehaviour
     public float maxComboTime = 4f; // Max time to complete the combo
     private float comboTimer;
     private string currentSequence = "";
-    private List<string> cheatCodes = new List<string> { "LULDR", "RLLRD", "UUDLR", "DDRLU", "UDLRRLDD", "DDLRRLDU"}; // Example sequences
+    public bool InvincibleCheatActivated = false;
+    private List<string> cheatCodes = new List<string> { "LULDR", "RLLRD", "UUDLR", "DDRLU", "UDLRRLDD", "DDLRRLDU", "UDLRUDUD" }; // Example sequences
 
     private void Awake()
     {
@@ -105,11 +106,11 @@ public class CheatCodeSystem : MonoBehaviour
             case "LULDR":
                 //infinite double jump
                 Debug.Log("Cheat activated: LULDR");
-                GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.DoubleJumpsCount.AddModifier("cheatleg",1000);
+                GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.DoubleJumpsCount.AddModifier("cheatleg", 1000);
                 break;
             case "RLLRD":
                 Debug.Log("Cheat activated: RLLRD");
-                GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge",1);
+                GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
                 break;
             case "UUDLR":
                 Debug.Log("Cheat activated: UUDLR");
@@ -126,6 +127,12 @@ public class CheatCodeSystem : MonoBehaviour
             case "DDLRRLDU":
                 Debug.Log("Cheat activated: DDLRRLDU");
                 DisableAllLevels();
+                break;
+            case "UDLRUDUD":
+                Debug.Log("Cheat activated: UDLRUDUD");
+                ToggleInvincibility();
+                break;
+            default:
                 break;
         }
     }
@@ -150,11 +157,16 @@ public class CheatCodeSystem : MonoBehaviour
         saveRoomData.SaveAll();
         GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED);
     }
-    
+
     private void ResetCombo()
     {
         currentSequence = "";
         comboTimer = 0;
         Debug.Log("Combo Reset");
+    }
+
+    private void ToggleInvincibility()
+    {
+        InvincibleCheatActivated = !InvincibleCheatActivated;
     }
 }
