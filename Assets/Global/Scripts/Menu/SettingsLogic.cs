@@ -33,9 +33,9 @@ public class SettingsLogic : MonoBehaviour
     {
         screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
 
-        masterVolume.value = AudioManager.Instance.GetMasterVolume();
-        effectsVolume.value = AudioManager.Instance.GetSFXVolume();
-        musicVolume.value = AudioManager.Instance.GetMusicVolume();
+        masterVolume.value = AudioManager.Instance.GetMasterVolume() /8;
+        effectsVolume.value = AudioManager.Instance.GetSFXVolume() /8;
+        musicVolume.value = AudioManager.Instance.GetMusicVolume() /8;
 
         GlobalReference.Settings.IsLocked = false;
     }
@@ -48,7 +48,7 @@ public class SettingsLogic : MonoBehaviour
     }
 
 
-    public void OnMasterVolumeChange(float value) => AudioManager.Instance.UpdateMusicVolume(value * 8);
+    public void OnMasterVolumeChange(float value) => AudioManager.Instance.UpdateMasterVolume(value * 8);
     public void OnEffectsVolumeChange(float value) => AudioManager.Instance.UpdateSFXVolume(value* 8);
     public void OnMusicVolumeChange(float value) => AudioManager.Instance.UpdateMusicVolume(value* 8);
 
