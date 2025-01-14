@@ -58,19 +58,6 @@ public abstract class StateBase
 
     public virtual void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            if (Player.isGrounded)
-            {
-                Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
-                // Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
-                Player.playerAnimationsHandler.animator.SetTrigger("IsJumping");
-            }
-            else
-            {
-                Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
-            }
-        }
         if (ctx.started)
         {
             Player.isHoldingJump = true;

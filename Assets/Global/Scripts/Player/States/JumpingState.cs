@@ -3,10 +3,20 @@ using UnityEngine.InputSystem;
 
 public class JumpingState : StateBase
 {
-    public JumpingState(Player player) : base(player) {}
+    public JumpingState(Player player) : base(player) { }
 
     public override void Enter()
     {
+        if (Player.isGrounded)
+        {
+            Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
+            // Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
+            Player.playerAnimationsHandler.animator.SetTrigger("IsJumping");
+        }
+        else
+        {
+            Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
+        }
         // play particleSystem
         Player.particleSystemJump.Play();
 

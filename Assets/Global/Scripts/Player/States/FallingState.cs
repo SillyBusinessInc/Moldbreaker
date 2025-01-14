@@ -7,7 +7,7 @@ public class FallingState : StateBase
 
     public override void Enter()
     {
-        Player.playerAnimationsHandler.SetBool("IsFallingDown", true);
+        Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
     }
 
     public override void Update()
@@ -23,6 +23,17 @@ public class FallingState : StateBase
         //         Player.playerAnimationsHandler.SetBool("IsJumpingBool",false);
         //     }
         // }
+        
+        //set isfallowdown true if velocity is falling downwards only downwards 
+        if (Player.rb.linearVelocity.y < -1)
+        {
+            Player.playerAnimationsHandler.SetBool("IsFallingDown", true);
+            // Player.playerAnimationsHandler.animator.ResetTrigger("IsLanding");
+        }
+        else if (Player.rb.linearVelocity.y > 0)
+        {
+            Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
+        }
 
         // add gravity to y velocity
         float linearY = ApplyGravity(Player.rb.linearVelocity.y);

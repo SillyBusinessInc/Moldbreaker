@@ -23,7 +23,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 3984313128477612450, guid: 497c505f3ab3a524198b6e0238a2e173, type: 3}
+  m_Motion: {fileID: -8859844818577093332, guid: 497c505f3ab3a524198b6e0238a2e173, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -302,7 +302,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.84615386
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -330,7 +330,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.84615386
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -657,7 +657,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsFallingDown
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9098622020298949470}
   m_Solo: 0
@@ -667,7 +670,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 3
   m_OrderedInterruption: 1
@@ -1055,7 +1058,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsFallingDown
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9098622020298949470}
   m_Solo: 0
@@ -1065,7 +1071,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.19
   m_TransitionOffset: 0
   m_ExitTime: 0.47
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -1137,8 +1143,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 2961791483236449516}
   - {fileID: -3226864824172502579}
+  - {fileID: 2961791483236449516}
   - {fileID: -1126896581590451611}
   - {fileID: -5942657027200657457}
   - {fileID: -5945474779023997887}
@@ -1288,7 +1294,7 @@ AnimatorStateMachine:
     m_Position: {x: 730, y: -110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -9098622020298949470}
-    m_Position: {x: 160, y: 340, z: 0}
+    m_Position: {x: 190, y: 340, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2321328795966392021}
     m_Position: {x: 270, y: 60, z: 0}
@@ -1297,7 +1303,7 @@ AnimatorStateMachine:
     m_Position: {x: 530, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5504383599750840940}
-    m_Position: {x: 150, y: 500, z: 0}
+    m_Position: {x: 160, y: 510, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -136322295269449728}
     m_Position: {x: 340, y: 450, z: 0}
@@ -1372,7 +1378,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Breadaplus|Bradley_jump_upwards 0
-  m_Speed: 4
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5125039285865580058}
@@ -1386,7 +1392,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -8859844818577093332, guid: 497c505f3ab3a524198b6e0238a2e173, type: 3}
+  m_Motion: {fileID: 2511779910835254724, guid: 497c505f3ab3a524198b6e0238a2e173, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1452,7 +1458,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Breadaplus|Bradley_jump_from_ground 0
-  m_Speed: 3
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1389393986276717993}
