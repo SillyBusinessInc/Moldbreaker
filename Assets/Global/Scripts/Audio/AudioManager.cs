@@ -11,7 +11,6 @@ public class AudioManager : MonoBehaviour
 
     public AudioMixer audioMixer;
     void Awake()
-
     {
         if (Instance != null) Destroy(gameObject);
         Instance = this;
@@ -30,10 +29,10 @@ public class AudioManager : MonoBehaviour
     public float GetMusicVolume() => GetVolume("Music");
     public float GetSFXVolume() => GetVolume("SFX");
     public float GetMasterVolume() => GetVolume("Master");
-    public void PlayMusic(string name) => PlaySound(name, false, true);
-    public void PlayMusicOnRepeat(string name) => PlaySound(name, true, true);
-    public void PlaySFX(string name) => PlaySound(name, false, false);
-    public void PlaySFXOnRepeat(string name) => PlaySound(name, true, false);
+    public void PlayMusic(string name, Vector3? location = null) => PlaySound(name, false, true, location);
+    public void PlayMusicOnRepeat(string name, Vector3? location = null) => PlaySound(name, true, true, location);
+    public void PlaySFX(string name, Vector3? location = null) => PlaySound(name, false, false, location);
+    public void PlaySFXOnRepeat(string name, Vector3? location = null) => PlaySound(name, true, false, location);
 
 
     public void StopMusicSound(string name)
@@ -70,7 +69,6 @@ public class AudioManager : MonoBehaviour
         if (mixerString == "Master")
         {
             audioSettingSave.Set("Master", tempVolume);
-            Debug.LogWarning($"SET: {tempVolume}");
         }
         if (mixerString == "SFX")
         {
@@ -87,17 +85,28 @@ public class AudioManager : MonoBehaviour
     {
         AudioSettingSave audioSettingSave = GlobalReference.AudioSettingSave;
         audioSettingSave.LoadAll();
-        Debug.Log(audioSettingSave.Get<float>(param));
         return audioSettingSave.Get<float>(param);
     }
 
-    private void PlaySound(string name, bool repeat, bool music)
+    private void PlaySound(string name, bool repeat, bool music, Vector3? location = null)
     {
+
         Sound s = Array.Find(music ? musicSounds : sfxSounds, x => x.name == name);
         if (s == null) return;
+        if (location == null)
+        {
+            s.audioSource.spatialBlend = 0.0f;
+            s.audioSource.transform.position = Vector3.zero;
+        }
+        else
+        {
+            s.audioSource.transform.position = (Vector3)location;
+            s.audioSource.spatialBlend = 1.0f;
+        }
         s.audioSource.clip = s.clip;
         s.audioSource.loop = repeat;
         s.audioSource.Play();
+
     }
 
     private void LoadAllSettings()

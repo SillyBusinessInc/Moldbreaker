@@ -10,8 +10,9 @@ public class ScreenMode : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
-    
-    void Start() {
+
+    void Start()
+    {
         mode = GlobalReference.Settings.Get<int>("screen_mode");
         ChangeScreenMode(mode);
     }
@@ -22,11 +23,11 @@ public class ScreenMode : MonoBehaviour
         switch (mode)
         {
             case 0: // Windowed
-                Screen.fullScreenMode = FullScreenMode.Windowed;
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
                 break;
 
             case 1: // Borderless Fullscreen
-                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                Screen.fullScreenMode = FullScreenMode.Windowed;
                 break;
 
             case 2: // Fullscreen
@@ -35,7 +36,7 @@ public class ScreenMode : MonoBehaviour
 
             default:
                 break;
-        } 
+        }
         GlobalReference.Settings.Set("screen_mode", mode);
         Debug.Log("ScreenMode : " + Screen.fullScreenMode);
     }
