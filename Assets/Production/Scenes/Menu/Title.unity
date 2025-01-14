@@ -1447,6 +1447,14 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 201277245553400490, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
+      propertyPath: sfxSounds.Array.data[14].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b79409fd1e2b31c469d9add07c9e2985, type: 3}
+    - target: {fileID: 201277245553400490, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
+      propertyPath: sfxSounds.Array.data[15].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: eca463e90f7556d4a8925a764c6617f5, type: 3}
+    - target: {fileID: 201277245553400490, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: sfxSounds.Array.data[20].clip
       value: 
       objectReference: {fileID: 8300000, guid: 9e788a9ca5ca87048b78a9faef92bd1f, type: 3}
@@ -1482,6 +1490,26 @@ PrefabInstance:
       propertyPath: musicSounds.Array.data[6].description
       value: Loading screen music
       objectReference: {fileID: 0}
+    - target: {fileID: 447595356790801273, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
+      propertyPath: MinDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 447595356790801273, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 777344080812498906, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 777344080812498906, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
+      propertyPath: MinDistance
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 777344080812498906, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2619508722328902667, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: m_Volume
       value: 0.25
@@ -1492,7 +1520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4109986542057694572, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: m_Volume
-      value: 0.65
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5710593203348284918, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: 
@@ -1537,6 +1565,10 @@ PrefabInstance:
     - target: {fileID: 6948538073730267529, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: m_Volume
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7719527601109303650, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
+      propertyPath: m_Volume
+      value: 0.34
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
