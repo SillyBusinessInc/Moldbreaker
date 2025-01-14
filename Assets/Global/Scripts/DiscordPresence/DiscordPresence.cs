@@ -72,6 +72,7 @@ public class DiscordPresence : MonoBehaviour
         {
             case "Menu":
             case "Title":
+            case "Settings":
             case "Loading":
                 details = "Browsing the menus";
                 largeImageKey = "game_icon"; 
@@ -80,6 +81,11 @@ public class DiscordPresence : MonoBehaviour
             case "Death":
                 details = "Game Over..";
                 largeImageKey = "game_icon"; 
+                break;
+
+            case "Credits":
+                details = "Watching the credits";
+                largeImageKey = "credits"; 
                 break;
 
             case "ENTRANCE_1":
