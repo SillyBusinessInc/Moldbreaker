@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.IO;
 using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
@@ -38,14 +39,14 @@ public class AudioManager : MonoBehaviour
     public void StopMusicSound(string name)
     {
         Sound s = Array.Find(musicSounds, x => x.name == name);
-        if (s == null) return;
+        if (s == null || s.audioSource == null || s.clip == null) return;
         s.audioSource.Stop();
     }
 
     public void StopSFXSound(string name)
     {
         Sound s = Array.Find(sfxSounds, x => x.name == name);
-        if (s == null) return;
+        if (s == null || s.audioSource == null || s.clip == null) return;
         s.audioSource.Stop();
     }
 
@@ -92,7 +93,7 @@ public class AudioManager : MonoBehaviour
     {
 
         Sound s = Array.Find(music ? musicSounds : sfxSounds, x => x.name == name);
-        if (s == null) return;
+        if (s == null || s.audioSource == null || s.clip == null) return;
         if (location == null)
         {
             s.audioSource.spatialBlend = 0.0f;
