@@ -315,9 +315,17 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 11.141639
       objectReference: {fileID: 0}
+    - target: {fileID: 3829535901384139597, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4967681329817621116, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967681329817621116, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1000.00006
       objectReference: {fileID: 0}
     - target: {fileID: 5096248531346903799, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -339,6 +347,10 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: afa5030a4ed01c2419c68528fe5267df, type: 3}
+    - target: {fileID: 8023008448355820360, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: mold
+      value: 
+      objectReference: {fileID: 47187330}
     - target: {fileID: 8241449340267907011, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -361,6 +373,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+--- !u!1 &47187330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3829535901384139597, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+  m_PrefabInstance: {fileID: 47187329}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &47187331 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
