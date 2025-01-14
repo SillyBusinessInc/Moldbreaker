@@ -51,7 +51,7 @@ public class RoomTransitionDoor : Interactable
         // unlock next level
         Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel != null) nextLevel.unlocked = true;
-        
+        AudioManager.Instance.PlaySFX("PortalSFX");
         StartCoroutine(LoadNextRoom());
         Player p = GlobalReference.GetReference<PlayerReference>().Player;
         p.setCameraHeight(null); // height reset to default

@@ -7,6 +7,7 @@ public class Coin : Collectable
     public override void OnCollect()
     {
         var playerStats = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic;
+        AudioManager.Instance.PlaySFX("CrumbPickup");
         playerStats.CollectedCrumb = true;
         playerStats.Crumbs += pointValue;
     }

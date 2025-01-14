@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Linq;
 
 // using System.Numerics;
 
@@ -56,6 +54,7 @@ public class Player : MonoBehaviour
     public ParticleSystem particleSystemJump;
     public ParticleSystem particleSystemDash;
     public ParticleSystem particleSystemWalk;
+    public CheatCodeSystem cheats;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool slamCanDoDamage = false;
@@ -81,6 +80,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
     [HideInInspector] public int recentHits = 0;
     [HideInInspector] public int succesfullHitCounter = 0;
+    [HideInInspector] public bool roomInvulnerability = false;
     private float currentMoldPercentage = 0;
 
 
@@ -342,18 +342,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    // TO BE CHANGED ===============================================================================================================================
+    // TO BEf CHANGED
     // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
+        // check if bradley should be invincible
+        if (cheats.InvulnerableCheatActivated) return;
+        if (roomInvulnerability) return;
+        if (isInvulnerable) return;
+
+        // check if bradley is dead
         if (currentState == states.Death) return;
 
-        if (isInvulnerable) return;
         if (direction != Vector3.zero)
             currentState.Hurt(direction);
+
+        AudioManager.Instance.PlaySFX("PainSFX");
+
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
-        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
         if (playerStatistic.Health <= 0) OnDeath();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
@@ -385,6 +392,7 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
         CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        AudioManager.Instance.PlaySFX("Death");
         saveData.LoadAll();
         SetState(states.Death);
     }
@@ -393,6 +401,7 @@ public class Player : MonoBehaviour
     {
         StartCoroutine(DeathScreen());
     }
+
     private IEnumerator DeathScreen()
     {
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
@@ -405,7 +414,8 @@ public class Player : MonoBehaviour
         isKnockedBack = false;
     }
 
-    public void SetRandomFeedback() {
+    public void SetRandomFeedback()
+    {
         succesfullHitCounter = 0;
         FeedbackManager f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
         f.SetRandomFeedback();

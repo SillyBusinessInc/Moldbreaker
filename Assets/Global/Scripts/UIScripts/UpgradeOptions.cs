@@ -23,7 +23,7 @@ public class UpgradeOptions : Reference
     [ContextMenu("SHOW")]
     public void ShowOption()
     {
-        handler.EnableInput("UI");
+        // handler.EnableInput("UI");
         isShown = true;
         UILogic.SelectButton(confirmButton);
         SetCursorState(true, CursorLockMode.None);
@@ -44,7 +44,7 @@ public class UpgradeOptions : Reference
         SetCursorState(false, CursorLockMode.Locked);
         gameObject.SetActive(false);
         isShown = false;
-        handler.DisableInput("UI");
+        // handler.DisableInput("UI");
     }
 
     void SetCursorState(bool cursorVisible, CursorLockMode lockMode)
@@ -57,10 +57,12 @@ public class UpgradeOptions : Reference
     {
         if (!isShown) return;
 
+        // if (ctx.started && option != null) // ctx?? where is ctx?
         if (option != null)
         {
             foreach (ActionParamPair action in option.interactionActions)
             {
+
                 action.InvokeAction();
             }
 
@@ -72,6 +74,7 @@ public class UpgradeOptions : Reference
 
             UpgradesUIList.AddUpgrade(option);
         }
+        AudioManager.Instance.PlaySFX("PowerupPickup");
         HideOption();
     }
 }
