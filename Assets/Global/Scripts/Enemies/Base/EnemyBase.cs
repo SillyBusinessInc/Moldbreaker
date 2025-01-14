@@ -233,7 +233,7 @@ namespace EnemiesNS
             if (!inAttackAnim) animator.SetTrigger("PlayDamage");
 
             float p = health/(float)maxHealth;
-            Debug.LogWarning($"[{p}] health: {health}, maxHealth: {maxHealth}");
+            // Debug.LogWarning($"[{p}] health: {health}, maxHealth: {maxHealth}");
             targetMoldPercentage = p;
         }
 
@@ -244,6 +244,9 @@ namespace EnemiesNS
             ChangeState(states.Dead);
             agent.isStopped = true;
             SetCelebrateModel(true);
+
+            GlobalReference.Statistics.Increase("enemies_cleansed", 1);
+            if (GlobalReference.Statistics.Get<int>("enemies_cleansed") >= 5) AchievementManager.Grant("BEGONE_MOLD");
         }
 
         protected virtual void OnDestroy()
@@ -339,6 +342,7 @@ namespace EnemiesNS
         {
             Player player = playerObject.GetComponentInParent<Player>();
             if (!player) return;
+            player.lastDamageCause = Player.DamageCause.ENEMY;
             player.OnHit(damage, transform.forward);
             player.ApplyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }

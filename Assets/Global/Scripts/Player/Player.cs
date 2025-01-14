@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
     [HideInInspector] public int recentHits = 0;
     [HideInInspector] public int succesfullHitCounter = 0;
+    [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
     private float currentMoldPercentage = 0;
 
 
@@ -401,6 +402,17 @@ public class Player : MonoBehaviour
     {
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
+
+        GlobalReference.Statistics.Increase("deaths", 1);
+        AchievementManager.Grant("LIFE_IS_MOLDY");
+
+        if (lastDamageCause == DamageCause.ENEMY) {
+            GlobalReference.Statistics.Increase("death_by_enemy", 1);
+        }
+        else if (lastDamageCause == DamageCause.HAZARD) {
+            GlobalReference.Statistics.Increase("death_by_hazard", 1);
+            AchievementManager.Grant("SKILL_ISSUE");
+        }
     }
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
@@ -413,5 +425,11 @@ public class Player : MonoBehaviour
         succesfullHitCounter = 0;
         FeedbackManager f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
         f.SetRandomFeedback();
+    }
+
+    public enum DamageCause{
+        NONE,
+        ENEMY,
+        HAZARD
     }
 }
