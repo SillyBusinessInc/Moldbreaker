@@ -134,7 +134,7 @@ public class Player : MonoBehaviour
         {
             if (list.Contains(i + 1))
             {
-                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());   
+                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());
             }
         }
     }
