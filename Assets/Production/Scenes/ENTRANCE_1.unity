@@ -2696,6 +2696,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: levelName
+      value: PARKOUR_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: maxCrumbs
       value: 71
       objectReference: {fileID: 0}
