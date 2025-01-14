@@ -1524,7 +1524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2823542663741564953, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: m_Volume
-      value: 0.806
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3676034799806775620, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: m_Name
@@ -1580,7 +1580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6948538073730267529, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: m_Volume
-      value: 0.7
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 7719527601109303650, guid: a1d3235bcb6c79e47a161a89914a8b12, type: 3}
       propertyPath: m_Volume
