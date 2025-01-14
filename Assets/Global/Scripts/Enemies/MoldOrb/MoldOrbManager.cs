@@ -15,6 +15,7 @@ public class MoldOrbManager : MonoBehaviour
         for (int i = 0 ; i < orbList.Length ; i++){
             if (orbList[i] == Orb) {
                 orbList = RemoveAtUsingList(orbList, i);
+                break;
             }
         }
     }

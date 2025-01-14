@@ -30,9 +30,9 @@ public class MoldOrb : MonoBehaviour
     void OnDeath()
     {
         GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
-        Destroy(gameObject);
         moldOrbManager.RemoveFromList(this);
         moldOrbManager.DestroyDoor();
         HealthBarDestroy = true;
+        Destroy(gameObject);
     }
 }
