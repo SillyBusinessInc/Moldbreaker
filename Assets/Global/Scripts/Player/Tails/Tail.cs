@@ -54,8 +54,6 @@ public class Tail : MonoBehaviour
             player.collidersEnemy.Contains(Collider)    ||
             (Collider.GetComponent<EnemiesNS.EnemyBase>() == null && Collider.GetComponent<MoldOrb>() == null)
         ) return;
-
-        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().hitEnemy);
         player.collidersEnemy.Add(Collider);
         float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
         if (Collider.gameObject.CompareTag("Enemy")) {

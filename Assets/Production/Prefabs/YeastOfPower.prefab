@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   option: {fileID: 11400000, guid: 2855e6aa5f71e6c4cbe803f709d2daf7, type: 2}
+  roomId: -1
   interactionActions:
   - action: {fileID: 11400000, guid: 738a1be2e325a1145bb93269c4296ad8, type: 2}
     parameters:

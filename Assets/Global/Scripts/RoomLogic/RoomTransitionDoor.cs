@@ -26,7 +26,6 @@ public class RoomTransitionDoor : Interactable
     {
         IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
         crossfadeController = GlobalReference.GetReference<CrossfadeController>();
-        portalEffect?.SetActive(false);
     }
 
     public void Initialize()
@@ -52,7 +51,7 @@ public class RoomTransitionDoor : Interactable
         // unlock next level
         Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel != null) nextLevel.unlocked = true;
-        
+        AudioManager.Instance.PlaySFX("PortalSFX");
         StartCoroutine(LoadNextRoom());
         Player p = GlobalReference.GetReference<PlayerReference>().Player;
         p.setCameraHeight(null); // height reset to default
