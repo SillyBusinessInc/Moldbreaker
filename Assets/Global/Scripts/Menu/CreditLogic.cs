@@ -144,7 +144,7 @@ public class CreditLogic : MonoBehaviour
 
     private IEnumerator ExitAfter() {
         exiting = true;
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay + 5);
         OnExit();
     }
 
