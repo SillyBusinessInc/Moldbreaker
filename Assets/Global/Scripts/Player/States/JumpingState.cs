@@ -7,7 +7,7 @@ public class JumpingState : StateBase
 
     public override void Enter()
     {
-
+        
         Player.playerAnimationsHandler.animator.ResetTrigger("IsLanding");
         Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
         Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
