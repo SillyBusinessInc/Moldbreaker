@@ -5422,7 +5422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d0b31fc8bf71a46a80a40882db9968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxComboTime: 4
+  maxComboTime: 6
   InvulnerableCheatActivated: 0
 --- !u!1 &773626285719660731
 GameObject:
