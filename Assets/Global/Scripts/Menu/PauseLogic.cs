@@ -15,6 +15,7 @@ public class PauseLogic : MonoBehaviour
 
     void Start()
     {
+        handler.EnableInput("UI");
         Menu.SetActive(false);
         Upgrades.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
