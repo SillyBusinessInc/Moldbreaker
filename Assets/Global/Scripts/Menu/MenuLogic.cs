@@ -71,9 +71,10 @@ public class MenuLogic : MonoBehaviour
         UILogic.FadeToScene("Settings", fadeImage, this);
         AudioManager.Instance.PlaySFX("Button");
     }
+
     public void OnQuit()
     {
-        confirmation.RequestConfirmation("Are you sure?", "Unsaved progress will be lost if you quit now", () => Application.Quit());
         AudioManager.Instance.PlaySFX("Button");
+        confirmation.RequestConfirmation("Are you sure?", "Unsaved progress will be lost if you quit now", () => Application.Quit());
     }
 }
