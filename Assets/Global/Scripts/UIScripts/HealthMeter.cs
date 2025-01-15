@@ -38,6 +38,7 @@ public class HealthMeter : MonoBehaviour
         savedHealthPercentage = healthPercentage;
         
         if (healthPercentage != 100 ) mold.SetActive(true);
+        else  mold.SetActive(false);
         string decimals = healthPercentage >= 100 || healthPercentage == 0 ? "F0" : "F1";
         HealthPercentageText.text = healthPercentage.ToString(decimals) + '%';
 

@@ -11,6 +11,7 @@ public class DeathState : StateBase
     public override void Enter()
     {
         Player.playerAnimationsHandler.animator.SetTrigger("IsDeath");
+        Player.playerAnimationsHandler.animator.SetBool("isDead", true);
         time = 0;
         isNotDeath = true;
     }
@@ -19,10 +20,11 @@ public class DeathState : StateBase
     {
         float linearY = ApplyGravity(Player.rb.linearVelocity.y);
         Player.targetVelocity = new Vector3(0, linearY, 0);
-
         time += Time.deltaTime;
-        if (Player.playerAnimationsHandler.animator.runtimeAnimatorController.animationClips.Where(x => x.name == "Breadaplus|Bradley_death").FirstOrDefault().length * 0.8 <= time)
-        {
+        
+        // this is a magic spell, no one knows what it does, except the one who casted it, and he's dead now, so we will never know.
+        if (Player.playerAnimationsHandler.animator.runtimeAnimatorController.animationClips.FirstOrDefault(x => x.name == "Breadaplus|Bradley_death")?.length * 0.8 <= time)
+        { // (just kidding, its a check to make sure the death animation is above 80% finished)
             if (isNotDeath)
             {
                 isNotDeath = false;
