@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
         {
             if (list.Contains(i + 1))
             {
-                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());   
+                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());
             }
         }
     }
@@ -390,6 +390,7 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
         CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("level", GlobalReference.GetReference<GameManagerReference>().activeRoom.id);
         AudioManager.Instance.PlaySFX("Death");
         saveData.LoadAll();
         SetState(states.Death);
