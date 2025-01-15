@@ -26,12 +26,19 @@ public class EnableOnEvent : MonoBehaviour
     }
 
     void HandleYop() {
-        var roomId = GlobalReference.GetReference<GameManagerReference>().activeRoom.id;
+        int roomId;
+        try {
+            roomId = GlobalReference.GetReference<GameManagerReference>().activeRoom.id;
+        } catch {
+            roomId = PlayerPrefs.GetInt("level");
+            PlayerPrefs.DeleteKey("level");
+        }
+
         var saveData = new RoomSave();
         saveData.LoadAll();
 
         var list = saveData.Get<List<int>>("finishedLevels");
-        if (list.Contains(roomId + 1)) { // if player already got the upgrade, don't show it
+        if (list.Contains(roomId)) { // if player already finished the room, don't show yeast of power
             gameObject.SetActive(false);
         }
     }

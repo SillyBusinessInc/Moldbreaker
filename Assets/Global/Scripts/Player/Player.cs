@@ -390,6 +390,7 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
         CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("level", GlobalReference.GetReference<GameManagerReference>().activeRoom.id);
         AudioManager.Instance.PlaySFX("Death");
         saveData.LoadAll();
         SetState(states.Death);
