@@ -125,7 +125,7 @@ namespace EnemiesNS
             if (CheckingInRange())
             {
                 currentAttack += 1;
-                AudioManager.Instance.PlaySFX("RangedShot");
+                AudioManager.Instance.PlaySFX("RangedShot", enemy.transform.position);
 
                 // enemy.animator.SetTrigger("AttackStart");
                 GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
