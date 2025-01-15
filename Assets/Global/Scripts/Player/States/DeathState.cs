@@ -11,6 +11,7 @@ public class DeathState : StateBase
     public override void Enter()
     {
         Player.playerAnimationsHandler.animator.SetTrigger("IsDeath");
+        Player.playerAnimationsHandler.animator.SetBool("isDead", true);
         time = 0;
         isNotDeath = true;
     }
@@ -21,7 +22,6 @@ public class DeathState : StateBase
         Player.targetVelocity = new Vector3(0, linearY, 0);
 
         time += Time.deltaTime;
-        if (Player.playerAnimationsHandler.animator.runtimeAnimatorController.animationClips.Where(x => x.name == "Breadaplus|Bradley_death").FirstOrDefault().length * 0.8 <= time)
         {
             if (isNotDeath)
             {
