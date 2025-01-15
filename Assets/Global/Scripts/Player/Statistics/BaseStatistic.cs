@@ -1,8 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
 using System;
+
+// This class is the base for all statistics
+// We could add a permanent statistic that extend this class, that permanent statistic could hold values that also persist when turning the game on and off
 
 [Serializable]
 public class BaseStatistic
