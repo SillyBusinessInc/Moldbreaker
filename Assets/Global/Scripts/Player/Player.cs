@@ -103,8 +103,6 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        playerStatistic.Generate();
-
         GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
         GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
