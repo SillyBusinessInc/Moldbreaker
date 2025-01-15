@@ -48,9 +48,23 @@ public class SettingsLogic : MonoBehaviour
     }
 
 
-    public void OnMasterVolumeChange(float value) => AudioManager.Instance.UpdateMasterVolume(value * 8);
-    public void OnEffectsVolumeChange(float value) => AudioManager.Instance.UpdateSFXVolume(value* 8);
-    public void OnMusicVolumeChange(float value) => AudioManager.Instance.UpdateMusicVolume(value* 8);
+    public void OnMasterVolumeChange(float value)
+    {
+        AudioManager.Instance.UpdateMasterVolume(value * 8);
+        AudioManager.Instance.PlaySFX("AttackVOX2");
+    }
+
+    public void OnEffectsVolumeChange(float value)
+    {
+        AudioManager.Instance.UpdateSFXVolume( value * 8);
+        AudioManager.Instance.PlaySFX("AttackVOX2");
+    }
+
+    public void OnMusicVolumeChange(float value)
+    {
+        AudioManager.Instance.UpdateMusicVolume(value * 8);
+        AudioManager.Instance.PlaySFX("AttackVOX2");
+    }
 
 
     public void OnBack()
