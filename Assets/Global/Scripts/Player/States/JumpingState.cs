@@ -7,16 +7,12 @@ public class JumpingState : StateBase
 
     public override void Enter()
     {
-        if (Player.isGrounded)
-        {
-            Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
-            // Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
-            Player.playerAnimationsHandler.animator.SetTrigger("IsJumping");
-        }
-        else
-        {
-            Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
-        }
+
+        Player.playerAnimationsHandler.animator.ResetTrigger("IsLanding");
+        Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
+        Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
+        Player.playerAnimationsHandler.animator.SetTrigger("IsJumping");
+
         // play particleSystem
         Player.particleSystemJump.Play();
 
