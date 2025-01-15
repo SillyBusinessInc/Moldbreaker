@@ -38,8 +38,11 @@ public class MenuLogic : MonoBehaviour
         {
             confirmation.RequestConfirmation("Are you sure?", "All saved progress will be deleted permanently", () => ResetAllLevels());
         }
+        else
+        {
+            Continue();
+        }
         AudioManager.Instance.PlaySFX("Button");
-        Continue();
     }
 
     public void ResetAllLevels()
@@ -50,6 +53,7 @@ public class MenuLogic : MonoBehaviour
             foreach (var file in Directory.GetFiles(directoryPath))
                 File.Delete(file);
         }
+        Continue();
     }
 
     public void OnAchievements()
