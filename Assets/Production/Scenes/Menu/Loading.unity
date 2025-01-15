@@ -406,9 +406,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1766014114}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0}
-  m_AnchorMax: {x: 0.9, y: 0.6}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &580502420
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bradley is just one hell of a loaf?
+  m_text: Bradley is just one hell of a loaf!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
   m_sharedMaterial: {fileID: 8225337528354744887, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
@@ -458,15 +458,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 104.7
+  m_fontSize: 18.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 999
+  m_fontSizeMax: 49.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 25.203949, y: 125.8124, z: 27.304413, w: 34.27738}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -805,7 +805,9 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 125.35
+
+  m_fontSize: 18
+
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1016,13 +1018,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 129.05
+  m_fontSize: 34.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 999
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1054,7 +1056,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 15.064255, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1337,7 +1339,7 @@ RectTransform:
   m_GameObject: {fileID: 1766014113}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.48381, y: 0.48381, z: 0.48381}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1075176226}
@@ -1346,8 +1348,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6, y: 0.65}
   m_AnchorMax: {x: 0.9, y: 0.95}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 8.050049, y: -2.618744}
+  m_SizeDelta: {x: 296.7, y: 169.563}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1766014115
 MonoBehaviour:
@@ -1455,14 +1457,79 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fba92d7e195c1d1469f23f22866d35ee, type: 3}
   - {fileID: 21300000, guid: 496177d69f3b9d54cb4f5a6b0066b277, type: 3}
   - {fileID: 21300000, guid: 8489d8df12f7c2d4da7b561ff34a9eec, type: 3}
+  - {fileID: 21300000, guid: fa7eb9c8fb8628d4ba330395ac69d108, type: 3}
+  - {fileID: 21300000, guid: 4a853eb428ec48d4fb8cc6802efb3a6b, type: 3}
   tips:
   - Did you know?;Bradley is just one hell of a loaf?
-  - Did you know?;The art here is all concept art!
-  - Platypus Fact:;They are adorable.
+  - Did you know?;All loading screen art is concept art made by members of the team!
+  - Platypus Fact:;They are adorable!
   - Did you know?;Mold is bad!
-  - Bounty;Walter Walnut, DEAD OR ALIVE.
-  - Did you know?;Dying is fatal..
-  interval: 4
+  - Platypus Fact:;Males have venomous spurs on their hind legs that can really sting!
+  - Platypus Fact:;Platypus milk is believed to contain antibacterial properties
+  - 'Did you know?;In every level there are legends of blue flames hidden within.. '
+  - 'Did you know?;Bradley is a huge fan of the character: Pan-chan.'
+  interval: 7
+--- !u!1001 &2078367325
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8321083482972450310, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: audioSongName
+      value: Loading
+      objectReference: {fileID: 0}
+    - target: {fileID: 595479585391309356, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_Name
+      value: AudioRunScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760449528686101779, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
 --- !u!1 &2099454007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,3 +1612,4 @@ SceneRoots:
   - {fileID: 1232323033}
   - {fileID: 693330175}
   - {fileID: 1625172184}
+  - {fileID: 2078367325}

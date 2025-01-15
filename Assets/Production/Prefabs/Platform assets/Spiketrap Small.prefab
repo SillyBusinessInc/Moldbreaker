@@ -26,7 +26,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 612.8397, y: 0.1366, z: 380.7825}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1325214237800877731}
@@ -1030,6 +1030,7 @@ GameObject:
   - component: {fileID: 1198946796569434520}
   - component: {fileID: 7498826580277360892}
   - component: {fileID: 6413508619335262074}
+  - component: {fileID: 2383223354499479708}
   m_Layer: 0
   m_Name: Spike Hitbox
   m_TagString: Untagged
@@ -1126,6 +1127,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2383223354499479708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467731968250969122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d81aab2dc067f4fa8d761728cff3ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  enemyDamage: 10
+  disableDuration: 1
+  knockbackForce: 10
+  leapForce: 5
 --- !u!1 &2541096156889332669
 GameObject:
   m_ObjectHideFlags: 0

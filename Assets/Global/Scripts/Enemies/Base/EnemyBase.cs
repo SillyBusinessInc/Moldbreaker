@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -103,7 +104,7 @@ namespace EnemiesNS
         [Tooltip("The base damage of the attack")]
         [SerializeField]
         [Range(0f, 100f)]
-        public float attackDamage = (1f/6f) * 100f; // It did 1 damage for 6 hp before, but its now 100 HP, and i am to lazy to calculate the new value
+        public float attackDamage = (1f / 6f) * 100f; // It did 1 damage for 6 hp before, but its now 100 HP, and i am to lazy to calculate the new value
 
         [Tooltip("The angle the enemy can be off while trying to face the player")]
         [SerializeField]
@@ -154,7 +155,7 @@ namespace EnemiesNS
         [Tooltip("OPTIONAL: Reference to the NavMeshAgent of this enemy. Has Default")]
         [SerializeField]
         public NavMeshAgent agent;
-        
+
         // [Tooltip("Reference to this enemy's weapon")]
         // [SerializeField] public Collider weapon;
 
@@ -184,11 +185,19 @@ namespace EnemiesNS
         private float targetMoldPercentage = 1;
         private float currentMoldPercentage = 1;
 
-        //TODO: this is a quick fix to get the demo out the door, make this nicer
-        // this should be cleaned up and placed higher up somewhere
+        [SerializeField] private GameObject celebModel;
+
+        protected void SetCelebrateModel(bool value)
+        {
+            if (celebModel == null) return;
+
+            animator.gameObject.SetActive(!value);
+            celebModel.SetActive(value);
+        }
 
         protected virtual void Start()
         {
+            SetCelebrateModel(false);
             maxHealth = health;
             spawnPos = this.transform.position;
             setReferences();
@@ -211,6 +220,7 @@ namespace EnemiesNS
         public virtual void OnHit(int damage)
         {
             health -= damage;
+            AudioManager.Instance.PlaySFX("HitEnemy");
             if (animator) animator.SetTrigger("PlayDamageFlash");
 
             if (health <= 0)
@@ -222,17 +232,27 @@ namespace EnemiesNS
             if (!animator) return;
             if (!inAttackAnim) animator.SetTrigger("PlayDamage");
 
-            float p = health/(float)maxHealth;
+            float p = health / (float)maxHealth;
             Debug.LogWarning($"[{p}] health: {health}, maxHealth: {maxHealth}");
             targetMoldPercentage = p;
         }
 
         protected virtual void OnDeath()
         {
+            FacePlayer();
             HealthBarDestroy = true;
+            AudioManager.Instance.PlaySFX("EnemyThx");
             ChangeState(states.Dead);
+            agent.isStopped = true;
+            SetCelebrateModel(true);
         }
-
+        protected void FacePlayer()
+        {
+            if (target == null) return;
+            Vector3 directionToPlayer = (target.position - transform.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = targetRotation;
+        }
         protected virtual void OnDestroy()
         {
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
@@ -365,7 +385,11 @@ namespace EnemiesNS
 
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
             // animator is on the Model's GameObject, so we can reach that GameObject through this.
-            if (animator)
+            if (celebModel)
+            {
+                StartCoroutine(DisableAfter(celebModel, 0.5f));
+            }
+            else if (animator)
             {
                 StartCoroutine(DisableAfter(animator.gameObject, 0.5f));
             }
@@ -379,7 +403,8 @@ namespace EnemiesNS
             StartCoroutine(DestroyAfterParticles(particleSystemDeath));
         }
 
-        public IEnumerator DisableAfter(GameObject obj, float time) {
+        public IEnumerator DisableAfter(GameObject obj, float time)
+        {
             yield return new WaitForSeconds(time);
             obj.SetActive(false);
         }
