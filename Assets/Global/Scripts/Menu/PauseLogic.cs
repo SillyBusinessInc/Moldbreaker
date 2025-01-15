@@ -40,7 +40,7 @@ public class PauseLogic : MonoBehaviour
         isPaused = false;
 
         AudioManager.Instance.PlaySFX("Button");
-        Menu.SetActive(!Menu.activeSelf); 
+        Menu.SetActive(!Menu.activeSelf);
 
         // Upgrades.SetActive(!Upgrades.activeSelf); 
         Cursor.lockState = CursorLockMode.Locked;
@@ -89,7 +89,7 @@ public class PauseLogic : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            handler.EnableInput("UI");
+            // handler.EnableInput("UI");
         }
         else
         {
@@ -103,7 +103,7 @@ public class PauseLogic : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
-            handler.DisableInput("UI");
+            // handler.DisableInput("UI");
         }
     }
 }
