@@ -171,9 +171,11 @@ public class Interactable : MonoBehaviour
         hudText.color = isDisabled ? disabledPromptColor : enabledPromptColor;
 
         // set offsets
-        hudElement.transform.position = transform.position + Vector3.up * promptYOffset;
+        hudElement.transform.position = hudParent != null ? hudParent.position : transform.position;
+        hudElement.transform.position += Vector3.up * promptYOffset;
         hudElement.transform.position += Vector3.right * promptXOffset;
         hudElement.transform.position += Vector3.forward * promptZOffset;
+        
     }
 
     public bool IsWithinInteractionRange(float rayHitDistance) => rayHitDistance <= interactDistance;
