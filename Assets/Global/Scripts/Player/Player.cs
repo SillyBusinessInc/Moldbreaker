@@ -190,6 +190,9 @@ public class Player : MonoBehaviour
 
     private void GroundCheck()
     {
+        // prevent ground check soon after jump
+        if (rb.linearVelocity.y > playerStatistic.JumpForce.GetValue() / 2.0f) return;
+
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
         {
