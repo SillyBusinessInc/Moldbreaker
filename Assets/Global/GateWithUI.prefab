@@ -685,10 +685,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39ae39b75215ff4b9cfe7a22739380c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionPrompt: E - Interact
+  interactionPrompt: '{interactKey} - Interact'
   disabledPrompt: Cannot interact
-  promptYOffset: 1.5
-  promptXOffset: 0
+  promptYOffset: 1
+  enabledPromptColor: {r: 1, g: 1, b: 1, a: 1}
+  disabledPromptColor: {r: 1, g: 1, b: 1, a: 1}
+  promptFontSize: 5
+  promptXOffset: 2
   promptZOffset: 0
   hudParent: {fileID: 0}
   interactDistance: 5
