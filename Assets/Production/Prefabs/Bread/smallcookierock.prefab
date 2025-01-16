@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: smallcookierock (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1991966914493122734, guid: 2c40deaf8b66f63418369c5fb399efeb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 74fdd57a576de584eb21b5d98349ecbc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
