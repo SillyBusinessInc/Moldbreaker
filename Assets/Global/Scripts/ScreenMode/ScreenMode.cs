@@ -18,7 +18,7 @@ public class ScreenMode : MonoBehaviour
 
     public void ChangeScreenMode(int mode)
     {
-        Debug.Log("mode : " + mode);
+        // Debug.Log("mode : " + mode);
         switch (mode)
         {
             case 0: // Windowed
@@ -37,6 +37,6 @@ public class ScreenMode : MonoBehaviour
                 break;
         } 
         GlobalReference.Settings.Set("screen_mode", mode);
-        Debug.Log("ScreenMode : " + Screen.fullScreenMode);
+        // Debug.Log("ScreenMode : " + Screen.fullScreenMode);
     }
 }

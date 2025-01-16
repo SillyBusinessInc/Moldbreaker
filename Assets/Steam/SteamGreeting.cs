@@ -11,5 +11,8 @@ public class SteamScript : MonoBehaviour {
 
             SteamUserStats.ResetAllStats(true);
 		}
+		else {
+			GetComponent<TMP_Text>().text = $"Could not connect to steam client...";
+		}
 	}
 }

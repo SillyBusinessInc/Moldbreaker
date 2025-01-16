@@ -1,3 +1,4 @@
+using Discord;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Actions/LegDay")]
@@ -12,5 +13,7 @@ public class LegDay : OneParamAction
             .GetReference<PlayerReference>()
             .GetComponent<Player>().playerStatistic.DoubleJumpsCount
             .AddModifier(actionName, doubleJumpsCountincrease);
+        
+        AchievementManager.Grant("RISE_EVEN_HIGHER");
     }
 }

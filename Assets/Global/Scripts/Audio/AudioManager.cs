@@ -70,7 +70,6 @@ public class AudioManager : MonoBehaviour
         if (mixerString == "Master")
         {
             audioSettingSave.Set("Master", tempVolume);
-            Debug.LogWarning($"SET: {tempVolume}");
         }
         if (mixerString == "SFX")
         {

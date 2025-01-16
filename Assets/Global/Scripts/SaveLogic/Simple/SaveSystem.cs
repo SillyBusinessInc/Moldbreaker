@@ -23,7 +23,7 @@ public abstract class SaveSystem
 
     /// <summary> Finds the value with the given id </summary>
     public T Get<T>(string id) {
-        Debug.Log($"get: {id}");
+        // Debug.Log($"get: {id}");
         // check if the value exists in this save system
         if (!saveables.ContainsKey(id)) {
             Debug.LogError($"{id} can not be found in {GetType().Name}");
@@ -35,7 +35,7 @@ public abstract class SaveSystem
 
     /// <summary> Sets the value with the given id to a new value </summary>
     public void Set<T>(string id, T value) {
-        Debug.Log($"set: {id}");
+        // Debug.Log($"set: {id}");
         if (IsLocked) return;
         // check if the value exists in this save system
         if (!saveables.ContainsKey(id)) {
@@ -49,7 +49,7 @@ public abstract class SaveSystem
 
     /// <summary> Add a new value to the save system. This should generally be done in SaveSystem.Init() </summary>
     protected void Add<T>(string id, T defaultValue) {
-        Debug.Log($"add: {id}");
+        // Debug.Log($"add: {id}");
         // check if type is allowed
         Type type = typeof(T);
         if (type != typeof(int) &&
