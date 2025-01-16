@@ -217,8 +217,6 @@ public class Interactable : MonoBehaviour
         if (!isDisabled)
         {
             OnInteract(metaData);
-            // Invoke all actions
-            interactionActions.ForEach(action => action.InvokeAction(metaData));
         }
         else
         {
