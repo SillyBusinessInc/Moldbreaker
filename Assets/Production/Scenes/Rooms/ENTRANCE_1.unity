@@ -2681,7 +2681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4288179660336547401, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: m_Name
-      value: GateWithUI (2)
+      value: GateWithUI
       objectReference: {fileID: 0}
     - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: nextRoomId
@@ -2701,7 +2701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: maxCrumbs
-      value: 71
+      value: 69
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3214,7 +3214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4288179660336547401, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: m_Name
-      value: GateWithUI
+      value: GateWithUI (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6697922947640386179, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: nextRoomId
@@ -5188,8 +5188,8 @@ SceneRoots:
   - {fileID: 2076614061}
   - {fileID: 1140170975}
   - {fileID: 623354167}
-  - {fileID: 1302594771}
-  - {fileID: 1541878135}
   - {fileID: 1091109184}
+  - {fileID: 1541878135}
+  - {fileID: 1302594771}
   - {fileID: 299512492}
   - {fileID: 1930497155}
