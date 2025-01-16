@@ -89,8 +89,8 @@ public class DiscordPresence : MonoBehaviour
                 break;
 
             case "ENTRANCE_1":
-                details = "Chillin' in the hub!";
-                //details = "Loafin' around in the hub!";
+                //details = "Chillin' in the hub!";
+                details = "Loafin' around in the hub!";
                 largeImageKey = "entrance"; 
                 break;
 
