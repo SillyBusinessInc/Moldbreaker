@@ -34,7 +34,7 @@ public class AttackingState : StateBase
 
         if (Player.recentHits > 0) Player.succesfullHitCounter += 1;
         else Player.succesfullHitCounter = 0;
-        Debug.Log($"recent: {Player.recentHits}, succesfull: {Player.succesfullHitCounter}");
+        // Debug.Log($"recent: {Player.recentHits}, succesfull: {Player.succesfullHitCounter}");
         Player.recentHits = 0;
     }
 
