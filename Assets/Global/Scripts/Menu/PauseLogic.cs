@@ -41,8 +41,6 @@ public class PauseLogic : MonoBehaviour
 
         AudioManager.Instance.PlaySFX("Button");
         Menu.SetActive(!Menu.activeSelf);
-
-        // Upgrades.SetActive(!Upgrades.activeSelf); 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1f;
@@ -55,7 +53,6 @@ public class PauseLogic : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Menu.SetActive(!Menu.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf); 
         Time.timeScale = 1f;
         SceneManager.LoadScene("Settings");
     }
@@ -67,7 +64,6 @@ public class PauseLogic : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Menu.SetActive(!Menu.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf);
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
@@ -81,7 +77,6 @@ public class PauseLogic : MonoBehaviour
             isPaused = !isPaused;
             Menu.SetActive(!Menu.activeSelf);
             UILogic.SelectButton(continueButton);
-            // Upgrades.SetActive(!Upgrades.activeSelf); 
             Time.timeScale = isPaused ? 0f : 1f;
         }
 
@@ -89,7 +84,6 @@ public class PauseLogic : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            // handler.EnableInput("UI");
         }
         else
         {
@@ -103,7 +97,6 @@ public class PauseLogic : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
-            // handler.DisableInput("UI");
         }
     }
 }
