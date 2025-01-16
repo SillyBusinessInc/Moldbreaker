@@ -14,6 +14,7 @@ public class EnableOnEvent : MonoBehaviour
         }
         
         GlobalReference.SubscribeTo(this.enableEvent, EnableAll);
+        HandleYop();
     }
 
     private void EnableAll()
@@ -21,6 +22,24 @@ public class EnableOnEvent : MonoBehaviour
         foreach (var obj in objectsToEnable)
         {
             obj.SetActive(true);
+        }
+    }
+
+    void HandleYop() {
+        int roomId;
+        try {
+            roomId = GlobalReference.GetReference<GameManagerReference>().activeRoom.id;
+        } catch {
+            roomId = PlayerPrefs.GetInt("level");
+            PlayerPrefs.DeleteKey("level");
+        }
+
+        var saveData = new RoomSave();
+        saveData.LoadAll();
+
+        var list = saveData.Get<List<int>>("finishedLevels");
+        if (list.Contains(roomId)) { // if player already finished the room, don't show yeast of power
+            gameObject.SetActive(false);
         }
     }
 }

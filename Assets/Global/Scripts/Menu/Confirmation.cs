@@ -36,12 +36,12 @@ public class Confirmation : MonoBehaviour
         // make confirmation window the only interactable menu, and set no-button as selected option.
         UILogic.FlipInteractability(confirmationGroup, menuGroup);
         UILogic.SelectButton(noButton);
-
     }
 
     public void OnConfirm()
     {
         if (confirmAction != null) confirmAction();
+        AudioManager.Instance.PlaySFX("Button");
         gameObject.SetActive(false);
         UILogic.FlipInteractability(confirmationGroup, menuGroup);
         UILogic.SelectButton(quitButton);
@@ -50,6 +50,7 @@ public class Confirmation : MonoBehaviour
     public void OnReject()
     {
         if (rejectAction != null) rejectAction();
+        AudioManager.Instance.PlaySFX("Button");
         gameObject.SetActive(false);
         UILogic.FlipInteractability(confirmationGroup, menuGroup);
         UILogic.SelectButton(quitButton);

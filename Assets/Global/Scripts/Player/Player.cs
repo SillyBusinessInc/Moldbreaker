@@ -103,8 +103,6 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        playerStatistic.Generate();
-
         GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
         GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
@@ -134,7 +132,7 @@ public class Player : MonoBehaviour
         {
             if (list.Contains(i + 1))
             {
-                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());   
+                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());
             }
         }
     }
@@ -241,6 +239,9 @@ public class Player : MonoBehaviour
             IsLanding = true;
             playerAnimationsHandler.resetStates();
             playerAnimationsHandler.animator.SetTrigger("IsLanding");
+            playerAnimationsHandler.animator.ResetTrigger("IsJumping");
+            playerAnimationsHandler.animator.ResetTrigger("IsDoubleJumping");
+
         }
     }
 
@@ -392,6 +393,7 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
         CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("level", GlobalReference.GetReference<GameManagerReference>().activeRoom.id);
         AudioManager.Instance.PlaySFX("Death");
         saveData.LoadAll();
         SetState(states.Death);
