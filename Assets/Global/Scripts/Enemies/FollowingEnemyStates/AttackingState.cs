@@ -68,6 +68,7 @@ namespace FollowEnemyStates
                 if (player != null)
                 {
                     followEnemy.animator.SetTrigger("TriggerAttackAnimation");
+                    player.lastDamageCause = Player.DamageCause.ENEMY;
                     player.OnHit(followEnemy.attackDamage, followEnemy.transform.forward);
                 }
             }

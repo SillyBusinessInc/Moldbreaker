@@ -25,3 +25,8 @@ MonoBehaviour:
     - CanDodge
     - 1
     - Modify
+  - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
+    parameters:
+    - CanDodge
+    - 1
+    - Modify

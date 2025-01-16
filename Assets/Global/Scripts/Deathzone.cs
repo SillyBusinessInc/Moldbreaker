@@ -41,6 +41,7 @@ public class Deathzone : MonoBehaviour
     {
         // get the actual player object to damage.
         Player playerRef = playerReference.Player;
+        playerRef.lastDamageCause = Player.DamageCause.HAZARD;
         playerRef.OnHit(playerRef.playerStatistic.MaxHealth.GetValue() * damageAmount, new Vector3(0, 0, 0));
 
         // start the crossfade

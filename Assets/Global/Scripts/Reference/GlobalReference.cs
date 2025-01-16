@@ -11,6 +11,7 @@ public static class GlobalReference
 
     private static Settings settings;
     public static Settings Settings => settings ??= new();
+    
     private static AudioSettingSave audioSettingSave;
     public static AudioSettingSave AudioSettingSave => audioSettingSave ??= new();
 
