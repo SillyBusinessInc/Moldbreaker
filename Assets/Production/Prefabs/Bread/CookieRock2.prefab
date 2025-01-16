@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CookieRock2
       objectReference: {fileID: 0}
+    - target: {fileID: 1991966914493122734, guid: 8ce603a016ff76d44b0959568e34a70a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1640dbb907c234a4a82d5158914e9740, type: 2}
     - target: {fileID: 3757526230707547279, guid: 8ce603a016ff76d44b0959568e34a70a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

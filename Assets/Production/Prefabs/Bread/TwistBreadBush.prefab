@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -678588488315902003, guid: e8893c5d31ea487439a0b21f989399bb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f1f778f3a9a4c94fb0acb7a5a834852, type: 2}
     - target: {fileID: 919132149155446097, guid: e8893c5d31ea487439a0b21f989399bb, type: 3}
       propertyPath: m_Name
       value: TwistBreadBush
