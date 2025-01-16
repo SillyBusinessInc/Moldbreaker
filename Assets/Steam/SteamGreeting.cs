@@ -8,8 +8,6 @@ public class SteamScript : MonoBehaviour {
 			string name = SteamFriends.GetPersonaName();
 
             GetComponent<TMP_Text>().text = $"Good to see you {name}";
-
-            SteamUserStats.ResetAllStats(true);
 		}
 		else {
 			GetComponent<TMP_Text>().text = $"Could not connect to steam client...";

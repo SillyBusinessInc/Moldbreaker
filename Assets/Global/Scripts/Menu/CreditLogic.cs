@@ -89,6 +89,7 @@ public class CreditLogic : MonoBehaviour
 
     private void AddNext() 
     {
+        if (next >= entries.Length) return;
         string entry = entries[next];
         float position = spacingImage + spacingTitle + spacingPadding * 7 + spacingLine * next;
 

@@ -2780,7 +2780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: maxCrumbs
-      value: 71
+      value: 66
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3321,7 +3321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: maxCrumbs
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: popupTitle

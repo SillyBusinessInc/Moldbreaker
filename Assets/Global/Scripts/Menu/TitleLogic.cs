@@ -11,6 +11,8 @@ public class TitleLogic : MonoBehaviour
     void Awake()
     {
         Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.ForceSoftware);
+
+        // if (SteamManager.Initialized) SteamUserStats.ResetAllStats(true);
     }
 
     void Start() {

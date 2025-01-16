@@ -51,8 +51,8 @@ public class RoomTransitionDoor : Interactable
     {
         // unlock next level
         Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
-        if (nextLevel.id >= gameManagerReference.GetRooms().Count()) AchievementManager.Grant("RISE_OF_THE_LOAF");
-        else if (nextLevel != null) nextLevel.unlocked = true;
+        if (nextLevel == null) AchievementManager.Grant("RISE_OF_THE_LOAF");
+        else  nextLevel.unlocked = true;
         AudioManager.Instance.PlaySFX("PortalSFX");
         StartCoroutine(LoadNextRoom());
         Player p = GlobalReference.GetReference<PlayerReference>().Player;
