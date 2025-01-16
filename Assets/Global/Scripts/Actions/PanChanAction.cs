@@ -7,7 +7,7 @@ public class PanChanAction : OneParamAction
     [SerializeField] private string actionName = "Pan Chan Action";
     public override void InvokeAction(ActionMetaData _, string param)
     {
-        AudioManager.Instance.PlaySFX("PainSFX");
+        AudioManager.Instance.PlaySFX("Button");
 
         total_clicks += 1;
         if (total_clicks >= 69) AchievementManager.Grant("PAN_CHAN");
