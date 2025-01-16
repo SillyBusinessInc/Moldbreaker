@@ -325,7 +325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4967681329817621116, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1000.00006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5096248531346903799, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -538,9 +538,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1187896984}
     - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: glideDrag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: dodgeRollSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: dodgeRollDuration
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: crossfadeController
       value: 
       objectReference: {fileID: 1343814472}
+    - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: dodgeRollDeceleration
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: playerStatistic.JumpForce.baseValue
       value: 12
