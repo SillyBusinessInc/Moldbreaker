@@ -51,6 +51,7 @@ MonoBehaviour:
   promptYOffset: 1.1
   enabledPromptColor: {r: 1, g: 1, b: 1, a: 1}
   disabledPromptColor: {r: 1, g: 1, b: 1, a: 1}
+  font: {fileID: 11400000, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
   promptFontSize: 5
   promptXOffset: 0
   promptZOffset: 0.5

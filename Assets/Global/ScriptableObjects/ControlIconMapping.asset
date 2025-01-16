@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xBoxMappings:
   - controlPath: 5
-    icon: {fileID: 11400000, guid: 2350c28b74a4f63458ee6c90eb3df725, type: 2}
+    icon: {fileID: 11400000, guid: efc835b9c8e3deb4eb8f754352e116ba, type: 2}
     index: 0
   keyboardMappings:
   - keyboardMapping: 19
@@ -22,8 +22,8 @@ MonoBehaviour:
     index: 0
   playStationMappings:
   - controlPath: 5
-    icon: {fileID: 11400000, guid: 2350c28b74a4f63458ee6c90eb3df725, type: 2}
+    icon: {fileID: 11400000, guid: efc835b9c8e3deb4eb8f754352e116ba, type: 2}
     index: 0
   - controlPath: 4
-    icon: {fileID: 11400000, guid: 2350c28b74a4f63458ee6c90eb3df725, type: 2}
+    icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
     index: 0

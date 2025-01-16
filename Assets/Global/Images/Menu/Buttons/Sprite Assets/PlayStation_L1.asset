@@ -83,15 +83,15 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1
+    m_Scale: 1.5
     m_Name: PlayStation_L1
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
       m_Width: 2048
       m_Height: 1043
-      m_HorizontalBearingX: -1024
-      m_HorizontalBearingY: 521.5
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 750
       m_HorizontalAdvance: 2048
     m_GlyphRect:
       m_X: 0

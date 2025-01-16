@@ -26,6 +26,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private Color enabledPromptColor = Color.white;
     [SerializeField] private Color disabledPromptColor = Color.white;
 
+    [SerializeField] private TMP_FontAsset font;
     [SerializeField] private int promptFontSize = 8;
 
     [SerializeField] private float promptXOffset = 0.0f;
@@ -150,11 +151,10 @@ public class Interactable : MonoBehaviour
         hudElement.AddComponent<TextMeshPro>().text = interactionPrompt;
         hudText = hudElement.GetComponent<TextMeshPro>();
 
+        if (font) hudText.font = font;
+        
         // set right coordinates
-        if (hudParent != null)
-            hudElement.transform.SetParent(hudParent);
-        else
-            hudElement.transform.SetParent(transform);
+        hudElement.transform.SetParent(hudParent != null ? hudParent : transform);
 
         SetBillboardText(true);
         // set offsets & colors etc
