@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Linq;
 
 // using System.Numerics;
 
@@ -15,7 +13,7 @@ public class Player : MonoBehaviour
     public float acceleration = 2;
     public float deceleration = 0.5f;
     public float currentMovementLerpSpeed = 100;
-    
+
     public float soundAfterTime = 0.5f;
 
     [Header("Knockback Settings")]
@@ -44,7 +42,7 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
-
+    [SerializeField] private List<UpgradeOption> upgrades;
     public Tail Tail;
 
     [Header("References")]
@@ -56,6 +54,7 @@ public class Player : MonoBehaviour
     public ParticleSystem particleSystemJump;
     public ParticleSystem particleSystemDash;
     public ParticleSystem particleSystemWalk;
+    public CheatCodeSystem cheats;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool slamCanDoDamage = false;
@@ -79,6 +78,10 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool awaitingNewState = false;
     [HideInInspector] public Coroutine activeCoroutine;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
+    [HideInInspector] public int recentHits = 0;
+    [HideInInspector] public int succesfullHitCounter = 0;
+    [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
+    [HideInInspector] public bool roomInvulnerability = false;
     private float currentMoldPercentage = 0;
 
 
@@ -96,13 +99,12 @@ public class Player : MonoBehaviour
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
     [SerializeField] private CrossfadeController crossfadeController;
-    
+
     [HideInInspector] public bool isInvulnerable = false;
 
     void Awake()
     {
         playerStatistic.Generate();
-
         GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
         GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
@@ -116,10 +118,27 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); 
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
         defaultCameraTarget = cameraTarget.localPosition;
+        
+        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED,AlreadyRecievedUpgrades );
+        AlreadyRecievedUpgrades();
     }
 
+    private void AlreadyRecievedUpgrades()
+    {
+        var saveData = new RoomSave();
+        saveData.LoadAll();
+        var list = saveData.Get<List<int>>("finishedLevels");
+        for (var i = 0; i < upgrades.Count; i++)
+        {
+            if (list.Contains(i + 1))
+            {
+                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());
+            }
+        }
+    }
+    
     void Update()
     {
         GroundCheck();
@@ -173,6 +192,9 @@ public class Player : MonoBehaviour
 
     private void GroundCheck()
     {
+        // prevent ground check soon after jump
+        if (rb.linearVelocity.y > playerStatistic.JumpForce.GetValue() / 2.0f) return;
+
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
         {
@@ -222,13 +244,16 @@ public class Player : MonoBehaviour
             IsLanding = true;
             playerAnimationsHandler.resetStates();
             playerAnimationsHandler.animator.SetTrigger("IsLanding");
+            playerAnimationsHandler.animator.ResetTrigger("IsJumping");
+            playerAnimationsHandler.animator.ResetTrigger("IsDoubleJumping");
+
         }
     }
 
     public void SetState(StateBase newState)
     {
         if (currentState == states.Death) return;
-        if(currentState == states.Attacking && newState == states.Attacking) return;
+        if (currentState == states.Attacking && newState == states.Attacking) return;
         // stop active coroutine
         if (activeCoroutine != null)
         {
@@ -308,31 +333,40 @@ public class Player : MonoBehaviour
         rb.linearVelocity = newVelocity;
     }
 
-    public void UpdateVisualState() 
+    public void UpdateVisualState()
     {
         float strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
         currentMoldPercentage -= (currentMoldPercentage - strength) * 2 * Time.deltaTime;
 
-        foreach (Material mat in mr.materials) {
+        foreach (Material mat in mr.materials)
+        {
             mat.SetFloat("_MoldStrength", currentMoldPercentage);
         }
-        foreach (Material mat in tailmr.materials) {
+        foreach (Material mat in tailmr.materials)
+        {
             mat.SetFloat("_MoldStrength", currentMoldPercentage);
         }
     }
 
-    // TO BE CHANGED ===============================================================================================================================
+    // TO BEf CHANGED
     // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
-        if (currentState == states.Death) return;
-        
+        // check if bradley should be invincible
+        if (cheats.InvulnerableCheatActivated) return;
+        if (roomInvulnerability) return;
         if (isInvulnerable) return;
-        if(direction != Vector3.zero)
-           currentState.Hurt(direction);
+
+        // check if bradley is dead
+        if (currentState == states.Death) return;
+
+        if (direction != Vector3.zero)
+            currentState.Hurt(direction);
+
+        AudioManager.Instance.PlaySFX("PainSFX");
+
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
-        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
         if (playerStatistic.Health <= 0) OnDeath();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
@@ -359,24 +393,55 @@ public class Player : MonoBehaviour
         playerStatistic.Health += reward;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
-    
+
     // If we go the event route this should change right?
     private void OnDeath()
     {
         CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("level", GlobalReference.GetReference<GameManagerReference>().activeRoom.id);
+        AudioManager.Instance.PlaySFX("Death");
         saveData.LoadAll();
         SetState(states.Death);
-    }   
+    }
+
+    public void FadeToDeathScreen()
+    {
+        StartCoroutine(DeathScreen());
+    }
+
     private IEnumerator DeathScreen()
     {
-        Debug.Log("Player died", this);
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
+
+        GlobalReference.Statistics.Increase("deaths", 1);
+        AchievementManager.Grant("LIFE_IS_MOLDY");
+
+        if (lastDamageCause == DamageCause.ENEMY) {
+            GlobalReference.Statistics.Increase("death_by_enemy", 1);
+        }
+        else if (lastDamageCause == DamageCause.HAZARD) {
+            GlobalReference.Statistics.Increase("death_by_hazard", 1);
+            AchievementManager.Grant("SKILL_ISSUE");
+        }
     }
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
     {
         yield return new WaitForSecondsRealtime(time);
         isKnockedBack = false;
+    }
+
+    public void SetRandomFeedback()
+    {
+        succesfullHitCounter = 0;
+        FeedbackManager f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
+        f.SetRandomFeedback();
+    }
+
+    public enum DamageCause{
+        NONE,
+        ENEMY,
+        HAZARD
     }
 }

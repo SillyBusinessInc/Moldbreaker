@@ -12,11 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f58623c8fcc854e88b271402b2c7d0, type: 3}
   m_Name: ExtraDodge
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: 0a91b3cbabc0e5142a8590ce5048656b, type: 3}
+  image: {fileID: 21300000, guid: 4f7704ccd150e5742900e880302ddc10, type: 3}
   name: Dough Dash
   description: Unlock the ability to dash! Dashing dodges attacks.
   rarity: 4
+  text1: PRESS
+  keyboardImage: {fileID: 21300000, guid: 129a19b2fca953b41891069150155242, type: 3}
+  text2: 
   interactionActions:
+  - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
+    parameters:
+    - CanDodge
+    - 1
+    - Modify
   - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
     parameters:
     - CanDodge

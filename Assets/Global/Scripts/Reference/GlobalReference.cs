@@ -11,19 +11,19 @@ public static class GlobalReference
 
     private static Settings settings;
     public static Settings Settings => settings ??= new();
+    
+    private static AudioSettingSave audioSettingSave;
+    public static AudioSettingSave AudioSettingSave => audioSettingSave ??= new();
 
     private static DevSettings devSettings;
     public static DevSettings DevSettings => devSettings ??= new();
-
-    private static PermanentPlayerStatistic permanentPlayerStatistic;
-    public static PermanentPlayerStatistic PermanentPlayerStatistic => permanentPlayerStatistic ??= new();
-
+    
     public static void Save()
     {
+        
         statistics.SaveAll();
         settings.SaveAll();
         devSettings.SaveAll();
-        permanentPlayerStatistic.SaveAll();
     }
 
     #endregion
@@ -95,7 +95,7 @@ public static class GlobalReference
     public static void AttemptInvoke(Events eventName)
     {
         // This log is allowed to stay :P, it's so useful
-        //        Debug.Log($"Event Invoked ({eventName})");
+        Debug.Log($"Event Invoked ({eventName})");
         TryGetEvent(eventName).Invoke();
     }
     public static void AttemptInvoke<T>(Events eventName, T parameter)

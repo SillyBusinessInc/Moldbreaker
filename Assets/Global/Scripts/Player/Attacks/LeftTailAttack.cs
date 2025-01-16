@@ -11,7 +11,7 @@ public class LeftTailAttack : TailAttack
     public override void Start()
     {
         base.Start();
-        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleySweepLVoice);
+        AudioManager.Instance.PlaySFX("AttackVOX1");
         player.Tail.tailCanDoDamage = true;
         player.Tail.tailDoDamage = player.Tail.tailStatistic.leftTailDamage.GetValue();
         player.Tail.tailDoDamage *= player.playerStatistic.AttackDamageMultiplier.GetValue();
@@ -20,7 +20,6 @@ public class LeftTailAttack : TailAttack
         ClipDuration(animator, duration, "Breadaplus|Bradley_attack1_L");
         animator.speed *= player.Tail.tailStatistic.increaseTailSpeed.GetValue();
         animator.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
-        animator.SetTrigger("LeftAttack");
 
         player.playerAnimationsHandler.resetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 1);

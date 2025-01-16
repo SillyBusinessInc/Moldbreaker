@@ -152,7 +152,8 @@ PrefabInstance:
       value: Spawnpoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2163791223031713101, guid: 6ca19ef4fb103c944b6cf5997208020a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ca19ef4fb103c944b6cf5997208020a, type: 3}

@@ -31,6 +31,11 @@ public class AttackingState : StateBase
         currentCombo.Start();
         Player.StartCoroutine(currentCombo.SetStateIdle());
         IncreaseIndex();
+
+        if (Player.recentHits > 0) Player.succesfullHitCounter += 1;
+        else Player.succesfullHitCounter = 0;
+        // Debug.Log($"recent: {Player.recentHits}, succesfull: {Player.succesfullHitCounter}");
+        Player.recentHits = 0;
     }
 
     public override void Exit()

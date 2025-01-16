@@ -44,7 +44,7 @@ namespace EnemiesNS
             }
 
 
-            // Play VFX and destroy bullet
+            AudioManager.Instance.PlaySFX("ShotExplosion", transform.position);
             PlayImpactVFX();
             Destroy(gameObject);
         }
@@ -53,6 +53,7 @@ namespace EnemiesNS
         {
             Player player = GlobalReference.GetReference<PlayerReference>().Player;
             if (!player) return;
+            player.lastDamageCause = Player.DamageCause.ENEMY;
             player.OnHit(damage, Vector3.forward); // TODO: Add proper knockback direction 
 
             //TODO: implement knockback

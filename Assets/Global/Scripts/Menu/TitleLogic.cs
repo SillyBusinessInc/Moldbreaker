@@ -1,4 +1,5 @@
 using System;
+using Steamworks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ public class TitleLogic : MonoBehaviour
     void Awake()
     {
         Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.ForceSoftware);
+
+        // if (SteamManager.Initialized) SteamUserStats.ResetAllStats(true);
     }
 
     void Start() {
@@ -18,6 +21,9 @@ public class TitleLogic : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKey) UILogic.FadeToScene("Menu", fadeImage, this);
+        if (Input.anyKey){
+            AudioManager.Instance.PlaySFX("Button");
+            UILogic.FadeToScene("Menu", fadeImage, this);
+        } 
     }
 }

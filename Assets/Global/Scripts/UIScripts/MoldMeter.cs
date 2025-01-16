@@ -23,24 +23,24 @@ public class MoldMeter : MonoBehaviour
 
     public void UpdateMoldMeter()
     {
-        moldPercentage = player.playerStatistic.Moldmeter;
-        // if (moldPercentage < 100) moldPercentage += 0.01f;
-        if (savedMoldPercentage == moldPercentage) return;
-        savedMoldPercentage = moldPercentage;
-        
-        string decimals = moldPercentage >= 100 || moldPercentage == 0 ? "F0" : "F1";
-        MoldPercentageText.text = moldPercentage.ToString(decimals) + '%';
-
-        float barWidth = GetComponent<RectTransform>().rect.width;
-        float targetPosX = (1 - moldPercentage / 100) * -1 * barWidth + barWidth * 0.01f;
-        Vector2 targetPosition = new(targetPosX, MoldMeterImage.anchoredPosition.y);
-
-        // Start smooth movement
-        if (moveCoroutine != null)
-        {
-            StopCoroutine(moveCoroutine); // Stop any ongoing movement
-        }
-        moveCoroutine = StartCoroutine(SmoothMove(MoldMeterImage, targetPosition, animationDuration));
+     //    moldPercentage = player.playerStatistic.Moldmeter;
+     //    // if (moldPercentage < 100) moldPercentage += 0.01f;
+     //    if (savedMoldPercentage == moldPercentage) return;
+     //    savedMoldPercentage = moldPercentage;
+     //    
+     //    string decimals = moldPercentage >= 100 || moldPercentage == 0 ? "F0" : "F1";
+     //    MoldPercentageText.text = moldPercentage.ToString(decimals) + '%';
+// 
+     //    float barWidth = GetComponent<RectTransform>().rect.width;
+     //    float targetPosX = (1 - moldPercentage / 100) * -1 * barWidth + barWidth * 0.01f;
+     //    Vector2 targetPosition = new(targetPosX, MoldMeterImage.anchoredPosition.y);
+// 
+     //    // Start smooth movement
+     //    if (moveCoroutine != null)
+     //    {
+     //        StopCoroutine(moveCoroutine); // Stop any ongoing movement
+     //    }
+     //    moveCoroutine = StartCoroutine(SmoothMove(MoldMeterImage, targetPosition, animationDuration));
     }
 
     private IEnumerator SmoothMove(RectTransform rect, Vector2 target, float duration)

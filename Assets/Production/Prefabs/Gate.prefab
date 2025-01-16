@@ -190,15 +190,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39ae39b75215ff4b9cfe7a22739380c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionPrompt: E - Interact
+  interactionPrompt: '{interactKey} - Interact'
   disabledPrompt: Cannot interact
   promptYOffset: 1.5
+  enabledPromptColor: {r: 1, g: 1, b: 1, a: 1}
+  disabledPromptColor: {r: 1, g: 1, b: 1, a: 1}
+  font: {fileID: 11400000, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
+  promptFontSize: 8
   promptXOffset: 0
   promptZOffset: 0
   hudParent: {fileID: 0}
   interactDistance: 5
   isDisabled: 1
   interactionActions: []
+  controlIconMappingConfig: {fileID: 11400000, guid: 347cf511a0f4e30458bd55fdb83e9385, type: 2}
   portalEffect: {fileID: 1157105801579820702}
   animator: {fileID: 331661293486425758}
   nextRoomName: 
@@ -10088,10 +10093,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8472838201625917872, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: -6063895657448759436, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: -4499408885799781005, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: -2436920318451444965, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: -554498556550026456, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
     - target: {fileID: 919132149155446097, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
       propertyPath: m_Name
       value: Models
       objectReference: {fileID: 0}
+    - target: {fileID: 926957698446468692, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: 1053503795704979989, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: 2724965924865035294, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: 4356832951362527687, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: 6781300419098269746, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: 7071182760956848314, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
+    - target: {fileID: 7202271454713460447, guid: d51570b519ed8b24588b89b81958d93e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 15aebf135b980874e9ba05c23888c977, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
