@@ -79,8 +79,8 @@ public class DiscordPresence : MonoBehaviour
                 break;
 
             case "Death":
-                details = "Game Over..";
-                largeImageKey = "game_icon"; 
+                details = "Failed to cleanse the world of mold..";
+                largeImageKey = "game_over"; 
                 break;
 
             case "Credits":
@@ -90,6 +90,7 @@ public class DiscordPresence : MonoBehaviour
 
             case "ENTRANCE_1":
                 details = "Chillin' in the hub!";
+                //details = "Loafin' around in the hub!";
                 largeImageKey = "entrance"; 
                 break;
 
