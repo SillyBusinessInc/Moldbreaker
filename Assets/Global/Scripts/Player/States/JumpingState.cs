@@ -7,7 +7,7 @@ public class JumpingState : StateBase
 
     public override void Enter()
     {
-        
+        // play animation
         Player.playerAnimationsHandler.animator.ResetTrigger("IsLanding");
         Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
         Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
@@ -23,6 +23,9 @@ public class JumpingState : StateBase
         // change state to falling after a bit to give the player some time to reach intended height
         AudioManager.Instance.PlaySFX("JumpSFX");
         Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.maxJumpHoldTime, true));
+
+        // update grounded status
+        Player.isGrounded = false;
     }
 
     public override void Update()
