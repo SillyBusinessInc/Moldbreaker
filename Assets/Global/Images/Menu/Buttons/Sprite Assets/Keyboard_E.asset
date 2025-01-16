@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-7441399064417544845
+--- !u!21 &-2336177787915380006
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: keyboard_e Material
+  m_Name: Keyboard_E Material
   m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 178f94fb4ec73024b97835f757931974, type: 3}
+        m_Texture: {fileID: 2800000, guid: deccbd7c5e74a6b46989c42785623cb4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
-  m_Name: keyboard_e
+  m_Name: Keyboard_E
   m_EditorClassIdentifier: 
   m_Version: 1.1.0
   m_FaceInfo:
@@ -77,30 +77,30 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  m_Material: {fileID: -7441399064417544845}
-  spriteSheet: {fileID: 2800000, guid: 178f94fb4ec73024b97835f757931974, type: 3}
+  m_Material: {fileID: -2336177787915380006}
+  spriteSheet: {fileID: 2800000, guid: deccbd7c5e74a6b46989c42785623cb4, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1
-    m_Name: keyboard_e
+    m_Scale: 1.6
+    m_Name: Keyboard_E
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 48
-      m_Height: 48
+      m_Width: 2048
+      m_Height: 2048
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 36
-      m_HorizontalAdvance: 48
+      m_HorizontalBearingY: 1300
+      m_HorizontalAdvance: 2048
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 48
-      m_Height: 48
+      m_Width: 2048
+      m_Height: 2048
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: 21300000, guid: 178f94fb4ec73024b97835f757931974, type: 3}
+    sprite: {fileID: 21300000, guid: deccbd7c5e74a6b46989c42785623cb4, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []

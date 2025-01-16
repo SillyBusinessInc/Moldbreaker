@@ -12,23 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f794d1812c7f44fae6e3085cdd8c2f, type: 3}
   m_Name: ControlIconMapping
   m_EditorClassIdentifier: 
-  xBoxDefaultSpriteSheet: {fileID: 0}
   xBoxMappings:
   - controlPath: 5
-    icon: {fileID: 11400000, guid: f8305efb5854e024cbf99a0c6c5cd67f, type: 2}
-    index: 0
-  KeyboardDefaultSpriteSheet: {fileID: 0}
-  keyboardMappings:
-  - keyboardMapping: 19
     icon: {fileID: 11400000, guid: 2350c28b74a4f63458ee6c90eb3df725, type: 2}
     index: 0
-  playStationDefaultSpriteSheet: {fileID: 0}
+  keyboardMappings:
+  - keyboardMapping: 19
+    icon: {fileID: 11400000, guid: 8d37ea9c5de9eff44b4946c67713d241, type: 2}
+    index: 0
   playStationMappings:
   - controlPath: 5
-    icon: {fileID: 11400000, guid: f8305efb5854e024cbf99a0c6c5cd67f, type: 2}
+    icon: {fileID: 11400000, guid: 2350c28b74a4f63458ee6c90eb3df725, type: 2}
     index: 0
   - controlPath: 4
-    icon: {fileID: 11400000, guid: f8305efb5854e024cbf99a0c6c5cd67f, type: 2}
+    icon: {fileID: 11400000, guid: 2350c28b74a4f63458ee6c90eb3df725, type: 2}
     index: 0
-  genericGamepadDefaultSpriteSheet: {fileID: 0}
-  genericGamepadMappings: []
