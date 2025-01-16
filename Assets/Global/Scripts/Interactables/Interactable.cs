@@ -1,12 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using static ControlIconMapping;
+using TMPro;
+using UnityEngine.InputSystem.XInput;
+using System;
+
+
 
 public class Interactable : MonoBehaviour
 {
     [Header("Interaction Settings")]
-    [SerializeField] private string interactionPrompt = "E - Interact";
+    [SerializeField] private string interactionPrompt = "{interactKey} - Interact";
     [SerializeField] private string disabledPrompt = "Cannot interact";
+    private string cachedInteractionPrompt; 
 
     [Header("HUD Settings")]
     [SerializeField]
@@ -28,7 +37,7 @@ public class Interactable : MonoBehaviour
     private bool isDisabled = false;
     private Camera playerCamera;
     private GameObject hudElement;
-    
+    private TMP_Text hudText;
 
     // list of scriptable objects that will be invoked when the interactable is triggered 
     [Header("Actions")]
@@ -54,14 +63,66 @@ public class Interactable : MonoBehaviour
         }
     }
 
+    private PlayerInput playerInput;
+    private string currentControlDevice;
+
+    [SerializeField]
+    private ControlIconMapping controlIconMappingConfig;
+
+
     public virtual void Start()
     {
+
         playerCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
 
+        // get playerInput
+        playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
+      
         // Create a HUD element to display the interaction prompt
-        if (hudElement == null) InstantiateHUD();
+        if (hudElement == null) InstantiateHUD(); 
 
-        IsDisabled = isDisabled;
+        IsDisabled = isDisabled; 
+    }
+
+    private IconPathResult ParseDeviceInputSprite()
+    {  
+
+        if (playerInput)
+        {
+            string controlPath = playerInput.actions["Interact"].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+
+            // get the device the player is using
+            string deviceLayout = playerInput.currentControlScheme;
+
+            // get if you are on an xbox or playstation controller
+
+            if (Gamepad.current != null && deviceLayout == "Gamepad")
+            {
+                var gamepad = Gamepad.current;
+
+                // Check if the gamepad is a DualShock controller (PlayStation controller)
+                if (gamepad is DualShockGamepad)
+                {
+                    Debug.Log("DualShockGamepad");
+                   return HandleControllerInput(TDeviceType.PlayStationController, controlPath);
+                }
+                // Check if the gamepad is an Xbox controller
+                else if (gamepad is XInputController)
+                {
+                    Debug.Log("XboxController");
+                  return  HandleControllerInput(TDeviceType.XboxController, controlPath);
+                } 
+
+            }
+            else
+            { 
+                return HandleControllerInput(TDeviceType.Keyboard, controlPath);
+            }
+
+             IconPathResult HandleControllerInput(TDeviceType deviceType, string controlPath) => controlIconMappingConfig.GetIcon(deviceType, controlPath);
+        }
+
+        return null;
     }
 
     public virtual void OnInteract(ActionMetaData metaData)
@@ -70,20 +131,23 @@ public class Interactable : MonoBehaviour
         interactionActions.ForEach(action => action.InvokeAction(metaData));
     }
 
-    public virtual void OnFailedInteract() {}
+    public virtual void OnFailedInteract() { }
 
-    public virtual void OnEnableInteraction() {}
+    public virtual void OnEnableInteraction() { }
 
-    public virtual void OnDisableInteraction() {}
+    public virtual void OnDisableInteraction() { }
 
     private void InstantiateHUD()
     {
         // Create a HUD element to display the interaction prompt
         hudElement = new GameObject("HUDPrompt");
-        hudElement.AddComponent<TextMesh>().text = interactionPrompt;
+        hudElement.AddComponent<TextMeshPro>().text = interactionPrompt;
+
+        hudText = hudElement.GetComponent<TextMeshPro>(); 
+
         hudElement.transform.localScale = Vector3.one * 0.2f;
         hudElement.SetActive(false);
-        hudElement.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
+        hudElement.GetComponent<TextMeshPro>().alignment = TextAlignmentOptions.Center;
 
         // set offsets
         hudElement.transform.position = transform.position + Vector3.up * promptYOffset;
@@ -108,6 +172,7 @@ public class Interactable : MonoBehaviour
         }
 
         hudElement.SetActive(show);
+        
         if (show)
         {
             hudElement.transform.position = transform.position;
@@ -116,9 +181,24 @@ public class Interactable : MonoBehaviour
         }
     }
 
+        public void OnControlsChanged()
+        {
+          SetBillboardText(true);
+
+        }
+
+
     private void Update()
     {
         RotateBillboardTowardsCamera();
+
+        // get current active control device
+        string currentDevice = playerInput.currentControlScheme;
+        if (currentControlDevice != currentDevice)
+        {
+            currentControlDevice = currentDevice;
+            
+        }
     }
 
     private void RotateBillboardTowardsCamera()
@@ -144,13 +224,28 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    private void SetBillboardText()
+    private void SetBillboardText(bool ?regenerate = false)
     {
         if (hudElement == null) return;
 
-        hudElement.GetComponent<TextMesh>().text = isDisabled ? disabledPrompt : interactionPrompt;
+        string baseString = isDisabled ? disabledPrompt : interactionPrompt;
+        string parsedString;
+ 
+        // check if string contains {interactKey}
+        if (baseString.Contains("{interactKey}")) {
 
-        if (string.IsNullOrEmpty(hudElement.GetComponent<TextMesh>().text))
+        IconPathResult iconInfo = ParseDeviceInputSprite(); 
+
+        if (iconInfo == null) return;
+
+        parsedString = baseString.Replace("{interactKey}", "<sprite=" + iconInfo.index + ">");
+        cachedInteractionPrompt = parsedString;
+        hudText.text = parsedString;
+        } else {
+            hudText.text = disabledPrompt;
+        }
+ 
+        if (string.IsNullOrEmpty(hudElement.GetComponent<TextMeshPro>().text))
         {
             hudElement.SetActive(false);
         }

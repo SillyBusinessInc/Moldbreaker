@@ -199,6 +199,7 @@ MonoBehaviour:
   interactDistance: 5
   isDisabled: 1
   interactionActions: []
+  controlIconMappingConfig: {fileID: 11400000, guid: 347cf511a0f4e30458bd55fdb83e9385, type: 2}
   portalEffect: {fileID: 1157105801579820702}
   animator: {fileID: 331661293486425758}
   nextRoomName: 
