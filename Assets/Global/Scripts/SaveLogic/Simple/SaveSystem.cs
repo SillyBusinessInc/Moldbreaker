@@ -23,7 +23,6 @@ public abstract class SaveSystem
 
     /// <summary> Finds the value with the given id </summary>
     public T Get<T>(string id) {
-        // Debug.Log($"get: {id}");
         // check if the value exists in this save system
         if (!saveables.ContainsKey(id)) {
             Debug.LogError($"{id} can not be found in {GetType().Name}");

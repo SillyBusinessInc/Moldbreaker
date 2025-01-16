@@ -72,18 +72,25 @@ public class DiscordPresence : MonoBehaviour
         {
             case "Menu":
             case "Title":
+            case "Settings":
             case "Loading":
                 details = "Browsing the menus";
                 largeImageKey = "game_icon"; 
                 break;
 
             case "Death":
-                details = "Game Over..";
-                largeImageKey = "game_icon"; 
+                details = "Failed to cleanse the world of mold..";
+                largeImageKey = "game_over"; 
+                break;
+
+            case "Credits":
+                details = "Watching the credits";
+                largeImageKey = "credits"; 
                 break;
 
             case "ENTRANCE_1":
                 details = "Chillin' in the hub!";
+                //details = "Loafin' around in the hub!";
                 largeImageKey = "entrance"; 
                 break;
 

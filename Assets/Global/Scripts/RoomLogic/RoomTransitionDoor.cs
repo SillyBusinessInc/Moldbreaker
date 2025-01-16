@@ -32,7 +32,7 @@ public class RoomTransitionDoor : Interactable
     public void Initialize()
     {
         gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
-        
+
         if (enableOnRoomFinish) GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
         else IsDisabled = !gameManagerReference.GetRoom(nextRoomId).unlocked;
 
@@ -77,26 +77,22 @@ public class RoomTransitionDoor : Interactable
         {
             saveData.Set("crumbs", player.playerStatistic.Crumbs);
         }
-        
+
         foreach (var secret in player.playerStatistic.Calories)
         {
             calories.Add(secret);
         }
         saveData.Set("calories", calories);
         saveData.SaveAll();
-        
+
         //to reset everything that was picked up
         player.playerStatistic.CaloriesCount = 0;
         player.playerStatistic.CrumbsCount = 0;
         player.playerStatistic.Calories.Clear();
         player.playerStatistic.Crumbs = 0;
 
-        RoomSave saveRoomData = new RoomSave();
-        saveRoomData.LoadAll();
-        List<int> finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
-        finishedLevels.Add(nextRoomId);
-        saveRoomData.Set("finishedLevels", finishedLevels);
-        saveRoomData.SaveAll();
+        // Since rooms only have one exit door, and exiting a room through this door is the 'completion' condition. We can assume that if a door with the NextRoomType: ENTRANCE is an exit door to the hub.
+        if (nextRoomType == RoomType.ENTRANCE) SaveRoomAsCompleted();
 
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
@@ -107,7 +103,7 @@ public class RoomTransitionDoor : Interactable
                 currentScenename = scene.name;
             }
         }
-        
+
         Debug.Log($"next: {nextRoomName}, nextId: {nextRoomId}, nextIndex: {nextRoomIndex}");
         saveData = new CollectableSave(nextRoomName);
         saveData.LoadAll();
@@ -171,7 +167,18 @@ public class RoomTransitionDoor : Interactable
             .FirstOrDefault(scene => scene.name != baseSceneName && scene.isLoaded).name ?? baseSceneName;
     }
 
-    [ContextMenu("Unlock Door")]public void UnlockDoor() => IsDisabled = false;
+
+    private void SaveRoomAsCompleted()
+    {
+        RoomSave saveRoomData = new RoomSave();
+        saveRoomData.LoadAll();
+        List<int> finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
+        finishedLevels.Add(doorManager.currentId);
+        saveRoomData.Set("finishedLevels", finishedLevels);
+        saveRoomData.SaveAll();
+    }
+
+    [ContextMenu("Unlock Door")] public void UnlockDoor() => IsDisabled = false;
     [ContextMenu("Lock Door")] void LockDoorTest() => IsDisabled = true;
     [ContextMenu("Open Door")] void OpenDoorTest() => OpenDoorAnimation();
     [ContextMenu("Invoke room finish event")] void InvoteRoomFinishedEvent() => GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);

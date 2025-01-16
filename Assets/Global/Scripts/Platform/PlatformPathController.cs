@@ -89,8 +89,6 @@ public class PlatformPathController : MonoBehaviour
                 StartCoroutine(PauseAtPosition(tStartPause));
             }
         }
-
-        // Debug.Log($"Segment: {currentSegment}, Reversing: {isReversing}");
     }
 
     private Vector3 GetCatmullRomPosition(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)

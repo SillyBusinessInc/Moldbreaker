@@ -10,12 +10,15 @@ public class HealthMeter : MonoBehaviour
     [SerializeField] private RectTransform HealthMeterImage;
     private Coroutine moveCoroutine;
     [SerializeField] private float animationDuration = 0.5f; // Duration for smooth movement
+    [SerializeField] private GameObject mold;
     private float savedHealthPercentage = -1;
     private float PlayerMaxHealth = -1;
+    
 
     void Awake()
     {
         GlobalReference.SubscribeTo(Events.MOLDMETER_CHANGED, UpdateHealthMeter);
+        mold.SetActive(false);
     }
 
     void Start() {
@@ -34,6 +37,8 @@ public class HealthMeter : MonoBehaviour
         if (savedHealthPercentage == healthPercentage) return;
         savedHealthPercentage = healthPercentage;
         
+        if (healthPercentage != 100 ) mold.SetActive(true);
+        else  mold.SetActive(false);
         string decimals = healthPercentage >= 100 || healthPercentage == 0 ? "F0" : "F1";
         HealthPercentageText.text = healthPercentage.ToString(decimals) + '%';
 

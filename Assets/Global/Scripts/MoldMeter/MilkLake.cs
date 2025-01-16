@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class MilkLake : MonoBehaviour
@@ -7,52 +6,39 @@ public class MilkLake : MonoBehaviour
     [SerializeField] private float addMoldPerInterval = 1f;
     private float timeSinceLastMold = 0f;
 
-    private GameObject playerObject;
-    private Transform playerObjectTransform;
+    private GameObject waffleTailObject;
+    private Rigidbody rb;
+    private Transform waffleTailObjectTransform;
+
+    public float buoyancyForce = 50f;
 
     private void Start()
     {
-        playerObject = GlobalReference.GetReference<PlayerReference>().playerBradleyWaffletail;
-        playerObjectTransform = playerObject.transform;
-
-        // duplicate the gameobject to make player float on top of lake
-        if (!gameObject.CompareTag("Water")) { 
-            // the gameobjects without the water tag needs to have a duplicated lake to make sure player looks like it can float
-            GameObject childObject = Instantiate(gameObject);
-            MilkLake milkLakeScript = childObject.GetComponent<MilkLake>();
-            if (milkLakeScript != null) {
-                Destroy(milkLakeScript); // Remove the script
-            }
-            childObject.transform.parent = gameObject.transform;
-            childObject.transform.localPosition = new Vector3(0, -0.1f, 0);
-
-            MeshCollider meshCollider = childObject.GetComponent<MeshCollider>();
-            if (meshCollider != null) {
-                meshCollider.isTrigger = false;
-            }
-        }
+        waffleTailObject = GlobalReference.GetReference<PlayerReference>().playerBradleyWaffletail;
+        rb = GlobalReference.GetReference<PlayerReference>().PlayerObj.GetComponent<Rigidbody>();
+        waffleTailObjectTransform = waffleTailObject.transform;
     }
 
     void OnTriggerStay(Collider other) {
         if (other.CompareTag("Player")) {
-            Rigidbody playerRb = other.GetComponent<Rigidbody>();
-            if (playerRb != null) {
-                // change the position and rotation to make it look like player is swimming
-                playerObjectTransform.localPosition = new Vector3(0f, -1f, 0f);
-                playerObjectTransform.rotation = Quaternion.Euler(
-                    10f,
-                    playerObjectTransform.rotation.eulerAngles.y, 
-                    playerObjectTransform.rotation.eulerAngles.z
-                );
+            // change the position and rotation to make it look like player is swimming
+            float submergedDepth = Mathf.Max(0, transform.position.y - other.transform.position.y); // Depth below surface
+            Vector3 buoyancy = Vector3.up * buoyancyForce * submergedDepth;
+            rb.AddForce(buoyancy, ForceMode.Force);
+            waffleTailObjectTransform.rotation = Quaternion.Euler(
+                10f, 
+                waffleTailObjectTransform.rotation.eulerAngles.y,
+                waffleTailObjectTransform.rotation.eulerAngles.z
+            );
 
-                // will add mold every second
-                timeSinceLastMold -= Time.deltaTime;
-                if (timeSinceLastMold <= 0f) {
-                    Player player = GlobalReference.GetReference<PlayerReference>().Player;
-                    player.lastDamageCause = Player.DamageCause.HAZARD;
-                    player.OnHit(addMoldPerInterval, Vector3.zero);
-                    timeSinceLastMold = intervalSeconds;
-                }
+
+            // will add mold every second
+            timeSinceLastMold -= Time.deltaTime;
+            if (timeSinceLastMold <= 0f) {
+                Player player = GlobalReference.GetReference<PlayerReference>().Player;
+                player.lastDamageCause = Player.DamageCause.HAZARD;
+                player.OnHit(addMoldPerInterval, Vector3.zero);
+                timeSinceLastMold = intervalSeconds;
             }
         }
     }
@@ -60,11 +46,10 @@ public class MilkLake : MonoBehaviour
     void OnTriggerExit(Collider other) {
         if (other.CompareTag("Player")) {
             // reset the position and rotation
-            playerObjectTransform.localPosition = new Vector3(0, 0, 0);
-            playerObjectTransform.rotation = Quaternion.Euler(
-                0f,
-                playerObjectTransform.rotation.eulerAngles.y, 
-                playerObjectTransform.rotation.eulerAngles.z
+            waffleTailObjectTransform.rotation = Quaternion.Euler(
+                0f, 
+                waffleTailObjectTransform.rotation.eulerAngles.y,
+                waffleTailObjectTransform.rotation.eulerAngles.z
             );
             timeSinceLastMold = 0f;
         }

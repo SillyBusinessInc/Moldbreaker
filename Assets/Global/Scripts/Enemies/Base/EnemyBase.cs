@@ -104,7 +104,7 @@ namespace EnemiesNS
         [Tooltip("The base damage of the attack")]
         [SerializeField]
         [Range(0f, 100f)]
-        public float attackDamage = (1f/6f) * 100f; // It did 1 damage for 6 hp before, but its now 100 HP, and i am to lazy to calculate the new value
+        public float attackDamage = (1f / 6f) * 100f; // It did 1 damage for 6 hp before, but its now 100 HP, and i am to lazy to calculate the new value
 
         [Tooltip("The angle the enemy can be off while trying to face the player")]
         [SerializeField]
@@ -155,7 +155,7 @@ namespace EnemiesNS
         [Tooltip("OPTIONAL: Reference to the NavMeshAgent of this enemy. Has Default")]
         [SerializeField]
         public NavMeshAgent agent;
-        
+
         // [Tooltip("Reference to this enemy's weapon")]
         // [SerializeField] public Collider weapon;
 
@@ -184,17 +184,17 @@ namespace EnemiesNS
         [SerializeField] private SkinnedMeshRenderer moldRenderer;
         private float targetMoldPercentage = 1;
         private float currentMoldPercentage = 1;
-    
+
         [SerializeField] private GameObject celebModel;
-        
+
         protected void SetCelebrateModel(bool value)
         {
-            if(celebModel == null) return;
-            
+            if (celebModel == null) return;
+
             animator.gameObject.SetActive(!value);
             celebModel.SetActive(value);
         }
-        
+
         protected virtual void Start()
         {
             SetCelebrateModel(false);
@@ -232,13 +232,14 @@ namespace EnemiesNS
             if (!animator) return;
             if (!inAttackAnim) animator.SetTrigger("PlayDamage");
 
-            float p = health/(float)maxHealth;
+            float p = health / (float)maxHealth;
             // Debug.LogWarning($"[{p}] health: {health}, maxHealth: {maxHealth}");
             targetMoldPercentage = p;
         }
 
         protected virtual void OnDeath()
         {
+            FacePlayer();
             HealthBarDestroy = true;
             AudioManager.Instance.PlaySFX("EnemyThx");
             ChangeState(states.Dead);
@@ -248,7 +249,13 @@ namespace EnemiesNS
             GlobalReference.Statistics.Increase("enemies_cleansed", 1);
             if (GlobalReference.Statistics.Get<int>("enemies_cleansed") >= 5) AchievementManager.Grant("BEGONE_MOLD");
         }
-
+        protected void FacePlayer()
+        {
+            if (target == null) return;
+            Vector3 directionToPlayer = (target.position - transform.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = targetRotation;
+        }
         protected virtual void OnDestroy()
         {
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
@@ -377,7 +384,7 @@ namespace EnemiesNS
             targetMoldPercentage = 0;
             // if (animator) animator.SetBool("Idle", true);
             currentMoldPercentage = 0;
-            
+
             GetComponentInChildren<Collider>().enabled = false;
 
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
@@ -400,7 +407,8 @@ namespace EnemiesNS
             StartCoroutine(DestroyAfterParticles(particleSystemDeath));
         }
 
-        public IEnumerator DisableAfter(GameObject obj, float time) {
+        public IEnumerator DisableAfter(GameObject obj, float time)
+        {
             yield return new WaitForSeconds(time);
             obj.SetActive(false);
         }
