@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 
@@ -5,9 +6,18 @@ public class AudioRunScene : MonoBehaviour
 {
     public string audioSongName;
 
+    public bool loop = true;
+
     public void Start()
     {
-        AudioManager.Instance.PlayMusicOnRepeat(audioSongName);
+        if(loop)
+        {
+            AudioManager.Instance.PlayMusicOnRepeat(audioSongName);
+        }
+        else
+        {
+            AudioManager.Instance.PlayMusic(audioSongName);
+        }
     }
 
     void OnDestroy()
