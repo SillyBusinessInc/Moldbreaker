@@ -5073,11 +5073,6 @@ MonoBehaviour:
   currentStateName: 
   agentIsStopped: 0
   moldRenderer: {fileID: 996188129961723855}
-  mainModel: {fileID: 6760221064733371951}
-  mainModelRenderers:
-  - {fileID: 6059234945698657927}
-  - {fileID: 996188129961723855}
-  - {fileID: 2776862972414882170}
   celebModel: {fileID: 6050537820992895048}
   attackType: 0
   weapon: {fileID: 9053967190554233472}
@@ -5387,6 +5382,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 995576720917359366, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -5442,7 +5441,7 @@ PrefabInstance:
     - target: {fileID: 6684295394808222897, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: b1bbe469fdad9ab4c9905daf90ac5cc2, type: 2}
+      objectReference: {fileID: 2100000, guid: d600fcb7ba431bd439c82e7fede4e685, type: 2}
     - target: {fileID: 6710351527785120249, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -5488,16 +5487,6 @@ PrefabInstance:
 --- !u!137 &996188129961723855 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6684295394808222897, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
-  m_PrefabInstance: {fileID: 5841248896667784062}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &2776862972414882170 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -605401249411505660, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
-  m_PrefabInstance: {fileID: 5841248896667784062}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &6059234945698657927 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 362243967813084665, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
   m_PrefabInstance: {fileID: 5841248896667784062}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6240565839355704469 stripped
@@ -5740,6 +5729,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6684295394808222897, guid: cafdf091bb273f247b4d01bff3222b83, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d600fcb7ba431bd439c82e7fede4e685, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

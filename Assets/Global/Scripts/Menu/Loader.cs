@@ -121,6 +121,7 @@ public class Loader : MonoBehaviour
     {
         message.text = "Eating the bread world...";
         GlobalReference.GetReference<GameManagerReference>().Initialize();
+        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
         return Phase.COMPLETE;
     }
 
@@ -128,6 +129,7 @@ public class Loader : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.UnloadSceneAsync("Loading");
+        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         return Phase.NONE;
     }
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ControlIconMapping
   m_EditorClassIdentifier: 
   xBoxMappings:
-  - controlPath: 5
-    icon: {fileID: 11400000, guid: efc835b9c8e3deb4eb8f754352e116ba, type: 2}
+  - controlPath: 4
+    icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
     index: 0
   keyboardMappings:
   - keyboardMapping: 19

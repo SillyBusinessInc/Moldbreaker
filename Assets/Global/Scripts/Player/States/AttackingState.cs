@@ -47,9 +47,10 @@ public class AttackingState : StateBase
 
     public override void Attack(InputAction.CallbackContext ctx) { }
 
-    public override void Move(InputAction.CallbackContext ctx)
+    public override void Move(InputAction.CallbackContext ctx, bool ignoreInput = false)
     {
         Player.movementInput = ctx.ReadValue<Vector2>();
+        if (ignoreInput) Player.movementInput = new Vector2(0, 0);
     }
 
     public override void Sprint(InputAction.CallbackContext ctx) { }
