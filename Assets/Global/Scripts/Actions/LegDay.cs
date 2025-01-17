@@ -1,3 +1,4 @@
+using Discord;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Actions/LegDay")]
