@@ -1,139 +1,151 @@
-[inverse]Asset Modeling
-Abby Truong
-Karo Łubkowska
-Nikola Pangelová
-Noah RP
-Sasha Salmon
-Silviani Luciana Martis
+(Logo) 
+Created by: Silly Business 
 
-[inverse]Character Animation
-Mustafa Altun
-Nikola Pangelová
-Pim van Milt
-Salaheddine Zohayri
-
-[inverse]Character Modelling
-Nikola Pangelová
-Silviani Luciana Martis
-
-[inverse]Concept Art
-Abby Truong
-Karo Łubkowska
-Nikola Pangelová
-Noah RP
-Sasha Salmon
-Silviani Luciana Martis
-
-[inverse]Environmental Hazards
-Isis Ton
-Jihye Kang
-Marijn Hokke
-Si Wai Pang
-
-[inverse]Game Design
-Carlo Rubio
-Kevin Molendijk
+Asset Modeling 
+Abby Truong 
+Karo Łubkowska 
+Nikola Pangelová 
+Noah RP 
+Sasha Salmon 
+Silviani Luciana Martis 
+ 
+Character Animation 
+Dirk Roosendaal 
+Mustafa Altun 
+Nikola Pangelová 
+Pim van Milt 
+Salaheddine Zohayri 
+ 
+Character Modelling 
+Nikola Pangelová 
+Silviani Luciana Martis 
+ 
+Concept Art 
+Abby Truong 
+Karo Łubkowska 
+Nikola Pangelová 
+Noah RP 
+Sasha Salmon 
+Silviani Luciana Martis 
+ 
+Environmental Hazards 
+Isis Ton 
+Jihye Kang 
+Marijn Hokke 
+Pim van Milt 
+Si Wai Pang 
+ 
+Game Design 
+Carlo Rubio 
+Kevin Molendijk 
 Luke de Groot 
-Marijn Hokke
+Marijn Hokke 
+ 
+Level & Hub Design 
+Carlo Rubio 
+Kevin Molendijk 
+Luke de Groot 
+Marijn Hokke 
+ 
+Management 
+Dirk Roosendaal 
+Luke de Groot 
+Roan Dries 
+Silviani Luciana Martis 
+ 
+Marketing 
+Kevin Molendijk 
+Luke de Groot 
+Sasha Salmon 
+ 
+Movement & Combat 
+Carlo Rubio 
+Fabio van 't Hoff 
+Mustafa Altun 
+Pim van Milt 
+Salaheddine Zohayri 
+ 
+Music & Sound Design 
+Salaheddine Zohayri 
+Sasha Salmon 
+ 
+Promotional Art 
+Silviani Luciana Martis 
+ 
+Scene Management 
+Fabio van 't Hoff 
+Isis Ton 
+Jihye Kang 
+Kevin Molendijk 
+Mustafa Altun 
+Pim van Milt 
+ 
+Fundamentals 
+Fabio van 't Hoff 
+Isis Ton 
+Pim van Milt 
+ 
+Texturing 
+Abby Truong 
+Noah RP 
+Sasha Salmon 
+Silviani Luciana Martis 
+ 
+UI/UX 
+Fabio van 't Hoff 
+Isis Ton 
+Jihye Kang 
+Karo Łubkowska 
+Luke de Groot 
+Marijn Hokke 
+Mustafa Altun 
+Silviani Luciana Martis 
+Si Wai Pang 
+ 
+User Testing 
+Carlo Rubio 
+Kevin Molendijk 
+Marijn Hokke 
+ 
+VFX 
+Fabio van 't Hoff 
+Sasha Salmon 
+Silviani Luciana Martis 
+ 
+Special Thanks 
+Adam Čurko 
 
-[inverse]Level & Hub Design
-Carlo Rubio
-Kevin Molendijk
-Luke de Groot
-Marijn Hokke
+------------------------------------------------------------------------------------------------------------------------------------- 
 
-[inverse]Management
-Dirk Roosendaal
-Luke de Groot
-Roan Dries
-Silviani Luciana Martis
-
-[inverse]Marketing
-Kevin Molendijk
-Luke de Groot
-Sasha Salmon
-
-[inverse]Movement & Combat
-Carlo Rubio
-Fabio van 't Hoff
-Mustafa Altun
-Pim van Milt
-Salaheddine Zohayri
-
-[inverse]Music & Sound Design
-Salaheddine Zohayri
-Sasha Salmon
-
-[inverse]Promotional Art
-Silviani Luciana Martis
-
-[inverse]Scene Management
-Fabio van 't Hoff
-Isis Ton
-Jihye Kang
-Kevin Molendijk
-
-[inverse]Texturing
-Abby Truong
-Noah RP
-Sasha Salmon
-Silviani Luciana Martis
-
-[inverse]UI/UX
-Fabio van 't Hoff
-Isis Ton
-Jihye Kang
-Karo Łubkowska
-Luke de Groot
-Marijn Hokke
-Mustafa Altun
-Silviani Luciana Martis
-Si Wai Pang
-
-[inverse]User Testing
-Carlo Rubio
-Kevin Molendijk
-Marijn Hokke
-
-[inverse]VFX
-Fabio van 't Hoff
-Sasha Salmon
-Silviani Luciana Martis
-
-[inverse]Special Thanks
-Adam Čurko
-
-===========================
-
-[inverse]Producer
-Roan Dries
-
-[inverse]Art Director
-Silviani Luciana Martis
-
-[inverse]Art Team
-Abby Truong
-Karo Łubkowska
-Nikola Pangelová
-Noah RP
-Sasha Salmon
-
-[inverse]Creative Director
-Luke de Groot
-
-[inverse]Designer Team
-Carlo Rubio
-Kevin Molendijk
-Marijn Hokke
-
-[inverse]Technical Director
-Dirk Roosendaal
-
-[inverse]Developer Team
-Fabio van 't Hoff
-Isis Ton
-Jihye Kang
-Mustafa Altun
-Pim van Milt
-Salaheddine Zohayri
-Si Wai Pang
+Producer 
+Roan Dries 
+ 
+Art Director 
+Silviani Luciana Martis 
+ 
+Art Team 
+Abby Truong 
+Karo Łubkowska 
+Nikola Pangelová 
+Noah RP 
+Sasha Salmon 
+ 
+Creative Director 
+Luke de Groot 
+ 
+Designer Team 
+Carlo Rubio 
+Kevin Molendijk 
+Marijn Hokke 
+ 
+Technical Director 
+Dirk Roosendaal 
+ 
+Developer Team 
+Fabio van 't Hoff 
+Isis Ton 
+Jihye Kang 
+Mustafa Altun 
+Pim van Milt 
+Salaheddine Zohayri 
+Si Wai Pang 
