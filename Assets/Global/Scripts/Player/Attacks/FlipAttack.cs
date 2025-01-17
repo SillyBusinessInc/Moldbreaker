@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "FlipTail")]
 public class FlipAttack : TailAttack

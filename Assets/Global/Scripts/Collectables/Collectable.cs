@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public abstract class Collectable : PickupBase
 {
     // Called when the player collects this item

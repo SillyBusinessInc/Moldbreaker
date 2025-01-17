@@ -1,7 +1,5 @@
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class UpgradeOptionLogic : MonoBehaviour
 {
