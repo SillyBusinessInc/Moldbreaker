@@ -9,7 +9,7 @@ public class DoorPopUp : MonoBehaviour
 {
     [SerializeField] private string levelName;
     [SerializeField] private string popupTitle;
-    [SerializeField] private int maxCrumbs;
+    [SerializeField] private string maxCrumbs;
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI crumbs;
     [SerializeField] private List<RawImage> calories;
@@ -19,24 +19,17 @@ public class DoorPopUp : MonoBehaviour
 
     void Start()
     {
-        int nextLevelId = transform.parent.GetComponent<RoomTransitionDoor>().nextRoomId;
         saveData = new CollectableSave(levelName);
         saveData.LoadAll();
         title.text = popupTitle;
-        int currentCount = saveData.Get<int>("crumbs");
-        crumbs.text = currentCount + "/" + maxCrumbs;
+        crumbs.text = saveData.Get<int>("crumbs") + "/" + maxCrumbs;
 
         List<string> savedCaloriesTrimmed = 
         saveData.Get<List<string>>("calories")
-        .Select(x => x.Split(new[] { ">>>UNIQUE_DELIMITER>>>" }, StringSplitOptions.None).LastOrDefault())
-        .ToList(); 
+        .Select(x => x.Split(new[] { ">>>UNIQUE_DELIMITER>>>" }, StringSplitOptions.None)
+        .LastOrDefault()).ToList(); 
 
         UpdateCaloriesDisplay(savedCaloriesTrimmed);
-
-        if (currentCount >= maxCrumbs) AchievementManager.Grant($"CRUMB_COLLECTOR_{nextLevelId}");
-        if (savedCaloriesTrimmed.Count >= 3) AchievementManager.Grant($"CALORIE_GAINER_{nextLevelId}");
-        AchievementManager.CheckLevelsCompletion();
-        AchievementManager.CheckGameCompletion();
     }
 
     public void OnTriggerEnter(Collider other)

@@ -20,6 +20,7 @@ public class LeftTailAttack : TailAttack
         ClipDuration(animator, duration, "Breadaplus|Bradley_attack1_L");
         animator.speed *= player.Tail.tailStatistic.increaseTailSpeed.GetValue();
         animator.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
+        animator.SetTrigger("LeftAttack");
 
         player.playerAnimationsHandler.resetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 1);

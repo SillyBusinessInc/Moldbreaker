@@ -1,4 +1,3 @@
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,15 +31,10 @@ public class PlayerStatistic
     public CurrentStatistic AttackSpeedMultiplier = new(1f);
     public CurrentStatistic AttackDamageMultiplier = new(1f);
     public CurrentStatistic DodgeCooldown = new(1f);
-    public CurrentStatistic DoubleJumpsCount = new(0f);
-    public CurrentStatistic CanDodge = new(0f);
-    // 1 means can dodge, 0 means can't dodge
+    public CurrentStatistic DoubleJumpsCount = new(1f);
+    
+    public CurrentStatistic CanDodge = new(0f); 
+    // 0 means can dodge, 1 means can't dodge
     // DodgeCount is also possible, however, we are planning to have 1 dodge anyways, and doing it like this is 1 simple if check
     // instead if i would do a dodgeCount, it would be a lot more changes to make it all work
-
-    public void Generate() {
-        DoubleJumpsCount.Subscribe(() => AchievementManager.Grant("RISE_EVEN_HIGHER"));
-        CanDodge.Subscribe(() => AchievementManager.Grant("LEAP_OF_FAITH"));
-    }
 }
-    

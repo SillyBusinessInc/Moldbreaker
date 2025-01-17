@@ -60,6 +60,16 @@ public abstract class StateBase
     {
         if (ctx.started)
         {
+            if (Player.isGrounded)
+            {
+                Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
+                Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
+            }
+            else
+            {
+                Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
+            }
+
             Player.isHoldingJump = true;
             Player.SetState(Player.states.Jumping);
         }

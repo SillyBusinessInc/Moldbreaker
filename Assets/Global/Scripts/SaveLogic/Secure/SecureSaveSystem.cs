@@ -59,26 +59,6 @@ public abstract class SecureSaveSystem
         IsDirty = true;
     }
 
-    /// <summary> Increases the value with the given id by the given amount (only works with integers, strings and floats) </summary>
-    public void Increase<T>(string id, T amount) {
-        if (IsLocked) return;
-
-        if (typeof(T) == typeof(int)) {
-            int current = Get<int>(id);
-            Set(id, current + (int)(object)amount);
-        }
-        
-        if (typeof(T) == typeof(float)) {
-            float current = Get<float>(id);
-            Set(id, current + (float)(object)amount);
-        }
-
-        if (typeof(T) == typeof(string)) {
-            string current = Get<string>(id);
-            Set(id, current + (string)(object)amount);
-        }
-    }
-
     /// <summary> Add a new value to the save system. This should generally be done in SecureSaveSystem.Init() </summary>
     protected void Add<T>(string id, T defaultValue) {
         // check if type is allowed

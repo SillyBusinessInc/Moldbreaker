@@ -79,7 +79,7 @@ public class CreditLogic : MonoBehaviour
         if (rt.childCount == 0) return;
 
         RectTransform firstObj = rt.GetChild(0) as RectTransform;
-        // Debug.Log($"{firstObj.anchorMin.y}, {-0.075f * (Time.time - timeSinceStart - delay) + 1}");
+        Debug.Log($"{firstObj.anchorMin.y}, {-0.075f * (Time.time - timeSinceStart - delay) + 1}");
         if (firstObj.anchorMin.y > -0.075f * (Time.time - timeSinceStart - delay) + 1) {
 
             Destroy(firstObj.gameObject);
@@ -89,7 +89,6 @@ public class CreditLogic : MonoBehaviour
 
     private void AddNext() 
     {
-        if (next >= entries.Length) return;
         string entry = entries[next];
         float position = spacingImage + spacingTitle + spacingPadding * 7 + spacingLine * next;
 
@@ -146,7 +145,6 @@ public class CreditLogic : MonoBehaviour
     private IEnumerator ExitAfter() {
         exiting = true;
         yield return new WaitForSeconds(delay + 5);
-        AchievementManager.Grant("SILLY_BUSINESS");
         OnExit();
     }
 

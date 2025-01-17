@@ -46,7 +46,7 @@ public class DiscordPresence : MonoBehaviour
             discord = new Discord.Discord(applicationId, (ulong)Discord.CreateFlags.NoRequireDiscord);
             activityManager = discord.GetActivityManager();
             isDiscordInitialized = true; // Successfully initialized Discord
-            // Debug.Log("Discord initialized successfully.");
+            Debug.Log("Discord initialized successfully.");
         }
         catch (Exception ex)
         {
@@ -132,7 +132,7 @@ public class DiscordPresence : MonoBehaviour
         {
             if (result == Discord.Result.Ok)
             {
-                // Debug.Log("Discord Rich Presence updated successfully.");
+                Debug.Log("Discord Rich Presence updated successfully.");
             }
             else
             {

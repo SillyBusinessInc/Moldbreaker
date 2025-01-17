@@ -22,7 +22,7 @@ public class Tail : MonoBehaviour
 
     [HideInInspector] public bool tailCanDoDamage = false;
     
-    public GameObject slamObject;
+    [HideInInspector] public GameObject slamObject;
     [HideInInspector] public float slamObjectSize = 1.0f;
 
     public void Start() {}

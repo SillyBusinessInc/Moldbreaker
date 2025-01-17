@@ -105,25 +105,32 @@ public class CheatCodeSystem : MonoBehaviour
         {
             case "LULDR":
                 //infinite double jump
+                Debug.Log("Cheat activated: LULDR");
                 GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.DoubleJumpsCount.AddModifier("cheatleg", 1000);
                 break;
             case "RLLRD":
+                Debug.Log("Cheat activated: RLLRD");
                 GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
                 break;
             case "UUDLR":
+                Debug.Log("Cheat activated: UUDLR");
                 InvulnerableCheatActivated = false;
                 GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero);
                 break;
             case "DDRLU":
+                Debug.Log("Cheat activated: DDRLU");
                 GlobalReference.GetReference<PlayerReference>().Player.Heal(GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.MaxHealth.GetValue());
                 break;
             case "UDLRRLDD":
+                Debug.Log("Cheat activated: UDLRRLDD");
                 EnableAllLevels();
                 break;
             case "DDLRRLDU":
+                Debug.Log("Cheat activated: DDLRRLDU");
                 DisableAllLevels();
                 break;
             case "UDLRUDUD":
+                Debug.Log("Cheat activated: UDLRUDUD");
                 ToggleInvulnerability();
                 break;
             default:
