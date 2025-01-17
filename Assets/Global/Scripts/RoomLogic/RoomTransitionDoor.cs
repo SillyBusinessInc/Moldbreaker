@@ -174,6 +174,7 @@ public class RoomTransitionDoor : Interactable
         saveRoomData.LoadAll();
         List<int> finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
         finishedLevels.Add(doorManager.currentId);
+        PlayerPrefs.SetInt("level", doorManager.currentId);
         saveRoomData.Set("finishedLevels", finishedLevels);
         saveRoomData.SaveAll();
     }

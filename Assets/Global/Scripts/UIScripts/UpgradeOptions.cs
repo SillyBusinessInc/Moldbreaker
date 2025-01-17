@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UpgradeOptions : Reference
@@ -56,8 +55,6 @@ public class UpgradeOptions : Reference
     public void Confirm()
     {
         if (!isShown) return;
-
-        // if (ctx.started && option != null) // ctx?? where is ctx?
         if (option != null)
         {
             foreach (ActionParamPair action in option.interactionActions)
