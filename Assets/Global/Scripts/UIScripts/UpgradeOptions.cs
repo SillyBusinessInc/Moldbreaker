@@ -11,7 +11,6 @@ public class UpgradeOptions : Reference
 
     public List<ActionParamPair> interactionActions;
     [SerializeField] private Button confirmButton;
-    [SerializeField] private UIInputHandler handler;
 
     protected new void Awake()
     {
@@ -19,10 +18,8 @@ public class UpgradeOptions : Reference
         gameObject.SetActive(false);
     }
 
-    [ContextMenu("SHOW")]
     public void ShowOption()
     {
-        // handler.EnableInput("UI");
         isShown = true;
         UILogic.SelectButton(confirmButton);
         SetCursorState(true, CursorLockMode.None);
@@ -43,7 +40,6 @@ public class UpgradeOptions : Reference
         SetCursorState(false, CursorLockMode.Locked);
         gameObject.SetActive(false);
         isShown = false;
-        // handler.DisableInput("UI");
     }
 
     void SetCursorState(bool cursorVisible, CursorLockMode lockMode)

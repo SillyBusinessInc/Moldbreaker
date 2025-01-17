@@ -102,8 +102,7 @@ public class ControlIconMapping : ScriptableObject
     }
 
     private int? GetGamepadButtonValue(string controlPath)
-    { 
-
+    {
         // Get int value for comparison
         if (System.Enum.TryParse<GamepadButton>(controlPath, true, out var result))
         {

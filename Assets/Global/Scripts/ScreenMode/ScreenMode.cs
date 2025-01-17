@@ -1,6 +1,4 @@
 using UnityEngine;
-using TMPro;
-
 
 public class ScreenMode : MonoBehaviour
 {

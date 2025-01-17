@@ -16,11 +16,6 @@ public class UpgradePausePrefab : MonoBehaviour{
     public Sprite rarity_epic;
     public Sprite rarity_legendary;
 
-    // private void Start() {
-    //     // amountText.text = "0";
-    //     amount = 0;
-    // }
-
 
     public void SetData(int rarity, Sprite upgradeOption) { 
         this.rarity = rarity;
@@ -28,14 +23,7 @@ public class UpgradePausePrefab : MonoBehaviour{
         rarityImage.sprite = GetRarityImage(rarity); 
         upgradeImage.sprite = upgradeOption; 
         amount = 1;
-        // IncreaseAmount();
-    } 
-
-    // void IncreaseAmount() {
-    // int currentAmount = int.Parse(amountText.text); 
-    // currentAmount += 1; 
-    // amountText.text = currentAmount.ToString();
-    // }
+    }
 
     Sprite GetRarityImage(int rarity) {
         return rarity switch {

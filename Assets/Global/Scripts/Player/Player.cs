@@ -5,8 +5,6 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-// using System.Numerics;
-
 public class Player : MonoBehaviour
 {
     [Header("Walking Settings")]
@@ -57,15 +55,8 @@ public class Player : MonoBehaviour
     public CheatCodeSystem cheats;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
-    [HideInInspector] public bool slamCanDoDamage = false;
-    [HideInInspector] public int attackCounter;
-    [HideInInspector] public int tailDoDamage;
-    [HideInInspector] public bool isSlamming;
-    [HideInInspector] public float activeAttackCooldown;
     [HideInInspector] public bool canDodgeRoll = true;
     [HideInInspector] public int currentJumps = 0;
-    [HideInInspector] public float horizontalInput;
-    [HideInInspector] public float verticalInput;
     [HideInInspector] public PlayerStates states;
     [HideInInspector] public StateBase currentState;
     [HideInInspector] public Vector2 movementInput;
@@ -75,7 +66,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public float timeLeftGrounded;
     [HideInInspector] public float timeLastDodge;
     [HideInInspector] public float currentWalkingPenalty;
-    [HideInInspector] public bool awaitingNewState = false;
     [HideInInspector] public Coroutine activeCoroutine;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
     [HideInInspector] public int recentHits = 0;

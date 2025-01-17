@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using EnemiesNS;
 
 
 public class Tail : MonoBehaviour
@@ -25,9 +23,9 @@ public class Tail : MonoBehaviour
     public GameObject slamObject;
     [HideInInspector] public float slamObjectSize = 1.0f;
 
-    public void Start() {}
+    void Start() {}
 
-    public void Update()
+    void Update()
     {
         activeResetComboTime =
             player.currentState.GetType().Name != "AttackingState"
