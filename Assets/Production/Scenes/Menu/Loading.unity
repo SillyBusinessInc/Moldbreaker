@@ -805,7 +805,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 29.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.4
+  m_fontSize: 57.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1459,6 +1459,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4a853eb428ec48d4fb8cc6802efb3a6b, type: 3}
   - {fileID: 21300000, guid: 5cb6bd54df2803949b68db7c266a77c8, type: 3}
   - {fileID: 21300000, guid: e75801edeb9772442b0e857dba1fa670, type: 3}
+  - {fileID: 21300000, guid: 38782fcda4d4f2b40a1b749ec8fd165a, type: 3}
+  - {fileID: 21300000, guid: 71b2af9073327964fafc835c07353bb3, type: 3}
+  - {fileID: 21300000, guid: 2f90dd2224381d74eabf076f0ccf6af6, type: 3}
+  - {fileID: 21300000, guid: 987bc1f73cf6b6347bd34b5fd8db456f, type: 3}
   tips:
   - Did you know?;Bradley is just one hell of a loaf?
   - Did you know?;All loading screen art is concept art made by members of the team!
