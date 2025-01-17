@@ -1,7 +1,4 @@
-(Logo) 
-Created by: Silly Business 
-
-Asset Modeling 
+[inverse]Asset Modeling 
 Abby Truong 
 Karo Łubkowska 
 Nikola Pangelová 
@@ -9,18 +6,18 @@ Noah RP
 Sasha Salmon 
 Silviani Luciana Martis 
  
-Character Animation 
+[inverse]Character Animation 
 Dirk Roosendaal 
 Mustafa Altun 
 Nikola Pangelová 
 Pim van Milt 
 Salaheddine Zohayri 
  
-Character Modelling 
+[inverse]Character Modelling 
 Nikola Pangelová 
 Silviani Luciana Martis 
  
-Concept Art 
+[inverse]Concept Art 
 Abby Truong 
 Karo Łubkowska 
 Nikola Pangelová 
@@ -28,51 +25,51 @@ Noah RP
 Sasha Salmon 
 Silviani Luciana Martis 
  
-Environmental Hazards 
+[inverse]Environmental Hazards 
 Isis Ton 
 Jihye Kang 
 Marijn Hokke 
 Pim van Milt 
 Si Wai Pang 
  
-Game Design 
+[inverse]Game Design 
 Carlo Rubio 
 Kevin Molendijk 
 Luke de Groot 
 Marijn Hokke 
  
-Level & Hub Design 
+[inverse]Level & Hub Design 
 Carlo Rubio 
 Kevin Molendijk 
 Luke de Groot 
 Marijn Hokke 
  
-Management 
+[inverse]Management 
 Dirk Roosendaal 
 Luke de Groot 
 Roan Dries 
 Silviani Luciana Martis 
  
-Marketing 
+[inverse]Marketing 
 Kevin Molendijk 
 Luke de Groot 
 Sasha Salmon 
  
-Movement & Combat 
+[inverse]Movement & Combat 
 Carlo Rubio 
 Fabio van 't Hoff 
 Mustafa Altun 
 Pim van Milt 
 Salaheddine Zohayri 
  
-Music & Sound Design 
+[inverse]Music & Sound Design 
 Salaheddine Zohayri 
 Sasha Salmon 
  
-Promotional Art 
+[inverse]Promotional Art 
 Silviani Luciana Martis 
  
-Scene Management 
+[inverse]Scene Management 
 Fabio van 't Hoff 
 Isis Ton 
 Jihye Kang 
@@ -80,18 +77,18 @@ Kevin Molendijk
 Mustafa Altun 
 Pim van Milt 
  
-Fundamentals 
+[inverse]Fundamentals 
 Fabio van 't Hoff 
 Isis Ton 
 Pim van Milt 
  
-Texturing 
+[inverse]Texturing 
 Abby Truong 
 Noah RP 
 Sasha Salmon 
 Silviani Luciana Martis 
  
-UI/UX 
+[inverse]UI/UX 
 Fabio van 't Hoff 
 Isis Ton 
 Jihye Kang 
@@ -102,46 +99,46 @@ Mustafa Altun
 Silviani Luciana Martis 
 Si Wai Pang 
  
-User Testing 
+[inverse]User Testing 
 Carlo Rubio 
 Kevin Molendijk 
 Marijn Hokke 
  
-VFX 
+[inverse]VFX 
 Fabio van 't Hoff 
 Sasha Salmon 
 Silviani Luciana Martis 
  
-Special Thanks 
+[inverse]Special Thanks 
 Adam Čurko 
 
-------------------------------------------------------------------------------------------------------------------------------------- 
+===========================
 
-Producer 
+[inverse]Producer 
 Roan Dries 
  
-Art Director 
+[inverse]Art Director 
 Silviani Luciana Martis 
  
-Art Team 
+[inverse]Art Team 
 Abby Truong 
 Karo Łubkowska 
 Nikola Pangelová 
 Noah RP 
 Sasha Salmon 
  
-Creative Director 
+[inverse]Creative Director 
 Luke de Groot 
  
-Designer Team 
+[inverse]Designer Team 
 Carlo Rubio 
 Kevin Molendijk 
 Marijn Hokke 
  
-Technical Director 
+[inverse]Technical Director 
 Dirk Roosendaal 
  
-Developer Team 
+[inverse]Developer Team 
 Fabio van 't Hoff 
 Isis Ton 
 Jihye Kang 
