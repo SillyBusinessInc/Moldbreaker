@@ -8,10 +8,13 @@ public class CheatCodeSystem : MonoBehaviour
     private PlayerInput playerInput;
     public float maxComboTime = 4f; // Max time to complete the combo
     private float comboTimer;
-    private string currentSequence = "";
-    public bool InvulnerableCheatActivated = false;
-    private List<string> cheatCodes = new List<string> { "LULDR", "RLLRD", "UUDLR", "DDRLU", "UDLRRLDD", "DDLRRLDU", "UDLRUDUD" }; // Example sequences
+    [HideInInspector] public bool InvulnerableCheatActivated = false;
+    private List<string> cheatCodes = new List<string> { "LULDR", "RLLRD", "UUDLR", "DDRLU", "UDLRRLDD", "UDLRUDUD" }; // Example sequences
 
+    [Header("Debug")]
+    [SerializeField] private string currentSequence = "";
+    [SerializeField] private string LastInvokedCheat = "none";
+    
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -105,28 +108,29 @@ public class CheatCodeSystem : MonoBehaviour
         {
             case "LULDR":
                 //infinite double jump
+                LastInvokedCheat = "Infinite Double jumps";
                 GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.DoubleJumpsCount.AddModifier("cheatleg", 1000);
                 break;
             case "RLLRD":
+                LastInvokedCheat = "Enable Dodge";
                 GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
                 break;
             case "UUDLR":
                 InvulnerableCheatActivated = false;
+                LastInvokedCheat = "Killing yourself";
                 GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero);
                 break;
             case "DDRLU":
+                LastInvokedCheat = "Restoring Full HP";
                 GlobalReference.GetReference<PlayerReference>().Player.Heal(GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.MaxHealth.GetValue());
                 break;
             case "UDLRRLDD":
+                LastInvokedCheat = "Enable All Levels";
                 EnableAllLevels();
                 break;
-            case "DDLRRLDU":
-                DisableAllLevels();
-                break;
             case "UDLRUDUD":
+                LastInvokedCheat = "Invulnerability";
                 ToggleInvulnerability();
-                break;
-            default:
                 break;
         }
     }
@@ -143,16 +147,7 @@ public class CheatCodeSystem : MonoBehaviour
         saveRoomData.SaveAll();
         GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED);
     }
-
-    private void DisableAllLevels()
-    {
-        RoomSave saveRoomData = new();
-        saveRoomData.Set("finishedLevels", new List<int>());
-        saveRoomData.SaveAll();
-        GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED);
-        GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero);
-    }
-
+    
     private void ResetCombo()
     {
         currentSequence = "";
