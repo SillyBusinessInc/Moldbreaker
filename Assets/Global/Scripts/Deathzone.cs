@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Deathzone : MonoBehaviour
@@ -42,22 +43,25 @@ public class Deathzone : MonoBehaviour
         // get the actual player object to damage.
         Player playerRef = playerReference.Player;
         playerRef.lastDamageCause = Player.DamageCause.HAZARD;
+        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
         playerRef.OnHit(playerRef.playerStatistic.MaxHealth.GetValue() * damageAmount, new Vector3(0, 0, 0));
 
         // start the crossfade
-        if (crossfadeController) yield return StartCoroutine(crossfadeController.Crossfade_Start());
+        //if (crossfadeController) yield return StartCoroutine(crossfadeController.Crossfade_Start());
 
         // cancel out any movementinput and respawn the player on predefined spot
         playerRef.movementInput = new Vector2(0, 0);
         yield return StartCoroutine(DelayRespawn());
+        // spawnPoint.Spawn();
 
         // clear the crossfade
-        if (crossfadeController) yield return StartCoroutine(crossfadeController.Crossfade_End());
+        //if (crossfadeController) yield return StartCoroutine(crossfadeController.Crossfade_End());
+        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
     }
 
     private IEnumerator DelayRespawn()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.3f);
         spawnPoint.Spawn();
     }
 }

@@ -176,6 +176,7 @@ Transform:
   m_Children:
   - {fileID: 2784433081774436024}
   - {fileID: 5141562725834044052}
+  - {fileID: 1061575056637356766}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6697922947640386179
@@ -192,14 +193,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionPrompt: '{interactKey} - Interact'
   disabledPrompt: Cannot interact
-  promptYOffset: 1.5
+  promptYOffset: 1
   enabledPromptColor: {r: 1, g: 1, b: 1, a: 1}
   disabledPromptColor: {r: 1, g: 1, b: 1, a: 1}
   font: {fileID: 11400000, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
-  promptFontSize: 8
+  promptFontSize: 5
   promptXOffset: 0
   promptZOffset: 0
-  hudParent: {fileID: 0}
+  hudParent: {fileID: 1061575056637356766}
   interactDistance: 5
   isDisabled: 1
   interactionActions: []
@@ -232,6 +233,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.998047, y: 8.954878, z: 2}
   m_Center: {x: 0.0009764948, y: -2.3264337, z: 0.99999994}
+--- !u!1 &5439697105900982205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1061575056637356766}
+  m_Layer: 0
+  m_Name: HUDParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1061575056637356766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5439697105900982205}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 631634382862242589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6606391748182938793
 GameObject:
   m_ObjectHideFlags: 0

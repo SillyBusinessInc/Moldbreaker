@@ -19,9 +19,10 @@ public abstract class StateBase
     public virtual void OnCollisionExit(Collision collision) { }
 
     // Input handling
-    public virtual void Move(InputAction.CallbackContext ctx)
+    public virtual void Move(InputAction.CallbackContext ctx, bool ignoreInput = false)
     {
         Player.movementInput = ctx.ReadValue<Vector2>();
+        if (ignoreInput) Player.movementInput = new Vector2(0, 0);
         if (ctx.performed && Player.currentState != Player.states.Walking && Player.isGrounded)
         {
             Player.SetState(Player.states.Walking);
@@ -41,7 +42,7 @@ public abstract class StateBase
     public virtual void Dodge(InputAction.CallbackContext ctx)
     {
         if (Player.playerStatistic.CanDodge.GetValueInt() <= 0) return;
-        
+
         if (ctx.started)
         {
             Player.isHoldingDodge = true;
@@ -82,7 +83,7 @@ public abstract class StateBase
 
     public virtual void Attack(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.performed)
         {
             Player.SetState(Player.states.Attacking);
         }

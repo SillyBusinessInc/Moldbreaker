@@ -34,8 +34,9 @@ public class JumpingState : StateBase
         if (!Player.isHoldingJump) Player.SetState(Player.states.Falling);
     }
 
-    public override void Move(InputAction.CallbackContext ctx)
+    public override void Move(InputAction.CallbackContext ctx, bool ignoreInput = false)
     {
         Player.movementInput = ctx.ReadValue<Vector2>();
+        if (ignoreInput) Player.movementInput = new Vector2(0, 0);
     }
 }

@@ -1,139 +1,148 @@
-[inverse]Asset Modeling
-Abby Truong
-Karo Łubkowska
-Nikola Pangelová
-Noah RP
-Sasha Salmon
-Silviani Luciana Martis
-
-[inverse]Character Animation
-Mustafa Altun
-Nikola Pangelová
-Pim van Milt
-Salaheddine Zohayri
-
-[inverse]Character Modelling
-Nikola Pangelová
-Silviani Luciana Martis
-
-[inverse]Concept Art
-Abby Truong
-Karo Łubkowska
-Nikola Pangelová
-Noah RP
-Sasha Salmon
-Silviani Luciana Martis
-
-[inverse]Environmental Hazards
-Isis Ton
-Jihye Kang
-Marijn Hokke
-Si Wai Pang
-
-[inverse]Game Design
-Carlo Rubio
-Kevin Molendijk
+[inverse]Asset Modeling 
+Abby Truong 
+Karo Łubkowska 
+Nikola Pangelová 
+Noah RP 
+Sasha Salmon 
+Silviani Luciana Martis 
+ 
+[inverse]Character Animation 
+Dirk Roosendaal 
+Mustafa Altun 
+Nikola Pangelová 
+Pim van Milt 
+Salaheddine Zohayri 
+ 
+[inverse]Character Modelling 
+Nikola Pangelová 
+Silviani Luciana Martis 
+ 
+[inverse]Concept Art 
+Abby Truong 
+Karo Łubkowska 
+Nikola Pangelová 
+Noah RP 
+Sasha Salmon 
+Silviani Luciana Martis 
+ 
+[inverse]Environmental Hazards 
+Isis Ton 
+Jihye Kang 
+Marijn Hokke 
+Pim van Milt 
+Si Wai Pang 
+ 
+[inverse]Game Design 
+Carlo Rubio 
+Kevin Molendijk 
 Luke de Groot 
-Marijn Hokke
-
-[inverse]Level & Hub Design
-Carlo Rubio
-Kevin Molendijk
-Luke de Groot
-Marijn Hokke
-
-[inverse]Management
-Dirk Roosendaal
-Luke de Groot
-Roan Dries
-Silviani Luciana Martis
-
-[inverse]Marketing
-Kevin Molendijk
-Luke de Groot
-Sasha Salmon
-
-[inverse]Movement & Combat
-Carlo Rubio
-Fabio van 't Hoff
-Mustafa Altun
-Pim van Milt
-Salaheddine Zohayri
-
-[inverse]Music & Sound Design
-Salaheddine Zohayri
-Sasha Salmon
-
-[inverse]Promotional Art
-Silviani Luciana Martis
-
-[inverse]Scene Management
-Fabio van 't Hoff
-Isis Ton
-Jihye Kang
-Kevin Molendijk
-
-[inverse]Texturing
-Abby Truong
-Noah RP
-Sasha Salmon
-Silviani Luciana Martis
-
-[inverse]UI/UX
-Fabio van 't Hoff
-Isis Ton
-Jihye Kang
-Karo Łubkowska
-Luke de Groot
-Marijn Hokke
-Mustafa Altun
-Silviani Luciana Martis
-Si Wai Pang
-
-[inverse]User Testing
-Carlo Rubio
-Kevin Molendijk
-Marijn Hokke
-
-[inverse]VFX
-Fabio van 't Hoff
-Sasha Salmon
-Silviani Luciana Martis
-
-[inverse]Special Thanks
-Adam Čurko
+Marijn Hokke 
+ 
+[inverse]Level & Hub Design 
+Carlo Rubio 
+Kevin Molendijk 
+Luke de Groot 
+Marijn Hokke 
+ 
+[inverse]Management 
+Dirk Roosendaal 
+Luke de Groot 
+Roan Dries 
+Silviani Luciana Martis 
+ 
+[inverse]Marketing 
+Kevin Molendijk 
+Luke de Groot 
+Sasha Salmon 
+ 
+[inverse]Movement & Combat 
+Carlo Rubio 
+Fabio van 't Hoff 
+Mustafa Altun 
+Pim van Milt 
+Salaheddine Zohayri 
+ 
+[inverse]Music & Sound Design 
+Salaheddine Zohayri 
+Sasha Salmon 
+ 
+[inverse]Promotional Art 
+Silviani Luciana Martis 
+ 
+[inverse]Scene Management 
+Fabio van 't Hoff 
+Isis Ton 
+Jihye Kang 
+Kevin Molendijk 
+Mustafa Altun 
+Pim van Milt 
+ 
+[inverse]Fundamentals 
+Fabio van 't Hoff 
+Isis Ton 
+Pim van Milt 
+ 
+[inverse]Texturing 
+Abby Truong 
+Noah RP 
+Sasha Salmon 
+Silviani Luciana Martis 
+ 
+[inverse]UI/UX 
+Fabio van 't Hoff 
+Isis Ton 
+Jihye Kang 
+Karo Łubkowska 
+Luke de Groot 
+Marijn Hokke 
+Mustafa Altun 
+Silviani Luciana Martis 
+Si Wai Pang 
+ 
+[inverse]User Testing 
+Carlo Rubio 
+Kevin Molendijk 
+Marijn Hokke 
+ 
+[inverse]VFX 
+Fabio van 't Hoff 
+Sasha Salmon 
+Silviani Luciana Martis 
+ 
+[inverse]Special Thanks 
+Adam Čurko 
 
 ===========================
 
-[inverse]Producer
-Roan Dries
-
-[inverse]Art Director
-Silviani Luciana Martis
-
-[inverse]Art Team
-Abby Truong
-Karo Łubkowska
-Nikola Pangelová
-Noah RP
-Sasha Salmon
-
-[inverse]Creative Director
-Luke de Groot
-
-[inverse]Designer Team
-Carlo Rubio
-Kevin Molendijk
-Marijn Hokke
-
-[inverse]Technical Director
-Dirk Roosendaal
-
-[inverse]Developer Team
-Fabio van 't Hoff
-Isis Ton
-Jihye Kang
-Mustafa Altun
-Pim van Milt
-Salaheddine Zohayri
-Si Wai Pang
+[inverse]Producer 
+Roan Dries 
+ 
+[inverse]Art Director 
+Silviani Luciana Martis 
+ 
+[inverse]Art Team 
+Abby Truong 
+Karo Łubkowska 
+Nikola Pangelová 
+Noah RP 
+Sasha Salmon 
+ 
+[inverse]Creative Director 
+Luke de Groot 
+ 
+[inverse]Designer Team 
+Carlo Rubio 
+Kevin Molendijk 
+Marijn Hokke 
+ 
+[inverse]Technical Director 
+Dirk Roosendaal 
+ 
+[inverse]Developer Team 
+Fabio van 't Hoff 
+Isis Ton 
+Jihye Kang 
+Mustafa Altun 
+Pim van Milt 
+Salaheddine Zohayri 
+Si Wai Pang 
