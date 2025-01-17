@@ -25,6 +25,7 @@ public class UpgradeOptions : Reference
     {
         // handler.EnableInput("UI");
         isShown = true;
+        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
         UILogic.SelectButton(confirmButton);
         SetCursorState(true, CursorLockMode.None);
         Time.timeScale = 0;
@@ -44,6 +45,7 @@ public class UpgradeOptions : Reference
         SetCursorState(false, CursorLockMode.Locked);
         gameObject.SetActive(false);
         isShown = false;
+        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         // handler.DisableInput("UI");
     }
 
