@@ -39,6 +39,7 @@ public class PauseLogic : MonoBehaviour
     public void ContinueGame()
     {
         isPaused = false;
+        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
 
         AudioManager.Instance.PlaySFX("Button");
         Menu.SetActive(!Menu.activeSelf);
@@ -52,6 +53,7 @@ public class PauseLogic : MonoBehaviour
     public void Settings()
     {
         isPaused = false;
+        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         AudioManager.Instance.PlaySFX("Button");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -64,6 +66,7 @@ public class PauseLogic : MonoBehaviour
     public void QuitGame()
     {
         isPaused = false;
+        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         AudioManager.Instance.PlaySFX("Button");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -84,6 +87,7 @@ public class PauseLogic : MonoBehaviour
             UILogic.SelectButton(continueButton);
             // Upgrades.SetActive(!Upgrades.activeSelf); 
             Time.timeScale = isPaused ? 0f : 1f;
+            GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
         }
 
         if (isPaused == true)
@@ -103,8 +107,9 @@ public class PauseLogic : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+                // handler.DisableInput("UI");
             }
-            // handler.DisableInput("UI");
         }
     }
 }

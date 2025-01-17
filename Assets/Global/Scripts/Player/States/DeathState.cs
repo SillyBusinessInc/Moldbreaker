@@ -21,7 +21,7 @@ public class DeathState : StateBase
         float linearY = ApplyGravity(Player.rb.linearVelocity.y);
         Player.targetVelocity = new Vector3(0, linearY, 0);
         time += Time.deltaTime;
-        
+
         // this is a magic spell, no one knows what it does, except the one who casted it, and he's dead now, so we will never know.
         if (Player.playerAnimationsHandler.animator.runtimeAnimatorController.animationClips.FirstOrDefault(x => x.name == "Breadaplus|Bradley_death")?.length * 0.8 <= time)
         { // (just kidding, its a check to make sure the death animation is above 80% finished)
@@ -34,8 +34,9 @@ public class DeathState : StateBase
         }
     }
 
-    public override void Move(InputAction.CallbackContext ctx)
+    public override void Move(InputAction.CallbackContext ctx, bool ignoreInput = false)
     {
+        if (ignoreInput) Player.movementInput = new Vector2(0, 0);
     }
 
     public override void Sprint(InputAction.CallbackContext ctx) { }

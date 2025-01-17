@@ -52,7 +52,7 @@ public class RoomTransitionDoor : Interactable
         // unlock next level
         Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel == null) AchievementManager.Grant("RISE_OF_THE_LOAF");
-        else  nextLevel.unlocked = true;
+        else nextLevel.unlocked = true;
         AudioManager.Instance.PlaySFX("PortalSFX");
         StartCoroutine(LoadNextRoom());
         Player p = GlobalReference.GetReference<PlayerReference>().Player;
@@ -104,7 +104,7 @@ public class RoomTransitionDoor : Interactable
             }
         }
 
-        Debug.Log($"next: {nextRoomName}, nextId: {nextRoomId}, nextIndex: {nextRoomIndex}");
+        // Debug.Log($"next: {nextRoomName}, nextId: {nextRoomId}, nextIndex: {nextRoomIndex}");
         saveData = new CollectableSave(nextRoomName);
         saveData.LoadAll();
         player.playerStatistic.caloriesCountExtra = saveData.Get<List<string>>("calories").Count;
