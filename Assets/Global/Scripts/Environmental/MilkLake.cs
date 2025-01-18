@@ -6,52 +6,44 @@ public class MilkLake : MonoBehaviour
     [SerializeField] private float addMoldPerInterval = 1f;
     private float timeSinceLastMold = 0f;
 
-    private GameObject waffleTailObject;
-    private Rigidbody rb;
-    private Transform waffleTailObjectTransform;
-
     public float buoyancyForce = 50f;
-
-    private void Start()
+    
+    void OnTriggerStay(Collider other)
     {
-        waffleTailObject = GlobalReference.GetReference<PlayerReference>().playerBradleyWaffletail;
-        rb = GlobalReference.GetReference<PlayerReference>().PlayerObj.GetComponent<Rigidbody>();
-        waffleTailObjectTransform = waffleTailObject.transform;
+        if (!other.CompareTag("Player")) return;
+
+        var player = GlobalReference.GetReference<PlayerReference>().Player;
+        // change the position and rotation to make it look like player is swimming
+        var submergedDepth = Mathf.Max(0, this.transform.position.y - other.transform.position.y); // Depth below surface
+        var buoyancy = Vector3.up * this.buoyancyForce * submergedDepth;
+        player.rb.AddForce(buoyancy, ForceMode.Force);
+        this.SetRotation(10f);
+
+        this.timeSinceLastMold -= Time.deltaTime;
+        if (!(this.timeSinceLastMold <= 0f)) return;
+            
+        player.lastDamageCause = Player.DamageCause.HAZARD;
+        player.OnHit(this.addMoldPerInterval, Vector3.zero);
+        this.timeSinceLastMold = this.intervalSeconds;
     }
 
-    void OnTriggerStay(Collider other) {
-        if (other.CompareTag("Player")) {
-            // change the position and rotation to make it look like player is swimming
-            float submergedDepth = Mathf.Max(0, transform.position.y - other.transform.position.y); // Depth below surface
-            Vector3 buoyancy = Vector3.up * buoyancyForce * submergedDepth;
-            rb.AddForce(buoyancy, ForceMode.Force);
-            waffleTailObjectTransform.rotation = Quaternion.Euler(
-                10f, 
-                waffleTailObjectTransform.rotation.eulerAngles.y,
-                waffleTailObjectTransform.rotation.eulerAngles.z
-            );
+    void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
 
-
-            // will add mold every second
-            timeSinceLastMold -= Time.deltaTime;
-            if (timeSinceLastMold <= 0f) {
-                Player player = GlobalReference.GetReference<PlayerReference>().Player;
-                player.lastDamageCause = Player.DamageCause.HAZARD;
-                player.OnHit(addMoldPerInterval, Vector3.zero);
-                timeSinceLastMold = intervalSeconds;
-            }
-        }
+        this.SetRotation(0f);
+        this.timeSinceLastMold = 0f;
     }
 
-    void OnTriggerExit(Collider other) {
-        if (other.CompareTag("Player")) {
-            // reset the position and rotation
-            waffleTailObjectTransform.rotation = Quaternion.Euler(
-                0f, 
-                waffleTailObjectTransform.rotation.eulerAngles.y,
-                waffleTailObjectTransform.rotation.eulerAngles.z
-            );
-            timeSinceLastMold = 0f;
-        }
+    private void SetRotation(float rotation)
+    {
+        var reference = GlobalReference.GetReference<PlayerReference>();
+        var playerModel = reference.playerBradleyWaffletail.transform;
+        
+        playerModel.rotation = Quaternion.Euler(
+            rotation, 
+            playerModel.rotation.eulerAngles.y,
+            playerModel.rotation.eulerAngles.z
+        );
     }
 }
