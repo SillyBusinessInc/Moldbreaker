@@ -4,7 +4,6 @@ using System.Collections;
 public class SpikeField : MonoBehaviour
 {
     [SerializeField] private int damage = 10; // Damage dealt by the cone
-    // [SerializeField] private int enemyDamage = 10; // Damage dealt by the cone
     [SerializeField] private float cooldown = 1f; // Avoid damage loop
     [SerializeField] private float knockBackStrength = 3f; // Horizontal knockBack speed
     [Tooltip("The percentage of the knockback force that will be applied upwards, regardless of the direction that you hit the spikes")]
