@@ -25,13 +25,17 @@ public class Player : MonoBehaviour
     public float coyoteTime = 0.3f;
 
     [Header("Other Settings")]
-    public float glideDrag = 2f;
+    [HideInInspector] public float glideDrag = 2f; // Glide is currently inaccessible ingame
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
     public float dodgeRollDeceleration = 1f;
     public float groundCheckAngle = 50.0f;
-    public float maxIdleTime = 20f;
-    public float minIdleTime = 5f;
+    
+    [Tooltip("Max time before it plays a special idle animation")]
+    public float maxIdleAnimTime = 20f;
+    [Tooltip("Min time before it plays a special idle animation")]
+    public float MinIdleAnimTime = 5f;
+    
     [SerializeField] private float invulnerabilityTime = 0.5f;
     [SerializeField] private Transform cameraTarget;
     private Vector3 defaultCameraTarget = Vector3.zero;
@@ -72,14 +76,13 @@ public class Player : MonoBehaviour
     
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
-    [SerializeField] private string debug_currentStateName = "none";
+    [SerializeField] private string debug_currentStateName = "none"; // only for the inspector
     [HideInInspector] public Color debug_lineColor; // gizmos line that changes color based on state
     [SerializeField] private bool isKnockedBack = false;
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
     [HideInInspector] public bool AirComboDone = false;
     [HideInInspector] public Vector3 hitDirection;
-    // private PlayerInputActions inputActions;
     private bool IsLanding = false;
     [SerializeField] private CrossfadeController crossfadeController;
     [HideInInspector] public bool isInvulnerable = false;
