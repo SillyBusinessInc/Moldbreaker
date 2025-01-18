@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PickupBobAndRotate : MonoBehaviour
+public class BobAndRotate : MonoBehaviour
 {
     [Header("Bobbing Settings")]
     public float bobHeight = 0.3f;
@@ -12,18 +12,12 @@ public class PickupBobAndRotate : MonoBehaviour
 
     private Vector3 startPosition;  
 
-    void Start()
-    {
-        startPosition = transform.position;
-    }
+    void Start() => startPosition = transform.position;
 
     void Update()
     {
-        // Bobbing motion
         float newY = startPosition.y + bobHeight * Mathf.Sin(Time.time * bobSpeed);
-        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
-
-        // Rotation motion
+        transform.position = new(transform.position.x, newY, transform.position.z);
         transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
     }
 }

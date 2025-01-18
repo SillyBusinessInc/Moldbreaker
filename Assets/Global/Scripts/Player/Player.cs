@@ -2,10 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
-// using System.Numerics;
 
 public class Player : MonoBehaviour
 {
@@ -13,14 +10,13 @@ public class Player : MonoBehaviour
     public float acceleration = 2;
     public float deceleration = 0.5f;
     public float currentMovementLerpSpeed = 100;
-
-    public float soundAfterTime = 0.5f;
+    [Tooltip("The time it takes before it starts the step sounds")]
+    public float InitialStepSoundDelay = 0.5f;
 
     [Header("Knockback Settings")]
     public float knockbackDuration;
     public float knockbackSpeed;
-
-
+    
     [Header("Jumping Settings")]
     public float maxJumpHoldTime = 0.2f;
     public float airBorneMovementFactor = 0.5f;
@@ -29,13 +25,16 @@ public class Player : MonoBehaviour
     public float coyoteTime = 0.3f;
 
     [Header("Other Settings")]
-    public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
     public float dodgeRollDeceleration = 1f;
     public float groundCheckAngle = 50.0f;
-    public float maxIdleTime = 20f;
-    public float minIdleTime = 5f;
+    
+    [Tooltip("Max time before it plays a special idle animation")]
+    public float maxIdleAnimTime = 20f;
+    [Tooltip("Min time before it plays a special idle animation")]
+    public float MinIdleAnimTime = 5f;
+    
     [SerializeField] private float invulnerabilityTime = 0.5f;
     [SerializeField] private Transform cameraTarget;
     private Vector3 defaultCameraTarget = Vector3.zero;
@@ -54,7 +53,6 @@ public class Player : MonoBehaviour
     public ParticleSystem particleSystemJump;
     public ParticleSystem particleSystemDash;
     public ParticleSystem particleSystemWalk;
-    public CheatCodeSystem cheats;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool canDodgeRoll = true;
@@ -65,39 +63,34 @@ public class Player : MonoBehaviour
     [HideInInspector] public List<Collider> collidersEnemy;
     [HideInInspector] public float groundCheckDistance;
     [HideInInspector] public Vector3 targetVelocity;
-    [HideInInspector] public float timeLeftGrounded;
     [HideInInspector] public float timeLastDodge;
     [HideInInspector] public float currentWalkingPenalty;
-    [HideInInspector] public Coroutine activeCoroutine;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
     [HideInInspector] public int recentHits = 0;
     [HideInInspector] public int succesfullHitCounter = 0;
     [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
     [HideInInspector] public bool roomInvulnerability = false;
     private float currentMoldPercentage = 0;
-
-
+    public Coroutine activeCoroutine;
+    
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
-    [SerializeField] private string debug_currentStateName = "none";
+    [SerializeField] private string debug_currentStateName = "none"; // only for the inspector
+    [HideInInspector] public Color debug_lineColor; // gizmos line that changes color based on state
     [SerializeField] private bool isKnockedBack = false;
-    [HideInInspector] public Color debug_lineColor;
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
-    [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool AirComboDone = false;
     [HideInInspector] public Vector3 hitDirection;
-    // private PlayerInputActions inputActions;
     private bool IsLanding = false;
     [SerializeField] private CrossfadeController crossfadeController;
-
     [HideInInspector] public bool isInvulnerable = false;
 
     void Awake()
     {
         playerStatistic.Generate();
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
+
+        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED_BY_CHEAT, AlreadyRecievedUpgrades);
     }
 
     void Start()
@@ -105,14 +98,13 @@ public class Player : MonoBehaviour
         playerAnimationsHandler = GetComponent<PlayerAnimationsHandler>();
         states = new PlayerStates(this);
         SetState(states.Idle);
-        // health and maxHealth should be the same value at the start of game
+
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
         defaultCameraTarget = cameraTarget.localPosition;
         
-        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED,AlreadyRecievedUpgrades );
         AlreadyRecievedUpgrades();
     }
 
@@ -123,10 +115,7 @@ public class Player : MonoBehaviour
         var list = saveData.Get<List<int>>("finishedLevels");
         for (var i = 0; i < upgrades.Count; i++)
         {
-            if (list.Contains(i + 1))
-            {
-                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());
-            }
+            if (list.Contains(i + 1)) upgrades[i].interactionActions.ForEach(action => action.InvokeAction());
         }
     }
     
@@ -143,21 +132,10 @@ public class Player : MonoBehaviour
     }
 
     // Setting the height to null will reset the height to default
-    public void setCameraHeight(float? height)
+    public void SetCameraHeight(float? height)
     {
-        if (height == null)
-            cameraTarget.localPosition = defaultCameraTarget;
-        else
-            cameraTarget.localPosition = new Vector3(0, (float)height, 0);
-    }
-
-    private void attackingAnimation() => isAttacking = true;
-    private void attackingStoppedAnimation() => isAttacking = false;
-
-    private void OnDestroy()
-    {
-        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
-        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
+        if (height == null) cameraTarget.localPosition = defaultCameraTarget;
+        else cameraTarget.localPosition = new Vector3(0, (float)height, 0);
     }
 
     private void OnDrawGizmos()
@@ -165,21 +143,10 @@ public class Player : MonoBehaviour
         Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0, true);
     }
 
-    void FixedUpdate()
-    {
-        currentState.FixedUpdate();
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        currentState.OnCollisionEnter(collision);
-    }
-
-
-    public void OnCollisionExit(Collision collision)
-    {
-        currentState.OnCollisionExit(collision);
-    }
+    // Delegating methods to the current state
+    void FixedUpdate() => currentState.FixedUpdate();
+    public void OnCollisionEnter(Collision collision) => currentState.OnCollisionEnter(collision);
+    public void OnCollisionExit(Collision collision) => currentState.OnCollisionExit(collision);
 
     private void GroundCheck()
     {
@@ -196,36 +163,27 @@ public class Player : MonoBehaviour
             new (-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
         };
 
-        foreach (Vector3 offset in raycastOffsets)
+        foreach (var offset in raycastOffsets)
         {
-            Vector3 raycastPosition = rb.position + offset;
-            if (Physics.Raycast(raycastPosition, Vector3.down, out RaycastHit hit, groundCheckDistance))
-            {
-                if (!hit.collider.gameObject.CompareTag("Player"))
-                {
-                    if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
-                    {
-                        currentJumps = 0;
-                        if (!isGrounded)
-                            Tail.attackIndex = 0;
-                        isGrounded = true;
-                        playerAnimationsHandler.SetBool("IsOnGround", true);
-                        return;
-                    }
-                }
-            }
+            var raycastPosition = rb.position + offset;
+            if (!Physics.Raycast(raycastPosition, Vector3.down, out var hit, this.groundCheckDistance)) continue;
+            if (hit.collider.gameObject.CompareTag("Player")) continue;
+            if (!(Vector3.Angle(Vector3.up, hit.normal) < this.groundCheckAngle)) continue;
+
+            this.currentJumps = 0;
+            if (!this.isGrounded) this.Tail.attackIndex = 0;
+
+            this.isGrounded = true;
+            this.playerAnimationsHandler.SetBool("IsOnGround", true);
+            return;
         }
 
-        if (isGrounded)
-        {
-            isGrounded = false;
-            IsLanding = false;
-            Tail.attackIndex = 0;
-            timeLeftGrounded = Time.time;
-            playerAnimationsHandler.SetBool("IsOnGround", false);
-        }
-        // playerAnimationsHandler.SetBool("IsOnGround", false);
+        if (!isGrounded) return;
 
+        isGrounded = false;
+        IsLanding = false;
+        Tail.attackIndex = 0;
+        playerAnimationsHandler.SetBool("IsOnGround", false);
     }
 
     private void CheckLandingAnimation()
@@ -233,11 +191,10 @@ public class Player : MonoBehaviour
         if (rb.linearVelocity.y < -0.1f && isGrounded && !IsLanding)
         {
             IsLanding = true;
-            playerAnimationsHandler.resetStates();
+            playerAnimationsHandler.ResetStates();
             playerAnimationsHandler.animator.SetTrigger("IsLanding");
             playerAnimationsHandler.animator.ResetTrigger("IsJumping");
             playerAnimationsHandler.animator.ResetTrigger("IsDoubleJumping");
-
         }
     }
 
@@ -283,7 +240,7 @@ public class Player : MonoBehaviour
 
     public Vector3 GetDirection()
     {
-        Vector3 moveDirection = orientation.forward * movementInput.y + orientation.right * movementInput.x;
+        var moveDirection = orientation.forward * movementInput.y + orientation.right * movementInput.x;
         return moveDirection.normalized;
     }
 
@@ -291,29 +248,25 @@ public class Player : MonoBehaviour
     {
         if (isKnockedBack && targetVelocity.magnitude < 0.1f) isKnockedBack = false;
         if (isKnockedBack) return;
-        if (targetVelocity.magnitude > 0.1f)
-        {
-            Vector3 direction = Vector3.ProjectOnPlane(targetVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
-        }
+        if (!(this.targetVelocity.magnitude > 0.1f)) return;
+
+        var direction = Vector3.ProjectOnPlane(this.targetVelocity, Vector3.up).normalized;
+        if (direction != Vector3.zero) this.rb.MoveRotation(Quaternion.Lerp(this.rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
     }
 
     private void ApproachTargetVelocity()
     {
-        // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
-        // if (targetVelocity == Vector3.zero) return;
-
         // slowly move to target velocity
-        Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
+        var newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
         // adjust speed when slowing down
         if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude)
         {
             // preserve y velocity
-            float yVal = newVelocity.y;
+            var yVal = newVelocity.y;
 
             // apply deceleration
-            Vector3 adjustedVelocity = newVelocity.normalized * (rb.linearVelocity.magnitude * (-0.01f * (currentState == states.DodgeRoll ? dodgeRollDeceleration : deceleration) + 1));
+            var adjustedVelocity = newVelocity.normalized * (rb.linearVelocity.magnitude * (-0.01f * (currentState == states.DodgeRoll ? dodgeRollDeceleration : deceleration) + 1));
             if (adjustedVelocity.sqrMagnitude < newVelocity.sqrMagnitude) adjustedVelocity = newVelocity;
 
             // apply adjustment
@@ -326,33 +279,30 @@ public class Player : MonoBehaviour
 
     public void UpdateVisualState()
     {
-        float strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
+        var strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
         currentMoldPercentage -= (currentMoldPercentage - strength) * 2 * Time.deltaTime;
 
-        foreach (Material mat in mr.materials)
+        foreach (var mat in mr.materials)
         {
             mat.SetFloat("_MoldStrength", currentMoldPercentage);
         }
-        foreach (Material mat in tailmr.materials)
+        foreach (var mat in tailmr.materials)
         {
             mat.SetFloat("_MoldStrength", currentMoldPercentage);
         }
     }
 
-    // TO BEf CHANGED
-    // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
         // check if bradley should be invincible
-        if (cheats.InvulnerableCheatActivated) return;
+        if (CheatCodeSystem.InvulnerableCheatActivated) return;
         if (roomInvulnerability) return;
         if (isInvulnerable) return;
 
         // check if bradley is dead
         if (currentState == states.Death) return;
 
-        if (direction != Vector3.zero)
-            currentState.Hurt(direction);
+        if (direction != Vector3.zero) currentState.Hurt(direction);
 
         AudioManager.Instance.PlaySFX("PainSFX");
 
@@ -370,9 +320,6 @@ public class Player : MonoBehaviour
 
     public void ApplyKnockback(Vector3 knockback, float time)
     {
-        //
-        // TODO: Need to be written once we have reworked movement
-        //
         isKnockedBack = true;
         rb.linearVelocity = knockback;
         StartCoroutine(KnockbackStunRoutine(time));
@@ -384,11 +331,10 @@ public class Player : MonoBehaviour
         playerStatistic.Health += reward;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
-
-    // If we go the event route this should change right?
+    
     private void OnDeath()
     {
-        CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        CollectableSave saveData = new(SceneManager.GetActiveScene().name);
         PlayerPrefs.SetInt("level", GlobalReference.GetReference<GameManagerReference>().activeRoom.id);
         AudioManager.Instance.PlaySFX("Death");
         saveData.LoadAll();
@@ -426,7 +372,7 @@ public class Player : MonoBehaviour
     public void SetRandomFeedback()
     {
         succesfullHitCounter = 0;
-        FeedbackManager f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
+        var f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
         f.SetRandomFeedback();
     }
 

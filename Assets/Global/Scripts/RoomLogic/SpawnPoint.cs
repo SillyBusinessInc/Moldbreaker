@@ -23,15 +23,13 @@ public class SpawnPoint : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
         rb.MoveRotation(targetRotation);
 
-        smoothCamaraTarget.transform.position = this.transform.position + offset;
-        smoothCamaraTarget.transform.rotation = targetRotation;
+        transform.SetPositionAndRotation(transform.position + offset, targetRotation);
 
         StartCoroutine(AdjustPositionAndRotation(1f));
     }
 
     private IEnumerator AdjustPositionAndRotation(float duration)
     {
-
         Vector3 newPosition = this.transform.position + new Vector3(0, 2, -8);
         Quaternion newRotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
 
@@ -41,6 +39,5 @@ public class SpawnPoint : MonoBehaviour
 
         cinemachineCamera.Follow = smoothCamaraTarget.transform;
         cinemachineCamera.LookAt = smoothCamaraTarget.transform;
-
     }
 }

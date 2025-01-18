@@ -16,16 +16,11 @@ namespace EnemiesNS
         [Range(0f, 100f)]
         public float attackKnockback = 2f;
         public GameObject impactVFX;
-        public Bullet(Vector3 position)
-        {
-            bulletDirection = position;
-        }
+
         void Start()
         {
             Shot();
         }
-
-
 
         void OnTriggerEnter(Collider hit)
         {
@@ -74,7 +69,6 @@ namespace EnemiesNS
             Rigidbody rb = GetComponent<Rigidbody>();
 
             rb.linearVelocity = bulletDirection * bulletSpeed;
-
 
             // Destroy the bullet after its lifetime
             Destroy(gameObject, bulletLifeTime);

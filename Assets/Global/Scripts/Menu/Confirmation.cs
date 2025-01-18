@@ -14,10 +14,6 @@ public class Confirmation : MonoBehaviour
     [SerializeField] private Button noButton;
     [SerializeField] private Button quitButton;
 
-    void Start()
-    {
-    }
-
     public void RequestConfirmation(string title_, string description_, Action confirmAction_, Action rejectAction_ = null)
     {
         gameObject.SetActive(true);

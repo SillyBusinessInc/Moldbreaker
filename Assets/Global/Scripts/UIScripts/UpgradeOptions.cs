@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class UpgradeOptions : Reference
 {
     [HideInInspector] public UpgradeOption option;
-    [SerializeField] private UpgradeList UpgradesUIList;
     public UpgradeOptionLogic UpgradeOptionLogic;
     [HideInInspector] public bool isShown = false;
 
@@ -23,7 +22,7 @@ public class UpgradeOptions : Reference
         isShown = true;
         GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
         UILogic.SelectButton(confirmButton);
-        SetCursorState(true, CursorLockMode.None);
+        UILogic.ShowCursor();
         Time.timeScale = 0;
         gameObject.SetActive(true);
 
@@ -37,16 +36,10 @@ public class UpgradeOptions : Reference
     public void HideOption()
     {
         Time.timeScale = 1;
-        SetCursorState(false, CursorLockMode.Locked);
+        UILogic.HideCursor();
         gameObject.SetActive(false);
         isShown = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-    }
-
-    void SetCursorState(bool cursorVisible, CursorLockMode lockMode)
-    {
-        Cursor.visible = cursorVisible;
-        Cursor.lockState = lockMode;
     }
 
     public void Confirm()
@@ -65,8 +58,6 @@ public class UpgradeOptions : Reference
                 action.InvokeAction();
                 GlobalReference.AttemptInvoke(Events.STATISTIC_CHANGED);
             }
-
-            UpgradesUIList.AddUpgrade(option);
         }
         AudioManager.Instance.PlaySFX("PowerupPickup");
         HideOption();

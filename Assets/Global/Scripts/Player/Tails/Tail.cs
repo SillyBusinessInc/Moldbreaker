@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Tail : MonoBehaviour
 {
     public Player player;
@@ -51,6 +50,7 @@ public class Tail : MonoBehaviour
             player.collidersEnemy.Contains(Collider)    ||
             Collider.GetComponent<EnemiesNS.EnemyBase>() == null
         ) return;
+        
         player.collidersEnemy.Add(Collider);
         float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
