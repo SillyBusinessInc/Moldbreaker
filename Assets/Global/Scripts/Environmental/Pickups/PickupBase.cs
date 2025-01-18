@@ -16,7 +16,7 @@ public abstract class PickupBase : MonoBehaviour
     private MeshRenderer mr;
     private Collider c;
 
-    void Start() 
+    protected virtual void Start() 
     {
         rb = GetComponent<Rigidbody>();
         if (rb == null) isStatic = true;

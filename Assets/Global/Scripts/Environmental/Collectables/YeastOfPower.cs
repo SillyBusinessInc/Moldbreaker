@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YeastOfPower : MonoBehaviour
+public class YeastOfPower : PickupBase
 {
     [Header("Upgrade Option")]
     [SerializeField] private UpgradeOption option;
@@ -9,21 +9,10 @@ public class YeastOfPower : MonoBehaviour
     [Header("Interaction")]
     [SerializeField] private List<ActionParamPair> interactionActions;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         CheckIfAlreadyCollected();   
-    }
-    
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.GetComponent<PlayerObject>() == null) 
-            return;
-        
-        GlobalReference.GetReference<UpgradeOptions>().option = option;
-            
-        GlobalReference.GetReference<UpgradeOptions>().ShowOption();
-        GlobalReference.GetReference<UpgradeOptions>().interactionActions = interactionActions;
-        Destroy(gameObject);
     }
     
     private void CheckIfAlreadyCollected() {
@@ -36,5 +25,14 @@ public class YeastOfPower : MonoBehaviour
         if (list.Contains(roomId)) { // if player already finished the room, don't show yeast of power
             gameObject.SetActive(false);
         }
+    }
+
+    protected override void OnTrigger()
+    {
+        GlobalReference.GetReference<UpgradeOptions>().option = option;
+            
+        GlobalReference.GetReference<UpgradeOptions>().ShowOption();
+        GlobalReference.GetReference<UpgradeOptions>().interactionActions = interactionActions;
+        Destroy(gameObject);
     }
 }

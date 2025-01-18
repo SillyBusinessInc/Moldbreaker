@@ -124,8 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e6077ee5708eb45b00735993ed16a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupRange: 3
+  pickupSpeed: 0.1
+  isLocked: 0
+  isStatic: 1
   option: {fileID: 11400000, guid: 2855e6aa5f71e6c4cbe803f709d2daf7, type: 2}
-  roomId: -1
   interactionActions:
   - action: {fileID: 11400000, guid: 738a1be2e325a1145bb93269c4296ad8, type: 2}
     parameters:

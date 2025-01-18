@@ -1,12 +1,10 @@
-public class Coin : Collectable
+public class Crumb : PickupBase
 {
-    private int pointValue = 1; // Value of the coin
-
-    public override void OnCollect()
+    protected override void OnTrigger()
     {
         var playerStats = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic;
         AudioManager.Instance.PlaySFX("CrumbPickup");
         playerStats.CollectedCrumb = true;
-        playerStats.Crumbs += pointValue;
+        playerStats.Crumbs += 1;
     }
 }

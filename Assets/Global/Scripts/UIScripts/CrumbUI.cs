@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 
-public class CoinUI : MonoBehaviour
+public class CrumbUI : MonoBehaviour
 {
     private TextMeshProUGUI text; // Reference to the TextMeshProUGUI component
     private PlayerStatistic playerStats; // Reference to the player's statistics
