@@ -19,8 +19,6 @@ public class PlayerReference : Reference
         get => smoothCamaraTarget ? smoothCamaraTarget : smoothCamaraTarget = GetComponentInChildren<SmoothTarget>();
     }
 
-    // TODO: we want to get the camera by searching the childs, but that currenly does not work anymore because the camera is
-    //      not a child of the player but instead its own seperate prefab.
     private Camera playerCamera;
     public Camera PlayerCamera
     {

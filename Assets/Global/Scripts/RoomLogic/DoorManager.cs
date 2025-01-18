@@ -39,23 +39,23 @@ public class DoorManager : Reference
     {
         int roomCount = connectedRooms.Count;
 
-        if (roomCount < doors.Count)
+        if (roomCount >= doors.Count) return;
+
+        int doorsToDeactivate = doors.Count - roomCount;
+        for (int i = 0; i < doorsToDeactivate; i++)
         {
-            int doorsToDeactivate = doors.Count - roomCount;
-            for (int i = 0; i < doorsToDeactivate; i++)
-            {
-                int randomIndex;
-                do{
-                    randomIndex = Random.Range(0, doors.Count);
-                } while (!doors[randomIndex].activeSelf);
-                doors[randomIndex].SetActive(false);
-            }
+            int randomIndex;
+            do {
+                randomIndex = Random.Range(0, doors.Count);
+            } while (!doors[randomIndex].activeSelf);
+
+            doors[randomIndex].SetActive(false);
         }
     }
 
     void ConnectDoorsToRooms()
     {
-        List<Room> remainingRooms = new List<Room>(connectedRooms);
+        List<Room> remainingRooms = new(connectedRooms);
         foreach (var doorObject in doors)
         {
             if (!doorObject.activeSelf) continue;

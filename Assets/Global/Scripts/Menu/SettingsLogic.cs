@@ -63,16 +63,17 @@ public class SettingsLogic : MonoBehaviour
         AudioManager.Instance.PlaySFX("AttackVOX2");
     }
 
-
     public void OnBack()
     {
         GlobalReference.Settings.SaveAll();
         UILogic.FadeToScene("Menu", fadeImage, this);
     }
+
     public void OnSave()
     {
         GlobalReference.Settings.SaveAll();
     }
+    
     public void OnCancel()
     {
         GlobalReference.Settings.LoadAll();

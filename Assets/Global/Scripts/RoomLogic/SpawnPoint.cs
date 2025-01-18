@@ -31,7 +31,6 @@ public class SpawnPoint : MonoBehaviour
 
     private IEnumerator AdjustPositionAndRotation(float duration)
     {
-
         Vector3 newPosition = this.transform.position + new Vector3(0, 2, -8);
         Quaternion newRotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
 
@@ -41,6 +40,5 @@ public class SpawnPoint : MonoBehaviour
 
         cinemachineCamera.Follow = smoothCamaraTarget.transform;
         cinemachineCamera.LookAt = smoothCamaraTarget.transform;
-
     }
 }

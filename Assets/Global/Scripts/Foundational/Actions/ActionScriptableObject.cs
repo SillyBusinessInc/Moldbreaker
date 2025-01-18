@@ -54,7 +54,6 @@ public abstract class TwoParamAction : ActionScriptableObjectBase
 
         InvokeAction(metaData, parameters[0], parameters[1]);
     }
-
 }
 
 public abstract class ThreeParamAction : ActionScriptableObjectBase
