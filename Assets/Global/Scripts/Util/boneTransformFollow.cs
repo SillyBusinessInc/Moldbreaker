@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class BoneTransformFollow : MonoBehaviour
 {
-    [SerializeField] Transform bone;
-    [SerializeField] Vector3 boneOffsetPosition = new Vector3(0f, 0f, 0f);
-    [SerializeField] Vector3 boneOffsetRotation = new Vector3(0f, 0f, 0f);
+    [SerializeField] private Transform bone;
+    [SerializeField] private Vector3 boneOffsetPosition = Vector3.zero;
+    [SerializeField] private Vector3 boneOffsetRotation = Vector3.zero;
 
     void Update()
     {
-        transform.SetPositionAndRotation(bone.position + bone.rotation * boneOffsetPosition, bone.rotation * Quaternion.Euler(boneOffsetRotation));
+        this.transform.SetPositionAndRotation(
+            bone.position + bone.rotation * boneOffsetPosition, 
+            bone.rotation * Quaternion.Euler(boneOffsetRotation)
+            );
     }
 }

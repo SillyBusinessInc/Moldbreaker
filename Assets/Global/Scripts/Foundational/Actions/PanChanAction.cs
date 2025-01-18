@@ -3,8 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Actions/PanChanAction")]
 public class PanChanAction : OneParamAction
 {
-    private int total_clicks = 0;
-    [SerializeField] private string actionName = "Pan Chan Action";
+    private int totalClicks = 0;
     public override void InvokeAction(ActionMetaData _, string param)
     {
         // Randomly choose between "PanClick1", "PanClick2", and "PanClick3"
@@ -13,7 +12,7 @@ public class PanChanAction : OneParamAction
 
         AudioManager.Instance.PlaySFX(randomSFX);
 
-        total_clicks += 1;
-        if (total_clicks >= 69) AchievementManager.Grant("PAN_CHAN");
+        this.totalClicks += 1;
+        if (this.totalClicks >= 69) AchievementManager.Grant("PAN_CHAN");
     }
 }
