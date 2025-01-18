@@ -2,10 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
-// using System.Numerics;
 
 public class Player : MonoBehaviour
 {
@@ -13,14 +10,13 @@ public class Player : MonoBehaviour
     public float acceleration = 2;
     public float deceleration = 0.5f;
     public float currentMovementLerpSpeed = 100;
-
-    public float soundAfterTime = 0.5f;
+    [Tooltip("The time it takes before it starts the step sounds")]
+    public float InitialStepSoundDelay = 0.5f;
 
     [Header("Knockback Settings")]
     public float knockbackDuration;
     public float knockbackSpeed;
-
-
+    
     [Header("Jumping Settings")]
     public float maxJumpHoldTime = 0.2f;
     public float airBorneMovementFactor = 0.5f;
@@ -64,39 +60,33 @@ public class Player : MonoBehaviour
     [HideInInspector] public List<Collider> collidersEnemy;
     [HideInInspector] public float groundCheckDistance;
     [HideInInspector] public Vector3 targetVelocity;
-    [HideInInspector] public float timeLeftGrounded;
     [HideInInspector] public float timeLastDodge;
     [HideInInspector] public float currentWalkingPenalty;
-    [HideInInspector] public Coroutine activeCoroutine;
+    public Coroutine activeCoroutine;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
     [HideInInspector] public int recentHits = 0;
     [HideInInspector] public int succesfullHitCounter = 0;
     [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
     [HideInInspector] public bool roomInvulnerability = false;
     private float currentMoldPercentage = 0;
-
-
+    
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
     [SerializeField] private string debug_currentStateName = "none";
+    [HideInInspector] public Color debug_lineColor; // gizmos line that changes color based on state
     [SerializeField] private bool isKnockedBack = false;
-    [HideInInspector] public Color debug_lineColor;
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
-    [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool AirComboDone = false;
     [HideInInspector] public Vector3 hitDirection;
     // private PlayerInputActions inputActions;
     private bool IsLanding = false;
     [SerializeField] private CrossfadeController crossfadeController;
-
     [HideInInspector] public bool isInvulnerable = false;
 
     void Awake()
     {
         playerStatistic.Generate();
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
 
     void Start()
@@ -111,7 +101,7 @@ public class Player : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
         defaultCameraTarget = cameraTarget.localPosition;
         
-        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED,AlreadyRecievedUpgrades );
+        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED_BY_CHEAT, AlreadyRecievedUpgrades );
         AlreadyRecievedUpgrades();
     }
 
@@ -150,35 +140,15 @@ public class Player : MonoBehaviour
             cameraTarget.localPosition = new Vector3(0, (float)height, 0);
     }
 
-    private void attackingAnimation() => isAttacking = true;
-    private void attackingStoppedAnimation() => isAttacking = false;
-
-    private void OnDestroy()
-    {
-        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
-        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
-    }
-
     private void OnDrawGizmos()
     {
         Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0, true);
     }
 
-    void FixedUpdate()
-    {
-        currentState.FixedUpdate();
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        currentState.OnCollisionEnter(collision);
-    }
-
-
-    public void OnCollisionExit(Collision collision)
-    {
-        currentState.OnCollisionExit(collision);
-    }
+    // Delegating methods to the current state
+    void FixedUpdate() => currentState.FixedUpdate();
+    public void OnCollisionEnter(Collision collision) => currentState.OnCollisionEnter(collision);
+    public void OnCollisionExit(Collision collision) => currentState.OnCollisionExit(collision);
 
     private void GroundCheck()
     {
@@ -195,36 +165,31 @@ public class Player : MonoBehaviour
             new (-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
         };
 
-        foreach (Vector3 offset in raycastOffsets)
+        foreach (var offset in raycastOffsets)
         {
-            Vector3 raycastPosition = rb.position + offset;
-            if (Physics.Raycast(raycastPosition, Vector3.down, out RaycastHit hit, groundCheckDistance))
-            {
-                if (!hit.collider.gameObject.CompareTag("Player"))
-                {
-                    if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
-                    {
-                        currentJumps = 0;
-                        if (!isGrounded)
-                            Tail.attackIndex = 0;
-                        isGrounded = true;
-                        playerAnimationsHandler.SetBool("IsOnGround", true);
-                        return;
-                    }
-                }
-            }
+            var raycastPosition = rb.position + offset;
+            if (!Physics.Raycast(raycastPosition, Vector3.down, out var hit, this.groundCheckDistance)) 
+                continue;
+            if (hit.collider.gameObject.CompareTag("Player")) 
+                continue;
+            if (!(Vector3.Angle(Vector3.up, hit.normal) < this.groundCheckAngle)) 
+                continue;
+
+            this.currentJumps = 0;
+            if (!this.isGrounded)
+                this.Tail.attackIndex = 0;
+            this.isGrounded = true;
+            this.playerAnimationsHandler.SetBool("IsOnGround", true);
+            return;
         }
 
-        if (isGrounded)
-        {
-            isGrounded = false;
-            IsLanding = false;
-            Tail.attackIndex = 0;
-            timeLeftGrounded = Time.time;
-            playerAnimationsHandler.SetBool("IsOnGround", false);
-        }
-        // playerAnimationsHandler.SetBool("IsOnGround", false);
+        if (!isGrounded) 
+            return;
 
+        isGrounded = false;
+        IsLanding = false;
+        Tail.attackIndex = 0;
+        playerAnimationsHandler.SetBool("IsOnGround", false);
     }
 
     private void CheckLandingAnimation()
@@ -282,7 +247,7 @@ public class Player : MonoBehaviour
 
     public Vector3 GetDirection()
     {
-        Vector3 moveDirection = orientation.forward * movementInput.y + orientation.right * movementInput.x;
+        var moveDirection = orientation.forward * movementInput.y + orientation.right * movementInput.x;
         return moveDirection.normalized;
     }
 
@@ -290,11 +255,11 @@ public class Player : MonoBehaviour
     {
         if (isKnockedBack && targetVelocity.magnitude < 0.1f) isKnockedBack = false;
         if (isKnockedBack) return;
-        if (targetVelocity.magnitude > 0.1f)
-        {
-            Vector3 direction = Vector3.ProjectOnPlane(targetVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
-        }
+        if (!(this.targetVelocity.magnitude > 0.1f)) return;
+
+        var direction = Vector3.ProjectOnPlane(this.targetVelocity, Vector3.up).normalized;
+        if (direction != Vector3.zero) 
+            this.rb.MoveRotation(Quaternion.Lerp(this.rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
     }
 
     private void ApproachTargetVelocity()
@@ -303,16 +268,16 @@ public class Player : MonoBehaviour
         // if (targetVelocity == Vector3.zero) return;
 
         // slowly move to target velocity
-        Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
+        var newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
         // adjust speed when slowing down
         if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude)
         {
             // preserve y velocity
-            float yVal = newVelocity.y;
+            var yVal = newVelocity.y;
 
             // apply deceleration
-            Vector3 adjustedVelocity = newVelocity.normalized * (rb.linearVelocity.magnitude * (-0.01f * (currentState == states.DodgeRoll ? dodgeRollDeceleration : deceleration) + 1));
+            var adjustedVelocity = newVelocity.normalized * (rb.linearVelocity.magnitude * (-0.01f * (currentState == states.DodgeRoll ? dodgeRollDeceleration : deceleration) + 1));
             if (adjustedVelocity.sqrMagnitude < newVelocity.sqrMagnitude) adjustedVelocity = newVelocity;
 
             // apply adjustment
@@ -325,14 +290,14 @@ public class Player : MonoBehaviour
 
     public void UpdateVisualState()
     {
-        float strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
+        var strength = (1 - playerStatistic.Health / playerStatistic.MaxHealth.GetValue()) * 0.5f + 0.2f;
         currentMoldPercentage -= (currentMoldPercentage - strength) * 2 * Time.deltaTime;
 
-        foreach (Material mat in mr.materials)
+        foreach (var mat in mr.materials)
         {
             mat.SetFloat("_MoldStrength", currentMoldPercentage);
         }
-        foreach (Material mat in tailmr.materials)
+        foreach (var mat in tailmr.materials)
         {
             mat.SetFloat("_MoldStrength", currentMoldPercentage);
         }
@@ -369,9 +334,6 @@ public class Player : MonoBehaviour
 
     public void ApplyKnockback(Vector3 knockback, float time)
     {
-        //
-        // TODO: Need to be written once we have reworked movement
-        //
         isKnockedBack = true;
         rb.linearVelocity = knockback;
         StartCoroutine(KnockbackStunRoutine(time));
@@ -383,8 +345,7 @@ public class Player : MonoBehaviour
         playerStatistic.Health += reward;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
-
-    // If we go the event route this should change right?
+    
     private void OnDeath()
     {
         CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
@@ -425,7 +386,7 @@ public class Player : MonoBehaviour
     public void SetRandomFeedback()
     {
         succesfullHitCounter = 0;
-        FeedbackManager f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
+        var f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
         f.SetRandomFeedback();
     }
 

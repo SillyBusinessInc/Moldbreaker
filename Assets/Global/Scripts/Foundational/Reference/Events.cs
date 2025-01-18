@@ -46,7 +46,7 @@ public enum Events
     //player death
     PLAYER_DIED = 23,
 
-    LEVELS_CHANGED = 24,
+    LEVELS_CHANGED_BY_CHEAT = 24,
 
     // input events
     INPUT_ACKNOWLEDGE = 25,

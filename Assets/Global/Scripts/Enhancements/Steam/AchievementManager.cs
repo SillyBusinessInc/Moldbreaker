@@ -2,12 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Steamworks;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public static class AchievementManager
 {
     private static Dictionary<string, bool> progression = null;
-
     public static void Init() {
         List<string> list = new() {
             "LIFE_IS_MOLDY",

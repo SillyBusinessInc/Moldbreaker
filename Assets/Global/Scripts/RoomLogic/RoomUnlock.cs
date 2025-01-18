@@ -10,7 +10,7 @@ public class RoomUnlock : MonoBehaviour
     {
         door = GetComponent<RoomTransitionDoor>();
         LockAndUnLock();
-        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED, LockAndUnLock);
+        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED_BY_CHEAT, LockAndUnLock);
     }
 
     private void LockAndUnLock()

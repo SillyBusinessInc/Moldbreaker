@@ -15,12 +15,12 @@ public class CheatCodeSystem : MonoBehaviour
         { "LULDR", InvokeInfiniteDoubleJumps },
         { "RLLRD", InvokeEnableDodge },
         { "UUDLR", InvokeInstantDeath },
-        { "DDRLU", InvokeRestoreFullHp},
+        { "DDRLU", InvokeRestoreFullHp },
         { "UDLRUD", InvokeToggleInvulnerability },
         { "UDLRRLDD", InvokeEnableAllLevels }
     }; 
     
-    [Header("Debug")]
+    [Header("Debugging")]
     [SerializeField] private string currentSequence = "";
 #pragma warning disable 0414
     // Yes its true that its never used. its only here to show it in the inspector for debugging purposes
@@ -120,6 +120,6 @@ public class CheatCodeSystem : MonoBehaviour
         RoomSave saveRoomData = new();
         saveRoomData.Set("finishedLevels", myList);
         saveRoomData.SaveAll();
-        GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED);
+        GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED_BY_CHEAT);
     }
 }
