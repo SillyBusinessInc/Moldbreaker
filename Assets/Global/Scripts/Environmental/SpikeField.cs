@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using EnemiesNS;
 
 public class SpikeField : MonoBehaviour
 {
     [SerializeField] private int damage = 10; // Damage dealt by the cone
-    [SerializeField] private int enemyDamage = 10; // Damage dealt by the cone
+    // [SerializeField] private int enemyDamage = 10; // Damage dealt by the cone
     [SerializeField] private float cooldown = 1f; // Avoid damage loop
     [SerializeField] private float knockBackStrength = 3f; // Horizontal knockBack speed
     [Tooltip("The percentage of the knockback force that will be applied upwards, regardless of the direction that you hit the spikes")]
@@ -19,8 +20,8 @@ public class SpikeField : MonoBehaviour
     {
         tagHandlers = new()
         {
-            { "Player", HandlePlayer },
-            { "Enemy", HandleEnemy }
+            { "Player", HandlePlayer }
+        //  { "Enemy", HandleEnemy }
         };
     }
 
@@ -42,13 +43,12 @@ public class SpikeField : MonoBehaviour
         player.Player.OnHit(this.damage, knockBackDirection * knockBackStrength);
     }
 
-    private void HandleEnemy(GameObject entity, Collision _)
-    {
-        var enemy = entity.GetComponent<EnemyBase>();
-        if (enemy == null) return;
-
-        if (AddToHitEntities(entity)) enemy.OnHit(enemyDamage);
-    }
+    // private void HandleEnemy(GameObject entity, Collision _)
+    // {
+    //     var enemy = entity.GetComponent<EnemyBase>();
+    //     if (enemy == null) return;
+    //     if (AddToHitEntities(entity)) enemy.OnHit(enemyDamage);
+    // }
 
     private bool AddToHitEntities(GameObject entity)
     {
