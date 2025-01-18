@@ -11,7 +11,6 @@ public class GameManagerReference : Reference
 
     void Start()
     {
-        Debug.LogError("'WHAT THE HECK IS GOING OONNN!");
         GlobalReference.SubscribeTo(Events.INPUT_ACKNOWLEDGE, () => ignoreInput = false);
         GlobalReference.SubscribeTo(Events.INPUT_IGNORE, () => ignoreInput = true);
         // calling Initialize if scene was loaded directly (without loading screen)

@@ -17,9 +17,9 @@ public class YeastOfPower : PickupBase
     
     private void CheckIfAlreadyCollected() {
         int roomId;
-        try {
-            roomId = GlobalReference.GetReference<GameManagerReference>().activeRoom.id;
-        } catch {
+        Room r = GlobalReference.GetReference<GameManagerReference>().activeRoom;
+        if (r != null) roomId = r.id;
+        else {
             roomId = PlayerPrefs.GetInt("level");
             PlayerPrefs.DeleteKey("level");
         }

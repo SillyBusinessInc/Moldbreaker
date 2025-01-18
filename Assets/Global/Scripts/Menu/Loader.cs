@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -104,9 +103,6 @@ public class Loader : MonoBehaviour
 
         if (PreviousLevel.Instance != null && level.HasValue && level.Value > 0)
         {
-            GameManagerReference gm = GlobalReference.GetReference<GameManagerReference>();
-            gm.activeRoom = gm.GetRoom(level ?? 0);
-            Debug.LogWarning($"setting room to {level ?? 0}");
             SceneManager.LoadScene(level.Value, LoadSceneMode.Additive);
             // reset prevLevel after initiating load of previous level
             PreviousLevel.Instance.ResetPreviousLevel();
