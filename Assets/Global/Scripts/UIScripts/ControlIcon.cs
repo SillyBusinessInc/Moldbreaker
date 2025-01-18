@@ -41,14 +41,14 @@ public class ControlIconMapping : ScriptableObject
 
     [Header("Control Icon Mappings")]
 
-    [Header("Xbox Controller Mappings")] 
+    [Header("Xbox Controller Mappings")]
     public List<GamePadMapping> xBoxMappings = new();
 
-    [Header("Keyboard Mappings")] 
+    [Header("Keyboard Mappings")]
     public List<KeyboardMapping> keyboardMappings = new();
 
-    [Header("PlayStation Controller Mappings")] 
-    public List<GamePadMapping> playStationMappings = new(); 
+    [Header("PlayStation Controller Mappings")]
+    public List<GamePadMapping> playStationMappings = new();
 
     // return the icon spritesheet and index for the control path
     public IconPathResult GetIcon(TDeviceType deviceType, string controlPath)
@@ -77,7 +77,7 @@ public class ControlIconMapping : ScriptableObject
 
             case TDeviceType.PlayStationController:
                 gamepadMappings = playStationMappings;
-                break; 
+                break;
         }
 
         if (gamepadMappings != null)
@@ -98,11 +98,11 @@ public class ControlIconMapping : ScriptableObject
             }
         }
 
-        return null;  
+        return null;
     }
 
     private int? GetGamepadButtonValue(string controlPath)
-    { 
+    {
 
         // Get int value for comparison
         if (System.Enum.TryParse<GamepadButton>(controlPath, true, out var result))

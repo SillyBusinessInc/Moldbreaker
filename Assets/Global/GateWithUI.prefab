@@ -6109,7 +6109,7 @@ GameObject:
   - component: {fileID: 2266294586860851687}
   - component: {fileID: 224692013405503988}
   - component: {fileID: 1613692482461503752}
-  - component: {fileID: 3819471758474743772}
+  - component: {fileID: 3959062533455985715}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -6222,7 +6222,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3819471758474743772
+--- !u!114 &3959062533455985715
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6231,7 +6231,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7602756276164079522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63034f8dfe13f834eb55bdc5e8d623f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 92a05f99259c41c478c4f384a4abbf7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8498919132744358794

@@ -25,10 +25,11 @@ public class GameManagerReference : Reference
         Initialize();
     }
 
-    void OnDestroy()
+    protected override void OnDestroy()
     {
         GlobalReference.UnsubscribeTo(Events.INPUT_ACKNOWLEDGE, AcknowledgeInput);
         GlobalReference.UnsubscribeTo(Events.INPUT_IGNORE, IgnoreInput);
+        base.OnDestroy();
     }
 
     public void Initialize()

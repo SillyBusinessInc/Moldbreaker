@@ -1191,6 +1191,7 @@ MonoBehaviour:
   text1: {fileID: 1398556501172241441}
   text2: {fileID: 3988747235627802235}
   keyboardImage: {fileID: 6257574086434296197}
+  PressKeyboard: {fileID: 0}
 --- !u!1 &4398802862075242828
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,7 +2492,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.75
+  m_fontSize: 27.1
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3488,6 +3489,7 @@ MonoBehaviour:
   healthPercentage: 0
   HealthMeterImage: {fileID: 4967681329817621116}
   animationDuration: 0.5
+  mold: {fileID: 0}
 --- !u!1 &8749314788857674988
 GameObject:
   m_ObjectHideFlags: 0

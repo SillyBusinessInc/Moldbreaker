@@ -1,15 +1,16 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class billboard : MonoBehaviour
+public class Billboard : MonoBehaviour
 {
-    private Transform cam;
+    private Camera mainCamera;
     void Start()
     {
-        cam = GlobalReference.GetReference<PlayerReference>().PlayerCamera.transform;
+        mainCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
     }
-    void LateUpdate()
+    void Update()
     {
-        transform.LookAt(transform.position + cam.forward);
-    }   
+        // transform.LookAt(mainCamera.transform);
+        // transform.Rotate(0, 180, 0);
+        transform.rotation = mainCamera.transform.rotation;
+    }
 }

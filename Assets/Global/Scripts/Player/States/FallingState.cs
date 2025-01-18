@@ -34,9 +34,7 @@ public class FallingState : StateBase
 
         // change state on ground
         if (Player.isGrounded && Player.movementInput.sqrMagnitude == 0) Player.SetState(Player.states.Idle);
-        else if (Player.isGrounded) {
-            Player.SetState(Player.states.Walking);
-        }
+        else if (Player.isGrounded) Player.SetState(Player.states.Walking);
     }
 
     public override void Jump(InputAction.CallbackContext ctx)
