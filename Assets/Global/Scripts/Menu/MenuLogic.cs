@@ -12,7 +12,6 @@ public class MenuLogic : MonoBehaviour
     {
         UILogic.ShowCursor();
         continueButton.interactable = continueButtonActive();
-
     }
 
     public bool continueButtonActive()

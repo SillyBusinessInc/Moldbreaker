@@ -14,7 +14,6 @@ public class RoomTransitionDoor : Interactable
     [SerializeField] private int nextRoomIndex;
     public RoomType nextRoomType; // made public for structure change
     public int nextRoomId; // made public for structure change
-    private int roomAmounts;
     [SerializeField] private bool enableOnRoomFinish;
 
     private GameManagerReference gameManagerReference;
@@ -36,8 +35,6 @@ public class RoomTransitionDoor : Interactable
         else IsDisabled = !gameManagerReference.GetRoom(nextRoomId).unlocked;
 
         doorManager = GlobalReference.GetReference<DoorManager>();
-        roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
-        // int randomIndex = Random.Range(1, roomAmounts + 1); // disabled for structure change
         nextRoomName = nextRoomType.ToString() + "_" + nextRoomIndex;
     }
 
