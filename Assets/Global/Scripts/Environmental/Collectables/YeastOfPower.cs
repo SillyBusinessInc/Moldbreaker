@@ -22,17 +22,17 @@ public class YeastOfPower : PickupBase
         saveData.LoadAll();
 
         var list = saveData.Get<List<int>>("finishedLevels");
-        if (list.Contains(roomId)) { // if player already finished the room, don't show yeast of power
+        if (list.Contains(roomId)) // if player already finished the room, don't show yeast of power
             gameObject.SetActive(false);
-        }
     }
 
     protected override void OnTrigger()
     {
-        GlobalReference.GetReference<UpgradeOptions>().option = option;
+        var upgradeOptions = GlobalReference.GetReference<UpgradeOptions>();
+        upgradeOptions.option = option;
             
-        GlobalReference.GetReference<UpgradeOptions>().ShowOption();
-        GlobalReference.GetReference<UpgradeOptions>().interactionActions = interactionActions;
+        upgradeOptions.ShowOption();
+        upgradeOptions.interactionActions = interactionActions;
         Destroy(gameObject);
     }
 }
