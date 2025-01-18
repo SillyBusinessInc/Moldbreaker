@@ -55,7 +55,7 @@ public class RoomTransitionDoor : Interactable
         AudioManager.Instance.PlaySFX("PortalSFX");
         StartCoroutine(LoadNextRoom());
         Player p = GlobalReference.GetReference<PlayerReference>().Player;
-        p.setCameraHeight(null); // height reset to default
+        p.SetCameraHeight(null); // height reset to default
         p.Heal(p.playerStatistic.MaxHealth.GetValue());
     }
 

@@ -66,13 +66,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public Vector3 targetVelocity;
     [HideInInspector] public float timeLastDodge;
     [HideInInspector] public float currentWalkingPenalty;
-    public Coroutine activeCoroutine;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
     [HideInInspector] public int recentHits = 0;
     [HideInInspector] public int succesfullHitCounter = 0;
     [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
     [HideInInspector] public bool roomInvulnerability = false;
     private float currentMoldPercentage = 0;
+    public Coroutine activeCoroutine;
     
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
@@ -90,6 +90,8 @@ public class Player : MonoBehaviour
     void Awake()
     {
         playerStatistic.Generate();
+
+        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED_BY_CHEAT, AlreadyRecievedUpgrades);
     }
 
     void Start()
@@ -97,14 +99,13 @@ public class Player : MonoBehaviour
         playerAnimationsHandler = GetComponent<PlayerAnimationsHandler>();
         states = new PlayerStates(this);
         SetState(states.Idle);
-        // health and maxHealth should be the same value at the start of game
+
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
         defaultCameraTarget = cameraTarget.localPosition;
         
-        GlobalReference.SubscribeTo(Events.LEVELS_CHANGED_BY_CHEAT, AlreadyRecievedUpgrades );
         AlreadyRecievedUpgrades();
     }
 
@@ -115,10 +116,7 @@ public class Player : MonoBehaviour
         var list = saveData.Get<List<int>>("finishedLevels");
         for (var i = 0; i < upgrades.Count; i++)
         {
-            if (list.Contains(i + 1))
-            {
-                upgrades[i].interactionActions.ForEach(action => action.InvokeAction());
-            }
+            if (list.Contains(i + 1)) upgrades[i].interactionActions.ForEach(action => action.InvokeAction());
         }
     }
     
@@ -135,12 +133,10 @@ public class Player : MonoBehaviour
     }
 
     // Setting the height to null will reset the height to default
-    public void setCameraHeight(float? height)
+    public void SetCameraHeight(float? height)
     {
-        if (height == null)
-            cameraTarget.localPosition = defaultCameraTarget;
-        else
-            cameraTarget.localPosition = new Vector3(0, (float)height, 0);
+        if (height == null) cameraTarget.localPosition = defaultCameraTarget;
+        else cameraTarget.localPosition = new Vector3(0, (float)height, 0);
     }
 
     private void OnDrawGizmos()
@@ -171,23 +167,19 @@ public class Player : MonoBehaviour
         foreach (var offset in raycastOffsets)
         {
             var raycastPosition = rb.position + offset;
-            if (!Physics.Raycast(raycastPosition, Vector3.down, out var hit, this.groundCheckDistance)) 
-                continue;
-            if (hit.collider.gameObject.CompareTag("Player")) 
-                continue;
-            if (!(Vector3.Angle(Vector3.up, hit.normal) < this.groundCheckAngle)) 
-                continue;
+            if (!Physics.Raycast(raycastPosition, Vector3.down, out var hit, this.groundCheckDistance)) continue;
+            if (hit.collider.gameObject.CompareTag("Player")) continue;
+            if (!(Vector3.Angle(Vector3.up, hit.normal) < this.groundCheckAngle)) continue;
 
             this.currentJumps = 0;
-            if (!this.isGrounded)
-                this.Tail.attackIndex = 0;
+            if (!this.isGrounded) this.Tail.attackIndex = 0;
+
             this.isGrounded = true;
             this.playerAnimationsHandler.SetBool("IsOnGround", true);
             return;
         }
 
-        if (!isGrounded) 
-            return;
+        if (!isGrounded) return;
 
         isGrounded = false;
         IsLanding = false;
@@ -200,11 +192,10 @@ public class Player : MonoBehaviour
         if (rb.linearVelocity.y < -0.1f && isGrounded && !IsLanding)
         {
             IsLanding = true;
-            playerAnimationsHandler.resetStates();
+            playerAnimationsHandler.ResetStates();
             playerAnimationsHandler.animator.SetTrigger("IsLanding");
             playerAnimationsHandler.animator.ResetTrigger("IsJumping");
             playerAnimationsHandler.animator.ResetTrigger("IsDoubleJumping");
-
         }
     }
 
@@ -261,15 +252,11 @@ public class Player : MonoBehaviour
         if (!(this.targetVelocity.magnitude > 0.1f)) return;
 
         var direction = Vector3.ProjectOnPlane(this.targetVelocity, Vector3.up).normalized;
-        if (direction != Vector3.zero) 
-            this.rb.MoveRotation(Quaternion.Lerp(this.rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
+        if (direction != Vector3.zero) this.rb.MoveRotation(Quaternion.Lerp(this.rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
     }
 
     private void ApproachTargetVelocity()
     {
-        // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
-        // if (targetVelocity == Vector3.zero) return;
-
         // slowly move to target velocity
         var newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
@@ -306,8 +293,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    // TO BEf CHANGED
-    // If we go the event route this should change right?
     public void OnHit(float damage, Vector3 direction)
     {
         // check if bradley should be invincible
@@ -318,8 +303,7 @@ public class Player : MonoBehaviour
         // check if bradley is dead
         if (currentState == states.Death) return;
 
-        if (direction != Vector3.zero)
-            currentState.Hurt(direction);
+        if (direction != Vector3.zero) currentState.Hurt(direction);
 
         AudioManager.Instance.PlaySFX("PainSFX");
 
@@ -351,7 +335,7 @@ public class Player : MonoBehaviour
     
     private void OnDeath()
     {
-        CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        CollectableSave saveData = new(SceneManager.GetActiveScene().name);
         PlayerPrefs.SetInt("level", GlobalReference.GetReference<GameManagerReference>().activeRoom.id);
         AudioManager.Instance.PlaySFX("Death");
         saveData.LoadAll();

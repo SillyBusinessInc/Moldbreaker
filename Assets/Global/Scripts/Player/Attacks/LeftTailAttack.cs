@@ -18,7 +18,7 @@ public class LeftTailAttack : TailAttack
         animator.speed *= player.Tail.tailStatistic.increaseTailSpeed.GetValue();
         animator.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
 
-        player.playerAnimationsHandler.resetStates();
+        player.playerAnimationsHandler.ResetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 1);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }

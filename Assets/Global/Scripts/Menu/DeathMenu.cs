@@ -30,10 +30,7 @@ public class DeathMenu : MonoBehaviour
 
     void Update()
     {
-        if (isDead)
-        {
-            if (!Menu.activeSelf) Menu.SetActive(true);
-        }
+        if (isDead && !Menu.activeSelf) Menu.SetActive(true);
     }
 
     public void RestartLevel()

@@ -9,7 +9,7 @@ public class IdleState : StateBase
     public override void Enter()
     {
         currentTime = Random.Range(Player.MinIdleAnimTime, Player.maxIdleAnimTime);
-        Player.playerAnimationsHandler.resetStates();
+        Player.playerAnimationsHandler.ResetStates();
     }
 
     public override void Update()
@@ -28,5 +28,4 @@ public class IdleState : StateBase
             currentTime = Random.Range(Player.MinIdleAnimTime, Player.maxIdleAnimTime);
         }
     }
-    
 }
