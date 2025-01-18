@@ -1,15 +1,25 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Linq;
 
 public class CheatCodeSystem : MonoBehaviour
 {
     private PlayerInput playerInput;
-    public float maxComboTime = 4f; // Max time to complete the combo
+    public float maxComboTime = 4f;
     private float comboTimer;
-    [HideInInspector] public bool InvulnerableCheatActivated = false;
-    private List<string> cheatCodes = new List<string> { "LULDR", "RLLRD", "UUDLR", "DDRLU", "UDLRRLDD", "UDLRUDUD" }; // Example sequences
-
+    public static bool InvulnerableCheatActivated = false;
+    private Dictionary<string, Action> cheatCodes = new Dictionary<string, Action>
+    { // Add your cheat codes here
+        { "LULDR", InvokeInfiniteDoubleJumps },
+        { "RLLRD", InvokeEnableDodge },
+        { "UUDLR", InvokeInstantDeath },
+        { "DDRLU", InvokeRestoreFullHp},
+        { "UDLRUD", InvokeToggleInvulnerability },
+        { "UDLRRLDD", InvokeEnableAllLevels }
+    }; 
+    
     [Header("Debug")]
     [SerializeField] private string currentSequence = "";
 #pragma warning disable 0414
@@ -24,7 +34,6 @@ public class CheatCodeSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        // Subscribe to input actions
         playerInput.actions["LeftKey"].performed += OnLeftKey;
         playerInput.actions["RightKey"].performed += OnRightKey;
         playerInput.actions["DownKey"].performed += OnDownKey;
@@ -33,7 +42,6 @@ public class CheatCodeSystem : MonoBehaviour
 
     private void OnDisable()
     {
-        // Unsubscribe from input actions
         playerInput.actions["LeftKey"].performed -= OnLeftKey;
         playerInput.actions["RightKey"].performed -= OnRightKey;
         playerInput.actions["DownKey"].performed -= OnDownKey;
@@ -42,123 +50,76 @@ public class CheatCodeSystem : MonoBehaviour
 
     private void Update()
     {
-        if (!string.IsNullOrEmpty(currentSequence))
-        {
-            comboTimer += Time.deltaTime;
-            if (comboTimer > maxComboTime)
-            {
-                ResetCombo();
-            }
-        }
+        if (string.IsNullOrEmpty(currentSequence)) return;
+
+        this.comboTimer += Time.deltaTime;
+        if (this.comboTimer > this.maxComboTime)
+            this.ResetCombo();
     }
 
-    private void OnLeftKey(InputAction.CallbackContext context)
+    private void AddToSequence(string key)
     {
-        currentSequence += "L";
+        currentSequence += key;
         CheckSequence();
     }
-
-    private void OnRightKey(InputAction.CallbackContext context)
-    {
-        currentSequence += "R";
-        CheckSequence();
-    }
-
-    private void OnDownKey(InputAction.CallbackContext context)
-    {
-        currentSequence += "D";
-        CheckSequence();
-    }
-
-    private void OnUpKey(InputAction.CallbackContext context)
-    {
-        currentSequence += "U";
-        CheckSequence();
-    }
+    
+    private void OnLeftKey(InputAction.CallbackContext context) => AddToSequence("L");
+    private void OnRightKey(InputAction.CallbackContext context) => AddToSequence("R");
+    private void OnDownKey(InputAction.CallbackContext context) => AddToSequence("D");
+    private void OnUpKey(InputAction.CallbackContext context) => AddToSequence("U");
 
     private void CheckSequence()
     {
-        foreach (var cheat in cheatCodes)
+        if (cheatCodes.ContainsKey(currentSequence))
         {
-            if (currentSequence == cheat)
-            {
-                ActivateCheat(cheat);
-                ResetCombo();
-                return;
-            }
-        }
-
-        bool match = false;
-        foreach (var cheat in cheatCodes)
-        {
-            if (cheat.StartsWith(currentSequence))
-            {
-                match = true;
-                break;
-            }
-        }
-
-        if (!match)
-        {
+            LastInvokedCheat = currentSequence;
+            cheatCodes[currentSequence].Invoke();
             ResetCombo();
+            return;
         }
+        
+        // If we did not found a match, we want to make sure that there is still a possible match
+        // If not, we reset the combo
+        if (cheatCodes.Keys.Select(x => x.StartsWith(currentSequence)).Contains(true))
+            return; // there is still a combo to be made, so no reset
+        
+        ResetCombo();
     }
 
-    private void ActivateCheat(string cheat)
+    private void ResetCombo()
     {
-        switch (cheat)
-        {
-            case "LULDR":
-                //infinite double jump
-                LastInvokedCheat = "Infinite Double jumps";
-                GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.DoubleJumpsCount.AddModifier("cheatleg", 1000);
-                break;
-            case "RLLRD":
-                LastInvokedCheat = "Enable Dodge";
-                GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
-                break;
-            case "UUDLR":
-                InvulnerableCheatActivated = false;
-                LastInvokedCheat = "Killing yourself";
-                GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero);
-                break;
-            case "DDRLU":
-                LastInvokedCheat = "Restoring Full HP";
-                GlobalReference.GetReference<PlayerReference>().Player.Heal(GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.MaxHealth.GetValue());
-                break;
-            case "UDLRRLDD":
-                LastInvokedCheat = "Enable All Levels";
-                EnableAllLevels();
-                break;
-            case "UDLRUDUD":
-                LastInvokedCheat = "Invulnerability";
-                ToggleInvulnerability();
-                break;
-        }
+        currentSequence = "";
+        comboTimer = 0;
     }
+    
+    // -=-
+    // Cheat Code Invocations
+    // -=-
 
-    private void EnableAllLevels()
+    private static void InvokeToggleInvulnerability() => InvulnerableCheatActivated = !InvulnerableCheatActivated;
+    private static void InvokeInfiniteDoubleJumps() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.DoubleJumpsCount.AddModifier("cheatleg", 1000);
+    private static void InvokeEnableDodge() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
+    private static void InvokeRestoreFullHp() => GlobalReference.GetReference<PlayerReference>().Player.Heal(GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.MaxHealth.GetValue());
+   
+    private static void InvokeInstantDeath()
     {
-        RoomSave saveRoomData = new();
+        InvulnerableCheatActivated = false;
+        GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero);
+    }
+    
+    private static void InvokeEnableAllLevels()
+    {
+        // adding asif we completed 25 levels. There are no 25 levels in the game,
+        // its just to be extremely future proof
         var myList = new List<int>();
         for (int i = 0; i < 25; i++)
         {
             myList.Add(i);
         }
+        
+        RoomSave saveRoomData = new();
         saveRoomData.Set("finishedLevels", myList);
         saveRoomData.SaveAll();
         GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED);
-    }
-    
-    private void ResetCombo()
-    {
-        currentSequence = "";
-        comboTimer = 0;
-        Debug.Log("Combo Reset");
-    }
-
-    private void ToggleInvulnerability()
-    {
-        InvulnerableCheatActivated = !InvulnerableCheatActivated;
     }
 }

@@ -54,7 +54,6 @@ public class Player : MonoBehaviour
     public ParticleSystem particleSystemJump;
     public ParticleSystem particleSystemDash;
     public ParticleSystem particleSystemWalk;
-    public CheatCodeSystem cheats;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool canDodgeRoll = true;
@@ -344,7 +343,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage, Vector3 direction)
     {
         // check if bradley should be invincible
-        if (cheats.InvulnerableCheatActivated) return;
+        if (CheatCodeSystem.InvulnerableCheatActivated) return;
         if (roomInvulnerability) return;
         if (isInvulnerable) return;
 
