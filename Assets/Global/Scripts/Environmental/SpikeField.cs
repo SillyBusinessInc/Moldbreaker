@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using EnemiesNS;
 
 public class SpikeField : MonoBehaviour
 {
@@ -13,56 +11,34 @@ public class SpikeField : MonoBehaviour
     [SerializeField, Range(0f,1f)] private float KnockBackUpPercentage = 0.75f;
  
     // It is static, so because of that, the cooldown is shared between all the spike cones
-    private static readonly List<GameObject> hitEntities = new();
-    private Dictionary<string, System.Action<GameObject, Collision>> tagHandlers;
-
-    private void Start()
-    {
-        tagHandlers = new()
-        {
-            { "Player", HandlePlayer }
-        //  { "Enemy", HandleEnemy }
-        };
-    }
+    private static bool playerHit = false;
 
     private void OnCollisionStay(Collision collision)
     {
-        var entity = collision.gameObject;
-        var isApplicableForDamage = tagHandlers.TryGetValue(entity.tag, out var handler);
-        if (isApplicableForDamage) handler(entity, collision);
-    }
-
-    private void HandlePlayer(GameObject entity, Collision collision)
-    {
-        if (!this.AddToHitEntities(entity)) return;
-
-        var player = GlobalReference.GetReference<PlayerReference>();
-        player.Player.lastDamageCause = Player.DamageCause.HAZARD;
+        if (!collision.gameObject.CompareTag("Player") ) return;
+        if (!this.CanPlayerHit()) return;
+        
+        var player = GlobalReference.GetReference<PlayerReference>().Player;
+        player.lastDamageCause = Player.DamageCause.HAZARD;
         var knockBackDirection = Vector3.up * this.KnockBackUpPercentage +
                                  collision.GetContact(0).normal * (1f - this.KnockBackUpPercentage);
-        player.Player.OnHit(this.damage, knockBackDirection * knockBackStrength);
+        player.OnHit(this.damage, knockBackDirection * knockBackStrength);
     }
-
-    // private void HandleEnemy(GameObject entity, Collision _)
-    // {
-    //     var enemy = entity.GetComponent<EnemyBase>();
-    //     if (enemy == null) return;
-    //     if (AddToHitEntities(entity)) enemy.OnHit(enemyDamage);
-    // }
-
-    private bool AddToHitEntities(GameObject entity)
+    
+    private bool CanPlayerHit()
     {
-        if (hitEntities.Contains(entity)) return false;
+        if (playerHit) return false;
 
-        hitEntities.Add(entity);
-        this.StartCoroutine(this.ReEnableAfterDelay(entity));
+        playerHit = true;
+        this.StartCoroutine(this.ResetPlayerHit());
         return true;
     }
 
     // Coroutine to re-enable the spike cone after a delay
-    private IEnumerator ReEnableAfterDelay(GameObject entity)
+    private IEnumerator ResetPlayerHit()
     {
         yield return new WaitForSeconds(cooldown);
-        hitEntities.Remove(entity);
+
+        playerHit = false;
     }
 }
