@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,6 @@ public class YeastOfPower : MonoBehaviour
 {
     [Header("Upgrade Option")]
     [SerializeField] private UpgradeOption option;
-    // [SerializeField] private int roomId = -1; // Always on if -1
     
     [Header("Interaction")]
     [SerializeField] private List<ActionParamPair> interactionActions;
@@ -29,13 +27,7 @@ public class YeastOfPower : MonoBehaviour
     }
     
     private void CheckIfAlreadyCollected() {
-        int roomId;
-        try {
-            roomId = GlobalReference.GetReference<GameManagerReference>().activeRoom.id;
-        } catch {
-            roomId = PlayerPrefs.GetInt("level");
-            PlayerPrefs.DeleteKey("level");
-        }
+        var roomId = GlobalReference.GetReference<GameManagerReference>().activeRoom.id;
 
         var saveData = new RoomSave();
         saveData.LoadAll();
