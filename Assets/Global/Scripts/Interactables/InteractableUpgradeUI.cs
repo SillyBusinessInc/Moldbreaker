@@ -1,5 +1,4 @@
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,12 +15,6 @@ public class InteractableUpgradeUI : MonoBehaviour
     {
         var saveData = new RoomSave();
         saveData.LoadAll();
-
-        // var list = saveData.Get<List<int>>("finishedLevels");
-    
-        // gameObject.SetActive(
-        //    !saveData.Get<List<int>>("finishedLevels").Contains(roomId)
-        // );
     }
     
     void OnTriggerEnter(Collider other)

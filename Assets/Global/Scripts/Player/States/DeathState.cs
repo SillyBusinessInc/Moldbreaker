@@ -1,7 +1,6 @@
 using UnityEngine.InputSystem;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 public class DeathState : StateBase
 {
     private bool isNotDeath;

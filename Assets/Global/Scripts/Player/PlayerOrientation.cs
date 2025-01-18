@@ -6,8 +6,6 @@ public class PlayerOrientation : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Transform cameraTransform;
 
-    private Vector2 _rotation;
-
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;

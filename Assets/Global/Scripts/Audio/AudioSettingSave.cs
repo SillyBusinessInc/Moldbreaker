@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 public class AudioSettingSave : SaveSystem
 {
     protected override string Prefix => "AudioSettings";

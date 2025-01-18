@@ -25,8 +25,7 @@ public abstract class TailAttack : Attack
 
     public void MoveForward()
     {
-        Vector3 dodgeDirection = player.GetDirection();
-        dodgeDirection = player.rb.transform.forward.normalized;
+        Vector3 dodgeDirection = player.rb.transform.forward.normalized;
         player.rb.linearVelocity = dodgeDirection * player.Tail.tailStatistic.forwardSpeedAttack.GetValue();
         player.targetVelocity = new(player.targetVelocity.x, 0, player.targetVelocity.z);
     }
