@@ -15,8 +15,7 @@ public class DeathMenu : MonoBehaviour
     void Start()
     {
         Menu.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        UILogic.HideCursor();
 
         if (PreviousLevel.Instance && PreviousLevel.Instance.prevLevel > 0)
         {
@@ -34,14 +33,6 @@ public class DeathMenu : MonoBehaviour
         if (isDead)
         {
             if (!Menu.activeSelf) Menu.SetActive(true);
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
     }
 
@@ -49,16 +40,14 @@ public class DeathMenu : MonoBehaviour
     {
         // reset the current level
         Menu.SetActive(!Menu.activeSelf);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        UILogic.HideCursor();
         if (PreviousLevel.Instance) UILogic.FadeToScene("Loading", fadeImage, this);
     }
 
     public void QuitGame()
     {
         isDead = false;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
         if (PreviousLevel.Instance) PreviousLevel.Instance.ResetPreviousLevel();
 

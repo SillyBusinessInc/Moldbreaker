@@ -10,8 +10,7 @@ public class MenuLogic : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UILogic.ShowCursor();
         continueButton.interactable = continueButtonActive();
 
     }

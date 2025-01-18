@@ -20,8 +20,7 @@ public class SettingsLogic : MonoBehaviour
     void Start()
     {
         LoadFromSave();
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UILogic.ShowCursor();
     }
 
     void Update() => UpdateButtonState();

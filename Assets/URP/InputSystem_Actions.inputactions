@@ -615,6 +615,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c0d11340-6b4d-4634-a677-bbe59c36067c",
+                    "path": "<Keyboard>/numpadMinus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8cb4cc0d-4a63-4a5c-a334-78e016b17ec7",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
