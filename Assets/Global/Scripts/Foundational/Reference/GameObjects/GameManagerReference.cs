@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerReference : Reference
 {
-    public Table table;
-    [SerializeField] private List<RoomAmountCombo> roomAmountCombo;
-    [SerializeField] public bool ignoreInput = true;
+    public bool ignoreInput = true;
 
     void Start()
     {
@@ -35,9 +33,9 @@ public class GameManagerReference : Reference
     {
         // table = new(); // disabled for structure change
         AddRoom(0, RoomType.ENTRANCE, true); // added for structure change
-        AddRoom(1, RoomType.COMBAT, true); // added for structure change
-        AddRoom(2, RoomType.COMBAT); // added for structure change
-        AddRoom(3, RoomType.COMBAT); // added for structure change
+        AddRoom(1, RoomType.PARKOUR, true); // added for structure change
+        AddRoom(2, RoomType.PARKOUR); // added for structure change
+        AddRoom(3, RoomType.PARKOUR); // added for structure change
 
         activeRoom = GetRoom(0);
         GlobalReference.GetReference<DoorManager>().Initialize();
@@ -71,30 +69,6 @@ public class GameManagerReference : Reference
     public Room GetRoom(int id) => rooms.Where((x) => x.id == id).FirstOrDefault();
     public List<Room> GetRooms() => rooms;
     public void ResetRooms() => rooms.Clear();
-
-    public List<Room> GetNextRooms()
-    {
-        if (table == null)
-        {
-            Debug.Log("table is null");
-        }
-        if (activeRoom == null)
-        {
-            Debug.Log("activeRoom is null");
-        }
-        var connectedIds = table.GetRow(activeRoom.id).branches;
-        var connectedRooms = connectedIds.Select(id => GetRoom(id)).Where(room => room != null).ToList();
-
-        Debug.Log("Connected Rooms: " + string.Join(", ", connectedRooms.Select(r => r.roomType)));
-        return connectedRooms;
-    }
-
-
-    public int GetAmountForRoomType(RoomType roomType)
-    {
-        RoomAmountCombo roomAmount = roomAmountCombo.Find(x => x.type == roomType);
-        return roomAmount != null ? roomAmount.amount : 0;
-    }
 
     #endregion
 }
