@@ -12,7 +12,10 @@ public class CheatCodeSystem : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private string currentSequence = "";
+#pragma warning disable 0414
+    // Yes its true that its never used. its only here to show it in the inspector for debugging purposes
     [SerializeField] private string LastInvokedCheat = "none";
+#pragma warning restore 0414
     
     private void Awake()
     {
