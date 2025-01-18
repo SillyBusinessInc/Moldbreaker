@@ -47,7 +47,6 @@ public static class GlobalReference
             return;
         }
 
-        Debug.LogWarning($"register: {name}");
         referenceList.Add(name, ref_);
     }
 
@@ -66,7 +65,6 @@ public static class GlobalReference
             return;
         }
 
-        Debug.LogWarning($"unregister: {name}");
         referenceList.Remove(name);
     }
 

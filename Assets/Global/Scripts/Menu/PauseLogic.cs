@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PauseLogic : MonoBehaviour
 {
     public GameObject Menu;
-    public GameObject Upgrades;
     public GameObject YoP;
     private bool isPaused;
     [SerializeField] private Button continueButton;
@@ -17,7 +16,6 @@ public class PauseLogic : MonoBehaviour
     {
         handler.EnableInput("UI");
         Menu.SetActive(false);
-        Upgrades.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         isPaused = false;
