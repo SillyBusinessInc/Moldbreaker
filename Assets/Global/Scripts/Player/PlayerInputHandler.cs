@@ -6,8 +6,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private PlayerInteraction interactor;
     private GameManagerReference gameManager;
-
-
+    
     // Handling the Input for the player.
     public void OnMove(InputAction.CallbackContext ctx)
     {
