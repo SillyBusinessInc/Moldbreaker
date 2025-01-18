@@ -10,12 +10,12 @@ public abstract class StateBase
         Player = player;
     }
 
-    public virtual void Enter() { }
-    public virtual void Exit() { }
-    public virtual void Update() { }
-    public virtual void FixedUpdate() { }
-    public virtual void OnCollisionEnter(Collision collision) { }
-    public virtual void OnCollisionExit(Collision collision) { }
+    public virtual void Enter() {}
+    public virtual void Exit() {}
+    public virtual void Update() {}
+    public virtual void FixedUpdate() {}
+    public virtual void OnCollisionEnter(Collision collision) {}
+    public virtual void OnCollisionExit(Collision collision) {}
 
     // Input handling
     public virtual void Move(InputAction.CallbackContext ctx, bool ignoreInput = false)
@@ -65,14 +65,6 @@ public abstract class StateBase
         if (ctx.canceled)
         {
             Player.isHoldingJump = false;
-        }
-    }
-
-    public virtual void Glide(InputAction.CallbackContext ctx)
-    {
-        if (ctx.canceled)
-        {
-            Player.SetState(Player.states.Falling);
         }
     }
 

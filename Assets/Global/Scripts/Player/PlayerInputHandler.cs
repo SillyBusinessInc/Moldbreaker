@@ -31,12 +31,6 @@ public class PlayerInputHandler : MonoBehaviour
         player.currentState.Sprint(ctx);
     }
 
-    public void OnGlide(InputAction.CallbackContext ctx)
-    {
-        if (gameManager.ignoreInput) return;
-        player.currentState.Glide(ctx);
-    }
-
     public void OnJump(InputAction.CallbackContext ctx)
     {
         if (gameManager.ignoreInput) return;

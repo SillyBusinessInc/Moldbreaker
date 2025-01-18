@@ -4,7 +4,6 @@
     public readonly StateBase Jumping;
     public readonly StateBase Falling;
     public readonly StateBase Walking;
-    public readonly StateBase Gliding;
     public readonly StateBase Attacking;
     public readonly StateBase DodgeRoll;
     public readonly StateBase HurtState;
@@ -17,7 +16,6 @@
         Jumping = new JumpingState(player);
         Falling = new FallingState(player);
         Walking = new WalkingState(player);
-        Gliding = new GlidingState(player);
         Attacking = new AttackingState(player);
         DodgeRoll = new DodgeRollState(player);
         HurtState = new HurtState(player);

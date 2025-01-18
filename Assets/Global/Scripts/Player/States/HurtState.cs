@@ -32,7 +32,6 @@ public class HurtState : StateBase
     public override void Sprint(InputAction.CallbackContext ctx) {}
     public override void Dodge(InputAction.CallbackContext ctx) {}
     public override void Jump(InputAction.CallbackContext ctx) {}
-    public override void Glide(InputAction.CallbackContext ctx) {}
     public override void Crouch(InputAction.CallbackContext ctx) {}
     public override void Attack(InputAction.CallbackContext ctx) {}
 }

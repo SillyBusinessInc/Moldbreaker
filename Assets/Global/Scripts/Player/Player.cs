@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
     public float coyoteTime = 0.3f;
 
     [Header("Other Settings")]
-    [HideInInspector] public float glideDrag = 2f; // Glide is currently inaccessible ingame
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
     public float dodgeRollDeceleration = 1f;

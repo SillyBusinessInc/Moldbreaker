@@ -52,12 +52,4 @@ public class FallingState : StateBase
             Player.isHoldingJump = false;
         }
     }
-
-    public override void Glide(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed && Player.rb.linearVelocity.y < 0)
-        {
-            Player.SetState(Player.states.Gliding);
-        }
-    }
 }
