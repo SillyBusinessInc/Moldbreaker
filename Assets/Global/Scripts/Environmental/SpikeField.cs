@@ -6,24 +6,17 @@ public class SpikeField : MonoBehaviour
 {
     [SerializeField] private int damage = 10; // Damage dealt by the cone
     [SerializeField] private int enemyDamage = 10; // Damage dealt by the cone
-    [SerializeField] private float disableDuration = 0.1f; // Avoid damage loop
-    [SerializeField] private float knockbackForce = 10f; // Horizontal knockback speed
-    [SerializeField] private float leapForce = 5f; // Vertical leap speed
-    private PlayerReference player;
-
-    private List<GameObject> hitEntities = new();
-    private Dictionary<string, System.Action<GameObject>> tagHandlers;
+    [SerializeField] private float cooldown = 1f; // Avoid damage loop
+    [SerializeField] private float knockBackStrength = 3f; // Horizontal knockBack speed
+    [Tooltip("The percentage of the knockback force that will be applied upwards, regardless of the direction that you hit the spikes")]
+    [SerializeField, Range(0f,1f)] private float KnockBackUpPercentage = 0.75f;
+ 
+    // It is static, so because of that, the cooldown is shared between all the spike cones
+    private static readonly List<GameObject> hitEntities = new();
+    private Dictionary<string, System.Action<GameObject, Collision>> tagHandlers;
 
     private void Start()
     {
-        // Ensure Player reference is set correctly
-        player = GlobalReference.GetReference<PlayerReference>();
-        if (player == null)
-        {
-            Debug.LogError("Player reference not found.");
-        }
-
-        // Initialize tag handlers
         tagHandlers = new()
         {
             { "Player", HandlePlayer },
@@ -31,71 +24,45 @@ public class SpikeField : MonoBehaviour
         };
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        GameObject entity = collision.gameObject;
-        if (tagHandlers.TryGetValue(entity.tag, out var handler))
-        {
-            handler(entity);
-        }
+        var entity = collision.gameObject;
+        var isApplicableForDamage = tagHandlers.TryGetValue(entity.tag, out var handler);
+        if (isApplicableForDamage) handler(entity, collision);
     }
 
-    private void HandlePlayer(GameObject entity)
+    private void HandlePlayer(GameObject entity, Collision collision)
     {
-        if (player == null) return;
+        if (!this.AddToHitEntities(entity)) return;
 
-        if (AddToHitEntities(entity))
-        {
-            player.Player.lastDamageCause = Player.DamageCause.HAZARD;
-            player.Player.OnHit(damage, Vector3.up);
-            //ApplyKnockback(player.Player.gameObject);
-        }
+        var player = GlobalReference.GetReference<PlayerReference>();
+        player.Player.lastDamageCause = Player.DamageCause.HAZARD;
+        var knockBackDirection = Vector3.up * this.KnockBackUpPercentage +
+                                 collision.GetContact(0).normal * (1f - this.KnockBackUpPercentage);
+        player.Player.OnHit(this.damage, knockBackDirection * knockBackStrength);
     }
 
-    private void HandleEnemy(GameObject entity)
+    private void HandleEnemy(GameObject entity, Collision _)
     {
-        EnemyBase enemy = entity.GetComponent<EnemyBase>();
+        var enemy = entity.GetComponent<EnemyBase>();
         if (enemy == null) return;
 
-        if (AddToHitEntities(entity))
-        {
-            enemy.OnHit(enemyDamage);
-            ApplyKnockback(enemy.gameObject);
-        }
+        if (AddToHitEntities(entity)) enemy.OnHit(enemyDamage);
     }
 
     private bool AddToHitEntities(GameObject entity)
     {
-        if (!hitEntities.Contains(entity))
-        {
-            hitEntities.Add(entity);
-            StartCoroutine(ReEnableAfterDelay(entity));
-            return true;
-        }
-        return false;
-    }
+        if (hitEntities.Contains(entity)) return false;
 
-    private void ApplyKnockback(GameObject entity)
-    {
-        Vector3 knockbackVelocity = CalculateKnockback(entity);
-        player.Player.ApplyKnockback(knockbackVelocity, 3);
-    }
-
-    public virtual Vector3 CalculateKnockback(GameObject entityObject)
-    {
-        Vector3 directionToEntity = entityObject.transform.position - transform.position;
-        directionToEntity.Normalize();
-
-        Vector3 knockbackVelocity = directionToEntity * knockbackForce;
-        knockbackVelocity.y = leapForce; // Add upward velocity for a leap
-
-        return knockbackVelocity * 3;
+        hitEntities.Add(entity);
+        this.StartCoroutine(this.ReEnableAfterDelay(entity));
+        return true;
     }
 
     // Coroutine to re-enable the spike cone after a delay
     private IEnumerator ReEnableAfterDelay(GameObject entity)
     {
-        yield return new WaitForSeconds(disableDuration);
+        yield return new WaitForSeconds(cooldown);
         hitEntities.Remove(entity);
     }
 }
