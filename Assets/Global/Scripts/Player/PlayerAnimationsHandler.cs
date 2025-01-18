@@ -22,7 +22,7 @@ public class PlayerAnimationsHandler : MonoBehaviour
         animator.SetInteger(propertyName, value);
     }
 
-    public void resetStates()
+    public void ResetStates()
     {
         SetBool("IsRunning", false);
         SetBool("IsFallingDown", false);

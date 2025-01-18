@@ -3,40 +3,36 @@ using UnityEngine.InputSystem;
 
 public class HurtState : StateBase
 {
-    private float activeKnockbackDuration;
+    public HurtState(Player player) : base(player) {}
 
-    public HurtState(Player player) : base(player) { }
     public override void Enter()
     {
+        // cancel hurt if invulnerable
         if (Player.isInvulnerable) Player.SetState(Player.states.Idle);
+
+        // handle visuals
         Player.playerAnimationsHandler.animator.SetTrigger("TakingDamage");
-        activeKnockbackDuration = 0.0f;
         Vector3 hitdirection = Vector3.ProjectOnPlane(Player.hitDirection, Vector3.up).normalized;
         Player.rb.MoveRotation(Quaternion.LookRotation(hitdirection * -1));
-    }
-
-    public override void Update()
-    {
-        if (activeKnockbackDuration >= Player.knockbackDuration)
-        {
-            Player.SetState(Player.states.Idle);
-        }
-        activeKnockbackDuration += Time.deltaTime;
+        
+        // apply knockback
         Player.rb.linearVelocity = Player.hitDirection * Player.knockbackSpeed;
+        Player.targetVelocity = Vector3.zero;
+
+        // return to idle after certain time
+        Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Idle, Player.knockbackDuration));
     }
 
-    public override void Hurt(Vector3 direction) { }
-    public override void Move(InputAction.CallbackContext ctx, bool ignoreInput = false) { if (ignoreInput) Player.movementInput = new Vector2(0, 0); }
+    public override void Move(InputAction.CallbackContext ctx, bool ignoreInput = false) 
+    {
+        if (ignoreInput) Player.movementInput = new Vector2(0, 0);
+    }
 
-    public override void Sprint(InputAction.CallbackContext ctx) { }
-
-    public override void Dodge(InputAction.CallbackContext ctx) { }
-
-    public override void Jump(InputAction.CallbackContext ctx) { }
-
-    public override void Glide(InputAction.CallbackContext ctx) { }
-
-    public override void Crouch(InputAction.CallbackContext ctx) { }
-
-    public override void Attack(InputAction.CallbackContext ctx) { }
+    public override void Hurt(Vector3 direction) {}
+    public override void Sprint(InputAction.CallbackContext ctx) {}
+    public override void Dodge(InputAction.CallbackContext ctx) {}
+    public override void Jump(InputAction.CallbackContext ctx) {}
+    public override void Glide(InputAction.CallbackContext ctx) {}
+    public override void Crouch(InputAction.CallbackContext ctx) {}
+    public override void Attack(InputAction.CallbackContext ctx) {}
 }

@@ -20,7 +20,7 @@ public class FlipAttack : TailAttack
         ClipDuration(animator, duration, "Breadaplus|Bradley_attack2_frontflip");
         animator.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
 
-        player.playerAnimationsHandler.resetStates();
+        player.playerAnimationsHandler.ResetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 2);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }

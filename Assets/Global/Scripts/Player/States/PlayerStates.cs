@@ -20,9 +20,7 @@
         Gliding = new GlidingState(player);
         Attacking = new AttackingState(player);
         DodgeRoll = new DodgeRollState(player);
-
         HurtState = new HurtState(player);
-
         Death = new DeathState(player);
     }
 }

@@ -8,23 +8,18 @@ public class WalkingState : StateBase
 
     public override void Update()
     {
-        if (activesoundAfterTime >= Player.InitialStepSoundDelay)
+        if (activesoundAfterTime >= Player.InitialStepSoundDelay && playSound)
         {
-            if (playSound)
-            {
-                playSound = false;
-                AudioManager.Instance.PlaySFXOnRepeat("Footstep");
-            }
+            playSound = false;
+            AudioManager.Instance.PlaySFXOnRepeat("Footstep");
         }
+
         activesoundAfterTime += Time.deltaTime;
-        Player.playerAnimationsHandler.resetStates();
+        Player.playerAnimationsHandler.ResetStates();
         Player.playerAnimationsHandler.SetBool("IsRunning", true);
 
         // perform ground check first
-        if (!Player.isGrounded)
-        {
-            Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
-        }
+        if (!Player.isGrounded) Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
 
         // calculate walking direction and speed
         if (Player.GetDirection() != Vector3.zero) Player.currentWalkingPenalty += Player.acceleration * Time.deltaTime;

@@ -45,7 +45,7 @@ public class DoorPopUp : MonoBehaviour
         {
             isPopupVisible = true; // Mark popup as visible
             animator.SetTrigger("open");
-            GlobalReference.GetReference<PlayerReference>().Player.setCameraHeight(10f);
+            GlobalReference.GetReference<PlayerReference>().Player.SetCameraHeight(10f);
         }
     }
 
@@ -55,7 +55,7 @@ public class DoorPopUp : MonoBehaviour
         {
             isPopupVisible = false; // Mark popup as not visible
             animator.SetTrigger("close");
-            GlobalReference.GetReference<PlayerReference>().Player.setCameraHeight(null); // height reset to default
+            GlobalReference.GetReference<PlayerReference>().Player.SetCameraHeight(null); // height reset to default
         }
     }
 

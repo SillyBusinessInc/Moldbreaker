@@ -74,10 +74,7 @@ public class DodgeRollState : StateBase
     {
         timer -= Time.deltaTime;
 
-        if (timer <= 0)
-        {
-            ExitDodge();
-        }
+        if (timer <= 0) ExitDodge();
     }
 
     public void ExitDodge() {
