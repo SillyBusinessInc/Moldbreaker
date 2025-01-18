@@ -62,14 +62,8 @@ public class CaloriesUI : MonoBehaviour
         }
         else
         {   
-            if (text.text == "0/0")
-            {
-                canvasGroup.alpha = 0f;
-            }
-            else
-            {
-                canvasGroup.alpha = pauseScreen.activeSelf ? 1f : 0f;
-            }
+            if (text.text == "0/0") canvasGroup.alpha = 0f;
+            else canvasGroup.alpha = pauseScreen.activeSelf ? 1f : 0f;
         }
             
 

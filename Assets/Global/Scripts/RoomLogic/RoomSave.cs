@@ -4,5 +4,7 @@ public class RoomSave : SecureSaveSystem
 {
     protected override string Prefix => "Levels";
 
-    public override void Init() { Add("finishedLevels", new List<int>()); }
+    public override void Init() { 
+        Add("finishedLevels", new List<int>()); 
+    }
 }

@@ -33,12 +33,12 @@ public class FeedbackManager : MonoBehaviour
     }
 
     public void SetRandomFeedback() {
-        if (feedbackSprites.Count > 0) {
-            int randomNumber = Random.Range(0, feedbackSprites.Count);
-            feedbackGameObject.transform.localScale = Vector3.zero;
-            feedbackSpriteRenderer.sprite = feedbackSprites[randomNumber];
-            StartCoroutine(FeedbackAppears());
-        }
+        if (feedbackSprites.Count <= 0) return;
+
+        int randomNumber = Random.Range(0, feedbackSprites.Count);
+        feedbackGameObject.transform.localScale = Vector3.zero;
+        feedbackSpriteRenderer.sprite = feedbackSprites[randomNumber];
+        StartCoroutine(FeedbackAppears());
     }
 
     IEnumerator FeedbackAppears() {

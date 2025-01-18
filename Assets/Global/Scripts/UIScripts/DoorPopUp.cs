@@ -28,8 +28,8 @@ public class DoorPopUp : MonoBehaviour
 
         List<string> savedCaloriesTrimmed = 
         saveData.Get<List<string>>("calories")
-        .Select(x => x.Split(new[] { ">>>UNIQUE_DELIMITER>>>" }, StringSplitOptions.None).LastOrDefault())
-        .ToList(); 
+            .Select(x => x.Split(new[] { ">>>UNIQUE_DELIMITER>>>" }, StringSplitOptions.None).LastOrDefault())
+            .ToList(); 
 
         UpdateCaloriesDisplay(savedCaloriesTrimmed);
 
@@ -64,14 +64,9 @@ public class DoorPopUp : MonoBehaviour
         foreach (var image in calories)
         {
             string progressionOrder = ExtractProgressionOrder(image);
-            if (!savedCalories.Contains(progressionOrder))
-            {
-                SetImageAlpha(image, 0.5f); // Set alpha to 50%
-            }
-            else
-            {
-                SetImageAlpha(image, 1f); // Ensure collected items are fully visible
-            }
+            
+            if (!savedCalories.Contains(progressionOrder)) SetImageAlpha(image, 0.5f); // Set alpha to 50%
+            else SetImageAlpha(image, 1f); // Ensure collected items are fully visible
         }
     }
 
