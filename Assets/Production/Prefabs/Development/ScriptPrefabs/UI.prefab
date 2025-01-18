@@ -975,7 +975,7 @@ GameObject:
   - component: {fileID: 6856787390346054229}
   - component: {fileID: 7312319328358831154}
   m_Layer: 5
-  m_Name: mold
+  m_Name: Mold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3420,10 +3420,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38e270aec20c4b30bde94b9ab6592f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthPercentageText: {fileID: 8927032835729698575}
-  healthPercentage: 0
-  HealthMeterImage: {fileID: 4967681329817621116}
   animationDuration: 0.5
+  HealthPercentageText: {fileID: 8927032835729698575}
+  HealthMeterImage: {fileID: 4967681329817621116}
   mold: {fileID: 3829535901384139597}
 --- !u!1 &8749314788857674988
 GameObject:
