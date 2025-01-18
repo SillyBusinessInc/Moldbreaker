@@ -32,24 +32,22 @@ public class HealthMeter : MonoBehaviour
     public void UpdateHealthMeter()
     {
         if (PlayerMaxHealth == -1) PlayerMaxHealth = player.playerStatistic.Health;
-        healthPercentage = player.playerStatistic.Health/PlayerMaxHealth*100;
-        // if (moldPercentage < 100) moldPercentage += 0.01f;
+        healthPercentage = player.playerStatistic.Health / PlayerMaxHealth * 100;
         if (savedHealthPercentage == healthPercentage) return;
         savedHealthPercentage = healthPercentage;
         
         if (healthPercentage != 100 ) mold.SetActive(true);
         else  mold.SetActive(false);
-        string decimals = healthPercentage >= 100 || healthPercentage == 0 ? "F0" : "F1";
-        HealthPercentageText.text = healthPercentage.ToString(decimals) + '%';
+        HealthPercentageText.text = healthPercentage.ToString() + '%';
 
         float barWidth = GetComponent<RectTransform>().rect.width;
-        float targetPosX = (healthPercentage / 100) * barWidth;
+        float targetPosX = healthPercentage / 100 * barWidth;
         Vector2 targetPosition = new(targetPosX, HealthMeterImage.anchoredPosition.y);
 
-        // Start smooth movement
+        // start smooth movement
         if (moveCoroutine != null)
         {
-            StopCoroutine(moveCoroutine); // Stop any ongoing movement
+            StopCoroutine(moveCoroutine); // stop any ongoing movement
         }
         moveCoroutine = StartCoroutine(SmoothMove(HealthMeterImage, targetPosition, animationDuration));
     }
@@ -62,11 +60,11 @@ public class HealthMeter : MonoBehaviour
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / duration); // Normalize time (0 to 1)
+            float t = Mathf.Clamp01(elapsedTime / duration);
             rect.anchoredPosition = Vector2.Lerp(startPosition, target, t);
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        rect.anchoredPosition = target; // Ensure it reaches the target position
+        rect.anchoredPosition = target;
     }
 }

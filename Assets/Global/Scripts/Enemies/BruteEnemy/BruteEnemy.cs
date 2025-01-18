@@ -1,4 +1,3 @@
-using UnityEngine;
 namespace EnemiesNS
 {
     public class BruteEnemy : MeleeEnemy

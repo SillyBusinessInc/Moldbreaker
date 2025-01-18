@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Coin : Collectable
 {
     private int pointValue = 1; // Value of the coin

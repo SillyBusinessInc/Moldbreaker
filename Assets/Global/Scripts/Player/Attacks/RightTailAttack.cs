@@ -1,7 +1,4 @@
-using System.Linq;
 using UnityEngine;
-using System.Collections;
-using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "RightTail")]
 public class RightTailAttack : TailAttack

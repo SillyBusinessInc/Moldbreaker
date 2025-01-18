@@ -21,19 +21,6 @@ public class PauseLogic : MonoBehaviour
         isPaused = false;
     }
 
-    bool IsLoadingSceneLoaded()
-    {
-        for (int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            Scene scene = SceneManager.GetSceneAt(i);
-            if (scene.name == "Loading")
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void ContinueGame()
     {
         isPaused = false;

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UpgradeOptions : Reference
@@ -11,7 +10,6 @@ public class UpgradeOptions : Reference
 
     public List<ActionParamPair> interactionActions;
     [SerializeField] private Button confirmButton;
-    [SerializeField] private UIInputHandler handler;
 
     protected new void Awake()
     {
@@ -19,10 +17,8 @@ public class UpgradeOptions : Reference
         gameObject.SetActive(false);
     }
 
-    [ContextMenu("SHOW")]
     public void ShowOption()
     {
-        // handler.EnableInput("UI");
         isShown = true;
         GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
         UILogic.SelectButton(confirmButton);
@@ -37,7 +33,6 @@ public class UpgradeOptions : Reference
         }
     }
 
-    [ContextMenu("HIDE")]
     public void HideOption()
     {
         Time.timeScale = 1;
@@ -45,7 +40,6 @@ public class UpgradeOptions : Reference
         gameObject.SetActive(false);
         isShown = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-        // handler.DisableInput("UI");
     }
 
     void SetCursorState(bool cursorVisible, CursorLockMode lockMode)
@@ -57,8 +51,6 @@ public class UpgradeOptions : Reference
     public void Confirm()
     {
         if (!isShown) return;
-
-        // if (ctx.started && option != null) // ctx?? where is ctx?
         if (option != null)
         {
             foreach (ActionParamPair action in option.interactionActions)

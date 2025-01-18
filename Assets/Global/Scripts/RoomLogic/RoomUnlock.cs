@@ -5,7 +5,6 @@ public class RoomUnlock : MonoBehaviour
 {
     private RoomSave saveData;
     private RoomTransitionDoor door;
-    private string levelName;
 
     void Start()
     {
