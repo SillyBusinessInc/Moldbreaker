@@ -16,7 +16,7 @@ public class MoldMeter : MonoBehaviour
     private void Awake()
     {
         mold.SetActive(false);
-        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, this.UpdateMeter);
+        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, UpdateMeter);
     }
 
     void Start() {
@@ -29,13 +29,13 @@ public class MoldMeter : MonoBehaviour
         var player = GlobalReference.GetReference<PlayerReference>().Player;
         var maxHealth = player.playerStatistic.MaxHealth.GetValue();
         var newPercentage = (int)(player.playerStatistic.Health / maxHealth * 100);
-        if (this.cashedHealthPercentage == newPercentage) return;
+        if (cashedHealthPercentage == newPercentage) return;
         
-        this.cashedHealthPercentage = newPercentage;
+        cashedHealthPercentage = newPercentage;
 
         // If the percentage is 100% (or more for that matter),
         // it still show a little artifact of the mold which we dont want. and so that's why we turn it off
-        this.mold.SetActive(newPercentage < 100);
+        mold.SetActive(newPercentage < 100);
         
         HealthPercentageText.text =  $"{newPercentage}%";
         var barWidth = GetComponent<RectTransform>().rect.width;

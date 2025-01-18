@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 public class UIInputHandler : MonoBehaviour
 {
     public InputActionAsset inputActionAsset;
@@ -20,10 +21,7 @@ public class UIInputHandler : MonoBehaviour
         // to make sure at this moment you can only use the UI actionmap
         foreach (var actionMap in ActionMap)
         {
-            if (actionMap.name == mapName)
-            {
-                actionMap.Enable();
-            }
+            if (actionMap.name == mapName) actionMap.Enable();
         }
     }
 
@@ -32,11 +30,7 @@ public class UIInputHandler : MonoBehaviour
         // disable ui actionmap and enable the rest
         foreach (var actionMap in ActionMap)
         {
-            if (actionMap.name == mapName)
-            {
-                actionMap.Disable();
-            }
+            if (actionMap.name == mapName) actionMap.Disable();
         }
     }
-
 }

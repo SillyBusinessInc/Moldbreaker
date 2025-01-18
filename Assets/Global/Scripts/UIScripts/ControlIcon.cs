@@ -60,14 +60,13 @@ public class ControlIconMapping : ScriptableObject
             case TDeviceType.Keyboard:
                 foreach (var mapping in keyboardMappings)
                 {
-                    if (mapping.keyboardMapping.ToString().ToLower() == controlPath.ToLower())
+                    if (mapping.keyboardMapping.ToString().ToLower() != controlPath.ToLower()) continue;
+                    
+                    return new IconPathResult
                     {
-                        return new IconPathResult
-                        {
-                            icon = mapping.icon,
-                            index = mapping.index
-                        };
-                    }
+                        icon = mapping.icon,
+                        index = mapping.index
+                    };
                 }
                 break;
 
@@ -87,23 +86,20 @@ public class ControlIconMapping : ScriptableObject
                 int controlValue = GetGamepadButtonValue(controlPath) ?? -1;
                 int mappingValue = GetGamepadButtonValue(mapping.controlPath.ToString()) ?? -1;
 
-                if (controlValue == mappingValue)
+                if (controlValue != mappingValue) continue;
+                
+                return new IconPathResult
                 {
-                    return new IconPathResult
-                    {
-                        icon = mapping.icon,
-                        index = mapping.index
-                    };
-                }
+                    icon = mapping.icon,
+                    index = mapping.index
+                };
             }
         }
-
         return null;
     }
 
     private int? GetGamepadButtonValue(string controlPath)
     {
-
         // Get int value for comparison
         if (System.Enum.TryParse<GamepadButton>(controlPath, true, out var result))
         {
@@ -113,5 +109,4 @@ public class ControlIconMapping : ScriptableObject
 
         return null;
     }
-
 }

@@ -21,15 +21,12 @@ public class CrumbUI : MonoBehaviour
         // Get the TextMeshProUGUI component attached to this GameObject
         text = GetComponent<TextMeshProUGUI>();
 
-        if (text == null)
-        {
-            Debug.LogWarning("TextMeshProUGUI component not found!");
-        }
+        if (text == null) Debug.LogWarning("TextMeshProUGUI component not found!");
     }
 
     void Update()
     {
-                // Reset fade when a new coin is collected
+        // Reset fade when a new coin is collected
         if (playerStats.CollectedCrumb)
         {
             fadeProgress = 0f;
@@ -72,10 +69,8 @@ public class CrumbUI : MonoBehaviour
             }
         }
 
-        if (playerStats.CrumbsCount == 0)
-        {
-            playerStats.CrumbsCount = GameObject.FindGameObjectsWithTag("Crumbs").Count();
-        }
+        if (playerStats.CrumbsCount == 0) playerStats.CrumbsCount = GameObject.FindGameObjectsWithTag("Crumbs").Count();
+        
         //coin collect
         if (text != null)
         {
