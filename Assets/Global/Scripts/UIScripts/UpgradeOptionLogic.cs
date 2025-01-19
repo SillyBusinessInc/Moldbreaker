@@ -1,7 +1,5 @@
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class UpgradeOptionLogic : MonoBehaviour
 {
@@ -32,13 +30,28 @@ public class UpgradeOptionLogic : MonoBehaviour
         keyboardImage.sprite = data.keyboardImage;
         RectTransform rectTransform = PressKeyboard.GetComponent<RectTransform>();
 
+        // if (text2.text == "") {
+        //     RectTransform changedRectTransform = PressKeyboard.GetComponent<RectTransform>();
+        //     Vector3 transform = new Vector3 (rectTransform.anchoredPosition.x + 22, rectTransform.anchoredPosition.y);
+        //     changedRectTransform.anchoredPosition = transform;
+        // } else {
+        //     RectTransform OriginalrectTransform = PressKeyboard.GetComponent<RectTransform>();
+        //     OriginalrectTransform = rectTransform;
+        // }
         if (text2.text == "") {
-            RectTransform changedRectTransform = PressKeyboard.GetComponent<RectTransform>();
-            Vector3 transform = new Vector3 (rectTransform.anchoredPosition.x + 22, rectTransform.anchoredPosition.y);
-            changedRectTransform.anchoredPosition = transform;
-        } else {
-            RectTransform OriginalrectTransform = PressKeyboard.GetComponent<RectTransform>();
-            OriginalrectTransform = rectTransform;
+            RectTransform rt = text1.GetComponent<RectTransform>();
+            rt.anchorMin = new(0f, 0);
+            rt.anchorMax = new(0.325f, 1);
+            rt.offsetMin = new(0f, 0f);
+            rt.offsetMax = new(0f, 0f);
+            rt = keyboardImage.GetComponent<RectTransform>();
+            rt.anchorMin = new(0.39f, 0);
+            rt.anchorMax = new(0.91f, 1);
+            rt.offsetMin = new(0f, 0f);
+            rt.offsetMax = new(0f, 0f);
         }
+
+        text1.fontSize = description.fontSize;
+        text2.fontSize = description.fontSize;
     }
 }

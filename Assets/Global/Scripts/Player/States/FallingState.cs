@@ -34,9 +34,7 @@ public class FallingState : StateBase
 
         // change state on ground
         if (Player.isGrounded && Player.movementInput.sqrMagnitude == 0) Player.SetState(Player.states.Idle);
-        else if (Player.isGrounded) {
-            Player.SetState(Player.states.Walking);
-        }
+        else if (Player.isGrounded) Player.SetState(Player.states.Walking);
     }
 
     public override void Jump(InputAction.CallbackContext ctx)
@@ -52,14 +50,6 @@ public class FallingState : StateBase
         if (ctx.canceled) 
         {
             Player.isHoldingJump = false;
-        }
-    }
-
-    public override void Glide(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed && Player.rb.linearVelocity.y < 0)
-        {
-            Player.SetState(Player.states.Gliding);
         }
     }
 }

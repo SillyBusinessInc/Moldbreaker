@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -59,7 +58,7 @@ public class Loader : MonoBehaviour
                 break;
 
             case Phase.LOADROOM:
-                nextPhase = LoadRoom(PreviousLevel.Instance?.prevLevel);
+                nextPhase = LoadRoom();
                 break;
 
             case Phase.INITBASE:
@@ -98,20 +97,22 @@ public class Loader : MonoBehaviour
         return Phase.LOADROOM;
     }
 
-    private Phase LoadRoom(int? level)
+    private Phase LoadRoom()
     {
+        var level = PreviousLevel.Instance?.prevLevel;
         message.text = "Baking the bread world...";
 
         if (PreviousLevel.Instance != null && level.HasValue && level.Value > 0)
         {
             SceneManager.LoadScene(level.Value, LoadSceneMode.Additive);
+            
             // reset prevLevel after initiating load of previous level
-            PreviousLevel.Instance.ResetPreviousLevel();
-
+            PreviousLevel.Instance.ResetLevelForRetry();
         }
         else
         {
             SceneManager.LoadScene("ENTRANCE_1", LoadSceneMode.Additive);
+            if(PreviousLevel.Instance) PreviousLevel.Instance.prevLevelId = 0;
         }
 
         return Phase.INITBASE;

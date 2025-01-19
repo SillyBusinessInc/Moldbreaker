@@ -6,34 +6,16 @@ using UnityEngine.UI;
 public class PauseLogic : MonoBehaviour
 {
     public GameObject Menu;
-    public GameObject Upgrades;
     public GameObject YoP;
     private bool isPaused;
     [SerializeField] private Button continueButton;
     [SerializeField] private UIInputHandler handler;
 
-
     void Start()
     {
         handler.EnableInput("UI");
         Menu.SetActive(false);
-        Upgrades.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         isPaused = false;
-    }
-
-    bool IsLoadingSceneLoaded()
-    {
-        for (int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            Scene scene = SceneManager.GetSceneAt(i);
-            if (scene.name == "Loading")
-            {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void ContinueGame()
@@ -45,8 +27,7 @@ public class PauseLogic : MonoBehaviour
         Menu.SetActive(!Menu.activeSelf);
 
         // Upgrades.SetActive(!Upgrades.activeSelf); 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        UILogic.HideCursor();
         Time.timeScale = 1f;
     }
 
@@ -55,8 +36,7 @@ public class PauseLogic : MonoBehaviour
         isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         AudioManager.Instance.PlaySFX("Button");
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
         // Upgrades.SetActive(!Upgrades.activeSelf); 
         Time.timeScale = 1f;
@@ -68,8 +48,7 @@ public class PauseLogic : MonoBehaviour
         isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         AudioManager.Instance.PlaySFX("Button");
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
         // Upgrades.SetActive(!Upgrades.activeSelf);
         Time.timeScale = 1f;
@@ -92,21 +71,18 @@ public class PauseLogic : MonoBehaviour
 
         if (isPaused == true)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            UILogic.ShowCursor();
             // handler.EnableInput("UI");
         }
         else
         {
             if (YoP.activeSelf)
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                UILogic.ShowCursor();
             }
             else
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                UILogic.HideCursor();
                 GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
                 // handler.DisableInput("UI");
             }

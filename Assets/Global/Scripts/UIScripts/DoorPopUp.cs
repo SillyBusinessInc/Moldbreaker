@@ -19,7 +19,7 @@ public class DoorPopUp : MonoBehaviour
 
     void Start()
     {
-        int nextLevelId = transform.parent.GetComponent<RoomTransitionDoor>().nextRoomId;
+        int nextLevelId = transform.parent.GetComponent<GateRoomTransition>().nextRoomId;
         saveData = new CollectableSave(levelName);
         saveData.LoadAll();
         title.text = popupTitle;
@@ -28,8 +28,8 @@ public class DoorPopUp : MonoBehaviour
 
         List<string> savedCaloriesTrimmed = 
         saveData.Get<List<string>>("calories")
-        .Select(x => x.Split(new[] { ">>>UNIQUE_DELIMITER>>>" }, StringSplitOptions.None).LastOrDefault())
-        .ToList(); 
+            .Select(x => x.Split(new[] { ">>>UNIQUE_DELIMITER>>>" }, StringSplitOptions.None).LastOrDefault())
+            .ToList(); 
 
         UpdateCaloriesDisplay(savedCaloriesTrimmed);
 
@@ -45,7 +45,7 @@ public class DoorPopUp : MonoBehaviour
         {
             isPopupVisible = true; // Mark popup as visible
             animator.SetTrigger("open");
-            GlobalReference.GetReference<PlayerReference>().Player.setCameraHeight(10f);
+            GlobalReference.GetReference<PlayerReference>().Player.SetCameraHeight(10f);
         }
     }
 
@@ -55,7 +55,7 @@ public class DoorPopUp : MonoBehaviour
         {
             isPopupVisible = false; // Mark popup as not visible
             animator.SetTrigger("close");
-            GlobalReference.GetReference<PlayerReference>().Player.setCameraHeight(null); // height reset to default
+            GlobalReference.GetReference<PlayerReference>().Player.SetCameraHeight(null); // height reset to default
         }
     }
 
@@ -64,14 +64,9 @@ public class DoorPopUp : MonoBehaviour
         foreach (var image in calories)
         {
             string progressionOrder = ExtractProgressionOrder(image);
-            if (!savedCalories.Contains(progressionOrder))
-            {
-                SetImageAlpha(image, 0.5f); // Set alpha to 50%
-            }
-            else
-            {
-                SetImageAlpha(image, 1f); // Ensure collected items are fully visible
-            }
+            
+            if (!savedCalories.Contains(progressionOrder)) SetImageAlpha(image, 0.5f); // Set alpha to 50%
+            else SetImageAlpha(image, 1f); // Ensure collected items are fully visible
         }
     }
 

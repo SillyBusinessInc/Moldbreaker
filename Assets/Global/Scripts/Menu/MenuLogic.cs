@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using UnityEngine.Rendering;
 public class MenuLogic : MonoBehaviour
 {
     [SerializeField] private Confirmation confirmation;
@@ -11,10 +10,8 @@ public class MenuLogic : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UILogic.ShowCursor();
         continueButton.interactable = continueButtonActive();
-
     }
 
     public bool continueButtonActive()
