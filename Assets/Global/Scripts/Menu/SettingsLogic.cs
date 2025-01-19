@@ -60,7 +60,6 @@ public class SettingsLogic : MonoBehaviour
     public void OnMusicVolumeChange(float value)
     {
         AudioManager.Instance.UpdateMusicVolume(value * 8);
-        AudioManager.Instance.PlaySFX("AttackVOX2");
     }
 
     public void OnBack()

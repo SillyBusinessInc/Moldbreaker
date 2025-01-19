@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManagerReference : Reference
@@ -50,7 +49,7 @@ public class GameManagerReference : Reference
         ignoreInput = true;
     }
 
-    #region rooms
+#region rooms
 
     public Room activeRoom;
     private readonly List<Room> rooms = new();
@@ -70,7 +69,7 @@ public class GameManagerReference : Reference
     public List<Room> GetRooms() => rooms;
     public void ResetRooms() => rooms.Clear();
 
-    #endregion
+#endregion
 }
 
 [System.Serializable]

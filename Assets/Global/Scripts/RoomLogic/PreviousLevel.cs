@@ -5,6 +5,7 @@ public class PreviousLevel : MonoBehaviour
 {
     public static PreviousLevel Instance { get; private set; }
     public int prevLevel = -1;
+    public int prevLevelId = 0;
 
     protected void Awake()
     {
@@ -21,15 +22,16 @@ public class PreviousLevel : MonoBehaviour
 
     void Start()
     {
-        GlobalReference.SubscribeTo(Events.PLAYER_DIED, SetPreviousLevel);
+        GlobalReference.SubscribeTo(Events.PLAYER_DIED, this.SetLevelForRetry);
     }
 
-    private void SetPreviousLevel()
+    private void SetLevelForRetry()
     {
         prevLevel = SceneManager.GetSceneAt(1).buildIndex; // i hate how not safe this is but yeah [0] = basescene, [1] = level
+        prevLevelId = GlobalReference.GetReference<DoorManager>().currentId;
     }
 
-    public void ResetPreviousLevel()
+    public void ResetLevelForRetry()
     {
         prevLevel = -1;
     }

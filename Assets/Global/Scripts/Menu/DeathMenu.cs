@@ -46,7 +46,7 @@ public class DeathMenu : MonoBehaviour
         isDead = false;
         UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
-        if (PreviousLevel.Instance) PreviousLevel.Instance.ResetPreviousLevel();
+        if (PreviousLevel.Instance) PreviousLevel.Instance.ResetLevelForRetry();
 
         SceneManager.LoadScene("Menu");
     }

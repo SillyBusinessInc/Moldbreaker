@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RoomTransitionDoor : Interactable
+public class GateRoomTransition : Interactable
 {
     [Header("Materials")]
     [SerializeField] private GameObject portalEffect;
@@ -35,7 +35,9 @@ public class RoomTransitionDoor : Interactable
         else IsDisabled = !gameManagerReference.GetRoom(nextRoomId).unlocked;
 
         doorManager = GlobalReference.GetReference<DoorManager>();
-        nextRoomName = nextRoomType.ToString() + "_" + nextRoomIndex;
+        nextRoomName = $"{nextRoomType}_{nextRoomIndex}";
+        
+        Debug.Log($"HEY {doorManager.currentId}");
     }
 
     private void RoomFinished()

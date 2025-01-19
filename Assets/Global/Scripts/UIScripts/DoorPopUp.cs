@@ -19,7 +19,7 @@ public class DoorPopUp : MonoBehaviour
 
     void Start()
     {
-        int nextLevelId = transform.parent.GetComponent<RoomTransitionDoor>().nextRoomId;
+        int nextLevelId = transform.parent.GetComponent<GateRoomTransition>().nextRoomId;
         saveData = new CollectableSave(levelName);
         saveData.LoadAll();
         title.text = popupTitle;

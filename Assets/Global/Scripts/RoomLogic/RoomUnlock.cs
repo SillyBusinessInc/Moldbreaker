@@ -4,11 +4,11 @@ using UnityEngine;
 public class RoomUnlock : MonoBehaviour
 {
     private RoomSave saveData;
-    private RoomTransitionDoor door;
+    private GateRoomTransition door;
 
     void Start()
     {
-        door = GetComponent<RoomTransitionDoor>();
+        door = GetComponent<GateRoomTransition>();
         LockAndUnLock();
         GlobalReference.SubscribeTo(Events.LEVELS_CHANGED_BY_CHEAT, LockAndUnLock);
     }
