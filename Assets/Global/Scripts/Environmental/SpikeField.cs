@@ -10,8 +10,14 @@ public class SpikeField : MonoBehaviour
     [SerializeField, Range(0f,1f)] private float KnockBackUpPercentage = 0.75f;
  
     // It is static, so because of that, the cooldown is shared between all the spike cones
-    private static bool playerHit = false;
-
+    private static bool playerInvulnerable = false;
+    
+    void Start()
+    {
+        // Ensure that if you reload a level, that you can actually hit the player again. and that there is 
+        playerInvulnerable = false;
+    }
+    
     private void OnCollisionStay(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Player") ) return;
@@ -26,9 +32,9 @@ public class SpikeField : MonoBehaviour
     
     private bool CanPlayerHit()
     {
-        if (playerHit) return false;
+        if (playerInvulnerable) return false;
 
-        playerHit = true;
+        playerInvulnerable = true;
         this.StartCoroutine(this.ResetPlayerHit());
         return true;
     }
@@ -37,7 +43,6 @@ public class SpikeField : MonoBehaviour
     private IEnumerator ResetPlayerHit()
     {
         yield return new WaitForSeconds(cooldown);
-
-        playerHit = false;
+        playerInvulnerable = false;
     }
 }
