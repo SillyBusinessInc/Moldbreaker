@@ -4964,10 +4964,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  enemyDamage: 10
-  disableDuration: 1
-  knockbackForce: 10
-  leapForce: 5
+  cooldown: 1
+  knockBackStrength: 3
+  KnockBackUpPercentage: 0.75
 --- !u!65 &143951503
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -55521,10 +55520,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  enemyDamage: 10
-  disableDuration: 1
-  knockbackForce: 10
-  leapForce: 5
+  cooldown: 1
+  knockBackStrength: 3
+  KnockBackUpPercentage: 0.75
 --- !u!65 &1537062120
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -65506,10 +65504,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  enemyDamage: 10
-  disableDuration: 1
-  knockbackForce: 10
-  leapForce: 5
+  cooldown: 1
+  knockBackStrength: 3
+  KnockBackUpPercentage: 0.75
 --- !u!65 &1804549387
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66142,6 +66139,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: skybox_sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 1500765720118758852, guid: fb77bc2f43079544d8af38919f195338, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500765720118758852, guid: fb77bc2f43079544d8af38919f195338, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f8a0adb0220f7649a8a32837348f5ce, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -71936,10 +71941,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  enemyDamage: 10
-  disableDuration: 1
-  knockbackForce: 10
-  leapForce: 5
+  cooldown: 1
+  knockBackStrength: 3
+  KnockBackUpPercentage: 0.75
 --- !u!65 &1939022964
 BoxCollider:
   m_ObjectHideFlags: 0
