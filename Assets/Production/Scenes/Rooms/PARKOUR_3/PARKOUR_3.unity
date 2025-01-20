@@ -35625,6 +35625,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 79.202
       objectReference: {fileID: 0}
+    - target: {fileID: 4561890654424012251, guid: f75119874f26c99469076c6c914548cd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7042917079864847089, guid: f75119874f26c99469076c6c914548cd, type: 3}
       propertyPath: m_Name
       value: Poster Purple
