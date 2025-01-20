@@ -35517,16 +35517,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 1608439085}
     m_Modifications:
     - target: {fileID: 1667234686629725514, guid: f75119874f26c99469076c6c914548cd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.50503
+      objectReference: {fileID: 0}
+    - target: {fileID: 1667234686629725514, guid: f75119874f26c99469076c6c914548cd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.50503
+      objectReference: {fileID: 0}
+    - target: {fileID: 1667234686629725514, guid: f75119874f26c99469076c6c914548cd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.50503
+      objectReference: {fileID: 0}
+    - target: {fileID: 1667234686629725514, guid: f75119874f26c99469076c6c914548cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.99
+      value: 0.73
       objectReference: {fileID: 0}
     - target: {fileID: 1667234686629725514, guid: f75119874f26c99469076c6c914548cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 1667234686629725514, guid: f75119874f26c99469076c6c914548cd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 1.51
       objectReference: {fileID: 0}
     - target: {fileID: 1667234686629725514, guid: f75119874f26c99469076c6c914548cd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -74264,6 +74276,10 @@ PrefabInstance:
     - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
       propertyPath: nextRoomIndex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: interactionPrompt
+      value: '{interactKey} - Exit'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
