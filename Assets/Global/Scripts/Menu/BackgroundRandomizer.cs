@@ -16,7 +16,6 @@ public class BackgroundRandomizer : MonoBehaviour
     private float lastTimeSwitched = 0;
     private int lastIndex;
     [SerializeField] private float interval = 3;
-    // [SerializeField] private float minLoadTime = 5;
 
     void Start() => Switch();
     void Update() => Switch();

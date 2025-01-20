@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using EnemiesNS;
-
 
 public class Tail : MonoBehaviour
 {
@@ -22,7 +19,7 @@ public class Tail : MonoBehaviour
 
     [HideInInspector] public bool tailCanDoDamage = false;
     
-    [HideInInspector] public GameObject slamObject;
+    public GameObject slamObject;
     [HideInInspector] public float slamObjectSize = 1.0f;
 
     public void Start() {}
@@ -53,6 +50,7 @@ public class Tail : MonoBehaviour
             player.collidersEnemy.Contains(Collider)    ||
             Collider.GetComponent<EnemiesNS.EnemyBase>() == null
         ) return;
+        
         player.collidersEnemy.Add(Collider);
         float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));

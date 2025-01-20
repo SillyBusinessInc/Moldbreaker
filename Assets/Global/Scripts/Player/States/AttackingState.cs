@@ -1,6 +1,5 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
-using UnityEngine.Rendering;
 public class AttackingState : StateBase
 {
     public AttackingState(Player player) : base(player) { }
@@ -34,7 +33,7 @@ public class AttackingState : StateBase
 
         if (Player.recentHits > 0) Player.succesfullHitCounter += 1;
         else Player.succesfullHitCounter = 0;
-        Debug.Log($"recent: {Player.recentHits}, succesfull: {Player.succesfullHitCounter}");
+        // Debug.Log($"recent: {Player.recentHits}, succesfull: {Player.succesfullHitCounter}");
         Player.recentHits = 0;
     }
 
@@ -44,22 +43,17 @@ public class AttackingState : StateBase
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
     }
-
-    public override void Attack(InputAction.CallbackContext ctx) { }
-
-    public override void Move(InputAction.CallbackContext ctx)
+    
+    public override void Move(InputAction.CallbackContext ctx, bool ignoreInput = false)
     {
         Player.movementInput = ctx.ReadValue<Vector2>();
+        if (ignoreInput) Player.movementInput = new Vector2(0, 0);
     }
 
-    public override void Sprint(InputAction.CallbackContext ctx) { }
-
-    public override void Dodge(InputAction.CallbackContext ctx) { }
-
-    public override void Jump(InputAction.CallbackContext ctx) { }
-
-    public override void Glide(InputAction.CallbackContext ctx) { }
-
-    public override void Crouch(InputAction.CallbackContext ctx) { }
+    public override void Attack(InputAction.CallbackContext ctx) {}
+    public override void Sprint(InputAction.CallbackContext ctx) {}
+    public override void Dodge(InputAction.CallbackContext ctx) {}
+    public override void Jump(InputAction.CallbackContext ctx) {}
+    public override void Crouch(InputAction.CallbackContext ctx) {}
 
 }

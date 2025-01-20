@@ -9,7 +9,7 @@ public class DoorPopUp : MonoBehaviour
 {
     [SerializeField] private string levelName;
     [SerializeField] private string popupTitle;
-    [SerializeField] private string maxCrumbs;
+    [SerializeField] private int maxCrumbs;
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI crumbs;
     [SerializeField] private List<RawImage> calories;
@@ -19,17 +19,24 @@ public class DoorPopUp : MonoBehaviour
 
     void Start()
     {
+        int nextLevelId = transform.parent.GetComponent<GateRoomTransition>().nextRoomId;
         saveData = new CollectableSave(levelName);
         saveData.LoadAll();
         title.text = popupTitle;
-        crumbs.text = saveData.Get<int>("crumbs") + "/" + maxCrumbs;
+        int currentCount = saveData.Get<int>("crumbs");
+        crumbs.text = currentCount + "/" + maxCrumbs;
 
         List<string> savedCaloriesTrimmed = 
         saveData.Get<List<string>>("calories")
-        .Select(x => x.Split(new[] { ">>>UNIQUE_DELIMITER>>>" }, StringSplitOptions.None)
-        .LastOrDefault()).ToList(); 
+            .Select(x => x.Split(new[] { ">>>UNIQUE_DELIMITER>>>" }, StringSplitOptions.None).LastOrDefault())
+            .ToList(); 
 
         UpdateCaloriesDisplay(savedCaloriesTrimmed);
+
+        if (currentCount >= maxCrumbs) AchievementManager.Grant($"CRUMB_COLLECTOR_{nextLevelId}");
+        if (savedCaloriesTrimmed.Count >= 3) AchievementManager.Grant($"CALORIE_GAINER_{nextLevelId}");
+        AchievementManager.CheckLevelsCompletion();
+        AchievementManager.CheckGameCompletion();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -38,7 +45,7 @@ public class DoorPopUp : MonoBehaviour
         {
             isPopupVisible = true; // Mark popup as visible
             animator.SetTrigger("open");
-            GlobalReference.GetReference<PlayerReference>().Player.setCameraHeight(10f);
+            GlobalReference.GetReference<PlayerReference>().Player.SetCameraHeight(10f);
         }
     }
 
@@ -48,7 +55,7 @@ public class DoorPopUp : MonoBehaviour
         {
             isPopupVisible = false; // Mark popup as not visible
             animator.SetTrigger("close");
-            GlobalReference.GetReference<PlayerReference>().Player.setCameraHeight(null); // height reset to default
+            GlobalReference.GetReference<PlayerReference>().Player.SetCameraHeight(null); // height reset to default
         }
     }
 
@@ -57,14 +64,9 @@ public class DoorPopUp : MonoBehaviour
         foreach (var image in calories)
         {
             string progressionOrder = ExtractProgressionOrder(image);
-            if (!savedCalories.Contains(progressionOrder))
-            {
-                SetImageAlpha(image, 0.5f); // Set alpha to 50%
-            }
-            else
-            {
-                SetImageAlpha(image, 1f); // Ensure collected items are fully visible
-            }
+            
+            if (!savedCalories.Contains(progressionOrder)) SetImageAlpha(image, 0.5f); // Set alpha to 50%
+            else SetImageAlpha(image, 1f); // Ensure collected items are fully visible
         }
     }
 

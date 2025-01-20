@@ -1,7 +1,4 @@
-using System.Linq;
 using UnityEngine;
-using System.Collections;
-using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "LeftTail")]
 public class LeftTailAttack : TailAttack
@@ -20,9 +17,8 @@ public class LeftTailAttack : TailAttack
         ClipDuration(animator, duration, "Breadaplus|Bradley_attack1_L");
         animator.speed *= player.Tail.tailStatistic.increaseTailSpeed.GetValue();
         animator.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
-        animator.SetTrigger("LeftAttack");
 
-        player.playerAnimationsHandler.resetStates();
+        player.playerAnimationsHandler.ResetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 1);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }

@@ -1,18 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UpgradeOptions : Reference
 {
     [HideInInspector] public UpgradeOption option;
-    [SerializeField] private UpgradeList UpgradesUIList;
     public UpgradeOptionLogic UpgradeOptionLogic;
     [HideInInspector] public bool isShown = false;
 
     public List<ActionParamPair> interactionActions;
     [SerializeField] private Button confirmButton;
-    [SerializeField] private UIInputHandler handler;
 
     protected new void Awake()
     {
@@ -20,13 +17,12 @@ public class UpgradeOptions : Reference
         gameObject.SetActive(false);
     }
 
-    [ContextMenu("SHOW")]
     public void ShowOption()
     {
-        // handler.EnableInput("UI");
         isShown = true;
+        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
         UILogic.SelectButton(confirmButton);
-        SetCursorState(true, CursorLockMode.None);
+        UILogic.ShowCursor();
         Time.timeScale = 0;
         gameObject.SetActive(true);
 
@@ -37,27 +33,18 @@ public class UpgradeOptions : Reference
         }
     }
 
-    [ContextMenu("HIDE")]
     public void HideOption()
     {
         Time.timeScale = 1;
-        SetCursorState(false, CursorLockMode.Locked);
+        UILogic.HideCursor();
         gameObject.SetActive(false);
         isShown = false;
-        // handler.DisableInput("UI");
-    }
-
-    void SetCursorState(bool cursorVisible, CursorLockMode lockMode)
-    {
-        Cursor.visible = cursorVisible;
-        Cursor.lockState = lockMode;
+        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
     }
 
     public void Confirm()
     {
         if (!isShown) return;
-
-        // if (ctx.started && option != null) // ctx?? where is ctx?
         if (option != null)
         {
             foreach (ActionParamPair action in option.interactionActions)
@@ -71,8 +58,6 @@ public class UpgradeOptions : Reference
                 action.InvokeAction();
                 GlobalReference.AttemptInvoke(Events.STATISTIC_CHANGED);
             }
-
-            UpgradesUIList.AddUpgrade(option);
         }
         AudioManager.Instance.PlaySFX("PowerupPickup");
         HideOption();

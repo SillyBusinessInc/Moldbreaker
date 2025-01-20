@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.discord.game-sdk": "https://github.com/HouraiTeahouse/Discord-Game-SDK.git",
+    "com.rlabrecque.steamworks.net": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net#2024.8.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.5",
     "com.unity.cinemachine": "3.1.2",

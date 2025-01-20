@@ -16,16 +16,11 @@ namespace EnemiesNS
         [Range(0f, 100f)]
         public float attackKnockback = 2f;
         public GameObject impactVFX;
-        public Bullet(Vector3 position)
-        {
-            bulletDirection = position;
-        }
+
         void Start()
         {
             Shot();
         }
-
-
 
         void OnTriggerEnter(Collider hit)
         {
@@ -53,6 +48,7 @@ namespace EnemiesNS
         {
             Player player = GlobalReference.GetReference<PlayerReference>().Player;
             if (!player) return;
+            player.lastDamageCause = Player.DamageCause.ENEMY;
             player.OnHit(damage, Vector3.forward); // TODO: Add proper knockback direction 
 
             //TODO: implement knockback
@@ -73,7 +69,6 @@ namespace EnemiesNS
             Rigidbody rb = GetComponent<Rigidbody>();
 
             rb.linearVelocity = bulletDirection * bulletSpeed;
-
 
             // Destroy the bullet after its lifetime
             Destroy(gameObject, bulletLifeTime);

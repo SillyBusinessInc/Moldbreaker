@@ -1,61 +1,65 @@
+using System;
 using UnityEngine;
 using TMPro;
 using System.Collections;
 
 public class MoldMeter : MonoBehaviour
 {
-    private Player player;
-    [SerializeField] private TMP_Text MoldPercentageText;
-    [SerializeField] private float moldPercentage;
-    [SerializeField] private RectTransform MoldMeterImage;
-    private Coroutine moveCoroutine;
     [SerializeField] private float animationDuration = 0.5f; // Duration for smooth movement
-    private float savedMoldPercentage = -1;
+    [SerializeField] private TMP_Text HealthPercentageText;
+    [SerializeField] private RectTransform HealthMeterImage;
+    [SerializeField] private GameObject mold;
+    
+    private Coroutine moveCoroutine;
+    private int cashedHealthPercentage = -1;
 
-    void Start()
+    private void Awake()
     {
-        player = GlobalReference.GetReference<PlayerReference>().Player;
-
-        GlobalReference.SubscribeTo(Events.MOLDMETER_CHANGED, UpdateMoldMeter);
+        mold.SetActive(false);
+        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, UpdateMeter);
     }
 
-    void Update() => UpdateMoldMeter();
+    void Start() {
+        var currentScale = HealthMeterImage.localScale;
+        HealthMeterImage.localScale = new(-currentScale.x, currentScale.y, currentScale.z);
+    }
 
-    public void UpdateMoldMeter()
+    public void UpdateMeter()
     {
-     //    moldPercentage = player.playerStatistic.Moldmeter;
-     //    // if (moldPercentage < 100) moldPercentage += 0.01f;
-     //    if (savedMoldPercentage == moldPercentage) return;
-     //    savedMoldPercentage = moldPercentage;
-     //    
-     //    string decimals = moldPercentage >= 100 || moldPercentage == 0 ? "F0" : "F1";
-     //    MoldPercentageText.text = moldPercentage.ToString(decimals) + '%';
-// 
-     //    float barWidth = GetComponent<RectTransform>().rect.width;
-     //    float targetPosX = (1 - moldPercentage / 100) * -1 * barWidth + barWidth * 0.01f;
-     //    Vector2 targetPosition = new(targetPosX, MoldMeterImage.anchoredPosition.y);
-// 
-     //    // Start smooth movement
-     //    if (moveCoroutine != null)
-     //    {
-     //        StopCoroutine(moveCoroutine); // Stop any ongoing movement
-     //    }
-     //    moveCoroutine = StartCoroutine(SmoothMove(MoldMeterImage, targetPosition, animationDuration));
+        var player = GlobalReference.GetReference<PlayerReference>().Player;
+        var maxHealth = player.playerStatistic.MaxHealth.GetValue();
+        var newPercentage = (int)(player.playerStatistic.Health / maxHealth * 100);
+        if (cashedHealthPercentage == newPercentage) return;
+        
+        cashedHealthPercentage = newPercentage;
+
+        // If the percentage is 100% (or more for that matter),
+        // it still show a little artifact of the mold which we dont want. and so that's why we turn it off
+        mold.SetActive(newPercentage < 100);
+        
+        HealthPercentageText.text =  $"{newPercentage}%";
+        var barWidth = GetComponent<RectTransform>().rect.width;
+        var targetPosX = newPercentage / 100f * barWidth;
+        var targetPosition = new Vector2(targetPosX, HealthMeterImage.anchoredPosition.y);
+
+        // start smooth movement
+        if (moveCoroutine != null) StopCoroutine(moveCoroutine); // stop any ongoing movement
+        moveCoroutine = StartCoroutine(SmoothMove(HealthMeterImage, targetPosition, animationDuration));
     }
 
     private IEnumerator SmoothMove(RectTransform rect, Vector2 target, float duration)
     {
-        Vector2 startPosition = rect.anchoredPosition;
-        float elapsedTime = 0f;
+        var startPosition = rect.anchoredPosition;
+        var elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / duration); // Normalize time (0 to 1)
+            var t = Mathf.Clamp01(elapsedTime / duration);
             rect.anchoredPosition = Vector2.Lerp(startPosition, target, t);
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        rect.anchoredPosition = target; // Ensure it reaches the target position
+        rect.anchoredPosition = target;
     }
 }

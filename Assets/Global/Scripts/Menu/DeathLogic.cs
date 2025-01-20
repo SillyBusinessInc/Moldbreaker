@@ -9,8 +9,7 @@ public class DeathLogic : MonoBehaviour
     private void Start()
     {
         StartCoroutine(GameOver());
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UILogic.ShowCursor();
     }
 
     private IEnumerator GameOver()

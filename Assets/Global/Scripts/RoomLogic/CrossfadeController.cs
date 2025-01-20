@@ -6,10 +6,6 @@ public class CrossfadeController : Reference
     public Animator animator;
     private float transitionTime = 1f;
 
-    // void Start() {
-    //     animator.SetTrigger("end");
-    // }
-
     public IEnumerator Crossfade_Start() {
         animator.SetTrigger("start");
         yield return new WaitForSeconds(transitionTime);

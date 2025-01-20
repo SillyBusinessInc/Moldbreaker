@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace EnemiesNS
 {
     public class RangedDeadState : BaseDeadState

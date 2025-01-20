@@ -1,7 +1,4 @@
-using System.Linq;
 using UnityEngine;
-using System.Collections;
-using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "RightTail")]
 public class RightTailAttack : TailAttack
@@ -21,7 +18,7 @@ public class RightTailAttack : TailAttack
         animator.speed *= player.Tail.tailStatistic.increaseTailSpeed.GetValue();
         animator.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
 
-        player.playerAnimationsHandler.resetStates();
+        player.playerAnimationsHandler.ResetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 0);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }

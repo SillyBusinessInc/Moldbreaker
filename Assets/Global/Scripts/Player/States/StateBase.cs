@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,17 +10,18 @@ public abstract class StateBase
         Player = player;
     }
 
-    public virtual void Enter() { }
-    public virtual void Exit() { }
-    public virtual void Update() { }
-    public virtual void FixedUpdate() { }
-    public virtual void OnCollisionEnter(Collision collision) { }
-    public virtual void OnCollisionExit(Collision collision) { }
+    public virtual void Enter() {}
+    public virtual void Exit() {}
+    public virtual void Update() {}
+    public virtual void FixedUpdate() {}
+    public virtual void OnCollisionEnter(Collision collision) {}
+    public virtual void OnCollisionExit(Collision collision) {}
 
     // Input handling
-    public virtual void Move(InputAction.CallbackContext ctx)
+    public virtual void Move(InputAction.CallbackContext ctx, bool ignoreInput = false)
     {
         Player.movementInput = ctx.ReadValue<Vector2>();
+        if (ignoreInput) Player.movementInput = new Vector2(0, 0);
         if (ctx.performed && Player.currentState != Player.states.Walking && Player.isGrounded)
         {
             Player.SetState(Player.states.Walking);
@@ -41,15 +41,13 @@ public abstract class StateBase
     public virtual void Dodge(InputAction.CallbackContext ctx)
     {
         if (Player.playerStatistic.CanDodge.GetValueInt() <= 0) return;
-        
+
         if (ctx.started)
         {
             Player.isHoldingDodge = true;
-            if (Player.canDodgeRoll)
-            {
-                Player.SetState(Player.states.DodgeRoll);
-            }
+            if (Player.canDodgeRoll) Player.SetState(Player.states.DodgeRoll);
         }
+
         if (ctx.canceled)
         {
             Player.isHoldingDodge = false;
@@ -60,31 +58,13 @@ public abstract class StateBase
     {
         if (ctx.started)
         {
-            if (Player.isGrounded)
-            {
-                Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
-                Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
-            }
-            else
-            {
-                Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
-            }
-
             Player.isHoldingJump = true;
             Player.SetState(Player.states.Jumping);
         }
+
         if (ctx.canceled)
         {
             Player.isHoldingJump = false;
-        }
-
-    }
-
-    public virtual void Glide(InputAction.CallbackContext ctx)
-    {
-        if (ctx.canceled)
-        {
-            Player.SetState(Player.states.Falling);
         }
     }
 
@@ -92,7 +72,7 @@ public abstract class StateBase
 
     public virtual void Attack(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.performed)
         {
             Player.SetState(Player.states.Attacking);
         }

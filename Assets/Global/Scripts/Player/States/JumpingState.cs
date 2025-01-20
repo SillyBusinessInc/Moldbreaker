@@ -3,10 +3,16 @@ using UnityEngine.InputSystem;
 
 public class JumpingState : StateBase
 {
-    public JumpingState(Player player) : base(player) {}
+    public JumpingState(Player player) : base(player) { }
 
     public override void Enter()
     {
+        // play animation
+        Player.playerAnimationsHandler.animator.ResetTrigger("IsLanding");
+        Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
+        Player.playerAnimationsHandler.SetBool("IsJumpingBool", true);
+        Player.playerAnimationsHandler.animator.SetTrigger("IsJumping");
+
         // play particleSystem
         Player.particleSystemJump.Play();
 
@@ -17,6 +23,9 @@ public class JumpingState : StateBase
         // change state to falling after a bit to give the player some time to reach intended height
         AudioManager.Instance.PlaySFX("JumpSFX");
         Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.maxJumpHoldTime, true));
+
+        // update grounded status
+        Player.isGrounded = false;
     }
 
     public override void Update()
@@ -25,8 +34,9 @@ public class JumpingState : StateBase
         if (!Player.isHoldingJump) Player.SetState(Player.states.Falling);
     }
 
-    public override void Move(InputAction.CallbackContext ctx)
+    public override void Move(InputAction.CallbackContext ctx, bool ignoreInput = false)
     {
         Player.movementInput = ctx.ReadValue<Vector2>();
+        if (ignoreInput) Player.movementInput = new Vector2(0, 0);
     }
 }
