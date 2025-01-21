@@ -19,15 +19,23 @@ MonoBehaviour:
     index: 0
   - controlPath: 5
     icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
-    sprite: {fileID: 21300000, guid: 454e1f8675d93b24f95cddc303b4ca1b, type: 3}
+    sprite: {fileID: 21300000, guid: 7dbbf34bb1297f24cab5c647851badea, type: 3}
     index: 0
   - controlPath: 6
     icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
-    sprite: {fileID: 21300000, guid: 454e1f8675d93b24f95cddc303b4ca1b, type: 3}
+    sprite: {fileID: 21300000, guid: 7dbbf34bb1297f24cab5c647851badea, type: 3}
     index: 0
   - controlPath: 7
     icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
     sprite: {fileID: 21300000, guid: 454e1f8675d93b24f95cddc303b4ca1b, type: 3}
+    index: 0
+  - controlPath: 10
+    icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
+    sprite: {fileID: 21300000, guid: 92c89aa1b365fba4883afe91b890f2f3, type: 3}
+    index: 0
+  - controlPath: 14
+    icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
+    sprite: {fileID: 21300000, guid: 92c89aa1b365fba4883afe91b890f2f3, type: 3}
     index: 0
   keyboardMappings:
   - keyboardMapping: 19
@@ -49,7 +57,7 @@ MonoBehaviour:
     index: 0
   - controlPath: 4
     icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 6a722135fd0ca9e43b90dac54ef8cab0, type: 3}
     index: 0
   - controlPath: 7
     icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
@@ -62,4 +70,12 @@ MonoBehaviour:
   - controlPath: 6
     icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
     sprite: {fileID: 21300000, guid: 6a722135fd0ca9e43b90dac54ef8cab0, type: 3}
+    index: 0
+  - controlPath: 14
+    icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
+    sprite: {fileID: 21300000, guid: 9f460b473e3da7c44b1d63eabf4732b4, type: 3}
+    index: 0
+  - controlPath: 10
+    icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
+    sprite: {fileID: 21300000, guid: 9f460b473e3da7c44b1d63eabf4732b4, type: 3}
     index: 0
