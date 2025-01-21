@@ -606,17 +606,6 @@
                 },
                 {
                     "name": "",
-                    "id": "b16ac796-68b3-48d4-801d-468dbeb13e58",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8cb4cc0d-4a63-4a5c-a334-78e016b17ec7",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",

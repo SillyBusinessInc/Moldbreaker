@@ -256,13 +256,25 @@ PrefabInstance:
       value: 11.141639
       objectReference: {fileID: 0}
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: xboxImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 63885ae4419b844449a1447737a7549c, type: 3}
+    - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: controlImage
       value: 
       objectReference: {fileID: 47187332}
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: keyboardImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 454e1f8675d93b24f95cddc303b4ca1b, type: 3}
+    - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: ControllerImage
       value: 
       objectReference: {fileID: 21300000, guid: 454e1f8675d93b24f95cddc303b4ca1b, type: 3}
+    - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: playStationImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 7dbbf34bb1297f24cab5c647851badea, type: 3}
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: keyboardControlImage
       value: 
