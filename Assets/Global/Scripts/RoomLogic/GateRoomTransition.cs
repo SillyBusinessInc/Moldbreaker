@@ -18,14 +18,15 @@ public class GateRoomTransition : Interactable
     private bool showCredits = false;
 
     private GameManagerReference gameManagerReference;
-    private CrossfadeController crossfadeController;
     private DoorManager doorManager;
 
     private string currentScenename;
     private void Awake()
     {
-        IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
-        crossfadeController = GlobalReference.GetReference<CrossfadeController>();
+        // ugly fix so maybe we have to change in the future
+        IsDisabled = IsDisabled; // However, don't remove it until we changed it.
+        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
+        StartCoroutine(crossfadeController.Crossfade_End());
     }
 
     public void Initialize()
@@ -61,6 +62,7 @@ public class GateRoomTransition : Interactable
 
     private IEnumerator LoadNextRoom()
     {
+        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         yield return StartCoroutine(LoadRoomCoroutine());
     }
