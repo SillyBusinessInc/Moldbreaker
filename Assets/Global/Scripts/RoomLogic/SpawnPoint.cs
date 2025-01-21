@@ -26,7 +26,7 @@ public class SpawnPoint : MonoBehaviour
 
     private bool IsInitialSpawnPoint()
     {
-        return gameObject.CompareTag("InitialSpawn");
+        return gameObject.CompareTag("PlayerSpawnPoint");
     }
 
     private IEnumerator InitialSpawn()
