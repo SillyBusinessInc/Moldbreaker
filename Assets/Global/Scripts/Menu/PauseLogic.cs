@@ -23,7 +23,7 @@ public class PauseLogic : MonoBehaviour
         isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
 
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         Menu.SetActive(!Menu.activeSelf);
 
         // Upgrades.SetActive(!Upgrades.activeSelf); 
@@ -35,7 +35,7 @@ public class PauseLogic : MonoBehaviour
     {
         isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
         // Upgrades.SetActive(!Upgrades.activeSelf); 
@@ -47,7 +47,7 @@ public class PauseLogic : MonoBehaviour
     {
         isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
         // Upgrades.SetActive(!Upgrades.activeSelf);

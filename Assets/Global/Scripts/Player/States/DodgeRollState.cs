@@ -21,11 +21,11 @@ public class DodgeRollState : StateBase
         int chance = random.Next(1, 101);
         if (chance == 1)
         {
-            AudioManager.Instance.PlaySFX("fart");
+            GlobalReference.GetReference<AudioManager>().PlaySFX("fart");
         }
         else
         {
-            AudioManager.Instance.PlaySFX("Dash");
+            GlobalReference.GetReference<AudioManager>().PlaySFX("Dash");
         }        
         Player.timeLastDodge = Time.time;
         Player.playerAnimationsHandler.SetBool("Dodgerolling", true);

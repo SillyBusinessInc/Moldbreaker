@@ -307,7 +307,7 @@ public class Player : MonoBehaviour
 
         if (direction != Vector3.zero) currentState.Hurt(direction);
 
-        AudioManager.Instance.PlaySFX("PainSFX");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("PainSFX");
 
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
@@ -339,7 +339,7 @@ public class Player : MonoBehaviour
     {
         CollectableSave saveData = new(SceneManager.GetActiveScene().name);
         PlayerPrefs.SetInt("level", GlobalReference.GetReference<GameManagerReference>().activeRoom.id);
-        AudioManager.Instance.PlaySFX("Death");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Death");
         saveData.LoadAll();
         SetState(states.Death);
     }

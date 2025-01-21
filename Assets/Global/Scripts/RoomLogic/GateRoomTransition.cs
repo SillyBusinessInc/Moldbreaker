@@ -51,7 +51,7 @@ public class GateRoomTransition : Interactable
         Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel == null) AchievementManager.Grant("RISE_OF_THE_LOAF");
         else nextLevel.unlocked = true;
-        AudioManager.Instance.PlaySFX("PortalSFX");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("PortalSFX");
         StartCoroutine(LoadNextRoom());
         Player p = GlobalReference.GetReference<PlayerReference>().Player;
         p.SetCameraHeight(null); // height reset to default

@@ -11,16 +11,16 @@ public class AudioRunScene : MonoBehaviour
     {
         if(loop)
         {
-            AudioManager.Instance.PlayMusicOnRepeat(audioSongName);
+            GlobalReference.GetReference<AudioManager>().PlayMusicOnRepeat(audioSongName);
         }
         else
         {
-            AudioManager.Instance.PlayMusic(audioSongName);
+            GlobalReference.GetReference<AudioManager>().PlayMusic(audioSongName);
         }
     }
 
     void OnDestroy()
     {
-        AudioManager.Instance.StopMusicSound(audioSongName);
+        GlobalReference.GetReference<AudioManager>().StopMusicSound(audioSongName);
     }
 }

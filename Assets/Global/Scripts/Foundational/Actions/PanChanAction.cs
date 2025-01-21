@@ -10,7 +10,7 @@ public class PanChanAction : OneParamAction
         int randomIndex = Random.Range(1, 4);
         string randomSFX = $"PanClick{randomIndex}";
 
-        AudioManager.Instance.PlaySFX(randomSFX);
+        GlobalReference.GetReference<AudioManager>().PlaySFX(randomSFX);
 
         this.totalClicks += 1;
         if (this.totalClicks >= 69) AchievementManager.Grant("PAN_CHAN");

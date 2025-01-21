@@ -1,18 +1,15 @@
 using UnityEngine;
 using System;
 using UnityEngine.Audio;
-public class AudioManager : MonoBehaviour
+public class AudioManager : Reference
 {
     [Header("Audio Sounds")]
     public Sound[] musicSounds, sfxSounds;
     public AudioMixer audioMixer;
 
-    [HideInInspector] public static AudioManager Instance;
-
-    void Awake()
+    protected override void Awake()
     {
-        if (Instance != null) Destroy(gameObject);
-        Instance = this;
+        base.Awake();
         DontDestroyOnLoad(gameObject);
     }
 
