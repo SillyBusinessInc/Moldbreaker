@@ -60264,10 +60264,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1472455963}
     m_Modifications:
-    - target: {fileID: 5015429582893099330, guid: 664ac289059daf04d9ef004894f05bc6, type: 3}
-      propertyPath: pickupRange
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7150653962612054907, guid: 664ac289059daf04d9ef004894f05bc6, type: 3}
       propertyPath: m_Name
       value: Bread crumbs (63)
