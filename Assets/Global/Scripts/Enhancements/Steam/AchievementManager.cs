@@ -23,7 +23,9 @@ public static class AchievementManager
             "CALORIE_GAINER_3",
             "LOAF_COMPLETIONIST",
             "MOLDBREAKER",
-            "PAN_CHAN"
+            "PAN_CHAN",
+            "BETRAYAL",
+            "KONAMI_CODE"
         };
         
         progression = new();
@@ -85,7 +87,9 @@ public static class AchievementManager
             !progression["CALORIE_GAINER_2"]    ||
             !progression["CALORIE_GAINER_3"]    ||
             !progression["LOAF_COMPLETIONIST"]  ||
-            !progression["PAN_CHAN"]
+            !progression["PAN_CHAN"]            ||
+            !progression["BETRAYAL"]            ||
+            !progression["KONAMI_CODE"]
         ) return;
 
         Grant("MOLDBREAKER");
