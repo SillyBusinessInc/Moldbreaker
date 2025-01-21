@@ -40,7 +40,8 @@ public class PauseLogic : MonoBehaviour
         Menu.SetActive(!Menu.activeSelf);
         // Upgrades.SetActive(!Upgrades.activeSelf); 
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Settings");
+        // SceneManager.LoadScene("Settings");
+        SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
     public void QuitGame()
