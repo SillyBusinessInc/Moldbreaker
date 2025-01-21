@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
             new (0, 0, rb.GetComponent<Collider>().bounds.extents.z),
             new (0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
             new (rb.GetComponent<Collider>().bounds.extents.x, 0, 0),
-            new (-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
+            new (-rb.GetComponent<Collider>().bounds.extents.x, 0, 0),
         };
 
         foreach (var offset in raycastOffsets)
@@ -291,8 +291,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnHit(float damage, Vector3 direction)
+    public void OnHit(float damage, Vector3 direction, DamageCause cause)
     {
+        // update damage cause
+        lastDamageCause = cause;
+
         // check if bradley should be invincible
         if (CheatCodeSystem.InvulnerableCheatActivated) return;
         if (roomInvulnerability) return;
@@ -303,7 +306,7 @@ public class Player : MonoBehaviour
 
         if (direction != Vector3.zero) currentState.Hurt(direction);
 
-        AudioManager.Instance.PlaySFX("PainSFX");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("PainSFX");
 
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
@@ -335,7 +338,7 @@ public class Player : MonoBehaviour
     {
         CollectableSave saveData = new(SceneManager.GetActiveScene().name);
         PlayerPrefs.SetInt("level", GlobalReference.GetReference<GameManagerReference>().activeRoom.id);
-        AudioManager.Instance.PlaySFX("Death");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Death");
         saveData.LoadAll();
         SetState(states.Death);
     }
@@ -375,9 +378,11 @@ public class Player : MonoBehaviour
         f.SetRandomFeedback();
     }
 
-    public enum DamageCause{
-        NONE,
-        ENEMY,
-        HAZARD
-    }
+}
+
+public enum DamageCause{
+    NONE,
+    ENEMY,
+    HAZARD,
+    PLAYER
 }

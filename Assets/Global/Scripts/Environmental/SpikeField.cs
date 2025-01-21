@@ -24,10 +24,8 @@ public class SpikeField : MonoBehaviour
         if (!this.CanPlayerHit()) return;
         
         var player = GlobalReference.GetReference<PlayerReference>().Player;
-        player.lastDamageCause = Player.DamageCause.HAZARD;
-        var knockBackDirection = Vector3.up * this.KnockBackUpPercentage +
-                                 collision.GetContact(0).normal * (1f - this.KnockBackUpPercentage);
-        player.OnHit(this.damage, knockBackDirection * knockBackStrength);
+        var knockBackDirection = Vector3.up * this.KnockBackUpPercentage + collision.GetContact(0).normal * (1f - this.KnockBackUpPercentage);
+        player.OnHit(this.damage, knockBackDirection * knockBackStrength, DamageCause.HAZARD);
     }
     
     private bool CanPlayerHit()

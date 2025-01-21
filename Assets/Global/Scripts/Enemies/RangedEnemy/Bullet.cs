@@ -34,12 +34,12 @@ namespace EnemiesNS
                 var enemy = hit.gameObject.GetComponent<EnemyBase>();
                 if (enemy != null)
                 {
-                    enemy.OnHit(bulletEnemyDamage);
+                    enemy.OnHit(bulletEnemyDamage, DamageCause.ENEMY);
                 }
             }
 
 
-            AudioManager.Instance.PlaySFX("ShotExplosion", transform.position);
+            GlobalReference.GetReference<AudioManager>().PlaySFX("ShotExplosion", transform.position);
             PlayImpactVFX();
             Destroy(gameObject);
         }
@@ -48,8 +48,7 @@ namespace EnemiesNS
         {
             Player player = GlobalReference.GetReference<PlayerReference>().Player;
             if (!player) return;
-            player.lastDamageCause = Player.DamageCause.ENEMY;
-            player.OnHit(damage, Vector3.forward); // TODO: Add proper knockback direction 
+            player.OnHit(damage, Vector3.forward, DamageCause.ENEMY); // TODO: Add proper knockback direction 
 
             //TODO: implement knockback
             // player.applyKnockback(CalculatedKnockback(playerObject), attackKnockback);
