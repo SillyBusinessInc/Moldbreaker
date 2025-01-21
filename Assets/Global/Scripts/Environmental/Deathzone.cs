@@ -32,7 +32,7 @@ public class Deathzone : MonoBehaviour
         if (enemy)
         {
             // deal damage to equal the amount of MAX health times 2 just to be sure.
-            enemy.OnHit(enemy.maxHealth * 2);
+            enemy.OnHit(enemy.maxHealth * 2, DamageCause.HAZARD);
             return;
         }
     }
@@ -41,9 +41,8 @@ public class Deathzone : MonoBehaviour
     {
         // get the actual player object to damage.
         Player playerRef = playerReference.Player;
-        playerRef.lastDamageCause = Player.DamageCause.HAZARD;
         GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
-        playerRef.OnHit(playerRef.playerStatistic.MaxHealth.GetValue() * damageAmount, new Vector3(0, 0, 0));
+        playerRef.OnHit(playerRef.playerStatistic.MaxHealth.GetValue() * damageAmount, new Vector3(0, 0, 0), DamageCause.HAZARD);
 
         // start the crossfade
         //if (crossfadeController) yield return StartCoroutine(crossfadeController.Crossfade_Start());

@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
             new (0, 0, rb.GetComponent<Collider>().bounds.extents.z),
             new (0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
             new (rb.GetComponent<Collider>().bounds.extents.x, 0, 0),
-            new (-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
+            new (-rb.GetComponent<Collider>().bounds.extents.x, 0, 0),
         };
 
         foreach (var offset in raycastOffsets)
@@ -292,8 +292,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnHit(float damage, Vector3 direction)
+    public void OnHit(float damage, Vector3 direction, DamageCause cause)
     {
+        // update damage cause
+        lastDamageCause = cause;
+
         // check if bradley should be invincible
         if (CheatCodeSystem.InvulnerableCheatActivated) return;
         if (roomInvulnerability) return;
@@ -376,9 +379,11 @@ public class Player : MonoBehaviour
         f.SetRandomFeedback();
     }
 
-    public enum DamageCause{
-        NONE,
-        ENEMY,
-        HAZARD
-    }
+}
+
+public enum DamageCause{
+    NONE,
+    ENEMY,
+    HAZARD,
+    PLAYER
 }

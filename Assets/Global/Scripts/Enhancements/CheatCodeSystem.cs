@@ -17,7 +17,8 @@ public class CheatCodeSystem : MonoBehaviour
         { "UUDLR", InvokeInstantDeath },
         { "DDRLU", InvokeRestoreFullHp },
         { "UDLRUD", InvokeToggleInvulnerability },
-        { "UDLRRLDD", InvokeEnableAllLevels }
+        { "UDLRRLDD", InvokeEnableAllLevels },
+        { "UUDDLRLR", () => AchievementManager.Grant("KONAMI_CODE")}
     }; 
     
     [Header("Debugging")]
@@ -104,7 +105,7 @@ public class CheatCodeSystem : MonoBehaviour
     private static void InvokeInstantDeath()
     {
         InvulnerableCheatActivated = false;
-        GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero);
+        GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero, DamageCause.NONE);
     }
     
     private static void InvokeEnableAllLevels()

@@ -77,6 +77,7 @@ namespace EnemiesNS
         [HideInInspector] public bool isChasing = false;
         [HideInInspector] public bool isWaiting = false;
         [HideInInspector] public float distanceToPlayer;
+        [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
 
         [Header("Base attack settings | ignored on moldcores")]
         [Tooltip("The range of the attack")]
@@ -215,8 +216,9 @@ namespace EnemiesNS
 
         protected void FxedUpdate() => currentState?.FixedUpdate();
 
-        public virtual void OnHit(int damage)
+        public virtual void OnHit(int damage, DamageCause cause)
         {
+            lastDamageCause = cause;
             health -= damage;
             AudioManager.Instance.PlaySFX("HitEnemy");
             if (animator) animator.SetTrigger("PlayDamageFlash");
@@ -243,6 +245,8 @@ namespace EnemiesNS
             ChangeState(states.Dead);
             agent.isStopped = true;
             SetCelebrateModel(true);
+
+            if (lastDamageCause == DamageCause.ENEMY) AchievementManager.Grant("BETRAYAL");
 
             GlobalReference.Statistics.Increase("enemies_cleansed", 1);
             if (GlobalReference.Statistics.Get<int>("enemies_cleansed") >= 5) AchievementManager.Grant("BEGONE_MOLD");
@@ -347,8 +351,7 @@ namespace EnemiesNS
         {
             Player player = playerObject.GetComponentInParent<Player>();
             if (!player) return;
-            player.lastDamageCause = Player.DamageCause.ENEMY;
-            player.OnHit(damage, transform.forward);
+            player.OnHit(damage, transform.forward, DamageCause.ENEMY);
             player.ApplyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 
