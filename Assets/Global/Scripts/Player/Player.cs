@@ -382,7 +382,7 @@ public class Player : MonoBehaviour
 
     public void SetRandomFeedback()
     {
-        if (Tail.CanShowFeedback && recentHits % 3 == 1) {
+        if (Tail.CanShowFeedback && recentHits > 2) {
             var f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
             f.SetRandomFeedback();
         }
