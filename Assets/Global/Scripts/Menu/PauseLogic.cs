@@ -10,12 +10,20 @@ public class PauseLogic : MonoBehaviour
     private bool isPaused;
     [SerializeField] private Button continueButton;
     [SerializeField] private UIInputHandler handler;
+    [SerializeField] private GameObject controlImage;
+    [SerializeField] private Sprite keyboardControlImage;
+    [SerializeField] private Sprite ControllerImage;
+    private PlayerInput playerInput;
+
 
     void Start()
     {
         handler.EnableInput("UI");
         Menu.SetActive(false);
+        controlImage.SetActive(false);
         isPaused = false;
+        playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
+
     }
 
     public void ContinueGame()
@@ -25,7 +33,7 @@ public class PauseLogic : MonoBehaviour
 
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         Menu.SetActive(!Menu.activeSelf);
-
+        controlImage.SetActive(!controlImage.activeSelf);
         // Upgrades.SetActive(!Upgrades.activeSelf); 
         UILogic.HideCursor();
         Time.timeScale = 1f;
@@ -38,6 +46,7 @@ public class PauseLogic : MonoBehaviour
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
+        controlImage.SetActive(!controlImage.activeSelf);
         // Upgrades.SetActive(!Upgrades.activeSelf); 
         Time.timeScale = 1f;
         // SceneManager.LoadScene("Settings");
@@ -51,6 +60,7 @@ public class PauseLogic : MonoBehaviour
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
+        controlImage.SetActive(!controlImage.activeSelf);
         // Upgrades.SetActive(!Upgrades.activeSelf);
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
@@ -65,9 +75,15 @@ public class PauseLogic : MonoBehaviour
             isPaused = !isPaused;
             Menu.SetActive(!Menu.activeSelf);
             UILogic.SelectButton(continueButton);
-            // Upgrades.SetActive(!Upgrades.activeSelf); 
             Time.timeScale = isPaused ? 0f : 1f;
             GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
+            controlImage.SetActive(!controlImage.activeSelf);
+            Image controlImage1 = controlImage.GetComponent<Image>();
+            if (!IsControllerInput()) {
+                controlImage1.sprite = keyboardControlImage;
+            } else {
+                controlImage1.sprite = ControllerImage;
+            }
         }
 
         if (isPaused == true)
@@ -88,5 +104,10 @@ public class PauseLogic : MonoBehaviour
                 // handler.DisableInput("UI");
             }
         }
+    }
+    bool IsControllerInput()
+    {
+        string deviceLayout = playerInput.currentControlScheme;
+        return (Gamepad.current != null && deviceLayout == "Gamepad");
     }
 }
