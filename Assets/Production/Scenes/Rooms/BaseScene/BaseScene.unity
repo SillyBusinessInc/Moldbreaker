@@ -145,7 +145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 894933847975091529, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_fontSize
-      value: 32.6
+      value: 37.5
       objectReference: {fileID: 0}
     - target: {fileID: 2151410652353034704, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_Pivot.x
@@ -256,9 +256,13 @@ PrefabInstance:
       value: 11.141639
       objectReference: {fileID: 0}
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: bgImage
+      value: 
+      objectReference: {fileID: 47187330}
+    - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: xboxImage
       value: 
-      objectReference: {fileID: 21300000, guid: 63885ae4419b844449a1447737a7549c, type: 3}
+      objectReference: {fileID: 21300000, guid: a357cc7ed3cbe44eb8a39e314a4f50bc, type: 3}
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: controlImage
       value: 
@@ -266,7 +270,7 @@ PrefabInstance:
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: keyboardImage
       value: 
-      objectReference: {fileID: 21300000, guid: 454e1f8675d93b24f95cddc303b4ca1b, type: 3}
+      objectReference: {fileID: 21300000, guid: b02d4f85c782a43a8bb7744a23ccfacb, type: 3}
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: ControllerImage
       value: 
@@ -274,7 +278,7 @@ PrefabInstance:
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: playStationImage
       value: 
-      objectReference: {fileID: 21300000, guid: 7dbbf34bb1297f24cab5c647851badea, type: 3}
+      objectReference: {fileID: 21300000, guid: 7401c27ecb44245b6a0cffcda7b350ea, type: 3}
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: keyboardControlImage
       value: 
@@ -285,7 +289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6666084877976083617, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_fontSize
-      value: 23.05
+      value: 24.35
       objectReference: {fileID: 0}
     - target: {fileID: 6683048801453430899, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_Name
@@ -298,6 +302,10 @@ PrefabInstance:
     - target: {fileID: 6698289714643032810, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721939878058932432, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7004815509592250889, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_SizeDelta.x
@@ -325,19 +333,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8262011027884267000, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 421.3824
       objectReference: {fileID: 0}
     - target: {fileID: 8262011027884267000, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 265
+      value: 350.1352
       objectReference: {fileID: 0}
     - target: {fileID: 8262011027884267000, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 368
+      value: 413.8751
       objectReference: {fileID: 0}
     - target: {fileID: 8262011027884267000, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 26
+      value: 23.8111
       objectReference: {fileID: 0}
     - target: {fileID: 8760826567388013142, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_SizeDelta.y
@@ -351,9 +359,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8907718130298349966, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8927032835729698575, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_fontSize
-      value: 21.7
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -361,6 +373,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+--- !u!1 &47187330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2676802609964093218, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+  m_PrefabInstance: {fileID: 47187329}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &47187331 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
@@ -532,7 +549,7 @@ PrefabInstance:
     - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: fadeImage
       value: 
-      objectReference: {fileID: 1187896984}
+      objectReference: {fileID: 0}
     - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: glideDrag
       value: 10
@@ -548,7 +565,7 @@ PrefabInstance:
     - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: crossfadeController
       value: 
-      objectReference: {fileID: 1343814472}
+      objectReference: {fileID: 0}
     - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: dodgeRollDeceleration
       value: 10
@@ -562,28 +579,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
---- !u!114 &1187896984 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6467284171996353557, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-  m_PrefabInstance: {fileID: 47187329}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1343814472 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3770924072842852824, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-  m_PrefabInstance: {fileID: 47187329}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ebabb1c12984a1f957891b4c3f1b8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1794355750
 GameObject:
   m_ObjectHideFlags: 0
