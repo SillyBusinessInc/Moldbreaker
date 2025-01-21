@@ -1,41 +1,31 @@
-// using UnityEngine;
+using UnityEngine;
 
-// public class ScreenMode : MonoBehaviour
-// {
-//     int mode;
+public class ScreenMode : MonoBehaviour
+{
+    void Start()
+    {
+        int mode = GlobalReference.Settings.Get<int>("screen_mode");
+        ChangeScreenMode(mode);
+    }
 
-//     void Awake()
-//     {
-//         DontDestroyOnLoad(gameObject);
-//     }
+    public void ChangeScreenMode(int mode)
+    {
+        switch (mode)
+        {
+            case 0: // Windowed
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
 
-//     void Start()
-//     {
-//         mode = GlobalReference.Settings.Get<int>("screen_mode");
-//         ChangeScreenMode(mode);
-//     }
+            case 1: // Borderless Fullscreen
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
 
-//     public void ChangeScreenMode(int mode)
-//     {
-//         // Debug.Log("mode : " + mode);
-//         switch (mode)
-//         {
-//             case 0: // Windowed
-//                 Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-//                 break;
+            case 2: // Fullscreen
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
 
-//             case 1: // Borderless Fullscreen
-//                 Screen.fullScreenMode = FullScreenMode.Windowed;
-//                 break;
-
-//             case 2: // Fullscreen
-//                 Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-//                 break;
-
-//             default:
-//                 break;
-//         }
-//         GlobalReference.Settings.Set("screen_mode", mode);
-//         // Debug.Log("ScreenMode : " + Screen.fullScreenMode);
-//     }
-// }
+            default:
+                break;
+        }
+    }
+}
