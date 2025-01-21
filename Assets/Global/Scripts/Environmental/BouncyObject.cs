@@ -20,7 +20,7 @@ public class BouncyObject : MonoBehaviour
             // if an object gets on top of the object this script is attached to
             if (!(angle >= this.topAngleThreshold))
                 continue;
-            animator.SetTrigger("Bounce");
+            if(animator) animator.SetTrigger("Bounce");
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             rb.AddForce(this.transform.up * this.bounceForceUp + rb.transform.forward * this.bounceForceForward, ForceMode.Impulse); // bounce effect
             break;
