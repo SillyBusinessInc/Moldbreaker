@@ -1,17 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
+
 public class MenuLogic : MonoBehaviour
 {
     [SerializeField] private Confirmation confirmation;
     [SerializeField] private Image fadeImage;
-
+    [SerializeField] private TMP_Text versionText;
     [SerializeField] private Button continueButton;
 
     void Start()
     {
         UILogic.ShowCursor();
         continueButton.interactable = continueButtonActive();
+        versionText.text = "v" + Application.version;
     }
 
     public bool continueButtonActive()
