@@ -83,7 +83,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool AirComboDone = false;
     [HideInInspector] public Vector3 hitDirection;
     private bool IsLanding = false;
-    [SerializeField] private CrossfadeController crossfadeController;
     [HideInInspector] public bool isInvulnerable = false;
 
     void Awake()
@@ -194,7 +193,6 @@ public class Player : MonoBehaviour
             playerAnimationsHandler.ResetStates();
             playerAnimationsHandler.animator.SetTrigger("IsLanding");
             playerAnimationsHandler.animator.ResetTrigger("IsJumping");
-            playerAnimationsHandler.animator.ResetTrigger("IsDoubleJumping");
         }
     }
 
@@ -307,7 +305,7 @@ public class Player : MonoBehaviour
 
         if (direction != Vector3.zero) currentState.Hurt(direction);
 
-        AudioManager.Instance.PlaySFX("PainSFX");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("PainSFX");
 
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
@@ -339,7 +337,7 @@ public class Player : MonoBehaviour
     {
         CollectableSave saveData = new(SceneManager.GetActiveScene().name);
         PlayerPrefs.SetInt("level", GlobalReference.GetReference<GameManagerReference>().activeRoom.id);
-        AudioManager.Instance.PlaySFX("Death");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Death");
         saveData.LoadAll();
         SetState(states.Death);
     }
@@ -351,6 +349,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator DeathScreen()
     {
+        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
 

@@ -1140,7 +1140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: v1.0.2 - d190125
+  m_text: Placeholder version (changes automatically)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
   m_sharedMaterial: {fileID: 8225337528354744887, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
@@ -3266,6 +3266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   confirmation: {fileID: 1512194434}
   fadeImage: {fileID: 112517500}
+  versionText: {fileID: 648374371}
   continueButton: {fileID: 399093920}
 --- !u!1 &2062018850
 GameObject:

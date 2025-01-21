@@ -37,11 +37,11 @@ public class SettingsLogic : MonoBehaviour
 
         screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
 
-        masterVolume.value = AudioManager.Instance.GetMasterVolume() / 8;
-        effectsVolume.value = AudioManager.Instance.GetSFXVolume() / 8;
-        musicVolume.value = AudioManager.Instance.GetMusicVolume() / 8;
+        masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
+        effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
+        musicVolume.value = GlobalReference.GetReference<AudioManager>().GetMusicVolume() / 8;
 
-        AudioManager.Instance.LoadFromLocal();
+        GlobalReference.GetReference<AudioManager>().LoadFromLocal();
 
         GlobalReference.Settings.IsLocked = false;
         GlobalReference.AudioSettingSave.IsLocked = false;
@@ -57,19 +57,19 @@ public class SettingsLogic : MonoBehaviour
 
     public void OnMasterVolumeChange(float value)
     {
-        AudioManager.Instance.UpdateMasterVolume(value * 8);
-        AudioManager.Instance.PlaySFX("AttackVOX2");
+        GlobalReference.GetReference<AudioManager>().UpdateMasterVolume(value * 8);
+        GlobalReference.GetReference<AudioManager>().PlaySFX("AttackVOX2");
     }
 
     public void OnEffectsVolumeChange(float value)
     {
-        AudioManager.Instance.UpdateSFXVolume( value * 8);
-        AudioManager.Instance.PlaySFX("AttackVOX2");
+        GlobalReference.GetReference<AudioManager>().UpdateSFXVolume( value * 8);
+        GlobalReference.GetReference<AudioManager>().PlaySFX("AttackVOX2");
     }
 
     public void OnMusicVolumeChange(float value)
     {
-        AudioManager.Instance.UpdateMusicVolume(value * 8);
+        GlobalReference.GetReference<AudioManager>().UpdateMusicVolume(value * 8);
     }
 
     public void OnBack()

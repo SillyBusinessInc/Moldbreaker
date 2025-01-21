@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3382ff04455de47558a925909a1696d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  enableDebugLines: 1
+  debugDuration: 5
+  logDebugInfo: 1

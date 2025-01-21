@@ -5,6 +5,6 @@ public class SFXAction : OneParamAction
 {
     public override void InvokeAction(ActionMetaData _, string param)
     {
-        AudioManager.Instance.PlaySFX(param);
+        GlobalReference.GetReference<AudioManager>().PlaySFX(param);
     }
 }

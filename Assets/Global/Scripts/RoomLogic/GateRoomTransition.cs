@@ -15,16 +15,18 @@ public class GateRoomTransition : Interactable
     public RoomType nextRoomType; // made public for structure change
     public int nextRoomId; // made public for structure change
     [SerializeField] private bool enableOnRoomFinish;
+    private bool showCredits = false;
 
     private GameManagerReference gameManagerReference;
-    private CrossfadeController crossfadeController;
     private DoorManager doorManager;
 
     private string currentScenename;
     private void Awake()
     {
-        IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
-        crossfadeController = GlobalReference.GetReference<CrossfadeController>();
+        // ugly fix so maybe we have to change in the future
+        IsDisabled = IsDisabled; // However, don't remove it until we changed it.
+        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
+        StartCoroutine(crossfadeController.Crossfade_End());
     }
 
     public void Initialize()
@@ -36,7 +38,7 @@ public class GateRoomTransition : Interactable
 
         doorManager = GlobalReference.GetReference<DoorManager>();
         nextRoomName = $"{nextRoomType}_{nextRoomIndex}";
-        
+
         Debug.Log($"HEY {doorManager.currentId}");
     }
 
@@ -51,7 +53,7 @@ public class GateRoomTransition : Interactable
         Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel == null) AchievementManager.Grant("RISE_OF_THE_LOAF");
         else nextLevel.unlocked = true;
-        AudioManager.Instance.PlaySFX("PortalSFX");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("PortalSFX");
         StartCoroutine(LoadNextRoom());
         Player p = GlobalReference.GetReference<PlayerReference>().Player;
         p.SetCameraHeight(null); // height reset to default
@@ -60,6 +62,7 @@ public class GateRoomTransition : Interactable
 
     private IEnumerator LoadNextRoom()
     {
+        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         yield return StartCoroutine(LoadRoomCoroutine());
     }
@@ -107,34 +110,43 @@ public class GateRoomTransition : Interactable
         saveData.LoadAll();
         player.playerStatistic.caloriesCountExtra = saveData.Get<List<string>>("calories").Count;
         player.playerStatistic.CaloriesCollected = saveData.Get<List<string>>("calories");
-        SceneManager.LoadScene(nextRoomName, LoadSceneMode.Additive);
 
-        var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
-        if (gameManagerReference != null)
+        if (showCredits)
         {
-            doorManager.currentId = nextRoomId;
-            Room nextRoom = gameManagerReference.GetRoom(nextRoomId);
-            if (nextRoom != null)
-            {
-                gameManagerReference.activeRoom = nextRoom;
-            }
-            else
-            {
-                Debug.LogError($"Failed to find Room with Type: {nextRoomType}");
-            }
+            SceneManager.LoadScene("Credits");
+
         }
         else
         {
-            Debug.LogError("GameManagerReference is null");
-        }
+            SceneManager.LoadScene(nextRoomName, LoadSceneMode.Additive);
 
-        AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScenename);
-        while (!unloadOperation.isDone)
-        {
-            yield return null;
+            var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
+            if (gameManagerReference != null)
+            {
+                doorManager.currentId = nextRoomId;
+                Room nextRoom = gameManagerReference.GetRoom(nextRoomId);
+                if (nextRoom != null)
+                {
+                    gameManagerReference.activeRoom = nextRoom;
+                }
+                else
+                {
+                    Debug.LogError($"Failed to find Room with Type: {nextRoomType}");
+                }
+            }
+            else
+            {
+                Debug.LogError("GameManagerReference is null");
+            }
+
+            AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScenename);
+            while (!unloadOperation.isDone)
+            {
+                yield return null;
+            }
+            Scene newScene = SceneManager.GetSceneByName(nextRoomName);
+            SceneManager.SetActiveScene(newScene);
         }
-        Scene newScene = SceneManager.GetSceneByName(nextRoomName);
-        SceneManager.SetActiveScene(newScene);
     }
 
     public override void OnDisableInteraction()
@@ -171,6 +183,7 @@ public class GateRoomTransition : Interactable
         RoomSave saveRoomData = new RoomSave();
         saveRoomData.LoadAll();
         List<int> finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
+        showCredits = doorManager.currentId == 3 && !finishedLevels.Contains(3);
         finishedLevels.Add(doorManager.currentId);
         saveRoomData.Set("finishedLevels", finishedLevels);
         saveRoomData.SaveAll();

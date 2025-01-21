@@ -220,7 +220,7 @@ namespace EnemiesNS
         {
             lastDamageCause = cause;
             health -= damage;
-            AudioManager.Instance.PlaySFX("HitEnemy");
+            GlobalReference.GetReference<AudioManager>().PlaySFX("HitEnemy");
             if (animator) animator.SetTrigger("PlayDamageFlash");
 
             if (health <= 0)
@@ -241,7 +241,7 @@ namespace EnemiesNS
         {
             FacePlayer();
             HealthBarDestroy = true;
-            AudioManager.Instance.PlaySFX("EnemyThx");
+            GlobalReference.GetReference<AudioManager>().PlaySFX("EnemyThx");
             ChangeState(states.Dead);
             agent.isStopped = true;
             SetCelebrateModel(true);

@@ -34,7 +34,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Image
+    path: 
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -47,7 +47,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 83635035
+      path: 0
       attribute: 1574349066
       script: {fileID: 0}
       typeID: 225
@@ -94,7 +94,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Image
+    path: 
     classID: 225
     script: {fileID: 0}
     flags: 0
