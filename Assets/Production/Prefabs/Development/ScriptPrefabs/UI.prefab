@@ -1415,6 +1415,7 @@ MonoBehaviour:
   YoP: {fileID: 5019536426410142992}
   continueButton: {fileID: 7266886673860919411}
   handler: {fileID: 41829477981651025}
+  fadeImage: {fileID: 6467284171996353557}
 --- !u!1 &4653480263948134409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,7 +1904,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.85
+  m_fontSize: 45.65
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2502,7 +2503,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.2
+  m_fontSize: 30.4
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3736,3 +3737,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8003627217974666994, guid: 6071ba3641cae4990a9d718060ba6a52, type: 3}
   m_PrefabInstance: {fileID: 7849273145382090936}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6467284171996353557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3832089285249100973, guid: 6071ba3641cae4990a9d718060ba6a52, type: 3}
+  m_PrefabInstance: {fileID: 7849273145382090936}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

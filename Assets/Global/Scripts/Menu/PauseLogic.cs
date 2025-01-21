@@ -11,6 +11,8 @@ public class PauseLogic : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private UIInputHandler handler;
 
+    [SerializeField] private Image fadeImage;
+
     void Start()
     {
         handler.EnableInput("UI");
@@ -52,7 +54,29 @@ public class PauseLogic : MonoBehaviour
         Menu.SetActive(!Menu.activeSelf);
         // Upgrades.SetActive(!Upgrades.activeSelf);
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu");
+        //SceneManager.LoadScene("Menu");
+
+        if (GetCurrentSceneName() == "PARKOUR_1" || GetCurrentSceneName() == "PARKOUR_2" || GetCurrentSceneName() == "PARKOUR_3")
+        {
+            UILogic.FadeToScene("Loading", fadeImage, this);
+        }
+        else if (GetCurrentSceneName() == "ENTRANCE_1")
+        {
+            SceneManager.LoadScene("Menu");
+
+        }
+    }
+    public string GetCurrentSceneName()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.isLoaded && scene.name != "BaseScene" && scene.name != "DontDestroyOnLoad")
+            {
+                return scene.name;
+            }
+        }
+        return SceneManager.GetActiveScene().name;
     }
 
     public void OnPause(InputAction.CallbackContext ctx)
