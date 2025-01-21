@@ -52,34 +52,16 @@ public class AudioManager : MonoBehaviour
 
     private void UpdateAudio(string mixerString, float volume)
     {
-        //values only from 0 to 8 will be accepted
-        float tempVolume = volume;
-        if (tempVolume > 8.0f)
-        {
-            tempVolume = 8.0f;
-        }
-        if (tempVolume < 0.0f)
-        {
-            tempVolume = 0.0f;
-        }
-        float convertedVolume = -80 + volume * 10;
-        audioMixer.SetFloat(mixerString, convertedVolume);
+        float normalizedVolume = Mathf.Clamp01(volume / 8.0f);
+        float dB = normalizedVolume > 0 ? Mathf.Lerp(-80, 0, Mathf.Log10(1 + 9 * normalizedVolume) / Mathf.Log10(10)) : -80;
+        audioMixer.SetFloat(mixerString, dB);
         AudioSettingSave audioSettingSave = GlobalReference.AudioSettingSave;
         audioSettingSave.LoadAll();
-        if (mixerString == "Master")
-        {
-            audioSettingSave.Set("Master", tempVolume);
-        }
-        if (mixerString == "SFX")
-        {
-            audioSettingSave.Set("SFX", tempVolume);
-        }
-        if (mixerString == "Music")
-        {
-            audioSettingSave.Set("Music", tempVolume);
-        };
+
+        audioSettingSave.Set(mixerString, volume);
         audioSettingSave.SaveAll();
     }
+
 
     private float GetVolume(string param)
     {
