@@ -70,7 +70,7 @@ public static class AchievementManager
 
         if (progression["MOLDBREAKER"]) return;
 
-        progression.Keys.ToList().ForEach(x => Debug.Log($"{x}, {progression[x]}"));
+        // progression.Keys.ToList().ForEach(x => Debug.Log($"{x}, {progression[x]}"));
         if (!progression["LIFE_IS_MOLDY"]       ||
             !progression["BEGONE_MOLD"]         ||
             !progression["SKILL_ISSUE"]         ||

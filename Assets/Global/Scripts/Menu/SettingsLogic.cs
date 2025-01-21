@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,29 +20,38 @@ public class SettingsLogic : MonoBehaviour
 
     void Start()
     {
-        LoadFromSave();
+        GlobalReference.Settings.LoadAll();
+        GlobalReference.AudioSettingSave.LoadAll();
+        LoadFromLocal();
+
         UILogic.ShowCursor();
     }
 
     void Update() => UpdateButtonState();
 
 
-    private void LoadFromSave()
+    private void LoadFromLocal()
     {
+        GlobalReference.Settings.IsLocked = true;
+        GlobalReference.AudioSettingSave.IsLocked = true;
+
         screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
 
-        masterVolume.value = AudioManager.Instance.GetMasterVolume() /8;
-        effectsVolume.value = AudioManager.Instance.GetSFXVolume() /8;
-        musicVolume.value = AudioManager.Instance.GetMusicVolume() /8;
+        masterVolume.value = AudioManager.Instance.GetMasterVolume() / 8;
+        effectsVolume.value = AudioManager.Instance.GetSFXVolume() / 8;
+        musicVolume.value = AudioManager.Instance.GetMusicVolume() / 8;
+
+        AudioManager.Instance.LoadFromLocal();
 
         GlobalReference.Settings.IsLocked = false;
+        GlobalReference.AudioSettingSave.IsLocked = false;
     }
 
     private void UpdateButtonState()
     {
-        cancel.interactable = GlobalReference.Settings.IsDirty;
-        confirm.interactable = GlobalReference.Settings.IsDirty;
-        back.interactable = !GlobalReference.Settings.IsDirty;
+        cancel.interactable = GlobalReference.Settings.IsDirty || GlobalReference.AudioSettingSave.IsDirty;
+        confirm.interactable = GlobalReference.Settings.IsDirty || GlobalReference.AudioSettingSave.IsDirty;
+        back.interactable = !(GlobalReference.Settings.IsDirty || GlobalReference.AudioSettingSave.IsDirty);
     }
 
 
@@ -65,21 +75,24 @@ public class SettingsLogic : MonoBehaviour
     public void OnBack()
     {
         GlobalReference.Settings.SaveAll();
+        GlobalReference.AudioSettingSave.SaveAll();
         UILogic.FadeToScene("Menu", fadeImage, this);
     }
 
     public void OnSave()
     {
         GlobalReference.Settings.SaveAll();
+        GlobalReference.AudioSettingSave.SaveAll();
     }
     
     public void OnCancel()
     {
         GlobalReference.Settings.LoadAll();
-        LoadFromSave();
+        GlobalReference.AudioSettingSave.LoadAll();
+        LoadFromLocal();
     }
 
-    public void ChangeScreenMode()
+    public void OnScreenModeChange()
     {
         int mode = screenModeDropdown.value;
         switch (mode)
@@ -100,6 +113,5 @@ public class SettingsLogic : MonoBehaviour
                 break;
         }
         GlobalReference.Settings.Set("screen_mode", mode);
-        Debug.Log("ScreenMode : " + Screen.fullScreenMode);
     }
 }
