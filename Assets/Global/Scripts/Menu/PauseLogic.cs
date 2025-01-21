@@ -10,11 +10,15 @@ public class PauseLogic : MonoBehaviour
     private bool isPaused;
     [SerializeField] private Button continueButton;
     [SerializeField] private UIInputHandler handler;
+    [SerializeField] private Sprite keyboardControlImage;
+    [SerializeField] private Sprite ControllerImage;
+    [SerializeField] private GameObject controlImage;
 
     void Start()
     {
         handler.EnableInput("UI");
         Menu.SetActive(false);
+        controlImage.SetActive(false);
         isPaused = false;
     }
 
@@ -25,6 +29,7 @@ public class PauseLogic : MonoBehaviour
 
         AudioManager.Instance.PlaySFX("Button");
         Menu.SetActive(!Menu.activeSelf);
+        controlImage.SetActive(!controlImage.activeSelf);
 
         // Upgrades.SetActive(!Upgrades.activeSelf); 
         UILogic.HideCursor();
@@ -38,6 +43,7 @@ public class PauseLogic : MonoBehaviour
         AudioManager.Instance.PlaySFX("Button");
         UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
+        controlImage.SetActive(!controlImage.activeSelf);
         Time.timeScale = 1f;
         SceneManager.LoadScene("Settings");
     }
@@ -49,6 +55,7 @@ public class PauseLogic : MonoBehaviour
         AudioManager.Instance.PlaySFX("Button");
         UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
+        controlImage.SetActive(!controlImage.activeSelf);
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
@@ -64,6 +71,15 @@ public class PauseLogic : MonoBehaviour
             UILogic.SelectButton(continueButton);
             Time.timeScale = isPaused ? 0f : 1f;
             GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
+            controlImage.SetActive(!controlImage.activeSelf);
+            Image controlImage1 = controlImage.GetComponent<Image>();
+            if (!IsControllerInput()) {
+                Debug.Log("keyboardController Image");
+                controlImage1.sprite = keyboardControlImage;
+            } else {
+                Debug.Log("Controller Image");
+                controlImage1.sprite = ControllerImage;
+            }
         }
 
         if (isPaused == true)
@@ -84,5 +100,10 @@ public class PauseLogic : MonoBehaviour
                 // handler.DisableInput("UI");
             }
         }
+    }
+    bool IsControllerInput()
+    {
+        if (Keyboard.current != null && Keyboard.current.anyKey.isPressed) return false;
+        return true;
     }
 }
