@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
     [HideInInspector] public int recentHits = 0;
     [HideInInspector] public float lastHitTime = 0f;
-    public float hitCooldown = 2f;
+    public float hitCooldown = 4f;
     
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
