@@ -22,6 +22,8 @@ public class Tail : MonoBehaviour
     public GameObject slamObject;
     [HideInInspector] public float slamObjectSize = 1.0f;
 
+    public bool CanShowFeedback = false;
+
     public void Start() {}
 
     public void Update()
@@ -56,10 +58,8 @@ public class Tail : MonoBehaviour
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0), DamageCause.PLAYER);
 
         // displays feedback message when there's a combo
-        // if (attackIndex == currentTail.currentCombo.Count) {
-        //     player.SetRandomFeedback();
-        // }
         player.recentHits += 1;
-        if (player.succesfullHitCounter == currentTail.currentCombo.Count - 1) player.SetRandomFeedback();
+        player.lastHitTime = Time.time;
+        player.SetRandomFeedback();
     }
 }

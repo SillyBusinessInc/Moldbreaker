@@ -15,6 +15,7 @@ public class FlipCollidor : MonoBehaviour
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0), DamageCause.PLAYER);
 
         player.recentHits += 1;
-        if (player.succesfullHitCounter == player.Tail.currentTail.currentCombo.Count - 1) player.SetRandomFeedback();
+        player.lastHitTime = Time.time;
+        player.SetRandomFeedback();
     }
 }

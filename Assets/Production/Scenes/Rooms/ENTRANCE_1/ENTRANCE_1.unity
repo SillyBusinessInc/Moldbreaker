@@ -3316,6 +3316,10 @@ PrefabInstance:
       propertyPath: maxCrumbs
       value: 75
       objectReference: {fileID: 0}
+    - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
+      propertyPath: popupTitle
+      value: Scalin' Breadcano
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4004,7 +4008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: popupTitle
-      value: 'Level 3: Final'
+      value: Down the Milky River
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4315,7 +4319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8017524036436326028, guid: c4507c79057db4e4586171b1050cf371, type: 3}
       propertyPath: popupTitle
-      value: 'Level 2:  Dash'
+      value: Crumble Fields
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
