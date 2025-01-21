@@ -81,7 +81,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool AirComboDone = false;
     [HideInInspector] public Vector3 hitDirection;
     private bool IsLanding = false;
-    [SerializeField] private CrossfadeController crossfadeController;
     [HideInInspector] public bool isInvulnerable = false;
 
     void Awake()
@@ -348,6 +347,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator DeathScreen()
     {
+        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
 
