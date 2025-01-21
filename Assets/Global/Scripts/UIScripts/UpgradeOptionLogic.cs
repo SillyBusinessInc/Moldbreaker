@@ -1,5 +1,9 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.XInput;
+using static ControlIconMapping;
 
 public class UpgradeOptionLogic : MonoBehaviour
 {
@@ -10,11 +14,15 @@ public class UpgradeOptionLogic : MonoBehaviour
     public TMP_Text text1;
     public TMP_Text text2;
     public UnityEngine.UI.Image keyboardImage;
+    private PlayerInput playerInput;
     [SerializeField] private GameObject PressKeyboard;
-    
+
+    [SerializeField] private ControlIconMapping controlIconMappingConfig;
 
     void Start()
     {
+        playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
+
         upgradeName = transform.GetChild(0).GetComponent<TMP_Text>();
         description = transform.GetChild(1).GetComponent<TMP_Text>();
         SetData();
@@ -27,7 +35,48 @@ public class UpgradeOptionLogic : MonoBehaviour
         description.text = data.description ?? "Hmm yes, yeast of power. So powerful";
         text1.text = data.text1;
         text2.text = data.text2;
-        keyboardImage.sprite = data.keyboardImage;
+        // keyboardImage.sprite = data.keyboardImage;
+
+        playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
+
+        string deviceLayout = playerInput.currentControlScheme;
+        string controlPath = playerInput.actions[data.interactionKey].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+
+        // check if there is a |, because then there are multiple bindings
+        if (controlPath.Contains("|"))
+        {
+            controlPath = controlPath.Split('|')[0];
+        }
+
+        IconPathResult res = null;
+        // get if you are on an xbox or playstation controller 
+
+        if (Gamepad.current != null && deviceLayout == "Gamepad")
+        {
+            var gamepad = Gamepad.current;
+
+            // Check if the gamepad is a DualShock controller (PlayStation controller)
+            if (gamepad is DualShockGamepad)
+            { 
+                res = HandleControllerInput(TDeviceType.PlayStationController, controlPath);
+            }
+            // Check if the gamepad is an Xbox controller
+            else if (gamepad is XInputController)
+            {
+
+                res = HandleControllerInput(TDeviceType.XboxController, controlPath);
+            }
+
+        }
+        else
+        {
+            res = HandleControllerInput(TDeviceType.Keyboard, controlPath);
+        }
+
+        IconPathResult HandleControllerInput(TDeviceType deviceType, string controlPath) => controlIconMappingConfig.GetIcon(deviceType, controlPath);
+
+        if (res != null && res.sprite) keyboardImage.sprite = res.sprite;
+
         RectTransform rectTransform = PressKeyboard.GetComponent<RectTransform>();
 
         // if (text2.text == "") {
@@ -38,7 +87,8 @@ public class UpgradeOptionLogic : MonoBehaviour
         //     RectTransform OriginalrectTransform = PressKeyboard.GetComponent<RectTransform>();
         //     OriginalrectTransform = rectTransform;
         // }
-        if (text2.text == "") {
+        if (text2.text == "")
+        {
             RectTransform rt = text1.GetComponent<RectTransform>();
             rt.anchorMin = new(0f, 0);
             rt.anchorMax = new(0.325f, 1);

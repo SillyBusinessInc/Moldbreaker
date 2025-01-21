@@ -32,6 +32,7 @@ public class YeastOfPower : PickupBase
             gameObject.SetActive(false);
     }
 
+    [ContextMenu("Set Option")]
     protected override void OnTrigger()
     {
         var upgradeOptions = GlobalReference.GetReference<UpgradeOptions>();
