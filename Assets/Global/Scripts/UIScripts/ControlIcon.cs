@@ -93,6 +93,20 @@ public class ControlIconMapping : ScriptableObject
 
         if (gamepadMappings != null)
         {
+            switch (controlPath.ToLower()) {
+                case "leftshoulder":
+                    controlPath = GamepadButton.LeftShoulder.ToString().ToLower();
+                    break; 
+                case "lefttrigger": 
+                    controlPath = GamepadButton.LeftTrigger.ToString().ToLower();
+                    break;
+                case "left shoulder":
+                    controlPath = GamepadButton.LeftShoulder.ToString().ToLower();
+                    break;
+                case "left trigger":    
+                    controlPath = GamepadButton.LeftTrigger.ToString().ToLower();
+                    break;
+            }
             foreach (var mapping in gamepadMappings)
             {
                 int controlValue = GetGamepadButtonValue(controlPath) ?? -1;

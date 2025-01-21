@@ -57,8 +57,7 @@ public class UpgradeOptionLogic : MonoBehaviour
 
             // Check if the gamepad is a DualShock controller (PlayStation controller)
             if (gamepad is DualShockGamepad)
-            {
-                Debug.Log("DualShockGamepad");
+            { 
                 res = HandleControllerInput(TDeviceType.PlayStationController, controlPath);
             }
             // Check if the gamepad is an Xbox controller
@@ -71,12 +70,12 @@ public class UpgradeOptionLogic : MonoBehaviour
         }
         else
         {
-            res = HandleControllerInput(TDeviceType.XboxController, controlPath);
+            res = HandleControllerInput(TDeviceType.Keyboard, controlPath);
         }
 
         IconPathResult HandleControllerInput(TDeviceType deviceType, string controlPath) => controlIconMappingConfig.GetIcon(deviceType, controlPath);
 
-        if (res.sprite) keyboardImage.sprite = res.sprite;
+        if (res != null && res.sprite) keyboardImage.sprite = res.sprite;
 
         RectTransform rectTransform = PressKeyboard.GetComponent<RectTransform>();
 

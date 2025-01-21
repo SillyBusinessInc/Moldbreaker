@@ -18,7 +18,7 @@ MonoBehaviour:
   rarity: 4
   text1: PRESS
   keyboardImage: {fileID: 21300000, guid: 417db85cf6e4dc84c9384aeafff5171f, type: 3}
-  interactionKey: Jump
+  interactionKey: Dodge
   text2: MIDAIR
   interactionActions:
   - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
