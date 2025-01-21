@@ -89,6 +89,7 @@ public class PauseLogic : MonoBehaviour
             controlImage.SetActive(!controlImage.activeSelf);
             bgImage.SetActive(!bgImage.activeSelf);
             Image controlImage1 = controlImage.GetComponent<Image>();
+            controlImage1.preserveAspect = true;
             if (IsControllerInput() == "xbox") controlImage1.sprite = xboxImage;
             else if (IsControllerInput() == "playstation") controlImage1.sprite = playStationImage;
             else if (IsControllerInput() == "keyboard") controlImage1.sprite = keyboardImage;
