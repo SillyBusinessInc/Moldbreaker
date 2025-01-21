@@ -22,8 +22,7 @@ public class MilkLake : MonoBehaviour
         this.timeSinceLastMold -= Time.deltaTime;
         if (!(this.timeSinceLastMold <= 0f)) return;
             
-        player.lastDamageCause = Player.DamageCause.HAZARD;
-        player.OnHit(this.addMoldPerInterval, Vector3.zero);
+        player.OnHit(this.addMoldPerInterval, Vector3.zero, DamageCause.HAZARD);
         this.timeSinceLastMold = this.intervalSeconds;
     }
 

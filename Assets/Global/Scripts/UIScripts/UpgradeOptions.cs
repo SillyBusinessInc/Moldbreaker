@@ -59,7 +59,7 @@ public class UpgradeOptions : Reference
                 GlobalReference.AttemptInvoke(Events.STATISTIC_CHANGED);
             }
         }
-        AudioManager.Instance.PlaySFX("PowerupPickup");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("PowerupPickup");
         HideOption();
     }
 }

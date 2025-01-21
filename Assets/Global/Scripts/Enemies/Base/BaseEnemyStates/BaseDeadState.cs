@@ -8,6 +8,7 @@ namespace EnemiesNS
 
         public override void Update()
         {
+            enemy.GetComponent<BoxCollider>().enabled = false;
             return;
         }
     }

@@ -11,7 +11,7 @@ public class WalkingState : StateBase
         if (activesoundAfterTime >= Player.InitialStepSoundDelay && playSound)
         {
             playSound = false;
-            AudioManager.Instance.PlaySFXOnRepeat("Footstep");
+            GlobalReference.GetReference<AudioManager>().PlaySFXOnRepeat("Footstep");
         }
 
         activesoundAfterTime += Time.deltaTime;
@@ -52,7 +52,7 @@ public class WalkingState : StateBase
 
     public override void Exit()
     {
-        AudioManager.Instance.StopSFXSound("Footstep");
+        GlobalReference.GetReference<AudioManager>().StopSFXSound("Footstep");
         Player.particleSystemWalk.Stop();
     }
 }

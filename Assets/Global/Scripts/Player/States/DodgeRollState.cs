@@ -21,14 +21,14 @@ public class DodgeRollState : StateBase
         int chance = random.Next(1, 101);
         if (chance == 1)
         {
-            AudioManager.Instance.PlaySFX("fart");
+            GlobalReference.GetReference<AudioManager>().PlaySFX("fart");
         }
         else
         {
-            AudioManager.Instance.PlaySFX("Dash");
+            GlobalReference.GetReference<AudioManager>().PlaySFX("Dash");
         }        
         Player.timeLastDodge = Time.time;
-        Player.playerAnimationsHandler.SetBool("Dodgerolling", true);
+        Player.playerAnimationsHandler.animator.SetTrigger("IsDodgeRoll");
 
         // find direction
         Vector3 dodgeDirection = Player.GetDirection();
@@ -50,7 +50,6 @@ public class DodgeRollState : StateBase
     public override void Exit()
     {
         base.Exit();
-        Player.playerAnimationsHandler.SetBool("Dodgerolling", false);
     }
 
     public override void Jump(InputAction.CallbackContext ctx)

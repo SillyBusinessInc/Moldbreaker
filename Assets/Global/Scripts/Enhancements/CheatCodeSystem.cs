@@ -13,11 +13,13 @@ public class CheatCodeSystem : MonoBehaviour
     private Dictionary<string, Action> cheatCodes = new Dictionary<string, Action>
     { // Add your cheat codes here
         { "LULDR", InvokeInfiniteDoubleJumps },
+        { "LDRLU", InvokeExtraSpeed },
         { "RLLRD", InvokeEnableDodge },
         { "UUDLR", InvokeInstantDeath },
         { "DDRLU", InvokeRestoreFullHp },
         { "UDLRUD", InvokeToggleInvulnerability },
-        { "UDLRRLDD", InvokeEnableAllLevels }
+        { "UDLRRLDD", InvokeEnableAllLevels },
+        { "UUDDLRLR", () => AchievementManager.Grant("KONAMI_CODE") }
     }; 
     
     [Header("Debugging")]
@@ -100,11 +102,18 @@ public class CheatCodeSystem : MonoBehaviour
     private static void InvokeInfiniteDoubleJumps() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.DoubleJumpsCount.AddModifier("cheatleg", 1000);
     private static void InvokeEnableDodge() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
     private static void InvokeRestoreFullHp() => GlobalReference.GetReference<PlayerReference>().Player.Heal(GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.MaxHealth.GetValue());
-   
+
+    private static void InvokeExtraSpeed()
+    {
+        var stats = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic;
+        stats.Speed.AddModifier("cheatspeed", 8);  
+        stats.JumpForce.AddModifier("cheatspeed", 4);  
+    } 
+    
     private static void InvokeInstantDeath()
     {
         InvulnerableCheatActivated = false;
-        GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero);
+        GlobalReference.GetReference<PlayerReference>().Player.OnHit(float.MaxValue, Vector3.zero, DamageCause.NONE);
     }
     
     private static void InvokeEnableAllLevels()
