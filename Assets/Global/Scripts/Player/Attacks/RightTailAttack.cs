@@ -21,5 +21,6 @@ public class RightTailAttack : TailAttack
         player.playerAnimationsHandler.ResetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 0);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
+        player.Tail.CanShowFeedback = false;
     }
 }

@@ -22,6 +22,7 @@ public class FlipAttack : TailAttack
         player.playerAnimationsHandler.ResetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 2);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
+        player.Tail.CanShowFeedback = true;
     }
 
     public override IEnumerator SetStateIdle()

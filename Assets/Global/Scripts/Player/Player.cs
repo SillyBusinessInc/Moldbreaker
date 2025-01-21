@@ -66,8 +66,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public float timeLastDodge;
     [HideInInspector] public float currentWalkingPenalty;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
-    [HideInInspector] public int recentHits = 0;
-    [HideInInspector] public int succesfullHitCounter = 0;
     [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
     [HideInInspector] public bool roomInvulnerability = false;
     private float currentMoldPercentage = 0;
@@ -373,9 +371,10 @@ public class Player : MonoBehaviour
 
     public void SetRandomFeedback()
     {
-        succesfullHitCounter = 0;
-        var f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
-        f.SetRandomFeedback();
+        if (Tail.CanShowFeedback) {
+            var f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
+            f.SetRandomFeedback();
+        }
     }
 
 }
