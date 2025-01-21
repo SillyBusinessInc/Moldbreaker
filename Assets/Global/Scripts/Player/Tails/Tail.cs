@@ -58,6 +58,8 @@ public class Tail : MonoBehaviour
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0), DamageCause.PLAYER);
 
         // displays feedback message when there's a combo
+        player.recentHits += 1;
+        player.lastHitTime = Time.time;
         player.SetRandomFeedback();
     }
 }

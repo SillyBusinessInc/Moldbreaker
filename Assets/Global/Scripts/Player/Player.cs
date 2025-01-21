@@ -65,11 +65,17 @@ public class Player : MonoBehaviour
     [HideInInspector] public Vector3 targetVelocity;
     [HideInInspector] public float timeLastDodge;
     [HideInInspector] public float currentWalkingPenalty;
-    [HideInInspector] public float maxWalkingPenalty = 0.5f;
+    [HideInInspector] public bool isCooldownActive = false;
     [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
     [HideInInspector] public bool roomInvulnerability = false;
     private float currentMoldPercentage = 0;
     public Coroutine activeCoroutine;
+
+    [Header("Hit combo")]
+    [HideInInspector] public float maxWalkingPenalty = 0.5f;
+    [HideInInspector] public int recentHits = 0;
+    [HideInInspector] public float lastHitTime = 0f;
+    public float hitCooldown = 2f;
     
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
@@ -126,6 +132,11 @@ public class Player : MonoBehaviour
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
         UpdateVisualState();
+
+        if (recentHits > 0 && Time.time - lastHitTime > 2f && !isCooldownActive)
+        {
+            StartCoroutine(ResetRecentHits());
+        }
     }
 
     // Setting the height to null will reset the height to default
@@ -371,12 +382,23 @@ public class Player : MonoBehaviour
 
     public void SetRandomFeedback()
     {
-        if (Tail.CanShowFeedback) {
+        if (Tail.CanShowFeedback && recentHits % 3 == 1) {
             var f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
             f.SetRandomFeedback();
         }
     }
 
+    IEnumerator ResetRecentHits()
+    {
+        isCooldownActive = true;
+        yield return new WaitForSeconds(hitCooldown);
+
+        if (Time.time - lastHitTime >= hitCooldown) {
+            recentHits = 0;
+        }
+
+        isCooldownActive = false;
+    }
 }
 
 public enum DamageCause{

@@ -14,6 +14,8 @@ public class FlipCollidor : MonoBehaviour
         float actualDamage = player.Tail.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0), DamageCause.PLAYER);
 
+        player.recentHits += 1;
+        player.lastHitTime = Time.time;
         player.SetRandomFeedback();
     }
 }
