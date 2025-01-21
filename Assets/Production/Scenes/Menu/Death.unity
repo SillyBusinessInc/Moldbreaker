@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1985978932}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!1 &238201559
@@ -758,7 +758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b21e2409ed834c54acb882d9ec2293b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crossfadeController: {fileID: 0}
   deathMenu: {fileID: 1496554747}
 --- !u!4 &779401561
 Transform:
