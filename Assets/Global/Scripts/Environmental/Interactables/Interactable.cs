@@ -88,8 +88,11 @@ public class Interactable : MonoBehaviour
         // Create a HUD element to display the interaction prompt
         if (hudElement == null) InstantiateHUD();
 
-        IsDisabled = isDisabled;
-    }
+        IsDisabled = isDisabled; 
+
+            GlobalReference.SubscribeTo(Events.DEVICE_CHANGED, () => SetBillboardText(true));
+
+    } 
 
     private IconPathResult ParseDeviceInputSprite()
     {
@@ -152,7 +155,7 @@ public class Interactable : MonoBehaviour
         hudText = hudElement.GetComponent<TextMeshPro>();
 
         if (font) hudText.font = font;
-        
+
         // set right coordinates
         hudElement.transform.SetParent(hudParent != null ? hudParent : transform);
 
@@ -175,7 +178,7 @@ public class Interactable : MonoBehaviour
         hudElement.transform.position += Vector3.up * promptYOffset;
         hudElement.transform.position += Vector3.right * promptXOffset;
         hudElement.transform.position += Vector3.forward * promptZOffset;
-        
+
     }
 
     public bool IsWithinInteractionRange(float rayHitDistance) => rayHitDistance <= interactDistance;
@@ -194,15 +197,9 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        RotateBillboardTowardsCamera();
-     
-       if (playerInput && lastSavedControlScheme != playerInput.currentControlScheme)
-    {
-        lastSavedControlScheme = playerInput.currentControlScheme;
-        SetBillboardText(true);
+        RotateBillboardTowardsCamera(); 
     }
-    }
- 
+
 
     private void RotateBillboardTowardsCamera()
     {
@@ -227,6 +224,7 @@ public class Interactable : MonoBehaviour
 
     private void SetBillboardText(bool regenerate = false)
     {
+        Debug.Log("SetBillboardText");
         if (hudElement == null || hudText == null) return;
 
         // if device didn't change, just return the cached string
@@ -271,5 +269,5 @@ public class Interactable : MonoBehaviour
         }
 
         return str;
-    } 
+    }
 }

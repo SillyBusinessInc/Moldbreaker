@@ -18,6 +18,7 @@ MonoBehaviour:
   rarity: 4
   text1: PRESS
   keyboardImage: {fileID: 21300000, guid: 129a19b2fca953b41891069150155242, type: 3}
+  interactionKey: Dodge
   text2: 
   interactionActions:
   - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}

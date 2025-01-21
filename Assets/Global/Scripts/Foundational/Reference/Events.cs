@@ -50,5 +50,7 @@ public enum Events
 
     // input events
     INPUT_ACKNOWLEDGE = 25,
-    INPUT_IGNORE = 26
+    INPUT_IGNORE = 26,
+
+    DEVICE_CHANGED = 27,
 }
