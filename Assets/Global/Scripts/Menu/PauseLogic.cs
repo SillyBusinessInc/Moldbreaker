@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.XInput;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,8 +13,10 @@ public class PauseLogic : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private UIInputHandler handler;
     [SerializeField] private GameObject controlImage;
-    [SerializeField] private Sprite keyboardControlImage;
-    [SerializeField] private Sprite ControllerImage;
+    [SerializeField] private Sprite keyboardImage;
+    [SerializeField] private Sprite playStationImage;
+    [SerializeField] private Sprite xboxImage;
+
     private PlayerInput playerInput;
 
 
@@ -79,11 +83,9 @@ public class PauseLogic : MonoBehaviour
             GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
             controlImage.SetActive(!controlImage.activeSelf);
             Image controlImage1 = controlImage.GetComponent<Image>();
-            if (!IsControllerInput()) {
-                controlImage1.sprite = keyboardControlImage;
-            } else {
-                controlImage1.sprite = ControllerImage;
-            }
+            if (IsControllerInput() == "xbox") controlImage1.sprite = xboxImage;
+            else if (IsControllerInput() == "playstation") controlImage1.sprite = playStationImage;
+            else if (IsControllerInput() == "keyboard") controlImage1.sprite = keyboardImage;
         }
 
         if (isPaused == true)
@@ -105,9 +107,23 @@ public class PauseLogic : MonoBehaviour
             }
         }
     }
-    bool IsControllerInput()
+    string IsControllerInput()
     {
         string deviceLayout = playerInput.currentControlScheme;
-        return (Gamepad.current != null && deviceLayout == "Gamepad");
+        if (Gamepad.current != null) {
+            if (deviceLayout == "keyboard") return "keyboard";
+            else if (deviceLayout == "Gamepad") {
+                var gamepad = Gamepad.current;
+                if (gamepad is DualShockGamepad)
+                {
+                    return "playstation";
+                }
+                else if (gamepad is XInputController)
+                {
+                    return "xbox";
+                }
+            }
+        }
+        return "keyboard";
     }
 }
