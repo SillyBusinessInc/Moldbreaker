@@ -62,8 +62,8 @@ public class GateRoomTransition : Interactable
 
     private IEnumerator LoadNextRoom()
     {
-        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
-        yield return StartCoroutine(crossfadeController.Crossfade_Start());
+        // var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
+        // yield return StartCoroutine(crossfadeController.Crossfade_Start());
         yield return StartCoroutine(LoadRoomCoroutine());
     }
 
