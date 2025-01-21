@@ -194,7 +194,6 @@ public class Player : MonoBehaviour
             playerAnimationsHandler.ResetStates();
             playerAnimationsHandler.animator.SetTrigger("IsLanding");
             playerAnimationsHandler.animator.ResetTrigger("IsJumping");
-            playerAnimationsHandler.animator.ResetTrigger("IsDoubleJumping");
         }
     }
 

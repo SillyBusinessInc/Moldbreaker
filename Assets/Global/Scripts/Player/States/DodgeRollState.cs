@@ -28,7 +28,7 @@ public class DodgeRollState : StateBase
             AudioManager.Instance.PlaySFX("Dash");
         }        
         Player.timeLastDodge = Time.time;
-        Player.playerAnimationsHandler.SetBool("Dodgerolling", true);
+        Player.playerAnimationsHandler.animator.SetTrigger("IsDodgeRoll");
 
         // find direction
         Vector3 dodgeDirection = Player.GetDirection();
@@ -50,7 +50,6 @@ public class DodgeRollState : StateBase
     public override void Exit()
     {
         base.Exit();
-        Player.playerAnimationsHandler.SetBool("Dodgerolling", false);
     }
 
     public override void Jump(InputAction.CallbackContext ctx)
