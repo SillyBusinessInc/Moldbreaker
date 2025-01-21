@@ -10,7 +10,15 @@ public class UIInputHandler : MonoBehaviour
     public void Start()
     {
         ActionMap = inputActionAsset.actionMaps;
+
+        GlobalReference.SubscribeTo(Events.DEVICE_CHANGED, CheckCursorState);
     }
+
+    public void CheckCursorState() {
+        
+    }
+
+
     public void ConfirmUpgrade()
     {
         upgradeOptions.Confirm();
@@ -22,6 +30,7 @@ public class UIInputHandler : MonoBehaviour
         foreach (var actionMap in ActionMap)
         {
             if (actionMap.name == mapName) actionMap.Enable();
+ 
         }
     }
 

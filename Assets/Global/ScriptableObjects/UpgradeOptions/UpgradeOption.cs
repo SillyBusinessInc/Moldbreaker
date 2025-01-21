@@ -10,6 +10,8 @@ public class UpgradeOption : ScriptableObject
     public int rarity; 
     public string text1;
     public Sprite keyboardImage;
+    public string interactionKey; 
+
     public string text2;
 
     public List<ActionParamPair> interactionActions;
