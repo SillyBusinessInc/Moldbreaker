@@ -25,6 +25,7 @@ public class HurtState : StateBase
 
     public override void Move(InputAction.CallbackContext ctx, bool ignoreInput = false) 
     {
+        Player.movementInput = ctx.ReadValue<Vector2>();
         if (ignoreInput) Player.movementInput = new Vector2(0, 0);
     }
 

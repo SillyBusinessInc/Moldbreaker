@@ -37,6 +37,7 @@ public class CreditLogic : MonoBehaviour
 
     void Start()
     {
+        UILogic.ShowCursor();
         rt = panel.GetComponent<RectTransform>();
         timeSinceStart = Time.time;
 
