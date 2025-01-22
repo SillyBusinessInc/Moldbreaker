@@ -16,17 +16,23 @@ public class GateRoomTransition : Interactable
     public int nextRoomId; // made public for structure change
     [SerializeField] private bool enableOnRoomFinish;
     private bool showCredits = false;
-
+    private bool loadingNextRoom = false;
+    
     private GameManagerReference gameManagerReference;
     private DoorManager doorManager;
-
-    private string currentScenename;
+    private string currentSceneName;
+    
     private void Awake()
     {
         // ugly fix so maybe we have to change in the future
         IsDisabled = IsDisabled; // However, don't remove it until we changed it.
-        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
-        StartCoroutine(crossfadeController.Crossfade_End());
+    }
+
+    public override void Start()
+    {
+        base.Start();
+        var crossFadeController = GlobalReference.GetReference<CrossFadeController>();
+        StartCoroutine(crossFadeController.CrossFadeEnd());
     }
 
     public void Initialize()
@@ -38,8 +44,6 @@ public class GateRoomTransition : Interactable
 
         doorManager = GlobalReference.GetReference<DoorManager>();
         nextRoomName = $"{nextRoomType}_{nextRoomIndex}";
-
-        Debug.Log($"HEY {doorManager.currentId}");
     }
 
     private void RoomFinished()
@@ -49,72 +53,48 @@ public class GateRoomTransition : Interactable
 
     public override void OnInteract(ActionMetaData _)
     {
+        // Intentionally put the sound above guard clause. Even though interacting does nothing when spamming it.
+        // It is still to give the player feedback that the interaction is being registered.
+        GlobalReference.GetReference<AudioManager>().PlaySFX("PortalSFX");
+        if (loadingNextRoom) return;
+        
         // unlock next level
-        Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
+        var nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel == null) AchievementManager.Grant("RISE_OF_THE_LOAF");
         else nextLevel.unlocked = true;
-        GlobalReference.GetReference<AudioManager>().PlaySFX("PortalSFX");
+        
         StartCoroutine(LoadNextRoom());
-        Player p = GlobalReference.GetReference<PlayerReference>().Player;
+        var p = GlobalReference.GetReference<PlayerReference>().Player;
         p.SetCameraHeight(null); // height reset to default
         p.Heal(p.playerStatistic.MaxHealth.GetValue());
+        
+        base.OnInteract(_);
     }
-
+    
     private IEnumerator LoadNextRoom()
     {
-        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
-        yield return StartCoroutine(crossfadeController.Crossfade_Start());
-        yield return StartCoroutine(LoadRoomCoroutine());
-    }
-
-    public IEnumerator LoadRoomCoroutine()
-    {
-        var player = GlobalReference.GetReference<PlayerReference>().Player;
-
-        CollectableSave saveData = new CollectableSave(GetNonBaseSceneName("BaseScene"));
-        saveData.LoadAll();
-        List<string> calories = saveData.Get<List<string>>("calories");
-        if (saveData.Get<int>("crumbs") < player.playerStatistic.Crumbs)
-        {
-            saveData.Set("crumbs", player.playerStatistic.Crumbs);
-        }
-
-        foreach (var secret in player.playerStatistic.Calories)
-        {
-            calories.Add(secret);
-        }
-        saveData.Set("calories", calories);
-        saveData.SaveAll();
-
-        //to reset everything that was picked up
-        player.playerStatistic.CaloriesCount = 0;
-        player.playerStatistic.CrumbsCount = 0;
-        player.playerStatistic.Calories.Clear();
-        player.playerStatistic.Crumbs = 0;
-
+        loadingNextRoom = true;
+        var crossFadeController = GlobalReference.GetReference<CrossFadeController>();
+        yield return StartCoroutine(crossFadeController.CrossFadeStart());
+        
+        SaveCurrentRoomsProgress();
+        
         // Since rooms only have one exit door, and exiting a room through this door is the 'completion' condition. We can assume that if a door with the NextRoomType: ENTRANCE is an exit door to the hub.
         if (nextRoomType == RoomType.ENTRANCE) SaveRoomAsCompleted();
 
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        for (var i = 0; i < SceneManager.sceneCount; i++)
         {
-            Scene scene = SceneManager.GetSceneAt(i);
+            var scene = SceneManager.GetSceneAt(i);
 
             if (scene.name != "BaseScene" && scene.isLoaded)
-            {
-                currentScenename = scene.name;
-            }
+                currentSceneName = scene.name;
         }
 
-        // Debug.Log($"next: {nextRoomName}, nextId: {nextRoomId}, nextIndex: {nextRoomIndex}");
-        saveData = new CollectableSave(nextRoomName);
-        saveData.LoadAll();
-        player.playerStatistic.caloriesCountExtra = saveData.Get<List<string>>("calories").Count;
-        player.playerStatistic.CaloriesCollected = saveData.Get<List<string>>("calories");
-
+        RetrieveNextRoomCalorieStat();
+        
         if (showCredits)
         {
             SceneManager.LoadScene("Credits");
-
         }
         else
         {
@@ -124,7 +104,7 @@ public class GateRoomTransition : Interactable
             if (gameManagerReference != null)
             {
                 doorManager.currentId = nextRoomId;
-                Room nextRoom = gameManagerReference.GetRoom(nextRoomId);
+                var nextRoom = gameManagerReference.GetRoom(nextRoomId);
                 if (nextRoom != null)
                 {
                     gameManagerReference.activeRoom = nextRoom;
@@ -139,14 +119,48 @@ public class GateRoomTransition : Interactable
                 Debug.LogError("GameManagerReference is null");
             }
 
-            AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScenename);
+            var unloadOperation = SceneManager.UnloadSceneAsync(this.currentSceneName);
             while (!unloadOperation.isDone)
             {
                 yield return null;
             }
-            Scene newScene = SceneManager.GetSceneByName(nextRoomName);
+            var newScene = SceneManager.GetSceneByName(nextRoomName);
             SceneManager.SetActiveScene(newScene);
         }
+    }
+
+    private void SaveCurrentRoomsProgress()
+    {
+        var player = GlobalReference.GetReference<PlayerReference>().Player;
+
+        var saveData = new CollectableSave(GetNonBaseSceneName("BaseScene"));
+        saveData.LoadAll();
+        var calories = saveData.Get<List<string>>("calories");
+        if (saveData.Get<int>("crumbs") < player.playerStatistic.Crumbs)
+            saveData.Set("crumbs", player.playerStatistic.Crumbs);
+
+        foreach (var secret in player.playerStatistic.Calories)
+        {
+            calories.Add(secret);
+        }
+        saveData.Set("calories", calories);
+        saveData.SaveAll();
+
+        //to reset everything that was picked up
+        player.playerStatistic.CaloriesCount = 0;
+        player.playerStatistic.CrumbsCount = 0;
+        player.playerStatistic.Calories.Clear();
+        player.playerStatistic.Crumbs = 0;
+    }
+
+    private void RetrieveNextRoomCalorieStat()
+    {
+        var player = GlobalReference.GetReference<PlayerReference>().Player;
+        var saveData = new CollectableSave(nextRoomName);
+        saveData.LoadAll();
+        player.playerStatistic.caloriesCountExtra = saveData.Get<List<string>>("calories").Count;
+        player.playerStatistic.CaloriesCollected = saveData.Get<List<string>>("calories");
+
     }
 
     public override void OnDisableInteraction()
@@ -180,9 +194,9 @@ public class GateRoomTransition : Interactable
 
     private void SaveRoomAsCompleted()
     {
-        RoomSave saveRoomData = new RoomSave();
+        var saveRoomData = new RoomSave();
         saveRoomData.LoadAll();
-        List<int> finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
+        var finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
         showCredits = doorManager.currentId == 3 && !finishedLevels.Contains(3);
         finishedLevels.Add(doorManager.currentId);
         saveRoomData.Set("finishedLevels", finishedLevels);

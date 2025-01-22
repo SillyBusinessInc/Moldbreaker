@@ -358,8 +358,8 @@ public class Player : MonoBehaviour
 
     private IEnumerator DeathScreen()
     {
-        var crossfadeController = GlobalReference.GetReference<CrossfadeController>();
-        yield return StartCoroutine(crossfadeController.Crossfade_Start());
+        var crossfadeController = GlobalReference.GetReference<CrossFadeController>();
+        yield return StartCoroutine(crossfadeController.CrossFadeStart());
         SceneManager.LoadScene("Death");
 
         GlobalReference.Statistics.Increase("deaths", 1);
