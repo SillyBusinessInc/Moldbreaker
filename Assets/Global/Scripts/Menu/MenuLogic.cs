@@ -1,17 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
+
 public class MenuLogic : MonoBehaviour
 {
     [SerializeField] private Confirmation confirmation;
     [SerializeField] private Image fadeImage;
-
+    [SerializeField] private TMP_Text versionText;
     [SerializeField] private Button continueButton;
 
     void Start()
     {
         UILogic.ShowCursor();
         continueButton.interactable = continueButtonActive();
+        versionText.text = "v" + Application.version;
     }
 
     public bool continueButtonActive()
@@ -26,7 +29,7 @@ public class MenuLogic : MonoBehaviour
     public void Continue()
     {
         UILogic.FadeToScene("Loading", fadeImage, this);
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
     }
 
     public void NewGame()
@@ -39,7 +42,7 @@ public class MenuLogic : MonoBehaviour
         {
             Continue();
         }
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
     }
 
     public void ResetAllLevels()
@@ -56,22 +59,22 @@ public class MenuLogic : MonoBehaviour
     public void OnAchievements()
     {
         UILogic.FadeToScene("Achievements", fadeImage, this);
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
     }
     public void OnCredits()
     {
         UILogic.FadeToScene("Credits", fadeImage, this);
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
     }
     public void OnSettings()
     {
         UILogic.FadeToScene("Settings", fadeImage, this);
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
     }
 
     public void OnQuit()
     {
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         confirmation.RequestConfirmation("Are you sure?", "Unsaved progress will be lost if you quit now", () => Application.Quit());
     }
 }

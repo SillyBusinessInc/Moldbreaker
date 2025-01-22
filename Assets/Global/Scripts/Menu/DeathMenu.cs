@@ -31,6 +31,7 @@ public class DeathMenu : MonoBehaviour
     void Update()
     {
         if (isDead && !Menu.activeSelf) Menu.SetActive(true);
+        if (isDead && Cursor.lockState == CursorLockMode.Locked) UILogic.ShowCursor();
     }
 
     public void RestartLevel()

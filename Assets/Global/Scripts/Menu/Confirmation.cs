@@ -33,7 +33,7 @@ public class Confirmation : MonoBehaviour
     public void OnConfirm()
     {
         if (confirmAction != null) confirmAction();
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         gameObject.SetActive(false);
         UILogic.FlipInteractability(confirmationGroup, menuGroup);
         UILogic.SelectButton(quitButton);
@@ -42,7 +42,7 @@ public class Confirmation : MonoBehaviour
     public void OnReject()
     {
         if (rejectAction != null) rejectAction();
-        AudioManager.Instance.PlaySFX("Button");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         gameObject.SetActive(false);
         UILogic.FlipInteractability(confirmationGroup, menuGroup);
         UILogic.SelectButton(quitButton);

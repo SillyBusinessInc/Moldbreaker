@@ -8,7 +8,7 @@ public class LeftTailAttack : TailAttack
     public override void Start()
     {
         base.Start();
-        AudioManager.Instance.PlaySFX("AttackVOX1");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("AttackVOX1");
         player.Tail.tailCanDoDamage = true;
         player.Tail.tailDoDamage = player.Tail.tailStatistic.leftTailDamage.GetValue();
         player.Tail.tailDoDamage *= player.playerStatistic.AttackDamageMultiplier.GetValue();
@@ -21,6 +21,7 @@ public class LeftTailAttack : TailAttack
         player.playerAnimationsHandler.ResetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 1);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
+        player.Tail.CanShowFeedback = false;
     }
 
 }

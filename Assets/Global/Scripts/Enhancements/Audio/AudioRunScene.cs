@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class AudioRunScene : MonoBehaviour
 {
     public string audioSongName;
@@ -9,18 +8,13 @@ public class AudioRunScene : MonoBehaviour
 
     public void Start()
     {
-        if(loop)
-        {
-            AudioManager.Instance.PlayMusicOnRepeat(audioSongName);
-        }
-        else
-        {
-            AudioManager.Instance.PlayMusic(audioSongName);
-        }
+        if (loop) GlobalReference.GetReference<AudioManager>().PlayMusicOnRepeat(audioSongName);
+        else GlobalReference.GetReference<AudioManager>().PlayMusic(audioSongName);
     }
 
     void OnDestroy()
     {
-        AudioManager.Instance.StopMusicSound(audioSongName);
+        AudioManager am = GlobalReference.GetReference<AudioManager>();
+        if (am != null) am.StopMusicSound(audioSongName);
     }
 }

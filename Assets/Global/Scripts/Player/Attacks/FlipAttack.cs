@@ -9,7 +9,7 @@ public class FlipAttack : TailAttack
     public override void Start()
     {
         base.Start();
-        AudioManager.Instance.PlaySFX("AttackVOX3");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("AttackVOX3");
         player.Tail.slamObject.transform.localScale = new Vector3(3, 1, 3);
         player.Tail.slamObject.transform.localScale *= player.Tail.tailStatistic.slamObjectSize.GetValue();
         player.Tail.tailDoDamage = player.Tail.tailStatistic.flipTailDamage.GetValue();
@@ -22,6 +22,7 @@ public class FlipAttack : TailAttack
         player.playerAnimationsHandler.ResetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 2);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
+        player.Tail.CanShowFeedback = true;
     }
 
     public override IEnumerator SetStateIdle()

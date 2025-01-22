@@ -33,6 +33,6 @@ public class Calories : PickupBase
             return;
         
         GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.Calories.Add(caloriesId);
-        AudioManager.Instance.PlaySFX("CaloriePickup");
+        GlobalReference.GetReference<AudioManager>().PlaySFX("CaloriePickup");
     }
 }

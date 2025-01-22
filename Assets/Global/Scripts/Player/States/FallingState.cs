@@ -42,7 +42,6 @@ public class FallingState : StateBase
         // air jump animation 
         if (ctx.started && Player.playerStatistic.DoubleJumpsCount.GetValueInt() > Player.currentJumps)
         {
-            Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
             Player.currentJumps += 1;
             Player.isHoldingJump = true;
             Player.SetState(Player.states.Jumping);

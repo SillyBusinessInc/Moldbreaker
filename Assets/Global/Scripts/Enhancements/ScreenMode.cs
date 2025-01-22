@@ -2,22 +2,14 @@ using UnityEngine;
 
 public class ScreenMode : MonoBehaviour
 {
-    int mode;
-
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     void Start()
     {
-        mode = GlobalReference.Settings.Get<int>("screen_mode");
+        int mode = GlobalReference.Settings.Get<int>("screen_mode");
         ChangeScreenMode(mode);
     }
 
     public void ChangeScreenMode(int mode)
     {
-        // Debug.Log("mode : " + mode);
         switch (mode)
         {
             case 0: // Windowed
@@ -35,7 +27,5 @@ public class ScreenMode : MonoBehaviour
             default:
                 break;
         }
-        GlobalReference.Settings.Set("screen_mode", mode);
-        // Debug.Log("ScreenMode : " + Screen.fullScreenMode);
     }
 }

@@ -23,7 +23,9 @@ public static class AchievementManager
             "CALORIE_GAINER_3",
             "LOAF_COMPLETIONIST",
             "MOLDBREAKER",
-            "PAN_CHAN"
+            "PAN_CHAN",
+            "BETRAYAL",
+            "KONAMI_CODE"
         };
         
         progression = new();
@@ -70,7 +72,7 @@ public static class AchievementManager
 
         if (progression["MOLDBREAKER"]) return;
 
-        progression.Keys.ToList().ForEach(x => Debug.Log($"{x}, {progression[x]}"));
+        // progression.Keys.ToList().ForEach(x => Debug.Log($"{x}, {progression[x]}"));
         if (!progression["LIFE_IS_MOLDY"]       ||
             !progression["BEGONE_MOLD"]         ||
             !progression["SKILL_ISSUE"]         ||
@@ -85,7 +87,9 @@ public static class AchievementManager
             !progression["CALORIE_GAINER_2"]    ||
             !progression["CALORIE_GAINER_3"]    ||
             !progression["LOAF_COMPLETIONIST"]  ||
-            !progression["PAN_CHAN"]
+            !progression["PAN_CHAN"]            ||
+            !progression["BETRAYAL"]            ||
+            !progression["KONAMI_CODE"]
         ) return;
 
         Grant("MOLDBREAKER");

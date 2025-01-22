@@ -11,6 +11,7 @@ public class ControlIconMapping : ScriptableObject
     {
         public TMP_SpriteAsset icon;
         public int index;
+        internal Sprite sprite;
     }
 
     // Enum for device types
@@ -27,6 +28,7 @@ public class ControlIconMapping : ScriptableObject
     {
         public Key keyboardMapping;
         public TMP_SpriteAsset icon;
+        public Sprite sprite;
         public int index;
     }
 
@@ -36,6 +38,7 @@ public class ControlIconMapping : ScriptableObject
     {
         public GamepadButton controlPath;
         public TMP_SpriteAsset icon;
+        public Sprite sprite;
         public int index;
     }
 
@@ -59,12 +62,21 @@ public class ControlIconMapping : ScriptableObject
         {
             case TDeviceType.Keyboard:
                 foreach (var mapping in keyboardMappings)
-                {
+                { 
+
+                    switch(controlPath.ToLower())
+                    {
+                        case "shift":
+                            controlPath = Key.LeftShift.ToString().ToLower();
+                            break; 
+                    }
+
                     if (mapping.keyboardMapping.ToString().ToLower() != controlPath.ToLower()) continue;
                     
                     return new IconPathResult
                     {
                         icon = mapping.icon,
+                        sprite = mapping.sprite,
                         index = mapping.index
                     };
                 }
@@ -81,16 +93,32 @@ public class ControlIconMapping : ScriptableObject
 
         if (gamepadMappings != null)
         {
+            switch (controlPath.ToLower()) {
+                case "leftshoulder":
+                    controlPath = GamepadButton.LeftShoulder.ToString().ToLower();
+                    break; 
+                case "lefttrigger": 
+                    controlPath = GamepadButton.LeftTrigger.ToString().ToLower();
+                    break;
+                case "left shoulder":
+                    controlPath = GamepadButton.LeftShoulder.ToString().ToLower();
+                    break;
+                case "left trigger":    
+                    controlPath = GamepadButton.LeftTrigger.ToString().ToLower();
+                    break;
+            }
             foreach (var mapping in gamepadMappings)
             {
                 int controlValue = GetGamepadButtonValue(controlPath) ?? -1;
                 int mappingValue = GetGamepadButtonValue(mapping.controlPath.ToString()) ?? -1;
 
                 if (controlValue != mappingValue) continue;
+
                 
                 return new IconPathResult
                 {
                     icon = mapping.icon,
+                    sprite = mapping.sprite,
                     index = mapping.index
                 };
             }
