@@ -10,7 +10,7 @@ namespace EnemiesNS
             this.enemy = enemy;
         }
 
-        public virtual void Enter() {}
+        public virtual void Enter() { }
 
         public virtual void Exit()
         {
@@ -19,13 +19,13 @@ namespace EnemiesNS
 
         public virtual void Update()
         {
-            
+
             enemy.animator.SetFloat("WalkingSpeed", enemy.agent.velocity.magnitude);
             CalculateDistanceToPlayer(); // do we want to calculate on every frame?
             CheckState();
         }
-        
-        public virtual void FixedUpdate() {}
+
+        public virtual void FixedUpdate() { }
 
         //
         // Add methods here that need to be accessed by multiple different states
@@ -68,6 +68,9 @@ namespace EnemiesNS
         protected void CalculateDistanceToPlayer()
         {
             enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.target.position);
+            Debug.Log("CALCULATING");
+            if (enemy.agent.speed < 1) Debug.Log(enemy.agent.pathStatus, enemy);
+            if (enemy.agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathInvalid) enemy.isChasing = false;
         }
 
         protected bool IsWithinChaseRange()
