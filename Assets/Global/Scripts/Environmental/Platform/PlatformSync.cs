@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class PlatformSync : MonoBehaviour
 {
-    private Player player;
+    private Vector3 prevPosition;
 
     private void OnCollisionEnter(Collision other)
     {
-        other.transform.SetParent(transform);
+        prevPosition = this.transform.position;
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnCollisionStay(Collision other)
     {
-        player = GlobalReference.GetReference<PlayerReference>().Player;
-        other.transform.SetParent(player.transform);
+        var currentPosition = transform.position;
+        var diff = currentPosition - prevPosition;
+        prevPosition = currentPosition;
+        other.transform.position += diff;
     }
 }

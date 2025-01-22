@@ -63,7 +63,7 @@ public class PlatformPathController : MonoBehaviour
             p3 = controlPoints[Mathf.Clamp(currentSegment + 2, 0, controlPointCount)];
         }
 
-        Vector3 positionOnCurve = GetCatmullRomPosition(t, p0, p1, p2, p3);
+        var positionOnCurve = GetCatmullRomPosition(t, p0, p1, p2, p3);
         transform.position = positionOnCurve;
 
         t += Time.deltaTime * platformSpeed * (isReversing ? -1f : 1f);
