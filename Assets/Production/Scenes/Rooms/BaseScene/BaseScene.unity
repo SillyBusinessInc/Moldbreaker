@@ -291,6 +291,10 @@ PrefabInstance:
       propertyPath: keyboardControlImage
       value: 
       objectReference: {fileID: 21300000, guid: 7dbbf34bb1297f24cab5c647851badea, type: 3}
+    - target: {fileID: 4466138692404242255, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: m_Name
+      value: PauseMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 4967681329817621116, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
