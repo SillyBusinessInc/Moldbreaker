@@ -103,7 +103,6 @@ public class PauseLogic : MonoBehaviour
     {
         var player = GlobalReference.GetReference<PlayerReference>().Player;
         var deviceLayout = player.GetComponent<PlayerInput>().currentControlScheme;
-        if (Gamepad.current == null) return "keyboard";
         if (deviceLayout == "keyboard") return "keyboard";
         if (deviceLayout != "Gamepad") return "keyboard";
         
