@@ -8,7 +8,7 @@ public class AudioRunScene : MonoBehaviour
 
     public void Start()
     {
-        AudioManager am = GlobalReference.GetReference<AudioManager>();
+        var am = GlobalReference.GetReference<AudioManager>();
         if (am == null) return;
 
         if (loop) am.PlayMusicOnRepeat(audioSongName);
@@ -17,7 +17,12 @@ public class AudioRunScene : MonoBehaviour
 
     void OnDestroy()
     {
-        AudioManager am = GlobalReference.GetReference<AudioManager>();
+        StopMusic();
+    }
+
+    public void StopMusic()
+    {
+        var am = GlobalReference.GetReference<AudioManager>();
         if (am == null) return;
 
         am.StopMusicSound(audioSongName);

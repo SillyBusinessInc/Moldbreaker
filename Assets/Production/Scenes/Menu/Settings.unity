@@ -1254,6 +1254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 1307884164}
+  audioRunner: {fileID: 2023193599}
   screenModeDropdown: {fileID: 259655584}
   masterVolume: {fileID: 1115167819}
   effectsVolume: {fileID: 2043591200}
@@ -4325,6 +4326,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+--- !u!114 &2023193599 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8321083482972450310, guid: bda442436affedc4681bd4fb8243b9dd, type: 3}
+  m_PrefabInstance: {fileID: 2023193598}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca5eeab8349b587488a114606d7a21b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2043591198
 GameObject:
   m_ObjectHideFlags: 0

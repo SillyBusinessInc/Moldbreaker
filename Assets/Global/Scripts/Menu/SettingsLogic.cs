@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 public class SettingsLogic : MonoBehaviour
 {
     [SerializeField] private Image fadeImage;
-
+    [SerializeField] private AudioRunScene audioRunner;
+    
     [Header("Imports")]
-
     [SerializeField] private TMP_Dropdown screenModeDropdown;
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
@@ -25,6 +25,9 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.AudioSettingSave.LoadAll();
         LoadFromLocal();
 
+        if (IsBaseSceneLoaded())
+            audioRunner.StopMusic();
+        
         UILogic.ShowCursor();
     }
 
@@ -114,18 +117,15 @@ public class SettingsLogic : MonoBehaviour
             case 2: // Fullscreen
                 Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
                 break;
-
-            default:
-                break;
         }
         GlobalReference.Settings.Set("screen_mode", mode);
     }
 
     private bool IsBaseSceneLoaded()
     {
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        for (var i = 0; i < SceneManager.sceneCount; i++)
         {
-            Scene scene = SceneManager.GetSceneAt(i);
+            var scene = SceneManager.GetSceneAt(i);
             if (scene.name == "BaseScene") return true;
         }
         return false;

@@ -56,7 +56,6 @@ public class PauseLogic : MonoBehaviour
     {
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-
         SetPauseState(false);
         
         if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
