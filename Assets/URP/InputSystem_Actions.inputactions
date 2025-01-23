@@ -529,8 +529,8 @@
                 },
                 {
                     "name": "",
-                    "id": "5c35de82-6c40-4930-87b8-e73457912971",
-                    "path": "<Keyboard>/ctrl",
+                    "id": "a83fc11d-823e-4119-9f71-6d7eb5bcd808",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -540,8 +540,8 @@
                 },
                 {
                     "name": "",
-                    "id": "a83fc11d-823e-4119-9f71-6d7eb5bcd808",
-                    "path": "<Keyboard>/shift",
+                    "id": "5c35de82-6c40-4930-87b8-e73457912971",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
