@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class SettingsLogic : MonoBehaviour
 {
     [SerializeField] private Image fadeImage;
-    [SerializeField] private AudioRunScene audioRunner;
     
     [Header("Imports")]
     [SerializeField] private TMP_Dropdown screenModeDropdown;
@@ -24,10 +22,6 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.LoadAll();
         GlobalReference.AudioSettingSave.LoadAll();
         LoadFromLocal();
-
-        if (IsBaseSceneLoaded())
-            audioRunner.StopMusic();
-        
         UILogic.ShowCursor();
     }
 
@@ -80,12 +74,9 @@ public class SettingsLogic : MonoBehaviour
     {
         GlobalReference.Settings.SaveAll();
         GlobalReference.AudioSettingSave.SaveAll();
-        if (!IsBaseSceneLoaded()) {
-            UILogic.FadeToScene("Menu", fadeImage, this);
-        } else {
-            Time.timeScale = 1f;
-            SceneManager.UnloadSceneAsync("Settings");
-        }
+        
+        Time.timeScale = 1f; // necessary for if you are leaving the settings when in game
+        SceneManager.UnloadSceneAsync("Settings");
     }
 
     public void OnSave()
@@ -119,15 +110,5 @@ public class SettingsLogic : MonoBehaviour
                 break;
         }
         GlobalReference.Settings.Set("screen_mode", mode);
-    }
-
-    private bool IsBaseSceneLoaded()
-    {
-        for (var i = 0; i < SceneManager.sceneCount; i++)
-        {
-            var scene = SceneManager.GetSceneAt(i);
-            if (scene.name == "BaseScene") return true;
-        }
-        return false;
     }
 }
