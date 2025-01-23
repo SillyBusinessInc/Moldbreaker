@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -50,6 +51,11 @@ public static class UILogic
         if (btn) btn.Select();
     }
 
+    public static void SelectButton(GameObject btn)
+    {
+        if (btn) EventSystem.current.SetSelectedGameObject(btn);
+    }
+
     public static void ShowCursor() {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -58,5 +64,10 @@ public static class UILogic
     public static void HideCursor() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+    
+    public static void SetCursor(bool value) {
+        Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = value;
     }
 }
