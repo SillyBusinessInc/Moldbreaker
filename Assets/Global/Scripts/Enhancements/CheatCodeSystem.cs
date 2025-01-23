@@ -80,7 +80,8 @@ public class CheatCodeSystem : MonoBehaviour
             player.PlayVFX();
 
             //todo sound
-            
+            GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
+
 
             ResetCombo();
             return;
