@@ -48,9 +48,10 @@ public class PauseLogic : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         SetPauseState(false);
-        
+        isPaused = true;
+        Time.timeScale = 0f;
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
-        isPaused = false;
+        // isPaused = false;
     }
 
     public void QuitGame()
@@ -80,6 +81,7 @@ public class PauseLogic : MonoBehaviour
     public void OnPause(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+        if (IsSettingsSceneLoaded()) return;
         if (YoP.activeSelf) return; // you cant pause the game if you are in the YoP window
         
         if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
