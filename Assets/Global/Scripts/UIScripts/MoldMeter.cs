@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using TMPro;
 using System.Collections;
@@ -9,6 +8,7 @@ public class MoldMeter : MonoBehaviour
     [SerializeField] private TMP_Text HealthPercentageText;
     [SerializeField] private RectTransform HealthMeterImage;
     [SerializeField] private GameObject mold;
+    [SerializeField] private GameObject moleMeter;
     
     private Coroutine moveCoroutine;
     private int cashedHealthPercentage = -1;

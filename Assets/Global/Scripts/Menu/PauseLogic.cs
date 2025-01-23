@@ -43,12 +43,12 @@ public class PauseLogic : MonoBehaviour
         SetPauseState(false);
     }
 
-    public void Settings()
+    public void OnSettings()
     {
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         SetPauseState(false);
-        
+     
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
@@ -79,6 +79,7 @@ public class PauseLogic : MonoBehaviour
     public void OnPause(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+        if (IsSettingsSceneLoaded()) return;
         if (YoP.activeSelf) return; // you cant pause the game if you are in the YoP window
         
         if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
@@ -113,5 +114,15 @@ public class PauseLogic : MonoBehaviour
             XInputController => "xbox",
             _ => "keyboard"
         };
+    }
+
+    private bool IsSettingsSceneLoaded()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == "Settings") return true;
+        }
+        return false;
     }
 }
