@@ -29291,6 +29291,10 @@ PrefabInstance:
       propertyPath: bounceForceUp
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 7248930060582609042, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
+      propertyPath: m_Name
+      value: Muffin (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -29342,14 +29346,6 @@ PrefabInstance:
     - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7248930060582609042, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
-      propertyPath: m_Name
-      value: Muffin (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -45326,6 +45322,10 @@ PrefabInstance:
       propertyPath: bounceForceUp
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 7248930060582609042, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
+      propertyPath: m_Name
+      value: Muffin (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -45377,14 +45377,6 @@ PrefabInstance:
     - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7248930060582609042, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
-      propertyPath: m_Name
-      value: Muffin (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -47251,7 +47243,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242824039}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 62133f34b75d13f4fa291989de85a984, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -61589,7 +61581,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617908271}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 62133f34b75d13f4fa291989de85a984, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -63240,7 +63232,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664707735}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 62133f34b75d13f4fa291989de85a984, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -68591,6 +68583,10 @@ PrefabInstance:
       propertyPath: bounceForceUp
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 7248930060582609042, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
+      propertyPath: m_Name
+      value: Muffin
+      objectReference: {fileID: 0}
     - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -68642,14 +68638,6 @@ PrefabInstance:
     - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7248930060582609042, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
-      propertyPath: m_Name
-      value: Muffin
       objectReference: {fileID: 0}
     - target: {fileID: 7843416521328640493, guid: ec4d910e3f5a0c5409cf5978ac3f70b7, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -72517,7 +72505,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891147471}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 62133f34b75d13f4fa291989de85a984, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
