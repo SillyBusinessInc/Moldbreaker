@@ -5,9 +5,9 @@ namespace EnemiesNS
     public abstract class StateBase
     {
         protected EnemyBase enemy;
-        protected StateBase(EnemyBase enemy)
+        protected StateBase(EnemyBase enemy_)
         {
-            this.enemy = enemy;
+            enemy = enemy_;
         }
 
         public virtual void Enter() {}

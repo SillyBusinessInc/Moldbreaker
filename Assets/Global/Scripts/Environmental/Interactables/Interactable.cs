@@ -91,12 +91,12 @@ public class Interactable : MonoBehaviour
 
     private IconPathResult ParseDeviceInputSprite()
     {
-        if (!this.playerInput) return null;
+        if (!playerInput) return null;
 
-        string controlPath = this.playerInput.actions["Interact"].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+        string controlPath = playerInput.actions["Interact"].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
 
         // get the device the player is using
-        string deviceLayout = this.playerInput.currentControlScheme;
+        string deviceLayout = playerInput.currentControlScheme;
 
         // get if you are on an xbox or playstation controller 
 
@@ -123,7 +123,7 @@ public class Interactable : MonoBehaviour
             return HandleControllerInput(TDeviceType.Keyboard, controlPath);
         }
 
-        IconPathResult HandleControllerInput(TDeviceType deviceType, string controlPath) => this.controlIconMappingConfig.GetIcon(deviceType, controlPath);
+        IconPathResult HandleControllerInput(TDeviceType deviceType, string controlPath) => controlIconMappingConfig.GetIcon(deviceType, controlPath);
 
         return null;
     }
@@ -203,7 +203,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void TriggerInteraction(PlayerInteraction interactor)
     {
-        ActionMetaData metaData = new(interactor.gameObject, this.gameObject);
+        ActionMetaData metaData = new(interactor.gameObject, gameObject);
         if (!isDisabled)
         {
             OnInteract(metaData);

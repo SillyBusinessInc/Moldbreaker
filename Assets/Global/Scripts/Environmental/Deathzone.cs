@@ -14,7 +14,7 @@ public class Deathzone : MonoBehaviour
 
     void Start()
     {
-        this.crossFadeController = GlobalReference.GetReference<CrossFadeController>();
+        crossFadeController = GlobalReference.GetReference<CrossFadeController>();
         playerReference = GlobalReference.GetReference<PlayerReference>();
     }
     void OnTriggerEnter(Collider other)

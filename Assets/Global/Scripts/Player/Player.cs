@@ -174,15 +174,15 @@ public class Player : MonoBehaviour
         foreach (var offset in raycastOffsets)
         {
             var raycastPosition = rb.position + offset;
-            if (!Physics.Raycast(raycastPosition, Vector3.down, out var hit, this.groundCheckDistance)) continue;
+            if (!Physics.Raycast(raycastPosition, Vector3.down, out var hit, groundCheckDistance)) continue;
             if (hit.collider.gameObject.CompareTag("Player")) continue;
-            if (!(Vector3.Angle(Vector3.up, hit.normal) < this.groundCheckAngle)) continue;
+            if (!(Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)) continue;
 
-            this.currentJumps = 0;
-            if (!this.isGrounded) this.Tail.attackIndex = 0;
+            currentJumps = 0;
+            if (!isGrounded) Tail.attackIndex = 0;
 
-            this.isGrounded = true;
-            this.playerAnimationsHandler.SetBool("IsOnGround", true);
+            isGrounded = true;
+            playerAnimationsHandler.SetBool("IsOnGround", true);
             return;
         }
 
@@ -255,10 +255,10 @@ public class Player : MonoBehaviour
     {
         if (isKnockedBack && targetVelocity.magnitude < 0.1f) isKnockedBack = false;
         if (isKnockedBack) return;
-        if (!(this.targetVelocity.magnitude > 0.1f)) return;
+        if (!(targetVelocity.magnitude > 0.1f)) return;
 
-        var direction = Vector3.ProjectOnPlane(this.targetVelocity, Vector3.up).normalized;
-        if (direction != Vector3.zero) this.rb.MoveRotation(Quaternion.Lerp(this.rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
+        var direction = Vector3.ProjectOnPlane(targetVelocity, Vector3.up).normalized;
+        if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
     }
 
     private void ApproachTargetVelocity()

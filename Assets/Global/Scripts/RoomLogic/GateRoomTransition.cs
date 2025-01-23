@@ -119,7 +119,7 @@ public class GateRoomTransition : Interactable
                 Debug.LogError("GameManagerReference is null");
             }
 
-            var unloadOperation = SceneManager.UnloadSceneAsync(this.currentSceneName);
+            var unloadOperation = SceneManager.UnloadSceneAsync(currentSceneName);
             while (!unloadOperation.isDone)
             {
                 yield return null;
