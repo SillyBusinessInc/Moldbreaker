@@ -17,10 +17,6 @@ public class PauseLogic : MonoBehaviour
     [SerializeField] private Sprite playStationImage;
     [SerializeField] private Sprite xboxImage;
     [SerializeField] private GameObject bgImage;
-
-    private PlayerInput playerInput;
-
-
     [SerializeField] private Image fadeImage;
 
     void Start()
@@ -30,8 +26,6 @@ public class PauseLogic : MonoBehaviour
         controlImage.SetActive(false);
         bgImage.SetActive(false);
         isPaused = false;
-        playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
-
     }
 
     public void ContinueGame()
@@ -43,7 +37,6 @@ public class PauseLogic : MonoBehaviour
         Menu.SetActive(!Menu.activeSelf);
         controlImage.SetActive(!controlImage.activeSelf);
         bgImage.SetActive(!bgImage.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf); 
         UILogic.HideCursor();
         Time.timeScale = 1f;
     }
@@ -57,9 +50,7 @@ public class PauseLogic : MonoBehaviour
         Menu.SetActive(!Menu.activeSelf);
         controlImage.SetActive(!controlImage.activeSelf);
         bgImage.SetActive(!bgImage.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf); 
         Time.timeScale = 1f;
-        // SceneManager.LoadScene("Settings");
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
@@ -72,29 +63,22 @@ public class PauseLogic : MonoBehaviour
         Menu.SetActive(!Menu.activeSelf);
         controlImage.SetActive(!controlImage.activeSelf);
         bgImage.SetActive(!bgImage.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf);
         Time.timeScale = 1f;
-        //SceneManager.LoadScene("Menu");
 
-        if (GetCurrentSceneName() == "PARKOUR_1" || GetCurrentSceneName() == "PARKOUR_2" || GetCurrentSceneName() == "PARKOUR_3")
-        {
+        var currentScene = GetCurrentSceneName();
+        if (currentScene is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
             UILogic.FadeToScene("Loading", fadeImage, this);
-        }
-        else if (GetCurrentSceneName() == "ENTRANCE_1")
-        {
+        else 
             SceneManager.LoadScene("Menu");
-
-        }
     }
+    
     public string GetCurrentSceneName()
     {
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        for (var i = 0; i < SceneManager.sceneCount; i++)
         {
-            Scene scene = SceneManager.GetSceneAt(i);
+            var scene = SceneManager.GetSceneAt(i);
             if (scene.isLoaded && scene.name != "BaseScene" && scene.name != "DontDestroyOnLoad")
-            {
                 return scene.name;
-            }
         }
         return SceneManager.GetActiveScene().name;
     }
@@ -114,47 +98,44 @@ public class PauseLogic : MonoBehaviour
             bgImage.SetActive(!bgImage.activeSelf);
             Image controlImage1 = controlImage.GetComponent<Image>();
             controlImage1.preserveAspect = true;
-            if (IsControllerInput() == "xbox") controlImage1.sprite = xboxImage;
-            else if (IsControllerInput() == "playstation") controlImage1.sprite = playStationImage;
-            else if (IsControllerInput() == "keyboard") controlImage1.sprite = keyboardImage;
+            
+            var inputDevice = GetInputType();
+            if ( inputDevice == "xbox") controlImage1.sprite = xboxImage;
+            else if ( inputDevice == "playstation") controlImage1.sprite = playStationImage;
+            else if ( inputDevice == "keyboard") controlImage1.sprite = keyboardImage;
         }
 
-        if (isPaused == true)
+        if (isPaused)
         {
             UILogic.ShowCursor();
-            // handler.EnableInput("UI");
+            return;
+        }
+        
+        if (YoP.activeSelf)
+        {
+            UILogic.ShowCursor();
         }
         else
-        {
-            if (YoP.activeSelf)
-            {
-                UILogic.ShowCursor();
-            }
-            else
-            {
-                UILogic.HideCursor();
-                GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-                // handler.DisableInput("UI");
-            }
+        { 
+            UILogic.HideCursor(); 
+            GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         }
     }
-    string IsControllerInput()
+    
+    string GetInputType()
     {
-        string deviceLayout = playerInput.currentControlScheme;
-        if (Gamepad.current != null) {
-            if (deviceLayout == "keyboard") return "keyboard";
-            else if (deviceLayout == "Gamepad") {
-                var gamepad = Gamepad.current;
-                if (gamepad is DualShockGamepad)
-                {
-                    return "playstation";
-                }
-                else if (gamepad is XInputController)
-                {
-                    return "xbox";
-                }
-            }
-        }
-        return "keyboard";
+        var player = GlobalReference.GetReference<PlayerReference>().Player;
+        var deviceLayout = player.GetComponent<PlayerInput>().currentControlScheme;
+        if (Gamepad.current == null) return "keyboard";
+        if (deviceLayout == "keyboard") return "keyboard";
+        if (deviceLayout != "Gamepad") return "keyboard";
+        
+        var gamepad = Gamepad.current;
+        return gamepad switch
+        {
+            DualShockGamepad => "playstation",
+            XInputController => "xbox",
+            _ => "keyboard"
+        };
     }
 }
