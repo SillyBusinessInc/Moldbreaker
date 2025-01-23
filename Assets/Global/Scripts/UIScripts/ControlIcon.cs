@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
 
 [CreateAssetMenu(fileName = "ControlIconMapping", menuName = "Input System/Control Icon Mapping")]
 public class ControlIconMapping : ScriptableObject
@@ -62,17 +63,19 @@ public class ControlIconMapping : ScriptableObject
         {
             case TDeviceType.Keyboard:
                 foreach (var mapping in keyboardMappings)
-                { 
+                {
 
-                    switch(controlPath.ToLower())
+                    switch (controlPath.Trim().ToLower())
                     {
                         case "shift":
                             controlPath = Key.LeftShift.ToString().ToLower();
-                            break; 
+                            break;
                     }
 
+                    Debug.Log($"Control Path: {controlPath} Mapping: {mapping.keyboardMapping}");
+
                     if (mapping.keyboardMapping.ToString().ToLower() != controlPath.ToLower()) continue;
-                    
+
                     return new IconPathResult
                     {
                         icon = mapping.icon,
@@ -91,30 +94,30 @@ public class ControlIconMapping : ScriptableObject
                 break;
         }
 
+
         if (gamepadMappings != null)
         {
-            switch (controlPath.ToLower()) {
-                case "leftshoulder":
-                    controlPath = GamepadButton.LeftShoulder.ToString().ToLower();
-                    break; 
-                case "lefttrigger": 
-                    controlPath = GamepadButton.LeftTrigger.ToString().ToLower();
+
+            switch (controlPath.Trim().ToLower())
+            {
+                case "leftshoulder" or "left shoulder" or "l1" or "lb":
+                    controlPath = "leftshoulder";
                     break;
-                case "left shoulder":
-                    controlPath = GamepadButton.LeftShoulder.ToString().ToLower();
-                    break;
-                case "left trigger":    
-                    controlPath = GamepadButton.LeftTrigger.ToString().ToLower();
+                case "lefttrigger" or "left trigger" or "l2" or "lt":
+                    controlPath = "lefttrigger";
                     break;
             }
+
             foreach (var mapping in gamepadMappings)
             {
-                int controlValue = GetGamepadButtonValue(controlPath) ?? -1;
-                int mappingValue = GetGamepadButtonValue(mapping.controlPath.ToString()) ?? -1;
+
+                int controlValue = GetGamepadButtonValue(controlPath.Trim()) ?? -1;
+                int mappingValue = GetGamepadButtonValue(mapping.controlPath.ToString().Trim()) ?? -1;
+
+                Debug.Log($"Control Path: {controlPath} Value: {controlValue} Mapping: {mapping.controlPath} Value: {mappingValue}");
 
                 if (controlValue != mappingValue) continue;
 
-                
                 return new IconPathResult
                 {
                     icon = mapping.icon,
@@ -128,10 +131,11 @@ public class ControlIconMapping : ScriptableObject
 
     private int? GetGamepadButtonValue(string controlPath)
     {
+
         // Get int value for comparison
         if (System.Enum.TryParse<GamepadButton>(controlPath, true, out var result))
         {
-            Debug.Log($"Parsed control path: {result}");
+            // Debug.Log($"Control Path: {controlPath} Value: {result}"); 
             return (int)result;
         }
 
