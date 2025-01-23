@@ -59,4 +59,9 @@ public static class UILogic
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+    
+    public static void SetCursor(bool value) {
+        Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = value;
+    }
 }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
@@ -17,120 +18,119 @@ public class PauseLogic : MonoBehaviour
     [SerializeField] private Sprite playStationImage;
     [SerializeField] private Sprite xboxImage;
     [SerializeField] private GameObject bgImage;
-
-    private PlayerInput playerInput;
-
-
+    [SerializeField] private Image fadeImage;
+    [SerializeField] private TMP_Text quitButtonText;
     void Start()
     {
         handler.EnableInput("UI");
-        Menu.SetActive(false);
-        controlImage.SetActive(false);
-        bgImage.SetActive(false);
-        isPaused = false;
-        playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
-
+        SetPauseState(false);
     }
 
+    private void SetPauseState(bool value)
+    {
+        Menu.SetActive(value);
+        controlImage.SetActive(value);
+        bgImage.SetActive(value);
+        isPaused = value;
+        Time.timeScale = value ? 0f : 1f;
+        UILogic.SetCursor(value);
+    }
+    
     public void ContinueGame()
     {
-        isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf); 
-        UILogic.HideCursor();
-        Time.timeScale = 1f;
+        SetPauseState(false);
     }
 
     public void Settings()
     {
-        isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        UILogic.ShowCursor();
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf); 
-        Time.timeScale = 1f;
-        // SceneManager.LoadScene("Settings");
+        SetPauseState(false);
+        
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
     public void QuitGame()
     {
-        isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        UILogic.ShowCursor();
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf);
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu");
+
+        SetPauseState(false);
+        
+        if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
+            UILogic.FadeToScene("Loading", fadeImage, this);
+        else 
+            SceneManager.LoadScene("Menu");
+    }
+    
+    private string GetCurrentSceneName()
+    {
+        for (var i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var scene = SceneManager.GetSceneAt(i);
+            if (scene.isLoaded && scene.name != "BaseScene" && scene.name != "DontDestroyOnLoad")
+                return scene.name;
+        }
+        return SceneManager.GetActiveScene().name;
     }
 
     public void OnPause(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
-
+        
+        if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
+            quitButtonText.text = "Back to hub";
+        else 
+            quitButtonText.text = "Quit to menu";
+        
         if (!YoP.activeSelf)
         {
-            isPaused = !isPaused;
-            Menu.SetActive(!Menu.activeSelf);
+            SetPauseState(!isPaused);
+          
             UILogic.SelectButton(continueButton);
-            Time.timeScale = isPaused ? 0f : 1f;
             GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
-            controlImage.SetActive(!controlImage.activeSelf);
-            bgImage.SetActive(!bgImage.activeSelf);
-            Image controlImage1 = controlImage.GetComponent<Image>();
+            var controlImage1 = controlImage.GetComponent<Image>();
             controlImage1.preserveAspect = true;
-            if (IsControllerInput() == "xbox") controlImage1.sprite = xboxImage;
-            else if (IsControllerInput() == "playstation") controlImage1.sprite = playStationImage;
-            else if (IsControllerInput() == "keyboard") controlImage1.sprite = keyboardImage;
+            
+            var inputDevice = GetInputType();
+            if ( inputDevice == "xbox") controlImage1.sprite = xboxImage;
+            else if ( inputDevice == "playstation") controlImage1.sprite = playStationImage;
+            else if ( inputDevice == "keyboard") controlImage1.sprite = keyboardImage;
         }
 
-        if (isPaused == true)
+        if (isPaused)
         {
-            UILogic.ShowCursor();
-            // handler.EnableInput("UI");
+            UILogic.SetCursor(true);
+            return;
+        }
+        
+        if (YoP.activeSelf)
+        {
+            UILogic.SetCursor(true);
         }
         else
-        {
-            if (YoP.activeSelf)
-            {
-                UILogic.ShowCursor();
-            }
-            else
-            {
-                UILogic.HideCursor();
-                GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-                // handler.DisableInput("UI");
-            }
+        { 
+            UILogic.SetCursor(false); 
+            GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         }
     }
-    string IsControllerInput()
+    
+    string GetInputType()
     {
-        string deviceLayout = playerInput.currentControlScheme;
-        if (Gamepad.current != null) {
-            if (deviceLayout == "keyboard") return "keyboard";
-            else if (deviceLayout == "Gamepad") {
-                var gamepad = Gamepad.current;
-                if (gamepad is DualShockGamepad)
-                {
-                    return "playstation";
-                }
-                else if (gamepad is XInputController)
-                {
-                    return "xbox";
-                }
-            }
-        }
-        return "keyboard";
+        var player = GlobalReference.GetReference<PlayerReference>().Player;
+        var deviceLayout = player.GetComponent<PlayerInput>().currentControlScheme;
+        if (Gamepad.current == null) return "keyboard";
+        if (deviceLayout == "keyboard") return "keyboard";
+        if (deviceLayout != "Gamepad") return "keyboard";
+        
+        var gamepad = Gamepad.current;
+        return gamepad switch
+        {
+            DualShockGamepad => "playstation",
+            XInputController => "xbox",
+            _ => "keyboard"
+        };
     }
 }
