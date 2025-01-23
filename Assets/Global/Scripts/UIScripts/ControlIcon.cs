@@ -72,7 +72,7 @@ public class ControlIconMapping : ScriptableObject
                             break;
                     }
 
-                    Debug.Log($"Control Path: {controlPath} Mapping: {mapping.keyboardMapping}");
+                   // Debug.Log($"Control Path: {controlPath} Mapping: {mapping.keyboardMapping}");
 
                     if (mapping.keyboardMapping.ToString().ToLower() != controlPath.ToLower()) continue;
 
@@ -114,7 +114,7 @@ public class ControlIconMapping : ScriptableObject
                 int controlValue = GetGamepadButtonValue(controlPath.Trim()) ?? -1;
                 int mappingValue = GetGamepadButtonValue(mapping.controlPath.ToString().Trim()) ?? -1;
 
-                Debug.Log($"Control Path: {controlPath} Value: {controlValue} Mapping: {mapping.controlPath} Value: {mappingValue}");
+               // Debug.Log($"Control Path: {controlPath} Value: {controlValue} Mapping: {mapping.controlPath} Value: {mappingValue}");
 
                 if (controlValue != mappingValue) continue;
 
