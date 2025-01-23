@@ -22,49 +22,42 @@ public class PauseLogic : MonoBehaviour
     void Start()
     {
         handler.EnableInput("UI");
-        Menu.SetActive(false);
-        controlImage.SetActive(false);
-        bgImage.SetActive(false);
-        isPaused = false;
+        SetPauseState(false);
     }
 
+    private void SetPauseState(bool value)
+    {
+        Menu.SetActive(value);
+        controlImage.SetActive(value);
+        bgImage.SetActive(value);
+        isPaused = value;
+        Time.timeScale = value ? 0f : 1f;
+        UILogic.SetCursor(value);
+    }
+    
     public void ContinueGame()
     {
-        isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
-        UILogic.HideCursor();
-        Time.timeScale = 1f;
+        SetPauseState(false);
     }
 
     public void Settings()
     {
-        isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        UILogic.ShowCursor();
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
-        Time.timeScale = 1f;
+        SetPauseState(false);
+        
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
     public void QuitGame()
     {
-        isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        UILogic.ShowCursor();
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
-        Time.timeScale = 1f;
 
+        SetPauseState(false);
+        
         var currentScene = GetCurrentSceneName();
         if (currentScene is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
             UILogic.FadeToScene("Loading", fadeImage, this);
@@ -89,14 +82,11 @@ public class PauseLogic : MonoBehaviour
 
         if (!YoP.activeSelf)
         {
-            isPaused = !isPaused;
-            Menu.SetActive(!Menu.activeSelf);
+            SetPauseState(!isPaused);
+          
             UILogic.SelectButton(continueButton);
-            Time.timeScale = isPaused ? 0f : 1f;
             GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
-            controlImage.SetActive(!controlImage.activeSelf);
-            bgImage.SetActive(!bgImage.activeSelf);
-            Image controlImage1 = controlImage.GetComponent<Image>();
+            var controlImage1 = controlImage.GetComponent<Image>();
             controlImage1.preserveAspect = true;
             
             var inputDevice = GetInputType();
@@ -107,17 +97,17 @@ public class PauseLogic : MonoBehaviour
 
         if (isPaused)
         {
-            UILogic.ShowCursor();
+            UILogic.SetCursor(true);
             return;
         }
         
         if (YoP.activeSelf)
         {
-            UILogic.ShowCursor();
+            UILogic.SetCursor(true);
         }
         else
         { 
-            UILogic.HideCursor(); 
+            UILogic.SetCursor(false); 
             GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         }
     }
