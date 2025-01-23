@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -48,6 +49,11 @@ public static class UILogic
     public static void SelectButton(Button btn)
     {
         if (btn) btn.Select();
+    }
+
+    public static void SelectButton(GameObject btn)
+    {
+        if (btn) EventSystem.current.SetSelectedGameObject(btn);
     }
 
     public static void ShowCursor() {

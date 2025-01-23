@@ -12,9 +12,9 @@ public class Confirmation : MonoBehaviour
     [SerializeField] private CanvasGroup menuGroup;
     [SerializeField] private CanvasGroup confirmationGroup;
     [SerializeField] private Button noButton;
-    [SerializeField] private Button quitButton;
+    private GameObject origin;
 
-    public void RequestConfirmation(string title_, string description_, Action confirmAction_, Action rejectAction_ = null)
+    public void RequestConfirmation(string title_, string description_, Action confirmAction_, GameObject origin_, Action rejectAction_ = null)
     {
         gameObject.SetActive(true);
         title = transform.GetChild(0).GetComponent<TMP_Text>();
@@ -24,6 +24,7 @@ public class Confirmation : MonoBehaviour
         description.text = description_;
         confirmAction = confirmAction_;
         rejectAction = rejectAction_;
+        origin = origin_;
 
         // make confirmation window the only interactable menu, and set no-button as selected option.
         UILogic.FlipInteractability(confirmationGroup, menuGroup);
@@ -32,19 +33,20 @@ public class Confirmation : MonoBehaviour
 
     public void OnConfirm()
     {
-        if (confirmAction != null) confirmAction();
+        confirmAction?.Invoke();
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         gameObject.SetActive(false);
         UILogic.FlipInteractability(confirmationGroup, menuGroup);
-        UILogic.SelectButton(quitButton);
+        UILogic.SelectButton(origin);
     }
 
     public void OnReject()
     {
-        if (rejectAction != null) rejectAction();
+        rejectAction?.Invoke();
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         gameObject.SetActive(false);
+
         UILogic.FlipInteractability(confirmationGroup, menuGroup);
-        UILogic.SelectButton(quitButton);
+        UILogic.SelectButton(origin);
     }
 }
