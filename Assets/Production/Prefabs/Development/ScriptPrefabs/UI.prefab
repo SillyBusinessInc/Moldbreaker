@@ -228,7 +228,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3958818218294009407}
         m_TargetAssemblyTypeName: PauseLogic, Assembly-CSharp
-        m_MethodName: Settings
+        m_MethodName: OnSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2326,7 +2326,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.75
+  m_fontSize: 41.1
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2925,7 +2925,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.15
+  m_fontSize: 27.4
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1

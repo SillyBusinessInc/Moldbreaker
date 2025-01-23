@@ -43,15 +43,13 @@ public class PauseLogic : MonoBehaviour
         SetPauseState(false);
     }
 
-    public void Settings()
+    public void OnSettings()
     {
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         SetPauseState(false);
-        isPaused = true;
-        Time.timeScale = 0f;
+     
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
-        // isPaused = false;
     }
 
     public void QuitGame()
