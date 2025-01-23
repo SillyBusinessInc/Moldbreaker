@@ -264,6 +264,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 47187330}
     - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: moldmeter
+      value: 
+      objectReference: {fileID: 47187333}
+    - target: {fileID: 3958818218294009407, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: xboxImage
       value: 
       objectReference: {fileID: 21300000, guid: a357cc7ed3cbe44eb8a39e314a4f50bc, type: 3}
@@ -343,6 +347,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 8023008448355820360, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+      propertyPath: moleMeter
+      value: 
+      objectReference: {fileID: 47187333}
     - target: {fileID: 8241449340267907011, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -416,6 +424,11 @@ MonoBehaviour:
 --- !u!1 &47187332 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2545444505452374521, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+  m_PrefabInstance: {fileID: 47187329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &47187333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7722653136578928598, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
   m_PrefabInstance: {fileID: 47187329}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &343043677

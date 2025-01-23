@@ -29,7 +29,6 @@ public class PauseLogic : MonoBehaviour
         bgImage.SetActive(false);
         isPaused = false;
         playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
-
     }
 
     public void ContinueGame()
@@ -48,17 +47,16 @@ public class PauseLogic : MonoBehaviour
 
     public void Settings()
     {
-        isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         UILogic.ShowCursor();
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
+        Menu.SetActive(false);
+        controlImage.SetActive(false);
+        bgImage.SetActive(false);
         // Upgrades.SetActive(!Upgrades.activeSelf); 
-        Time.timeScale = 1f;
-        // SceneManager.LoadScene("Settings");
+        Time.timeScale = 0f;
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+        isPaused = false;
     }
 
     public void QuitGame()
@@ -78,6 +76,7 @@ public class PauseLogic : MonoBehaviour
     public void OnPause(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+        if (IsSettingsSceneLoaded()) return;
 
         if (!YoP.activeSelf)
         {
@@ -132,5 +131,15 @@ public class PauseLogic : MonoBehaviour
             }
         }
         return "keyboard";
+    }
+
+    private bool IsSettingsSceneLoaded()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == "Settings") return true;
+        }
+        return false;
     }
 }

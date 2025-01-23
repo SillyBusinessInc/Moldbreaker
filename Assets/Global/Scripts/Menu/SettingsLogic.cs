@@ -2,6 +2,7 @@ using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SettingsLogic : MonoBehaviour
 {
@@ -76,7 +77,12 @@ public class SettingsLogic : MonoBehaviour
     {
         GlobalReference.Settings.SaveAll();
         GlobalReference.AudioSettingSave.SaveAll();
-        UILogic.FadeToScene("Menu", fadeImage, this);
+        if (!IsBaseSceneLoaded()) {
+            UILogic.FadeToScene("Menu", fadeImage, this);
+        } else {
+            Time.timeScale = 1f;
+            SceneManager.UnloadSceneAsync("Settings");
+        }
     }
 
     public void OnSave()
@@ -113,5 +119,15 @@ public class SettingsLogic : MonoBehaviour
                 break;
         }
         GlobalReference.Settings.Set("screen_mode", mode);
+    }
+
+    private bool IsBaseSceneLoaded()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == "BaseScene") return true;
+        }
+        return false;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MoldMeter : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class MoldMeter : MonoBehaviour
     [SerializeField] private TMP_Text HealthPercentageText;
     [SerializeField] private RectTransform HealthMeterImage;
     [SerializeField] private GameObject mold;
+    [SerializeField] private GameObject moleMeter;
     
     private Coroutine moveCoroutine;
     private int cashedHealthPercentage = -1;
@@ -22,6 +24,14 @@ public class MoldMeter : MonoBehaviour
     void Start() {
         var currentScale = HealthMeterImage.localScale;
         HealthMeterImage.localScale = new(-currentScale.x, currentScale.y, currentScale.z);
+    }
+
+    void Update() {
+        if (IsSettingsSceneLoaded()) {
+            moleMeter.SetActive(false);
+        } else {
+            moleMeter.SetActive(true);
+        }
     }
 
     public void UpdateMeter()
@@ -61,5 +71,15 @@ public class MoldMeter : MonoBehaviour
         }
 
         rect.anchoredPosition = target;
+    }
+
+    private bool IsSettingsSceneLoaded()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == "Settings") return true;
+        }
+        return false;
     }
 }
