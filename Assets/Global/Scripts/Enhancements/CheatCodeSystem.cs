@@ -76,6 +76,12 @@ public class CheatCodeSystem : MonoBehaviour
         {
             LastInvokedCheat = currentSequence;
             cheatCodes[currentSequence].Invoke();
+            var player = GlobalReference.GetReference<PlayerReference>().Player;
+            player.PlayVFX();
+
+            //todo sound
+            
+
             ResetCombo();
             return;
         }
@@ -98,11 +104,13 @@ public class CheatCodeSystem : MonoBehaviour
     // Cheat Code Invocations
     // -=-
 
-    private static void InvokeToggleInvulnerability() => InvulnerableCheatActivated = !InvulnerableCheatActivated;
+    private static void InvokeToggleInvulnerability() => InvulnerableCheatActivated = !InvulnerableCheatActivated; 
     private static void InvokeInfiniteDoubleJumps() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.DoubleJumpsCount.AddModifier("cheatleg", 1000);
-    private static void InvokeEnableDodge() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
-    private static void InvokeRestoreFullHp() => GlobalReference.GetReference<PlayerReference>().Player.Heal(GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.MaxHealth.GetValue());
 
+    private static void InvokeEnableDodge() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
+    
+    private static void InvokeRestoreFullHp() => GlobalReference.GetReference<PlayerReference>().Player.Heal(GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.MaxHealth.GetValue());
+    
     private static void InvokeExtraSpeed()
     {
         var stats = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic;

@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public Vector3 hitDirection;
     private bool IsLanding = false;
     [HideInInspector] public bool isInvulnerable = false;
+    [SerializeField] private GameObject vfxPrefab;
 
     void Awake()
     {
@@ -138,6 +139,14 @@ public class Player : MonoBehaviour
             StartCoroutine(ResetRecentHits());
         }
     }
+
+    public void PlayVFX()
+    {
+        Instantiate(vfxPrefab, rb.transform.position, rb.transform.rotation, rb.transform);
+    }
+
+
+
 
     // Setting the height to null will reset the height to default
     public void SetCameraHeight(float? height)
