@@ -19,7 +19,6 @@ namespace EnemiesNS
 
         public virtual void Update()
         {
-
             enemy.animator.SetFloat("WalkingSpeed", enemy.agent.velocity.magnitude);
             CalculateDistanceToPlayer(); // do we want to calculate on every frame?
             CheckState();
@@ -37,6 +36,19 @@ namespace EnemiesNS
             if (enemy.currentState == enemy.states.Dead) return;
             // check to see if enemy is still recovering from attacking
             if (enemy.isRecovering || enemy.inAttackAnim) return;
+
+            // Handle invalid or incomplete path
+            if (enemy.agent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete)
+            {
+                TransitionToPathBlockedRoaming();
+                return;
+            }
+            if (enemy.isPathBlocked)
+            {
+                if (enemy.currentState != enemy.states.Roaming) enemy.ChangeState(enemy.states.Roaming);
+                return;
+            }
+
             // attack
             if (enemy.currentState != enemy.states.Attacking && enemy.canAttack && IsWithinAttackRange())
             {
@@ -65,24 +77,27 @@ namespace EnemiesNS
             }
         }
 
+        protected void TransitionToPathBlockedRoaming()
+        {
+            enemy.toggleIsPathblocked(true);
+            enemy.ChangeState(enemy.states.Roaming);
+        }
+
         protected void CalculateDistanceToPlayer()
         {
             enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.target.position);
-            Debug.Log("CALCULATING");
-            if (enemy.agent.speed < 1) Debug.Log(enemy.agent.pathStatus, enemy);
-            if (enemy.agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathInvalid) enemy.isChasing = false;
         }
 
         protected bool IsWithinChaseRange()
         {
             //early return for when already chasing
             if (enemy.isChasing) return true;
-            return enemy.distanceToPlayer <= enemy.chaseRange;
+            return enemy.agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathComplete && enemy.distanceToPlayer <= enemy.chaseRange;
         }
 
         protected bool IsWithinAttackRange()
         {
-            return enemy.distanceToPlayer <= enemy.attackRange;
+            return enemy.agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathComplete && enemy.distanceToPlayer <= enemy.attackRange;
         }
     }
 }
