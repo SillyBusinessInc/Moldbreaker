@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.XInput;
@@ -20,10 +21,15 @@ public class PauseLogic : MonoBehaviour
     [SerializeField] private GameObject bgImage;
     [SerializeField] private Image fadeImage;
     [SerializeField] private TMP_Text quitButtonText;
+
+    private static GameObject defaultSelectedButton;
+
     void Start()
     {
         handler.EnableInput("UI");
         SetPauseState(false);
+
+        defaultSelectedButton = transform.GetChild(1).GetChild(1).gameObject;
     }
 
     private void SetPauseState(bool value)
@@ -34,27 +40,28 @@ public class PauseLogic : MonoBehaviour
         isPaused = value;
         Time.timeScale = value ? 0f : 1f;
         UILogic.SetCursor(value);
+        GlobalReference.AttemptInvoke(value ? Events.INPUT_IGNORE : Events.INPUT_ACKNOWLEDGE);
+    }
+
+    public static void ForceSelectDefault() {
+        if (defaultSelectedButton != null) EventSystem.current.SetSelectedGameObject(defaultSelectedButton);
     }
     
     public void ContinueGame()
     {
-        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         SetPauseState(false);
     }
 
     public void OnSettings()
     {
-        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        SetPauseState(false);
      
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
     public void QuitGame()
     {
-        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         SetPauseState(false);
         
@@ -89,7 +96,6 @@ public class PauseLogic : MonoBehaviour
         SetPauseState(!isPaused);
         
         UILogic.SelectButton(continueButton);
-        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
         var controlImage1 = controlImage.GetComponent<Image>();
         controlImage1.preserveAspect = true;
             

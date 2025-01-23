@@ -52,7 +52,6 @@ public class SettingsLogic : MonoBehaviour
         back.interactable = !(GlobalReference.Settings.IsDirty || GlobalReference.AudioSettingSave.IsDirty);
     }
 
-
     public void OnMasterVolumeChange(float value)
     {
         GlobalReference.GetReference<AudioManager>().UpdateMasterVolume(value * 8);
@@ -74,8 +73,9 @@ public class SettingsLogic : MonoBehaviour
     {
         GlobalReference.Settings.SaveAll();
         GlobalReference.AudioSettingSave.SaveAll();
+
+        PauseLogic.ForceSelectDefault();
         
-        Time.timeScale = 1f; // necessary for if you are leaving the settings when in game
         SceneManager.UnloadSceneAsync("Settings");
     }
 
