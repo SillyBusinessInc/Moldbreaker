@@ -18,11 +18,11 @@ public class BouncyObject : MonoBehaviour
             var angle = Vector3.Angle(contact.normal, Vector3.up);
 
             // if an object gets on top of the object this script is attached to
-            if (!(angle >= this.topAngleThreshold))
+            if (!(angle >= topAngleThreshold))
                 continue;
             if(animator) animator.SetTrigger("Bounce");
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-            rb.AddForce(this.transform.up * this.bounceForceUp + rb.transform.forward * this.bounceForceForward, ForceMode.Impulse); // bounce effect
+            rb.AddForce(transform.up * bounceForceUp + rb.transform.forward * bounceForceForward, ForceMode.Impulse); // bounce effect
             break;
         }
     }
