@@ -36,6 +36,7 @@ public class PauseLogic : MonoBehaviour
     {
         isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
 
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         Menu.SetActive(!Menu.activeSelf);
@@ -50,6 +51,7 @@ public class PauseLogic : MonoBehaviour
     {
         isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
@@ -65,6 +67,7 @@ public class PauseLogic : MonoBehaviour
     {
         isPaused = false;
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         UILogic.ShowCursor();
         Menu.SetActive(!Menu.activeSelf);
@@ -86,6 +89,7 @@ public class PauseLogic : MonoBehaviour
             UILogic.SelectButton(continueButton);
             Time.timeScale = isPaused ? 0f : 1f;
             GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
+            GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
             controlImage.SetActive(!controlImage.activeSelf);
             bgImage.SetActive(!bgImage.activeSelf);
             Image controlImage1 = controlImage.GetComponent<Image>();
@@ -110,6 +114,7 @@ public class PauseLogic : MonoBehaviour
             {
                 UILogic.HideCursor();
                 GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+                GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
                 // handler.DisableInput("UI");
             }
         }

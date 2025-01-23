@@ -16,6 +16,7 @@ public class GateRoomTransition : Interactable
     public int nextRoomId; // made public for structure change
     [SerializeField] private bool enableOnRoomFinish;
     private bool showCredits = false;
+    private bool showSpeedRunResults = false;
 
     private GameManagerReference gameManagerReference;
     private DoorManager doorManager;
@@ -40,6 +41,7 @@ public class GateRoomTransition : Interactable
         nextRoomName = $"{nextRoomType}_{nextRoomIndex}";
 
         Debug.Log($"HEY {doorManager.currentId}");
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
     }
 
     private void RoomFinished()
@@ -50,6 +52,7 @@ public class GateRoomTransition : Interactable
     public override void OnInteract(ActionMetaData _)
     {
         // unlock next level
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
         Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel == null) AchievementManager.Grant("RISE_OF_THE_LOAF");
         else nextLevel.unlocked = true;
@@ -114,7 +117,9 @@ public class GateRoomTransition : Interactable
         if (showCredits)
         {
             SceneManager.LoadScene("Credits");
-
+        }
+        else if (showSpeedRunResults) {
+            SceneManager.LoadScene("SpeedrunResults");
         }
         else
         {
@@ -183,12 +188,17 @@ public class GateRoomTransition : Interactable
         RoomSave saveRoomData = new RoomSave();
         saveRoomData.LoadAll();
         List<int> finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
-        showCredits = doorManager.currentId == 3 && !finishedLevels.Contains(3);
+        showCredits = !IsSpeedrunMode() && doorManager.currentId == 3 && !finishedLevels.Contains(3);
+        showSpeedRunResults = IsSpeedrunMode() && doorManager.currentId == 3 && !finishedLevels.Contains(3);
         finishedLevels.Add(doorManager.currentId);
         saveRoomData.Set("finishedLevels", finishedLevels);
         saveRoomData.SaveAll();
     }
 
+    bool IsSpeedrunMode() {
+        return GlobalReference.Settings.Get<bool>("speedrun_mode");
+    }
+ 
     [ContextMenu("Unlock Door")] public void UnlockDoor() => IsDisabled = false;
     [ContextMenu("Lock Door")] void LockDoorTest() => IsDisabled = true;
     [ContextMenu("Open Door")] void OpenDoorTest() => OpenDoorAnimation();

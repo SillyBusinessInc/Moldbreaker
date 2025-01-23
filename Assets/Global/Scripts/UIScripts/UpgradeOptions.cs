@@ -21,6 +21,7 @@ public class UpgradeOptions : Reference
     {
         isShown = true;
         GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
         UILogic.SelectButton(confirmButton);
         UILogic.ShowCursor();
         Time.timeScale = 0;
