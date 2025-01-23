@@ -79,45 +79,27 @@ public class PauseLogic : MonoBehaviour
     public void OnPause(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+        if (YoP.activeSelf) return; // you cant pause the game if you are in the YoP window
         
         if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
             quitButtonText.text = "Back to hub";
         else 
             quitButtonText.text = "Quit to menu";
         
-        if (!YoP.activeSelf)
-        {
-            SetPauseState(!isPaused);
-          
-            UILogic.SelectButton(continueButton);
-            GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
-            var controlImage1 = controlImage.GetComponent<Image>();
-            controlImage1.preserveAspect = true;
-            
-            var inputDevice = GetInputType();
-            if ( inputDevice == "xbox") controlImage1.sprite = xboxImage;
-            else if ( inputDevice == "playstation") controlImage1.sprite = playStationImage;
-            else if ( inputDevice == "keyboard") controlImage1.sprite = keyboardImage;
-        }
-
-        if (isPaused)
-        {
-            UILogic.SetCursor(true);
-            return;
-        }
+        SetPauseState(!isPaused);
         
-        if (YoP.activeSelf)
-        {
-            UILogic.SetCursor(true);
-        }
-        else
-        { 
-            UILogic.SetCursor(false); 
-            GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-        }
+        UILogic.SelectButton(continueButton);
+        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
+        var controlImage1 = controlImage.GetComponent<Image>();
+        controlImage1.preserveAspect = true;
+            
+        var inputDevice = GetInputType();
+        if ( inputDevice == "xbox") controlImage1.sprite = xboxImage;
+        else if ( inputDevice == "playstation") controlImage1.sprite = playStationImage;
+        else if ( inputDevice == "keyboard") controlImage1.sprite = keyboardImage;
     }
     
-    string GetInputType()
+    private string GetInputType()
     {
         var player = GlobalReference.GetReference<PlayerReference>().Player;
         var deviceLayout = player.GetComponent<PlayerInput>().currentControlScheme;
