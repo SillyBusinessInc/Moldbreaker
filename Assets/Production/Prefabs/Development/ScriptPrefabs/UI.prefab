@@ -1592,12 +1592,13 @@ MonoBehaviour:
   YoP: {fileID: 5019536426410142992}
   continueButton: {fileID: 7266886673860919411}
   handler: {fileID: 41829477981651025}
-  fadeImage: {fileID: 6467284171996353557}
   controlImage: {fileID: 0}
   keyboardImage: {fileID: 0}
   playStationImage: {fileID: 0}
   xboxImage: {fileID: 0}
   bgImage: {fileID: 0}
+  fadeImage: {fileID: 6467284171996353557}
+  quitButtonText: {fileID: 4074320442151571343}
 --- !u!1 &4653480263948134409
 GameObject:
   m_ObjectHideFlags: 0
@@ -2086,7 +2087,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.85
+  m_fontSize: 41.1
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2685,7 +2686,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.2
+  m_fontSize: 27.4
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2960,6 +2961,7 @@ RectTransform:
   - {fileID: 6603777578595277511}
   - {fileID: 2305577697798910346}
   - {fileID: 5801191319866850953}
+  - {fileID: 287281334903381578}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

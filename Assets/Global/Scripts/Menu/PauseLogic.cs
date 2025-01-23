@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
@@ -18,7 +19,7 @@ public class PauseLogic : MonoBehaviour
     [SerializeField] private Sprite xboxImage;
     [SerializeField] private GameObject bgImage;
     [SerializeField] private Image fadeImage;
-
+    [SerializeField] private TMP_Text quitButtonText;
     void Start()
     {
         handler.EnableInput("UI");
@@ -58,14 +59,13 @@ public class PauseLogic : MonoBehaviour
 
         SetPauseState(false);
         
-        var currentScene = GetCurrentSceneName();
-        if (currentScene is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
+        if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
             UILogic.FadeToScene("Loading", fadeImage, this);
         else 
             SceneManager.LoadScene("Menu");
     }
     
-    public string GetCurrentSceneName()
+    private string GetCurrentSceneName()
     {
         for (var i = 0; i < SceneManager.sceneCount; i++)
         {
@@ -79,7 +79,12 @@ public class PauseLogic : MonoBehaviour
     public void OnPause(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
-
+        
+        if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
+            quitButtonText.text = "Back to hub";
+        else 
+            quitButtonText.text = "Quit to menu";
+        
         if (!YoP.activeSelf)
         {
             SetPauseState(!isPaused);
