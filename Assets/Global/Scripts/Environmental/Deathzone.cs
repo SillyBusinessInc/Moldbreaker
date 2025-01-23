@@ -9,12 +9,12 @@ public class Deathzone : MonoBehaviour
     private float damageAmount = 0.25f;
     [SerializeField]
     private SpawnPoint spawnPoint;
-    private CrossfadeController crossfadeController;
+    private CrossFadeController crossFadeController;
     private PlayerReference playerReference;
 
     void Start()
     {
-        crossfadeController = GlobalReference.GetReference<CrossfadeController>();
+        crossFadeController = GlobalReference.GetReference<CrossFadeController>();
         playerReference = GlobalReference.GetReference<PlayerReference>();
     }
     void OnTriggerEnter(Collider other)

@@ -65,13 +65,17 @@ public class Player : MonoBehaviour
     [HideInInspector] public Vector3 targetVelocity;
     [HideInInspector] public float timeLastDodge;
     [HideInInspector] public float currentWalkingPenalty;
-    [HideInInspector] public float maxWalkingPenalty = 0.5f;
-    [HideInInspector] public int recentHits = 0;
-    [HideInInspector] public int succesfullHitCounter = 0;
+    [HideInInspector] public bool isCooldownActive = false;
     [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
     [HideInInspector] public bool roomInvulnerability = false;
     private float currentMoldPercentage = 0;
     public Coroutine activeCoroutine;
+
+    [Header("Hit combo")]
+    [HideInInspector] public float maxWalkingPenalty = 0.5f;
+    [HideInInspector] public int recentHits = 0;
+    [HideInInspector] public float lastHitTime = 0f;
+    public float hitCooldown = 4f;
     
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
@@ -83,7 +87,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool AirComboDone = false;
     [HideInInspector] public Vector3 hitDirection;
     private bool IsLanding = false;
-    [SerializeField] private CrossfadeController crossfadeController;
     [HideInInspector] public bool isInvulnerable = false;
 
     void Awake()
@@ -129,6 +132,11 @@ public class Player : MonoBehaviour
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
         UpdateVisualState();
+
+        if (recentHits > 0 && Time.time - lastHitTime > 2f && !isCooldownActive)
+        {
+            StartCoroutine(ResetRecentHits());
+        }
     }
 
     // Setting the height to null will reset the height to default
@@ -166,15 +174,15 @@ public class Player : MonoBehaviour
         foreach (var offset in raycastOffsets)
         {
             var raycastPosition = rb.position + offset;
-            if (!Physics.Raycast(raycastPosition, Vector3.down, out var hit, this.groundCheckDistance)) continue;
+            if (!Physics.Raycast(raycastPosition, Vector3.down, out var hit, groundCheckDistance)) continue;
             if (hit.collider.gameObject.CompareTag("Player")) continue;
-            if (!(Vector3.Angle(Vector3.up, hit.normal) < this.groundCheckAngle)) continue;
+            if (!(Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)) continue;
 
-            this.currentJumps = 0;
-            if (!this.isGrounded) this.Tail.attackIndex = 0;
+            currentJumps = 0;
+            if (!isGrounded) Tail.attackIndex = 0;
 
-            this.isGrounded = true;
-            this.playerAnimationsHandler.SetBool("IsOnGround", true);
+            isGrounded = true;
+            playerAnimationsHandler.SetBool("IsOnGround", true);
             return;
         }
 
@@ -247,10 +255,10 @@ public class Player : MonoBehaviour
     {
         if (isKnockedBack && targetVelocity.magnitude < 0.1f) isKnockedBack = false;
         if (isKnockedBack) return;
-        if (!(this.targetVelocity.magnitude > 0.1f)) return;
+        if (!(targetVelocity.magnitude > 0.1f)) return;
 
-        var direction = Vector3.ProjectOnPlane(this.targetVelocity, Vector3.up).normalized;
-        if (direction != Vector3.zero) this.rb.MoveRotation(Quaternion.Lerp(this.rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
+        var direction = Vector3.ProjectOnPlane(targetVelocity, Vector3.up).normalized;
+        if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 50f * Time.deltaTime));
     }
 
     private void ApproachTargetVelocity()
@@ -350,7 +358,8 @@ public class Player : MonoBehaviour
 
     private IEnumerator DeathScreen()
     {
-        yield return StartCoroutine(crossfadeController.Crossfade_Start());
+        var crossfadeController = GlobalReference.GetReference<CrossFadeController>();
+        yield return StartCoroutine(crossfadeController.CrossFadeStart());
         SceneManager.LoadScene("Death");
 
         GlobalReference.Statistics.Increase("deaths", 1);
@@ -373,11 +382,23 @@ public class Player : MonoBehaviour
 
     public void SetRandomFeedback()
     {
-        succesfullHitCounter = 0;
-        var f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
-        f.SetRandomFeedback();
+        if (Tail.CanShowFeedback && recentHits > 2) {
+            var f = rb.gameObject.GetComponentInChildren<FeedbackManager>();
+            f.SetRandomFeedback();
+        }
     }
 
+    IEnumerator ResetRecentHits()
+    {
+        isCooldownActive = true;
+        yield return new WaitForSeconds(hitCooldown);
+
+        if (Time.time - lastHitTime >= hitCooldown) {
+            recentHits = 0;
+        }
+
+        isCooldownActive = false;
+    }
 }
 
 public enum DamageCause{

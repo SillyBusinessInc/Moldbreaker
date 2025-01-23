@@ -16,10 +16,10 @@ public class DoorManager : Reference
     void Update()
     {
         if (Time.timeScale == 0) return;
-        if (this.currentId == this.previousId) return;
+        if (currentId == previousId) return;
 
-        this.previousId = this.currentId;
-        this.SetupDoors();
+        previousId = currentId;
+        SetupDoors();
     }
 
     void SetupDoors()
