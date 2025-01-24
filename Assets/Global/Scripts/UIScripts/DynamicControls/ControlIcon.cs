@@ -19,73 +19,36 @@ public class ControlIconMapping : ScriptableObject
     // return the icon spritesheet and index for the control path
     public IconPathResult GetIcon(TDeviceType deviceType, string controlPath)
     {
-        List<GamePadMapping> gamepadMappings = null;
+        IInputMapping[] gamepadMappings = null;
         
-        switch (deviceType)
-        {
-            case TDeviceType.Keyboard:
-                foreach (var mapping in keyboardMappings)
-                {
-                    controlPath = controlPath.Trim().ToLower() switch
-                    {
-                        "shift" => Key.LeftShift.ToString().ToLower(),
-                        _ => controlPath
-                    };
-
-                    if (mapping.controlPath.ToString().ToLower() != controlPath.ToLower()) continue;
-
-                    return new IconPathResult
-                    {
-                        icon = mapping.icon,
-                        sprite = mapping.sprite,
-                        index = mapping.index
-                    };
-                }
-                break;
-
-            case TDeviceType.XboxController:
-                gamepadMappings = xBoxMappings;
-                break;
-
-            case TDeviceType.PlayStationController:
-                gamepadMappings = playStationMappings;
-                break;
-        }
+        controlPath = controlPath.Trim().ToLower();
         
-        if (gamepadMappings == null) return null;
-
-        controlPath = controlPath.Trim().ToLower() switch
+        // We and fix some of the outliers, like shift, leftShoulder, leftTrigger
+        // if it's not one of the 3, it will just stay the same
+        controlPath = controlPath switch
         {
-            "leftshoulder" or "left shoulder" or "l1" or "lb" => "leftshoulder",
-            "lefttrigger" or "left trigger" or "l2" or "lt" => "lefttrigger",
+            "shift" => Key.LeftShift.ToString().ToLower(),
+            "leftshoulder" or "left shoulder" or "l1" or "lb" => GamepadButton.LeftShoulder.ToString().ToLower(),
+            "lefttrigger" or "left trigger" or "l2" or "lt" => GamepadButton.LeftTrigger.ToString().ToLower(),
+            "rightshoulder" or "right shoulder" or "r1" or "rb" => GamepadButton.RightShoulder.ToString().ToLower(),
+            "righttrigger" or "right trigger" or "r2" or "rt" => GamepadButton.RightTrigger.ToString().ToLower(),
             _ => controlPath
         };
         
+        Debug.Log($"Control Device: {deviceType} & Path: {controlPath}");
+        gamepadMappings = deviceType switch
+        {
+            TDeviceType.Keyboard => keyboardMappings.ToArray(),
+            TDeviceType.XboxController => xBoxMappings.ToArray(),
+            TDeviceType.PlayStationController => playStationMappings.ToArray(),
+            _ => gamepadMappings
+        };
+
         foreach (var mapping in gamepadMappings)
         {
-            int controlValue = GetGamepadButtonValue(controlPath.Trim()) ?? -1;
-            int mappingValue = GetGamepadButtonValue(mapping.controlPath.ToString().Trim()) ?? -1;
-            
-            // Debug.Log($"{controlValue} = {mappingValue} - {mapping.controlPath.ToString().Trim()}");
-            
-            if (controlValue != mappingValue) continue;
-
-            return new IconPathResult
-            { 
-                icon = mapping.icon,
-                sprite = mapping.sprite,
-                index = mapping.index
-            };
+            if (mapping.IsCorrectInput(controlPath))
+                return mapping.GetIconPathResult();
         }
-        
-        return null;
-    }
-
-    private int? GetGamepadButtonValue(string controlPath)
-    {
-        if (Enum.TryParse<GamepadButton>(controlPath, true, out var result))
-            return (int)result;
-        
         return null;
     }
 }
