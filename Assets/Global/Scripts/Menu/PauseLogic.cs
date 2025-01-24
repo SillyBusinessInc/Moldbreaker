@@ -27,8 +27,10 @@ public class PauseLogic : MonoBehaviour
     void Start()
     {
         handler.EnableInput("UI");
-        SetPauseState(false);
-
+        Menu.SetActive(false);
+        controlImage.SetActive(false);
+        bgImage.SetActive(false);
+        isPaused = false;
         defaultSelectedButton = transform.GetChild(1).GetChild(1).gameObject;
     }
 
@@ -38,8 +40,9 @@ public class PauseLogic : MonoBehaviour
         controlImage.SetActive(value);
         bgImage.SetActive(value);
         isPaused = value;
-        Time.timeScale = value ? 0f : 1f;
+        
         UILogic.SetCursor(value);
+        Time.timeScale = value ? 0f : 1f;
         GlobalReference.AttemptInvoke(value ? Events.INPUT_IGNORE : Events.INPUT_ACKNOWLEDGE);
     }
 
