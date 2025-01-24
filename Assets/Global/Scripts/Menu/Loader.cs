@@ -129,6 +129,7 @@ public class Loader : MonoBehaviour
     private Phase CompleteLoading()
     {
         Time.timeScale = 1;
+        GlobalReference.GetReference<GameManagerReference>().ResetTimers();
         SceneManager.UnloadSceneAsync("Loading");
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);

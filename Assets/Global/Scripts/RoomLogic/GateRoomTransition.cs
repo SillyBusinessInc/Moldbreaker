@@ -40,7 +40,7 @@ public class GateRoomTransition : Interactable
         doorManager = GlobalReference.GetReference<DoorManager>();
         nextRoomName = $"{nextRoomType}_{nextRoomIndex}";
 
-        Debug.Log($"HEY {doorManager.currentId}");
+        // Debug.Log($"HEY {doorManager.currentId}");
         GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
     }
 
@@ -53,6 +53,7 @@ public class GateRoomTransition : Interactable
     {
         // unlock next level
         GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
+        GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
         Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel == null) AchievementManager.Grant("RISE_OF_THE_LOAF");
         else nextLevel.unlocked = true;
@@ -195,9 +196,7 @@ public class GateRoomTransition : Interactable
         saveRoomData.SaveAll();
     }
 
-    bool IsSpeedrunMode() {
-        return GlobalReference.Settings.Get<bool>("speedrun_mode");
-    }
+    bool IsSpeedrunMode() => GlobalReference.Settings.Get<bool>("speedrun_mode");
  
     [ContextMenu("Unlock Door")] public void UnlockDoor() => IsDisabled = false;
     [ContextMenu("Lock Door")] void LockDoorTest() => IsDisabled = true;

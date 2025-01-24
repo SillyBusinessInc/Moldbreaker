@@ -6,6 +6,7 @@ public class GameManagerReference : Reference
 {
     public bool ignoreInput = true;
     public bool speedrunTimerRun = false;
+    public float timer;
 
     void Start()
     {
@@ -54,6 +55,13 @@ public class GameManagerReference : Reference
     private void IgnoreInput()
     {
         ignoreInput = true;
+    }
+
+    public void ResetTimers() {
+        GlobalReference.Statistics.Set("level_1_time", "00:00:00");
+        GlobalReference.Statistics.Set("level_2_time", "00:00:00");
+        GlobalReference.Statistics.Set("level_3_time", "00:00:00");
+        GlobalReference.Statistics.Set("total_time", "00:00:00");
     }
 
 #region rooms
