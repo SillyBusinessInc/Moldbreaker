@@ -10,6 +10,7 @@ public class SettingsLogic : MonoBehaviour
     [Header("Imports")]
 
     [SerializeField] private TMP_Dropdown screenModeDropdown;
+    [SerializeField] private TMP_Dropdown frameRateDropdown;
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
     [SerializeField] private Slider musicVolume;
@@ -36,7 +37,7 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.AudioSettingSave.IsLocked = true;
 
         screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
-
+        frameRateDropdown.value = GlobalReference.Settings.Get<int>("framerate_mode");
         masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
         effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
         musicVolume.value = GlobalReference.GetReference<AudioManager>().GetMusicVolume() / 8;
@@ -63,7 +64,7 @@ public class SettingsLogic : MonoBehaviour
 
     public void OnEffectsVolumeChange(float value)
     {
-        GlobalReference.GetReference<AudioManager>().UpdateSFXVolume( value * 8);
+        GlobalReference.GetReference<AudioManager>().UpdateSFXVolume(value * 8);
         GlobalReference.GetReference<AudioManager>().PlaySFX("AttackVOX2");
     }
 
@@ -84,7 +85,7 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.SaveAll();
         GlobalReference.AudioSettingSave.SaveAll();
     }
-    
+
     public void OnCancel()
     {
         GlobalReference.Settings.LoadAll();
@@ -113,5 +114,31 @@ public class SettingsLogic : MonoBehaviour
                 break;
         }
         GlobalReference.Settings.Set("screen_mode", mode);
+    }
+
+    public void OnFramerateChange()
+    {
+        int mode = frameRateDropdown.value;
+        switch (mode)
+        {
+            case 0:
+                Application.targetFrameRate = 30;
+                break;
+
+            case 1:
+                Application.targetFrameRate = 60;
+                break;
+
+            case 2:
+                Application.targetFrameRate = 120;
+                break;
+            case 3:
+                Application.targetFrameRate = -1;
+                break;
+
+            default:
+                break;
+        }
+        GlobalReference.Settings.Set("framerate_mode", mode);
     }
 }
