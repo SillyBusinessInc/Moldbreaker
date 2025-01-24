@@ -1,5 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.XInput;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -50,6 +54,11 @@ public static class UILogic
         if (btn) btn.Select();
     }
 
+    public static void SelectButton(GameObject btn)
+    {
+        if (btn) EventSystem.current.SetSelectedGameObject(btn);
+    }
+
     public static void ShowCursor() {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -63,5 +72,21 @@ public static class UILogic
     public static void SetCursor(bool value) {
         Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = value;
+    }
+    
+    public static string GetInputType()
+    {
+        var player = GlobalReference.GetReference<PlayerReference>().Player;
+        var deviceLayout = player.GetComponent<PlayerInput>().currentControlScheme;
+        if (deviceLayout == "keyboard") return "keyboard";
+        if (deviceLayout != "Gamepad") return "keyboard";
+        
+        var gamepad = Gamepad.current;
+        return gamepad switch
+        {
+            DualShockGamepad => "playstation",
+            XInputController => "xbox",
+            _ => "keyboard"
+        };
     }
 }

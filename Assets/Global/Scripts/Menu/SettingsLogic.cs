@@ -1,14 +1,13 @@
-using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SettingsLogic : MonoBehaviour
 {
     [SerializeField] private Image fadeImage;
-
+    
     [Header("Imports")]
-
     [SerializeField] private TMP_Dropdown screenModeDropdown;
     [SerializeField] private TMP_Dropdown frameRateDropdown;
     [SerializeField] private Slider masterVolume;
@@ -24,7 +23,6 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.LoadAll();
         GlobalReference.AudioSettingSave.LoadAll();
         LoadFromLocal();
-
         UILogic.ShowCursor();
     }
 
@@ -55,7 +53,6 @@ public class SettingsLogic : MonoBehaviour
         back.interactable = !(GlobalReference.Settings.IsDirty || GlobalReference.AudioSettingSave.IsDirty);
     }
 
-
     public void OnMasterVolumeChange(float value)
     {
         GlobalReference.GetReference<AudioManager>().UpdateMasterVolume(value * 8);
@@ -77,7 +74,10 @@ public class SettingsLogic : MonoBehaviour
     {
         GlobalReference.Settings.SaveAll();
         GlobalReference.AudioSettingSave.SaveAll();
-        UILogic.FadeToScene("Menu", fadeImage, this);
+
+        PauseLogic.ForceSelectDefault();
+        
+        SceneManager.UnloadSceneAsync("Settings");
     }
 
     public void OnSave()
@@ -103,7 +103,6 @@ public class SettingsLogic : MonoBehaviour
             2 => FullScreenMode.ExclusiveFullScreen,
             _ => Screen.fullScreenMode
         };
-
         GlobalReference.Settings.Set("screen_mode", mode);
     }
 
