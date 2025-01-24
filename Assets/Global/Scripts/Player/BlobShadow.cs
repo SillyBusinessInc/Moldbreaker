@@ -4,8 +4,8 @@ public class BlobShadow : MonoBehaviour
 {
     public Transform player; // the player or object the shadow follows
     public float maxHeight = 10f; // maximum height for shadow scaling
-    public float minScale = 0.3f; // minimum shadow scale
-    public float maxScale = 1f; // maximum shadow scale
+    public float minScale; // minimum shadow scale
+    public float maxScale; // maximum shadow scale
     public float offset = 0.1f; // offset above the ground
 
     private Transform shadowQuad;
