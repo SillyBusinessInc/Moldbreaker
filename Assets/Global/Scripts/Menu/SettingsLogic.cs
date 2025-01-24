@@ -9,6 +9,8 @@ public class SettingsLogic : MonoBehaviour
     
     [Header("Imports")]
     [SerializeField] private TMP_Dropdown screenModeDropdown;
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
+
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
     [SerializeField] private Slider musicVolume;
@@ -34,6 +36,7 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.AudioSettingSave.IsLocked = true;
 
         screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
+        resolutionDropdown.value = GlobalReference.Settings.Get<int>("resolution");
 
         masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
         effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
@@ -110,5 +113,30 @@ public class SettingsLogic : MonoBehaviour
                 break;
         }
         GlobalReference.Settings.Set("screen_mode", mode);
+        Debug.Log($"FullScreen: {Screen.fullScreenMode}");
+    }
+
+    // private bool IsBaseSceneLoaded()
+    // {
+    //     for (var i = 0; i < SceneManager.sceneCount; i++)
+    //     {
+    //         var scene = SceneManager.GetSceneAt(i);
+    //         if (scene.name == "BaseScene") return true;
+    //     }
+    //     return false;
+    // }
+
+    public void OnResolutionChange()
+    {
+        int mode = resolutionDropdown.value;
+
+        GlobalReference.Settings.Set("resolution", mode);  
+        string selectedOption = resolutionDropdown.options[mode].text;
+        string[] resolution = selectedOption.Replace(" ", "").Split('x');
+        int width = int.Parse(resolution[0].Trim()); 
+        int height = int.Parse(resolution[1].Trim());
+        Screen.SetResolution(width, height, Screen.fullScreenMode); 
+
+        Debug.Log($"Resolution changed to: {width}x{height}, FullScreen: {Screen.fullScreenMode}");
     }
 }
