@@ -32,6 +32,22 @@ public class PauseLogic : MonoBehaviour
         bgImage.SetActive(false);
         isPaused = false;
         defaultSelectedButton = transform.GetChild(1).GetChild(1).gameObject;
+        
+        GlobalReference.SubscribeTo(Events.DEVICE_CHANGED, OnDeviceChanged);
+    }
+    
+    private void OnDeviceChanged()
+    {
+        if (!isPaused) return;
+        
+        var inputDevice = UILogic.GetInputType();
+        UILogic.SetCursor(inputDevice == "keyboard");
+        
+        var controlImage1 = controlImage.GetComponent<Image>();
+        controlImage1.preserveAspect = true;
+        if ( inputDevice == "xbox") controlImage1.sprite = xboxImage;
+        else if ( inputDevice == "playstation") controlImage1.sprite = playStationImage;
+        else if ( inputDevice == "keyboard") controlImage1.sprite = keyboardImage;
     }
 
     private void SetPauseState(bool value)
@@ -41,7 +57,7 @@ public class PauseLogic : MonoBehaviour
         bgImage.SetActive(value);
         isPaused = value;
         
-        UILogic.SetCursor(value);
+        UILogic.SetCursor(value && UILogic.GetInputType() == "keyboard");
         Time.timeScale = value ? 0f : 1f;
         GlobalReference.AttemptInvoke(value ? Events.INPUT_IGNORE : Events.INPUT_ACKNOWLEDGE);
     }
@@ -99,29 +115,7 @@ public class PauseLogic : MonoBehaviour
         SetPauseState(!isPaused);
         
         UILogic.SelectButton(continueButton);
-        var controlImage1 = controlImage.GetComponent<Image>();
-        controlImage1.preserveAspect = true;
-            
-        var inputDevice = GetInputType();
-        if ( inputDevice == "xbox") controlImage1.sprite = xboxImage;
-        else if ( inputDevice == "playstation") controlImage1.sprite = playStationImage;
-        else if ( inputDevice == "keyboard") controlImage1.sprite = keyboardImage;
-    }
-    
-    private string GetInputType()
-    {
-        var player = GlobalReference.GetReference<PlayerReference>().Player;
-        var deviceLayout = player.GetComponent<PlayerInput>().currentControlScheme;
-        if (deviceLayout == "keyboard") return "keyboard";
-        if (deviceLayout != "Gamepad") return "keyboard";
-        
-        var gamepad = Gamepad.current;
-        return gamepad switch
-        {
-            DualShockGamepad => "playstation",
-            XInputController => "xbox",
-            _ => "keyboard"
-        };
+        OnDeviceChanged();
     }
 
     private bool IsSettingsSceneLoaded()
