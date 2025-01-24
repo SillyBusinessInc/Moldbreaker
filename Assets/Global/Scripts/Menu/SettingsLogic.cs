@@ -95,50 +95,28 @@ public class SettingsLogic : MonoBehaviour
 
     public void OnScreenModeChange()
     {
-        int mode = screenModeDropdown.value;
-        switch (mode)
+        var mode = screenModeDropdown.value;
+        Screen.fullScreenMode = mode switch
         {
-            case 0: // Windowed
-                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-                break;
+            0 => FullScreenMode.FullScreenWindow,
+            1 => FullScreenMode.Windowed,
+            2 => FullScreenMode.ExclusiveFullScreen,
+            _ => Screen.fullScreenMode
+        };
 
-            case 1: // Borderless Fullscreen
-                Screen.fullScreenMode = FullScreenMode.Windowed;
-                break;
-
-            case 2: // Fullscreen
-                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-                break;
-
-            default:
-                break;
-        }
         GlobalReference.Settings.Set("screen_mode", mode);
     }
 
     public void OnFramerateChange()
     {
-        int mode = frameRateDropdown.value;
-        switch (mode)
+        var mode = frameRateDropdown.value;
+        Application.targetFrameRate = mode switch
         {
-            case 0:
-                Application.targetFrameRate = 30;
-                break;
-
-            case 1:
-                Application.targetFrameRate = 60;
-                break;
-
-            case 2:
-                Application.targetFrameRate = 120;
-                break;
-            case 3:
-                Application.targetFrameRate = -1;
-                break;
-
-            default:
-                break;
-        }
+            0 => 30,
+            1 => 60,
+            2 => 120,
+            3 or _ => -1, // Unlimited
+        };
         GlobalReference.Settings.Set("framerate_mode", mode);
     }
 }
