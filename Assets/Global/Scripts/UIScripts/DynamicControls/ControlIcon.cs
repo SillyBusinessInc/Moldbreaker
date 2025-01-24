@@ -32,7 +32,7 @@ public class ControlIconMapping : ScriptableObject
                         _ => controlPath
                     };
 
-                    if (mapping.keyboardMapping.ToString().ToLower() != controlPath.ToLower()) continue;
+                    if (mapping.controlPath.ToString().ToLower() != controlPath.ToLower()) continue;
 
                     return new IconPathResult
                     {
