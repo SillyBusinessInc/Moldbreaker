@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,14 +18,31 @@ public class UpgradeOptions : Reference
         gameObject.SetActive(false);
     }
 
+    public void Start()
+    {
+        GlobalReference.SubscribeTo(Events.DEVICE_CHANGED, OnDeviceChanged);
+    }
+
+    private void SetUIState(bool value)
+    {
+        isShown = value;
+        gameObject.SetActive(value);
+                
+        UILogic.SetCursor(value && UILogic.GetInputType() == "keyboard");
+        Time.timeScale = value ? 0f : 1f;
+        GlobalReference.AttemptInvoke(value ? Events.INPUT_IGNORE : Events.INPUT_ACKNOWLEDGE);
+    }
+    
+    private void OnDeviceChanged()
+    {
+        if(isShown)
+            UILogic.SetCursor(UILogic.GetInputType() == "keyboard");
+    }
+
     public void ShowOption()
     {
-        isShown = true;
-        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
+        SetUIState(true);
         UILogic.SelectButton(confirmButton);
-        UILogic.ShowCursor();
-        Time.timeScale = 0;
-        gameObject.SetActive(true);
 
         if (option != null)
         {
@@ -35,11 +53,7 @@ public class UpgradeOptions : Reference
 
     public void HideOption()
     {
-        Time.timeScale = 1;
-        UILogic.HideCursor();
-        gameObject.SetActive(false);
-        isShown = false;
-        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+        SetUIState(false);
     }
 
     public void Confirm()
