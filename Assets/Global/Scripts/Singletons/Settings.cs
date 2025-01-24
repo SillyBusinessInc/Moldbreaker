@@ -4,7 +4,6 @@ public class Settings : SaveSystem
 
     public override void Init() {
         Add("screen_mode", 0);
-        Add("resolution", 0);
         
         Add("master_volume", 0.5f);
         Add("effects_volume", 0.5f);
