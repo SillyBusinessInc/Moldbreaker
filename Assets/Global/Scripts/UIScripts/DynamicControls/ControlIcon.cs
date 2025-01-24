@@ -35,7 +35,6 @@ public class ControlIconMapping : ScriptableObject
             _ => controlPath
         };
         
-        Debug.Log($"Control Device: {deviceType} & Path: {controlPath}");
         gamepadMappings = deviceType switch
         {
             TDeviceType.Keyboard => keyboardMappings.ToArray(),
