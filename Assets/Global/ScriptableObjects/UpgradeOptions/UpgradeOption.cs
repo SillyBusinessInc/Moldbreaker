@@ -9,7 +9,6 @@ public class UpgradeOption : ScriptableObject
     public string description;
     public int rarity; 
     public string text1;
-    public Sprite keyboardImage;
     public string interactionKey; 
 
     public string text2;
