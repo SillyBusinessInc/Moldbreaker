@@ -9,6 +9,7 @@ public class SettingsLogic : MonoBehaviour
     
     [Header("Imports")]
     [SerializeField] private TMP_Dropdown screenModeDropdown;
+    [SerializeField] private TMP_Dropdown frameRateDropdown;
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
     [SerializeField] private Slider musicVolume;
@@ -34,7 +35,7 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.AudioSettingSave.IsLocked = true;
 
         screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
-
+        frameRateDropdown.value = GlobalReference.Settings.Get<int>("framerate_mode");
         masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
         effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
         musicVolume.value = GlobalReference.GetReference<AudioManager>().GetMusicVolume() / 8;
@@ -60,7 +61,7 @@ public class SettingsLogic : MonoBehaviour
 
     public void OnEffectsVolumeChange(float value)
     {
-        GlobalReference.GetReference<AudioManager>().UpdateSFXVolume( value * 8);
+        GlobalReference.GetReference<AudioManager>().UpdateSFXVolume(value * 8);
         GlobalReference.GetReference<AudioManager>().PlaySFX("AttackVOX2");
     }
 
@@ -84,7 +85,7 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.SaveAll();
         GlobalReference.AudioSettingSave.SaveAll();
     }
-    
+
     public void OnCancel()
     {
         GlobalReference.Settings.LoadAll();
@@ -94,21 +95,27 @@ public class SettingsLogic : MonoBehaviour
 
     public void OnScreenModeChange()
     {
-        int mode = screenModeDropdown.value;
-        switch (mode)
+        var mode = screenModeDropdown.value;
+        Screen.fullScreenMode = mode switch
         {
-            case 0: // Windowed
-                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-                break;
-
-            case 1: // Borderless Fullscreen
-                Screen.fullScreenMode = FullScreenMode.Windowed;
-                break;
-
-            case 2: // Fullscreen
-                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-                break;
-        }
+            0 => FullScreenMode.FullScreenWindow,
+            1 => FullScreenMode.Windowed,
+            2 => FullScreenMode.ExclusiveFullScreen,
+            _ => Screen.fullScreenMode
+        };
         GlobalReference.Settings.Set("screen_mode", mode);
+    }
+
+    public void OnFramerateChange()
+    {
+        var mode = frameRateDropdown.value;
+        Application.targetFrameRate = mode switch
+        {
+            0 => 30,
+            1 => 60,
+            2 => 120,
+            3 or _ => -1, // Unlimited
+        };
+        GlobalReference.Settings.Set("framerate_mode", mode);
     }
 }
