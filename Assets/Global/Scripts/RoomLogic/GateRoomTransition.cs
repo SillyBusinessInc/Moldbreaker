@@ -95,7 +95,6 @@ public class GateRoomTransition : Interactable
         player.playerStatistic.Crumbs = 0;
 
         // Since rooms only have one exit door, and exiting a room through this door is the 'completion' condition. We can assume that if a door with the NextRoomType: ENTRANCE is an exit door to the hub.
-        Debug.Log(nextRoomType == RoomType.ENTRANCE);
         if (nextRoomType == RoomType.ENTRANCE) SaveRoomAsCompleted();
 
         for (int i = 0; i < SceneManager.sceneCount; i++)

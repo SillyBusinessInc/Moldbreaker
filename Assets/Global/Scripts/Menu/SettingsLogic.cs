@@ -84,7 +84,6 @@ public class SettingsLogic : MonoBehaviour
     {
         GlobalReference.Settings.SaveAll();
         GlobalReference.AudioSettingSave.SaveAll();
-
         GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_TOGGLED);
     }
     
