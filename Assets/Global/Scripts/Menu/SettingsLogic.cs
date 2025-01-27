@@ -26,7 +26,7 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.LoadAll();
         GlobalReference.AudioSettingSave.LoadAll();
         LoadFromLocal();
-        UILogic.ShowCursor();
+        UILogic.SetCursor(true);
     }
 
     void Update() => UpdateButtonState();
