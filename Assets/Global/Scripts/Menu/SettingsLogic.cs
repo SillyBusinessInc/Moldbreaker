@@ -137,4 +137,9 @@ public class SettingsLogic : MonoBehaviour
         };
         GlobalReference.Settings.Set("framerate_mode", mode);
     }
+    
+    public void OnDisableMouseLockChange()
+    {
+        // TODO: implement
+    }
 }
