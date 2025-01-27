@@ -25,7 +25,7 @@ public class CheatCodeSystem : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] private string currentSequence = "";
 #pragma warning disable 0414
-    // Yes its true that its never used. its only here to show it in the inspector for debugging purposes
+    // Yes its true that its never used. it's only here to show it in the inspector for debugging purposes
     [SerializeField] private string LastInvokedCheat = "none";
 #pragma warning restore 0414
     
@@ -54,9 +54,9 @@ public class CheatCodeSystem : MonoBehaviour
     {
         if (string.IsNullOrEmpty(currentSequence)) return;
 
-        this.comboTimer += Time.deltaTime;
-        if (this.comboTimer > this.maxComboTime)
-            this.ResetCombo();
+        comboTimer += Time.deltaTime;
+        if (comboTimer > maxComboTime)
+            ResetCombo();
     }
 
     private void AddToSequence(string key)
@@ -76,6 +76,11 @@ public class CheatCodeSystem : MonoBehaviour
         {
             LastInvokedCheat = currentSequence;
             cheatCodes[currentSequence].Invoke();
+            
+            var player = GlobalReference.GetReference<PlayerReference>().Player;
+            player.PlayVFX();
+            GlobalReference.GetReference<AudioManager>().PlaySFX("Cheat");
+
             ResetCombo();
             return;
         }
@@ -98,11 +103,13 @@ public class CheatCodeSystem : MonoBehaviour
     // Cheat Code Invocations
     // -=-
 
-    private static void InvokeToggleInvulnerability() => InvulnerableCheatActivated = !InvulnerableCheatActivated;
+    private static void InvokeToggleInvulnerability() => InvulnerableCheatActivated = !InvulnerableCheatActivated; 
     private static void InvokeInfiniteDoubleJumps() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.DoubleJumpsCount.AddModifier("cheatleg", 1000);
-    private static void InvokeEnableDodge() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
-    private static void InvokeRestoreFullHp() => GlobalReference.GetReference<PlayerReference>().Player.Heal(GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.MaxHealth.GetValue());
 
+    private static void InvokeEnableDodge() => GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.CanDodge.AddModifier("cheatdodge", 1);
+    
+    private static void InvokeRestoreFullHp() => GlobalReference.GetReference<PlayerReference>().Player.Heal(GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.MaxHealth.GetValue());
+    
     private static void InvokeExtraSpeed()
     {
         var stats = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic;
@@ -119,9 +126,9 @@ public class CheatCodeSystem : MonoBehaviour
     private static void InvokeEnableAllLevels()
     {
         // adding asif we completed 25 levels. There are no 25 levels in the game,
-        // its just to be extremely future proof
+        // it's just to be extremely future proof
         var myList = new List<int>();
-        for (int i = 0; i < 25; i++)
+        for (var i = 0; i < 25; i++)
         {
             myList.Add(i);
         }

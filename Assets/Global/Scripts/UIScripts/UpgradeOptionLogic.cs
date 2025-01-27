@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +29,12 @@ public class UpgradeOptionLogic : MonoBehaviour
         SetData();
     }
 
+    private void Update()
+    {
+        text1.fontSize = description.fontSize;
+        text2.fontSize = description.fontSize;
+    }
+    
     public void SetData()
     {
         image.sprite = data.image;
@@ -40,33 +47,22 @@ public class UpgradeOptionLogic : MonoBehaviour
         playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
 
         string deviceLayout = playerInput.currentControlScheme;
-        string controlPath = playerInput.actions[data.interactionKey].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+        string controlPath = playerInput.actions[data.interactionKey]
+            .GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
 
         // check if there is a |, because then there are multiple bindings
         if (controlPath.Contains("|"))
-        {
             controlPath = controlPath.Split('|')[0];
-        }
-
-        IconPathResult res = null;
-        // get if you are on an xbox or playstation controller 
-
-        if (Gamepad.current != null && deviceLayout == "Gamepad")
+        
+        IconPathResult res;
+        if (deviceLayout == "Gamepad")
         {
-            var gamepad = Gamepad.current;
-
-            // Check if the gamepad is a DualShock controller (PlayStation controller)
-            if (gamepad is DualShockGamepad)
-            { 
-                res = HandleControllerInput(TDeviceType.PlayStationController, controlPath);
-            }
-            // Check if the gamepad is an Xbox controller
-            else if (gamepad is XInputController)
+            res = Gamepad.current switch
             {
-
-                res = HandleControllerInput(TDeviceType.XboxController, controlPath);
-            }
-
+                DualShockGamepad => HandleControllerInput(TDeviceType.PlayStationController, controlPath),
+                XInputController => HandleControllerInput(TDeviceType.XboxController, controlPath),
+                _ => HandleControllerInput(TDeviceType.Keyboard, controlPath)
+            };
         }
         else
         {
@@ -77,31 +73,17 @@ public class UpgradeOptionLogic : MonoBehaviour
 
         if (res != null && res.sprite) keyboardImage.sprite = res.sprite;
 
-        RectTransform rectTransform = PressKeyboard.GetComponent<RectTransform>();
-
-        // if (text2.text == "") {
-        //     RectTransform changedRectTransform = PressKeyboard.GetComponent<RectTransform>();
-        //     Vector3 transform = new Vector3 (rectTransform.anchoredPosition.x + 22, rectTransform.anchoredPosition.y);
-        //     changedRectTransform.anchoredPosition = transform;
-        // } else {
-        //     RectTransform OriginalrectTransform = PressKeyboard.GetComponent<RectTransform>();
-        //     OriginalrectTransform = rectTransform;
-        // }
-        if (text2.text == "")
-        {
-            RectTransform rt = text1.GetComponent<RectTransform>();
-            rt.anchorMin = new(0f, 0);
-            rt.anchorMax = new(0.325f, 1);
-            rt.offsetMin = new(0f, 0f);
-            rt.offsetMax = new(0f, 0f);
-            rt = keyboardImage.GetComponent<RectTransform>();
-            rt.anchorMin = new(0.39f, 0);
-            rt.anchorMax = new(0.91f, 1);
-            rt.offsetMin = new(0f, 0f);
-            rt.offsetMax = new(0f, 0f);
-        }
-
-        text1.fontSize = description.fontSize;
-        text2.fontSize = description.fontSize;
+        if (text2.text != "") return;
+        
+        RectTransform rt = text1.GetComponent<RectTransform>();
+        rt.anchorMin = new(0f, 0);
+        rt.anchorMax = new(0.325f, 1);
+        rt.offsetMin = new(0f, 0f);
+        rt.offsetMax = new(0f, 0f);
+        rt = keyboardImage.GetComponent<RectTransform>();
+        rt.anchorMin = new(0.39f, 0);
+        rt.anchorMax = new(0.91f, 1);
+        rt.offsetMin = new(0f, 0f);
+        rt.offsetMax = new(0f, 0f);
     }
 }

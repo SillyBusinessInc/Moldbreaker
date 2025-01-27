@@ -79,58 +79,51 @@ public class Interactable : MonoBehaviour
 
     public virtual void Start()
     {
-
         playerCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
-
-        // get playerInput
         playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
 
         // Create a HUD element to display the interaction prompt
         if (hudElement == null) InstantiateHUD();
 
         IsDisabled = isDisabled; 
-
-            GlobalReference.SubscribeTo(Events.DEVICE_CHANGED, () => SetBillboardText(true));
-
+        GlobalReference.SubscribeTo(Events.DEVICE_CHANGED, () => SetBillboardText(true));
     } 
 
     private IconPathResult ParseDeviceInputSprite()
     {
+        if (!playerInput) return null;
 
-        if (playerInput)
+        string controlPath = playerInput.actions["Interact"].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+
+        // get the device the player is using
+        string deviceLayout = playerInput.currentControlScheme;
+
+        // get if you are on an xbox or playstation controller 
+
+        if (Gamepad.current != null && deviceLayout == "Gamepad")
         {
-            string controlPath = playerInput.actions["Interact"].GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions);
+            var gamepad = Gamepad.current;
 
-            // get the device the player is using
-            string deviceLayout = playerInput.currentControlScheme;
-
-            // get if you are on an xbox or playstation controller 
-
-            if (Gamepad.current != null && deviceLayout == "Gamepad")
+            // Check if the gamepad is a DualShock controller (PlayStation controller)
+            if (gamepad is DualShockGamepad)
             {
-                var gamepad = Gamepad.current;
-
-                // Check if the gamepad is a DualShock controller (PlayStation controller)
-                if (gamepad is DualShockGamepad)
-                {
-                    Debug.Log("DualShockGamepad");
-                    return HandleControllerInput(TDeviceType.PlayStationController, controlPath);
-                }
-                // Check if the gamepad is an Xbox controller
-                else if (gamepad is XInputController)
-                {
-                    Debug.Log("XboxController");
-                    return HandleControllerInput(TDeviceType.XboxController, controlPath);
-                }
-
+                Debug.Log("DualShockGamepad");
+                return HandleControllerInput(TDeviceType.PlayStationController, controlPath);
             }
-            else
+            // Check if the gamepad is an Xbox controller
+            else if (gamepad is XInputController)
             {
-                return HandleControllerInput(TDeviceType.Keyboard, controlPath);
+                Debug.Log("XboxController");
+                return HandleControllerInput(TDeviceType.XboxController, controlPath);
             }
 
-            IconPathResult HandleControllerInput(TDeviceType deviceType, string controlPath) => controlIconMappingConfig.GetIcon(deviceType, controlPath);
         }
+        else
+        {
+            return HandleControllerInput(TDeviceType.Keyboard, controlPath);
+        }
+
+        IconPathResult HandleControllerInput(TDeviceType deviceType, string controlPath) => controlIconMappingConfig.GetIcon(deviceType, controlPath);
 
         return null;
     }
@@ -210,7 +203,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void TriggerInteraction(PlayerInteraction interactor)
     {
-        ActionMetaData metaData = new(interactor.gameObject, this.gameObject);
+        ActionMetaData metaData = new(interactor.gameObject, gameObject);
         if (!isDisabled)
         {
             OnInteract(metaData);

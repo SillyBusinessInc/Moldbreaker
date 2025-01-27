@@ -1,16 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.Serialization;
 
 public abstract class Attack : ScriptableObject
 {
-    public string Name;
+    [FormerlySerializedAs("Name")] 
+    public new string name;
     public float damage;
 
-    public Attack(string Name, float damage)
+    public Attack(string name_, float damage_)
     {
-        this.Name = Name;
-        this.damage = damage;
+        name = name_;
+        damage = damage_;
     }
 
     public abstract void Start();
