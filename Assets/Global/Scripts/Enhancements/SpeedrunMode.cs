@@ -76,7 +76,7 @@ public class SpeedrunMode : MonoBehaviour
 
     void ToggleMode() {
         var speedrun_active = GlobalReference.Settings.Get<bool>("speedrun_mode");
-        gameObject.SetActive(speedrun_active);
+        transform.GetChild(0).gameObject.SetActive(speedrun_active);
     }
 
     public void ResetTimers() {

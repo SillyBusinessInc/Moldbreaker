@@ -60,6 +60,7 @@ public class PauseLogic : MonoBehaviour
         UILogic.SetCursor(value && UILogic.GetInputType() == "keyboard");
         Time.timeScale = value ? 0f : 1f;
         GlobalReference.AttemptInvoke(value ? Events.INPUT_IGNORE : Events.INPUT_ACKNOWLEDGE);
+        GlobalReference.AttemptInvoke(value ? Events.SPEEDRUN_MODE_INACTIVE : Events.SPEEDRUN_MODE_ACTIVE);
     }
 
     public static void ForceSelectDefault() {
@@ -112,7 +113,6 @@ public class PauseLogic : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext ctx)
     {
-        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
         if (!ctx.performed) return;
         if (IsSettingsSceneLoaded()) return;
         if (YoP.activeSelf) return; // you cant pause the game if you are in the YoP window

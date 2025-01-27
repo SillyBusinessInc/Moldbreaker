@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Production/Scenes/Rooms/BaseScene/BaseScene.unity
     guid: 03682c97f84e54636a2143d3441acc33
+  - enabled: 1
+    path: Assets/Production/Scenes/Menu/SpeedrunResults.unity
+    guid: 8c6d8e710b1715447bcecf6f46a73a83
   - enabled: 0
     path: Assets/Production/Scenes/Rooms/MOLDORB/MOLDORB_1.unity
     guid: 60cf097bb0f6d044dbce4be863896dff
