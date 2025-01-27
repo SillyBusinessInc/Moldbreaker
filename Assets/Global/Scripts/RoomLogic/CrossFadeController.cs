@@ -24,6 +24,6 @@ public class CrossFadeController : Reference
         if (lastState == state) yield break;
         lastState = state;
         animator.SetTrigger(state);
-        yield return new WaitForSeconds(transitionTime);
+        yield return new WaitForSecondsRealtime(transitionTime);
     }
 }
