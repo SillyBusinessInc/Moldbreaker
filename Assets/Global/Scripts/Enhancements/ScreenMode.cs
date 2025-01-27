@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class ScreenMode : MonoBehaviour
 {
+    /*
     List<(int width, int height)> resolutions = new List<(int width, int height)>
         {
             (1920, 1080),
@@ -18,6 +19,7 @@ public class ScreenMode : MonoBehaviour
             (1024, 768), 
             (800, 600)
         };
+    */
     void Start()
     {
         int mode = GlobalReference.Settings.Get<int>("screen_mode");

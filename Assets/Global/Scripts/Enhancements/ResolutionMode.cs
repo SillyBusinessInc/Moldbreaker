@@ -14,12 +14,12 @@ public class ResolutionMode : MonoBehaviour
     {
         switch (mode)
         {
-            case 0: 
+            case 7: 
                 width = 1920;
                 height = 1080;
                 Screen.SetResolution(width, height, Screen.fullScreenMode); 
                 break;
-
+            /*
             case 1: 
                 width = 1366;
                 height = 768;
@@ -37,6 +37,7 @@ public class ResolutionMode : MonoBehaviour
                 break;
             default:
                 break;
+                */
         }
     }
 }
