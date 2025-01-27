@@ -27,19 +27,7 @@ public class SpeedrunResultLogic : MonoBehaviour
         totalDeathsText.text = GlobalReference.Statistics.Get<int>("deaths").ToString();
     }
 
-    public void OnExit() 
-    {
+    public void OnExit() {
         UILogic.FadeToScene("Menu", fadeImage, this);
-        ResetTimers();
-    }
-
-    void ResetTimers() {
-        GlobalReference.Statistics.Set("level_1_time", "00:00:00");
-        GlobalReference.Statistics.Set("level_2_time", "00:00:00");
-        GlobalReference.Statistics.Set("level_3_time", "00:00:00");
-        GlobalReference.Statistics.Set("total_time", "00:00:00");
-        GlobalReference.Statistics.Set("deaths", 0);
-
-        GlobalReference.Statistics.SaveAll();
     }
 }

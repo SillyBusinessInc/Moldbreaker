@@ -202,7 +202,7 @@ public class GateRoomTransition : Interactable
         var saveRoomData = new RoomSave();
         saveRoomData.LoadAll();
         var finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
-        showCredits = doorManager.currentId == 3 && !finishedLevels.Contains(3);
+        showCredits = !IsSpeedrunMode() && doorManager.currentId == 3 && !finishedLevels.Contains(3);
         showSpeedRunResults = IsSpeedrunMode() && doorManager.currentId == 3;
         finishedLevels.Add(doorManager.currentId);
         saveRoomData.Set("finishedLevels", finishedLevels);

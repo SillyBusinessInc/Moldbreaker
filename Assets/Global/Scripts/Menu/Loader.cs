@@ -111,7 +111,6 @@ public class Loader : MonoBehaviour
             PreviousLevel.Instance.ResetLevelForRetry();
 
             GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
-            
         }
         else
         {

@@ -26,8 +26,9 @@ public class SpeedrunMode : MonoBehaviour
         }
     }
 
-    void ResetTimerPerLevel() {
+    void ResetTimerPerLevel(bool resetTotalTime = false) {
         currentTimePerLevel = 0;
+        if (resetTotalTime) currentTime = 0;
     }
 
     public void SaveTimeCurrentLevel() {
@@ -77,15 +78,5 @@ public class SpeedrunMode : MonoBehaviour
     void ToggleMode() {
         var speedrun_active = GlobalReference.Settings.Get<bool>("speedrun_mode");
         transform.GetChild(0).gameObject.SetActive(speedrun_active);
-    }
-
-    public void ResetTimers() {
-        GlobalReference.Statistics.Set("level_1_time", "00:00:00");
-        GlobalReference.Statistics.Set("level_2_time", "00:00:00");
-        GlobalReference.Statistics.Set("level_3_time", "00:00:00");
-        GlobalReference.Statistics.Set("total_time", "00:00:00");
-        GlobalReference.Statistics.Set("deaths", 0);
-
-        GlobalReference.Statistics.SaveAll();
     }
 }

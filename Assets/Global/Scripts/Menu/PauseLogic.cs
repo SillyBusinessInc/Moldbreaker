@@ -91,8 +91,8 @@ public class PauseLogic : MonoBehaviour
     {
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         SetPauseState(false);
+        GlobalReference.GetReference<PlayerReference>().Player.speedrunMode.SaveTimeCurrentLevel();
         GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
-        GlobalReference.GetReference<PlayerReference>().Player.speedrunMode.ResetTimers();
         
         if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
             UILogic.FadeToScene("Loading", fadeImage, this);
