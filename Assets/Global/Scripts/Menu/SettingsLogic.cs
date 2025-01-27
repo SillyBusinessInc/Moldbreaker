@@ -38,7 +38,7 @@ public class SettingsLogic : MonoBehaviour
 
         screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
         resolutionDropdown.value = GlobalReference.Settings.Get<int>("resolution");
-        //frameRateDropdown.value = GlobalReference.Settings.Get<int>("framerate_mode");
+        frameRateDropdown.value = GlobalReference.Settings.Get<int>("framerate_mode");
         
         masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
         effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
