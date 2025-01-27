@@ -16,11 +16,18 @@ namespace EnemiesNS
         public override void Exit()
         {
             if (enemy.particleSystemWalk) enemy.particleSystemWalk.Stop();
+            enemy.isChasing = false;
             base.Exit();
         }
 
         public override void Update()
         {
+            if (enemy.agent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete)
+            {
+                TransitionToPathBlockedRoaming();
+                return;
+            }
+
             if (!enemy.isWaiting)
             {
                 if (enemy.distanceToPlayer <= enemy.minDistanceToPlayer)

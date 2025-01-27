@@ -79,6 +79,15 @@ namespace EnemiesNS
         [HideInInspector] public float distanceToPlayer;
         [HideInInspector] public DamageCause lastDamageCause = DamageCause.NONE;
 
+        [Header("Pathfinding blocked settings")]
+        [Tooltip("When path is blocked, return to roaming for atleast x seconds")]
+        [Range(0f, 5f)]
+        public float isPathBlockedCooldown = 1f;
+        private float isPathBlockedElapsed = 0f;
+        [HideInInspector]
+        public bool isPathBlocked = false;
+
+
         [Header("Base attack settings | ignored on moldcores")]
         [Tooltip("The range of the attack")]
         [SerializeField]
@@ -326,6 +335,12 @@ namespace EnemiesNS
             if (!isWaiting) chaseWaitElapsed = 0f;
         }
 
+        public void toggleIsPathblocked(bool v)
+        {
+            isPathBlocked = v;
+            if (!isPathBlocked) isPathBlockedElapsed = 0f;
+        }
+
         public void FreezeMovement(bool v)
         {
             agent.isStopped = v;
@@ -339,12 +354,14 @@ namespace EnemiesNS
             if (isWaiting) chaseWaitElapsed += elapsedTime;
             if (!canAttack) attackCooldownElapsed += elapsedTime;
             if (isRecovering) attackRecoveryElapsed += elapsedTime;
+            if (isPathBlocked) isPathBlockedElapsed += elapsedTime;
 
             // check flags
             if (idleWaitElapsed >= idleWaitTime) toggleIsIdling(false);
             if (chaseWaitElapsed >= chaseWaitTime) toggleIsWaiting(false);
             if (attackCooldownElapsed >= attackCooldown) toggleCanAttack(true);
             if (attackRecoveryElapsed >= attackRecoveryTime) toggleIsRecovering(false);
+            if (isPathBlockedElapsed >= isPathBlockedCooldown) toggleIsPathblocked(false);
         }
 
         public virtual void PlayerHit(PlayerObject playerObject, float damage, Vector3 direction)
