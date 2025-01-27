@@ -3655,6 +3655,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8598369927264300639, guid: 1bfbaacf2bd8a9f41bc5e56635f0a6fa, type: 3}
+      propertyPath: m_fontSize
+      value: 115.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598369927264300639, guid: 1bfbaacf2bd8a9f41bc5e56635f0a6fa, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 32767
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598369927264300639, guid: 1bfbaacf2bd8a9f41bc5e56635f0a6fa, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8944704022989950489, guid: 1bfbaacf2bd8a9f41bc5e56635f0a6fa, type: 3}
       propertyPath: pauseScreen
       value: 

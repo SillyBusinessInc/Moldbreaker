@@ -7,8 +7,17 @@ public class CrossFadeController : Reference
     private readonly float transitionTime = 1f;
     private string lastState = "end";
 
-    public IEnumerator CrossFadeStart() => FadeAnim("start");
-    public IEnumerator CrossFadeEnd() => FadeAnim("end");
+    public IEnumerator CrossFadeStart()
+    {
+        this.gameObject.SetActive(true);
+        yield return FadeAnim("start");
+    }
+
+    public IEnumerator CrossFadeEnd()
+    {
+        yield return FadeAnim("end");
+        this.gameObject.SetActive(false);
+    }
     
     private IEnumerator FadeAnim(string state)
     {
