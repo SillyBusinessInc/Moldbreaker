@@ -73,6 +73,7 @@ public class PauseLogic : MonoBehaviour
         Menu.SetActive(!Menu.activeSelf);
         controlImage.SetActive(!controlImage.activeSelf);
         bgImage.SetActive(!bgImage.activeSelf);
+        GlobalReference.GetReference<PlayerReference>().Player.speedrunMode.ResetTimers();
         // Upgrades.SetActive(!Upgrades.activeSelf);
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");

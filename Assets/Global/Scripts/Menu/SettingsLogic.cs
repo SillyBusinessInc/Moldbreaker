@@ -118,5 +118,5 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.Set("screen_mode", mode);
     }
 
-    public void OnSpeedModeChange() => GlobalReference.Settings.Set("speedrun_mode", speedrunMode.isOn);
+    public void OnSpeedRunModeChange() => GlobalReference.Settings.Set("speedrun_mode", speedrunMode.isOn);
 }

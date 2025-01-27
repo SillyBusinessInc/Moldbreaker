@@ -30,7 +30,7 @@ public class SpeedrunMode : MonoBehaviour
         currentTimePerLevel = 0;
     }
 
-    void SaveTimeCurrentLevel() {
+    public void SaveTimeCurrentLevel() {
         if (GlobalReference.GetReference<GameManagerReference>().speedrunTimerRun) {
             string timeOfLevel = GetTimerText(currentTimePerLevel);
             switch (GlobalReference.GetReference<GameManagerReference>().activeRoom.id) {
@@ -42,13 +42,13 @@ public class SpeedrunMode : MonoBehaviour
                     break;
                 case 3:
                     GlobalReference.Statistics.Set("level_3_time", timeOfLevel);
-                    GlobalReference.Statistics.Set("total_time", GetTimerText(currentTime));
                     break;
                 default: // when player is in hub it has to reset
                     ResetTimerPerLevel();
-                    GlobalReference.Statistics.Set("total_time", GetTimerText(currentTime));
                     break;
             }
+
+            GlobalReference.Statistics.Set("total_time", GetTimerText(currentTime));
             GlobalReference.Statistics.SaveAll();
         }
     }
@@ -77,5 +77,15 @@ public class SpeedrunMode : MonoBehaviour
     void ToggleMode() {
         var speedrun_active = GlobalReference.Settings.Get<bool>("speedrun_mode");
         gameObject.SetActive(speedrun_active);
+    }
+
+    public void ResetTimers() {
+        GlobalReference.Statistics.Set("level_1_time", "00:00:00");
+        GlobalReference.Statistics.Set("level_2_time", "00:00:00");
+        GlobalReference.Statistics.Set("level_3_time", "00:00:00");
+        GlobalReference.Statistics.Set("total_time", "00:00:00");
+        GlobalReference.Statistics.Set("deaths", 0);
+
+        GlobalReference.Statistics.SaveAll();
     }
 }

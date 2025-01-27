@@ -41,7 +41,6 @@ public class GateRoomTransition : Interactable
         nextRoomName = $"{nextRoomType}_{nextRoomIndex}";
 
         // Debug.Log($"HEY {doorManager.currentId}");
-        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
     }
 
     private void RoomFinished()
@@ -52,7 +51,6 @@ public class GateRoomTransition : Interactable
     public override void OnInteract(ActionMetaData _)
     {
         // unlock next level
-        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
         GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
         Room nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel == null) AchievementManager.Grant("RISE_OF_THE_LOAF");
@@ -97,6 +95,7 @@ public class GateRoomTransition : Interactable
         player.playerStatistic.Crumbs = 0;
 
         // Since rooms only have one exit door, and exiting a room through this door is the 'completion' condition. We can assume that if a door with the NextRoomType: ENTRANCE is an exit door to the hub.
+        Debug.Log(nextRoomType == RoomType.ENTRANCE);
         if (nextRoomType == RoomType.ENTRANCE) SaveRoomAsCompleted();
 
         for (int i = 0; i < SceneManager.sceneCount; i++)
@@ -114,7 +113,7 @@ public class GateRoomTransition : Interactable
         saveData.LoadAll();
         player.playerStatistic.caloriesCountExtra = saveData.Get<List<string>>("calories").Count;
         player.playerStatistic.CaloriesCollected = saveData.Get<List<string>>("calories");
-
+        
         if (showCredits)
         {
             SceneManager.LoadScene("Credits");
@@ -190,7 +189,7 @@ public class GateRoomTransition : Interactable
         saveRoomData.LoadAll();
         List<int> finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
         showCredits = !IsSpeedrunMode() && doorManager.currentId == 3 && !finishedLevels.Contains(3);
-        showSpeedRunResults = IsSpeedrunMode() && doorManager.currentId == 3 && !finishedLevels.Contains(3);
+        showSpeedRunResults = IsSpeedrunMode() && doorManager.currentId == 3;
         finishedLevels.Add(doorManager.currentId);
         saveRoomData.Set("finishedLevels", finishedLevels);
         saveRoomData.SaveAll();
