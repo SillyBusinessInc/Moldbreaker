@@ -16,7 +16,7 @@ public class SpeedrunResultLogic : MonoBehaviour
     {
         GlobalReference.Settings.LoadAll();
         SetTimes();
-        UILogic.ShowCursor();
+        UILogic.SetCursor(true);
     }
 
     void SetTimes() {
