@@ -17,7 +17,7 @@ public class MenuLogic : MonoBehaviour
 
     void Start()
     {
-        UILogic.ShowCursor();
+        UILogic.SetCursor(true);
         continueButton.interactable = ContinueButtonActive();
         versionText.text = "v" + Application.version;
     }

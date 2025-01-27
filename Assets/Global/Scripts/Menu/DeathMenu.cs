@@ -15,7 +15,7 @@ public class DeathMenu : MonoBehaviour
     void Start()
     {
         Menu.SetActive(false);
-        UILogic.HideCursor();
+        UILogic.SetCursor(false);
 
         if (PreviousLevel.Instance && PreviousLevel.Instance.prevLevel > 0)
         {
@@ -31,21 +31,21 @@ public class DeathMenu : MonoBehaviour
     void Update()
     {
         if (isDead && !Menu.activeSelf) Menu.SetActive(true);
-        if (isDead && Cursor.lockState == CursorLockMode.Locked) UILogic.ShowCursor();
+        if (isDead && Cursor.lockState == CursorLockMode.Locked) UILogic.SetCursor(true);
     }
 
     public void RestartLevel()
     {
         // reset the current level
         Menu.SetActive(!Menu.activeSelf);
-        UILogic.HideCursor();
+        UILogic.SetCursor(false);
         if (PreviousLevel.Instance) UILogic.FadeToScene("Loading", fadeImage, this);
     }
 
     public void QuitGame()
     {
         isDead = false;
-        UILogic.ShowCursor();
+        UILogic.SetCursor(true);
         Menu.SetActive(!Menu.activeSelf);
         if (PreviousLevel.Instance) PreviousLevel.Instance.ResetLevelForRetry();
 

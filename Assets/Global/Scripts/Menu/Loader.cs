@@ -136,7 +136,7 @@ public class Loader : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
         Time.timeScale = 1;
-        UILogic.HideCursor();
+        UILogic.SetCursor(false);
         return Phase.NONE;
     }
 }

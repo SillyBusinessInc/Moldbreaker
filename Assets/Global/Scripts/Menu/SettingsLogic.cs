@@ -15,8 +15,10 @@ public class SettingsLogic : MonoBehaviour
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
     [SerializeField] private Slider musicVolume;
-    [SerializeField] private Toggle speedrunMode;
 
+    [SerializeField] private Toggle speedrunMode;
+    [SerializeField] private Toggle disableMouseLock;  
+    
     [SerializeField] private Button cancel;
     [SerializeField] private Button confirm;
     [SerializeField] private Button back;
@@ -26,7 +28,7 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.LoadAll();
         GlobalReference.AudioSettingSave.LoadAll();
         LoadFromLocal();
-        UILogic.ShowCursor();
+        UILogic.SetCursor(true);
     }
 
     void Update() => UpdateButtonState();
@@ -37,6 +39,9 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.IsLocked = true;
         GlobalReference.AudioSettingSave.IsLocked = true;
 
+        resolutionDropdown.options = SettingsHelper.GetResolutionOptions();
+        frameRateDropdown.options = SettingsHelper.GetFpsOptions();
+        
         screenModeDropdown.value = GlobalReference.Settings.Get<int>("screen_mode");
         resolutionDropdown.value = GlobalReference.Settings.Get<int>("resolution");
         frameRateDropdown.value = GlobalReference.Settings.Get<int>("framerate_mode");
@@ -44,8 +49,10 @@ public class SettingsLogic : MonoBehaviour
         masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
         effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
         musicVolume.value = GlobalReference.GetReference<AudioManager>().GetMusicVolume() / 8;
-        speedrunMode.isOn = GlobalReference.Settings.Get<bool>("speedrun_mode");
 
+        speedrunMode.isOn = GlobalReference.Settings.Get<bool>("speedrun_mode");
+        disableMouseLock.isOn = GlobalReference.Settings.Get<bool>("disable_mouse_lock");
+        
         GlobalReference.GetReference<AudioManager>().LoadFromLocal();
 
         GlobalReference.Settings.IsLocked = false;
@@ -82,7 +89,6 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.AudioSettingSave.SaveAll();
 
         PauseLogic.ForceSelectDefault();
-        
         SceneManager.UnloadSceneAsync("Settings");
     }
 
@@ -103,40 +109,24 @@ public class SettingsLogic : MonoBehaviour
     public void OnScreenModeChange()
     {
         var mode = screenModeDropdown.value;
-        Screen.fullScreenMode = mode switch
-        {
-            0 => FullScreenMode.FullScreenWindow,
-            1 => FullScreenMode.Windowed,
-            2 => FullScreenMode.ExclusiveFullScreen,
-            _ => Screen.fullScreenMode
-        };
+        SettingsHelper.ChangeScreenMode(mode);
         GlobalReference.Settings.Set("screen_mode", mode);
-        Debug.Log($"FullScreen: {Screen.fullScreenMode}");
     }
 
     public void OnResolutionChange()
     {
-        int mode = resolutionDropdown.value;
-
+        var mode = resolutionDropdown.value;
+        SettingsHelper.ChangeResolutionMode(mode);
         GlobalReference.Settings.Set("resolution", mode);  
-        string selectedOption = resolutionDropdown.options[mode].text;
-        string[] resolution = selectedOption.Replace(" ", "").Split('x');
-        int width = int.Parse(resolution[0].Trim()); 
-        int height = int.Parse(resolution[1].Trim());
-        Screen.SetResolution(width, height, Screen.fullScreenMode); 
     }
 
     public void OnSpeedRunModeChange() => GlobalReference.Settings.Set("speedrun_mode", speedrunMode.isOn);
     public void OnFramerateChange()
     {
         var mode = frameRateDropdown.value;
-        Application.targetFrameRate = mode switch
-        {
-            0 => 30,
-            1 => 60,
-            2 => 120,
-            3 or _ => -1, // Unlimited
-        };
+        SettingsHelper.ChangeFpsMode(mode);
         GlobalReference.Settings.Set("framerate_mode", mode);
     }
+    
+    public void OnDisableMouseLockChange() => GlobalReference.Settings.Set("disable_mouse_lock", disableMouseLock.isOn);
 }

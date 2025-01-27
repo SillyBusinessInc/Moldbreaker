@@ -58,18 +58,12 @@ public static class UILogic
     {
         if (btn) EventSystem.current.SetSelectedGameObject(btn);
     }
-
-    public static void ShowCursor() {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    public static void HideCursor() {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
     
     public static void SetCursor(bool value) {
+        // if we disable the mouse lock, we only allow the On to go through, but not the Off
+        if(GlobalReference.Settings.Get<bool>("disable_mouse_lock") && !value)
+            return;
+        
         Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = value;
     }
