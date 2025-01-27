@@ -89,6 +89,7 @@ public class Player : MonoBehaviour
     private bool IsLanding = false;
     [HideInInspector] public bool isInvulnerable = false;
     [SerializeField] private GameObject vfxPrefab;
+    [SerializeField] private GameObject blobShadow;
 
     void Awake()
     {
@@ -132,6 +133,7 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
+        blobShadow.SetActive(!isGrounded);
         UpdateVisualState();
 
         if (recentHits > 0 && Time.time - lastHitTime > 2f && !isCooldownActive)

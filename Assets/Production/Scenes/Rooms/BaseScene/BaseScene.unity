@@ -355,14 +355,6 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 4060315063386015982, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
-      propertyPath: maxScale
-      value: 5.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4060315063386015982, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
-      propertyPath: minScale
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
