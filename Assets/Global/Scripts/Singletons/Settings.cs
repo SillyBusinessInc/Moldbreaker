@@ -11,6 +11,6 @@ public class Settings : SaveSystem
         Add("effects_volume", 0.5f);
         Add("music_volume", 0.5f);
         
-        Add("brightness", 0.5f);
+        Add("disable_mouse_lock", false);
     }
 }

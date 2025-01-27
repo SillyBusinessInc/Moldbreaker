@@ -44,6 +44,7 @@ public class SettingsLogic : MonoBehaviour
         masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
         effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
         musicVolume.value = GlobalReference.GetReference<AudioManager>().GetMusicVolume() / 8;
+        
         disableMouseLock.isOn = GlobalReference.Settings.Get<bool>("disable_mouse_lock");
         
         GlobalReference.GetReference<AudioManager>().LoadFromLocal();
@@ -138,8 +139,5 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.Set("framerate_mode", mode);
     }
     
-    public void OnDisableMouseLockChange()
-    {
-        // TODO: implement
-    }
+    public void OnDisableMouseLockChange() => GlobalReference.Settings.Set("disable_mouse_lock", disableMouseLock.isOn);
 }
