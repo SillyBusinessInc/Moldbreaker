@@ -60,6 +60,7 @@ public class PauseLogic : MonoBehaviour
         UILogic.SetCursor(value && UILogic.GetInputType() == "keyboard");
         Time.timeScale = value ? 0f : 1f;
         GlobalReference.AttemptInvoke(value ? Events.INPUT_IGNORE : Events.INPUT_ACKNOWLEDGE);
+        GlobalReference.AttemptInvoke(value ? Events.SPEEDRUN_MODE_INACTIVE : Events.SPEEDRUN_MODE_ACTIVE);
     }
 
     public static void ForceSelectDefault() {
@@ -68,12 +69,19 @@ public class PauseLogic : MonoBehaviour
     
     public void ContinueGame()
     {
+        isPaused = false;
+        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
+
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         SetPauseState(false);
     }
 
     public void OnSettings()
     {
+        isPaused = false;
+        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
      
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
@@ -83,6 +91,8 @@ public class PauseLogic : MonoBehaviour
     {
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         SetPauseState(false);
+        GlobalReference.GetReference<PlayerReference>().Player.speedrunMode.SaveTimeCurrentLevel();
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
         
         if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
             UILogic.FadeToScene("Loading", fadeImage, this);

@@ -16,6 +16,7 @@ public class GateRoomTransition : Interactable
     public int nextRoomId; // made public for structure change
     [SerializeField] private bool enableOnRoomFinish;
     private bool showCredits = false;
+    private bool showSpeedRunResults = false;
     private bool loadingNextRoom = false;
     
     private GameManagerReference gameManagerReference;
@@ -59,6 +60,7 @@ public class GateRoomTransition : Interactable
         if (loadingNextRoom) return;
         
         // unlock next level
+        GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
         var nextLevel = gameManagerReference.GetRoom(gameManagerReference.activeRoom.id + 1);
         if (nextLevel == null) AchievementManager.Grant("RISE_OF_THE_LOAF");
         else nextLevel.unlocked = true;
@@ -95,6 +97,9 @@ public class GateRoomTransition : Interactable
         if (showCredits)
         {
             SceneManager.LoadScene("Credits");
+        }
+        else if (showSpeedRunResults) {
+            SceneManager.LoadScene("SpeedrunResults");
         }
         else
         {
@@ -197,12 +202,15 @@ public class GateRoomTransition : Interactable
         var saveRoomData = new RoomSave();
         saveRoomData.LoadAll();
         var finishedLevels = saveRoomData.Get<List<int>>("finishedLevels");
-        showCredits = doorManager.currentId == 3 && !finishedLevels.Contains(3);
+        showCredits = !IsSpeedrunMode() && doorManager.currentId == 3 && !finishedLevels.Contains(3);
+        showSpeedRunResults = IsSpeedrunMode() && doorManager.currentId == 3;
         finishedLevels.Add(doorManager.currentId);
         saveRoomData.Set("finishedLevels", finishedLevels);
         saveRoomData.SaveAll();
     }
 
+    bool IsSpeedrunMode() => GlobalReference.Settings.Get<bool>("speedrun_mode");
+ 
     [ContextMenu("Unlock Door")] public void UnlockDoor() => IsDisabled = false;
     [ContextMenu("Lock Door")] void LockDoorTest() => IsDisabled = true;
     [ContextMenu("Open Door")] void OpenDoorTest() => OpenDoorAnimation();

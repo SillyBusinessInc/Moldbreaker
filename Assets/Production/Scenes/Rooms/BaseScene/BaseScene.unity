@@ -251,6 +251,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5acb2fd60fd46588844e50f71e3137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &47187332 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2545444505452374521, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+  m_PrefabInstance: {fileID: 47187329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &47187333 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4872637643609319043, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+  m_PrefabInstance: {fileID: 47187329}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545d5dc32c8e3d648b83dbd7401c01d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &343043677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -411,6 +427,10 @@ PrefabInstance:
       propertyPath: glideDrag
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: speedrunMode
+      value: 
+      objectReference: {fileID: 47187333}
     - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: dodgeRollSpeed
       value: 50
@@ -662,6 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreInput: 1
+  speedrunTimerRun: 0
 --- !u!4 &1950116273
 Transform:
   m_ObjectHideFlags: 0

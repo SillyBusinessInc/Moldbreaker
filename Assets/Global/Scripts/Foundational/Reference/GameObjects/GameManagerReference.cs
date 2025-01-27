@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 public class GameManagerReference : Reference
 {
     public bool ignoreInput = true;
+    public bool speedrunTimerRun = false;
 
     void Start()
     {
         GlobalReference.SubscribeTo(Events.INPUT_ACKNOWLEDGE, () => ignoreInput = false);
         GlobalReference.SubscribeTo(Events.INPUT_IGNORE, () => ignoreInput = true);
+
+        GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_INACTIVE, () => speedrunTimerRun = false);
+        GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_ACTIVE, () => speedrunTimerRun = true);
         // calling Initialize if scene was loaded directly (without loading screen)
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
@@ -25,6 +29,9 @@ public class GameManagerReference : Reference
     {
         GlobalReference.UnsubscribeTo(Events.INPUT_ACKNOWLEDGE, AcknowledgeInput);
         GlobalReference.UnsubscribeTo(Events.INPUT_IGNORE, IgnoreInput);
+
+        GlobalReference.UnsubscribeTo(Events.SPEEDRUN_MODE_INACTIVE, () => speedrunTimerRun = false);
+        GlobalReference.UnsubscribeTo(Events.SPEEDRUN_MODE_ACTIVE, () => speedrunTimerRun = true);
         base.OnDestroy();
     }
 

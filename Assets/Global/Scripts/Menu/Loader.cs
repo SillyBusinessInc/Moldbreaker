@@ -103,13 +103,14 @@ public class Loader : MonoBehaviour
     {
         var level = PreviousLevel.Instance?.prevLevel;
         message.text = "Baking the bread world...";
-
         if (PreviousLevel.Instance != null && level.HasValue && level.Value > 0)
         {
             SceneManager.LoadScene(level.Value, LoadSceneMode.Additive);
             
             // reset prevLevel after initiating load of previous level
             PreviousLevel.Instance.ResetLevelForRetry();
+
+            GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
         }
         else
         {
@@ -124,6 +125,8 @@ public class Loader : MonoBehaviour
     {
         message.text = "Eating the bread world...";
         GlobalReference.GetReference<GameManagerReference>().Initialize();
+        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_INACTIVE);
         return Phase.COMPLETE;
     }
 
@@ -131,6 +134,7 @@ public class Loader : MonoBehaviour
     {
         SceneManager.UnloadSceneAsync("Loading");
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
         Time.timeScale = 1;
         UILogic.HideCursor();
         return Phase.NONE;

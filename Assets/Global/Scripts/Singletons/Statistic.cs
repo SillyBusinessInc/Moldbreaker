@@ -10,5 +10,21 @@ public class Statistics : SecureSaveSystem
         Add("total_calories_collected", 0);
         Add("times_finished_level", 0);
         Add("enemies_cleansed", 0);
+
+        // speedrun
+        Add("total_time", "00:00:00");
+        Add("level_1_time", "00:00:00");
+        Add("level_2_time", "00:00:00");
+        Add("level_3_time", "00:00:00");
+    }
+
+    public void ResetTimers() {
+        Set("level_1_time", "00:00:00");
+        Set("level_2_time", "00:00:00");
+        Set("level_3_time", "00:00:00");
+        Set("total_time", "00:00:00");
+        Set("deaths", 0);
+
+        SaveAll();
     }
 }

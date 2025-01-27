@@ -15,6 +15,7 @@ public class SettingsLogic : MonoBehaviour
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
     [SerializeField] private Slider musicVolume;
+    [SerializeField] private Toggle speedrunMode;
 
     [SerializeField] private Button cancel;
     [SerializeField] private Button confirm;
@@ -43,6 +44,7 @@ public class SettingsLogic : MonoBehaviour
         masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
         effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
         musicVolume.value = GlobalReference.GetReference<AudioManager>().GetMusicVolume() / 8;
+        speedrunMode.isOn = GlobalReference.Settings.Get<bool>("speedrun_mode");
 
         GlobalReference.GetReference<AudioManager>().LoadFromLocal();
 
@@ -88,6 +90,7 @@ public class SettingsLogic : MonoBehaviour
     {
         GlobalReference.Settings.SaveAll();
         GlobalReference.AudioSettingSave.SaveAll();
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_TOGGLED);
     }
 
     public void OnCancel()
@@ -123,6 +126,7 @@ public class SettingsLogic : MonoBehaviour
         Screen.SetResolution(width, height, Screen.fullScreenMode); 
     }
 
+    public void OnSpeedRunModeChange() => GlobalReference.Settings.Set("speedrun_mode", speedrunMode.isOn);
     public void OnFramerateChange()
     {
         var mode = frameRateDropdown.value;

@@ -12,5 +12,6 @@ public class Settings : SaveSystem
         Add("music_volume", 0.5f);
         
         Add("brightness", 0.5f);
+        Add("speedrun_mode", false);
     }
 }
