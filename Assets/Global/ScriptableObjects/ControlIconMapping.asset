@@ -17,65 +17,45 @@ MonoBehaviour:
     icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
     sprite: {fileID: 21300000, guid: 454e1f8675d93b24f95cddc303b4ca1b, type: 3}
     index: 0
-  - controlPath: 5
-    icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
-    sprite: {fileID: 21300000, guid: 7dbbf34bb1297f24cab5c647851badea, type: 3}
-    index: 0
   - controlPath: 6
-    icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
+    icon: {fileID: 0}
     sprite: {fileID: 21300000, guid: 7dbbf34bb1297f24cab5c647851badea, type: 3}
     index: 0
   - controlPath: 7
-    icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
-    sprite: {fileID: 21300000, guid: 454e1f8675d93b24f95cddc303b4ca1b, type: 3}
+    icon: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 63885ae4419b844449a1447737a7549c, type: 3}
     index: 0
   - controlPath: 10
-    icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
+    icon: {fileID: 0}
     sprite: {fileID: 21300000, guid: 92c89aa1b365fba4883afe91b890f2f3, type: 3}
     index: 0
   - controlPath: 14
-    icon: {fileID: 11400000, guid: e6fcc9d684548c447ba94dfc127e6000, type: 2}
+    icon: {fileID: 0}
     sprite: {fileID: 21300000, guid: 92c89aa1b365fba4883afe91b890f2f3, type: 3}
     index: 0
   keyboardMappings:
-  - keyboardMapping: 19
+  - controlPath: 19
     icon: {fileID: 11400000, guid: 8d37ea9c5de9eff44b4946c67713d241, type: 2}
     sprite: {fileID: 21300000, guid: deccbd7c5e74a6b46989c42785623cb4, type: 3}
     index: 0
-  - keyboardMapping: 51
-    icon: {fileID: 11400000, guid: 8d37ea9c5de9eff44b4946c67713d241, type: 2}
+  - controlPath: 51
+    icon: {fileID: 0}
     sprite: {fileID: 21300000, guid: 129a19b2fca953b41891069150155242, type: 3}
     index: 0
-  - keyboardMapping: 1
-    icon: {fileID: 11400000, guid: 8d37ea9c5de9eff44b4946c67713d241, type: 2}
+  - controlPath: 1
+    icon: {fileID: 0}
     sprite: {fileID: 21300000, guid: 417db85cf6e4dc84c9384aeafff5171f, type: 3}
     index: 0
   playStationMappings:
-  - controlPath: 5
-    icon: {fileID: 11400000, guid: efc835b9c8e3deb4eb8f754352e116ba, type: 2}
-    sprite: {fileID: 0}
-    index: 0
   - controlPath: 4
     icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
     sprite: {fileID: 21300000, guid: 6a722135fd0ca9e43b90dac54ef8cab0, type: 3}
     index: 0
-  - controlPath: 7
-    icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
-    sprite: {fileID: 21300000, guid: 63885ae4419b844449a1447737a7549c, type: 3}
-    index: 0
-  - controlPath: 5
-    icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
-    sprite: {fileID: 21300000, guid: 6a722135fd0ca9e43b90dac54ef8cab0, type: 3}
-    index: 0
-  - controlPath: 6
-    icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
-    sprite: {fileID: 21300000, guid: 6a722135fd0ca9e43b90dac54ef8cab0, type: 3}
-    index: 0
   - controlPath: 14
-    icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
+    icon: {fileID: 0}
     sprite: {fileID: 21300000, guid: 9f460b473e3da7c44b1d63eabf4732b4, type: 3}
     index: 0
   - controlPath: 10
-    icon: {fileID: 11400000, guid: 25384fb1881a59d49ad7be56b823e03f, type: 2}
+    icon: {fileID: 0}
     sprite: {fileID: 21300000, guid: 9f460b473e3da7c44b1d63eabf4732b4, type: 3}
     index: 0

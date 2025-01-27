@@ -529,17 +529,6 @@
                 },
                 {
                     "name": "",
-                    "id": "5c35de82-6c40-4930-87b8-e73457912971",
-                    "path": "<Keyboard>/ctrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Dodge",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a83fc11d-823e-4119-9f71-6d7eb5bcd808",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
@@ -551,8 +540,19 @@
                 },
                 {
                     "name": "",
-                    "id": "3deff0b5-c0b0-44c6-887e-426c8a3d0729",
-                    "path": "<Gamepad>/leftTrigger",
+                    "id": "5c35de82-6c40-4930-87b8-e73457912971",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1ad9b78-5a07-4727-a8df-7def504c3464",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -562,8 +562,8 @@
                 },
                 {
                     "name": "",
-                    "id": "c1ad9b78-5a07-4727-a8df-7def504c3464",
-                    "path": "<Gamepad>/leftShoulder",
+                    "id": "3deff0b5-c0b0-44c6-887e-426c8a3d0729",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",

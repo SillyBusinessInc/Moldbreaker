@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.XInput;
@@ -17,9 +19,10 @@ public class PauseLogic : MonoBehaviour
     [SerializeField] private Sprite playStationImage;
     [SerializeField] private Sprite xboxImage;
     [SerializeField] private GameObject bgImage;
+    [SerializeField] private Image fadeImage;
+    [SerializeField] private TMP_Text quitButtonText;
 
-    private PlayerInput playerInput;
-
+    private static GameObject defaultSelectedButton;
 
     void Start()
     {
@@ -28,109 +31,100 @@ public class PauseLogic : MonoBehaviour
         controlImage.SetActive(false);
         bgImage.SetActive(false);
         isPaused = false;
-        playerInput = GlobalReference.GetReference<PlayerReference>().Player.GetComponent<PlayerInput>();
-
+        defaultSelectedButton = transform.GetChild(1).GetChild(1).gameObject;
+        
+        GlobalReference.SubscribeTo(Events.DEVICE_CHANGED, OnDeviceChanged);
+    }
+    
+    private void OnDeviceChanged()
+    {
+        if (!isPaused) return;
+        
+        var inputDevice = UILogic.GetInputType();
+        UILogic.SetCursor(inputDevice == "keyboard");
+        
+        var controlImage1 = controlImage.GetComponent<Image>();
+        controlImage1.preserveAspect = true;
+        if ( inputDevice == "xbox") controlImage1.sprite = xboxImage;
+        else if ( inputDevice == "playstation") controlImage1.sprite = playStationImage;
+        else if ( inputDevice == "keyboard") controlImage1.sprite = keyboardImage;
     }
 
+    private void SetPauseState(bool value)
+    {
+        Menu.SetActive(value);
+        controlImage.SetActive(value);
+        bgImage.SetActive(value);
+        isPaused = value;
+        
+        UILogic.SetCursor(value && UILogic.GetInputType() == "keyboard");
+        Time.timeScale = value ? 0f : 1f;
+        GlobalReference.AttemptInvoke(value ? Events.INPUT_IGNORE : Events.INPUT_ACKNOWLEDGE);
+    }
+
+    public static void ForceSelectDefault() {
+        if (defaultSelectedButton != null) EventSystem.current.SetSelectedGameObject(defaultSelectedButton);
+    }
+    
     public void ContinueGame()
     {
-        isPaused = false;
-        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf); 
-        UILogic.HideCursor();
-        Time.timeScale = 1f;
+        SetPauseState(false);
     }
 
-    public void Settings()
+    public void OnSettings()
     {
-        isPaused = false;
-        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        UILogic.ShowCursor();
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf); 
-        Time.timeScale = 1f;
-        // SceneManager.LoadScene("Settings");
+     
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
     public void QuitGame()
     {
-        isPaused = false;
-        GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        UILogic.ShowCursor();
-        Menu.SetActive(!Menu.activeSelf);
-        controlImage.SetActive(!controlImage.activeSelf);
-        bgImage.SetActive(!bgImage.activeSelf);
-        // Upgrades.SetActive(!Upgrades.activeSelf);
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu");
+        SetPauseState(false);
+        
+        if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
+            UILogic.FadeToScene("Loading", fadeImage, this);
+        else 
+            SceneManager.LoadScene("Menu");
+    }
+    
+    private string GetCurrentSceneName()
+    {
+        for (var i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var scene = SceneManager.GetSceneAt(i);
+            if (scene.isLoaded && scene.name != "BaseScene" && scene.name != "DontDestroyOnLoad")
+                return scene.name;
+        }
+        return SceneManager.GetActiveScene().name;
     }
 
     public void OnPause(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
-
-        if (!YoP.activeSelf)
-        {
-            isPaused = !isPaused;
-            Menu.SetActive(!Menu.activeSelf);
-            UILogic.SelectButton(continueButton);
-            Time.timeScale = isPaused ? 0f : 1f;
-            GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
-            controlImage.SetActive(!controlImage.activeSelf);
-            bgImage.SetActive(!bgImage.activeSelf);
-            Image controlImage1 = controlImage.GetComponent<Image>();
-            controlImage1.preserveAspect = true;
-            if (IsControllerInput() == "xbox") controlImage1.sprite = xboxImage;
-            else if (IsControllerInput() == "playstation") controlImage1.sprite = playStationImage;
-            else if (IsControllerInput() == "keyboard") controlImage1.sprite = keyboardImage;
-        }
-
-        if (isPaused == true)
-        {
-            UILogic.ShowCursor();
-            // handler.EnableInput("UI");
-        }
-        else
-        {
-            if (YoP.activeSelf)
-            {
-                UILogic.ShowCursor();
-            }
-            else
-            {
-                UILogic.HideCursor();
-                GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
-                // handler.DisableInput("UI");
-            }
-        }
+        if (IsSettingsSceneLoaded()) return;
+        if (YoP.activeSelf) return; // you cant pause the game if you are in the YoP window
+        
+        if (GetCurrentSceneName() is "PARKOUR_1" or "PARKOUR_2" or "PARKOUR_3")
+            quitButtonText.text = "Back to hub";
+        else 
+            quitButtonText.text = "Quit to menu";
+        
+        SetPauseState(!isPaused);
+        
+        UILogic.SelectButton(continueButton);
+        OnDeviceChanged();
     }
-    string IsControllerInput()
+
+    private bool IsSettingsSceneLoaded()
     {
-        string deviceLayout = playerInput.currentControlScheme;
-        if (Gamepad.current != null) {
-            if (deviceLayout == "keyboard") return "keyboard";
-            else if (deviceLayout == "Gamepad") {
-                var gamepad = Gamepad.current;
-                if (gamepad is DualShockGamepad)
-                {
-                    return "playstation";
-                }
-                else if (gamepad is XInputController)
-                {
-                    return "xbox";
-                }
-            }
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == "Settings") return true;
         }
-        return "keyboard";
+        return false;
     }
 }

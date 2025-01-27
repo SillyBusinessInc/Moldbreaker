@@ -5024,7 +5024,7 @@ MonoBehaviour:
   acceleration: 2
   deceleration: 10
   currentMovementLerpSpeed: 100
-  soundAfterTime: 0.5
+  InitialStepSoundDelay: 0.5
   knockbackDuration: 0.2
   knockbackSpeed: 10
   maxJumpHoldTime: 0
@@ -5032,13 +5032,12 @@ MonoBehaviour:
   fallMultiplier: 7
   jumpVelocityFalloff: 8
   coyoteTime: 0.2
-  glideDrag: 1
   dodgeRollSpeed: 45
   dodgeRollDuration: 0.5
   dodgeRollDeceleration: 1
   groundCheckAngle: 50
-  maxIdleTime: 20
-  minIdleTime: 5
+  maxIdleAnimTime: 20
+  MinIdleAnimTime: 5
   invulnerabilityTime: 0.5
   cameraTarget: {fileID: 2562900229708890194}
   playerStatistic:
@@ -5076,42 +5075,32 @@ MonoBehaviour:
   particleSystemJump: {fileID: 3654745173966643205}
   particleSystemDash: {fileID: 878975008514134550}
   particleSystemWalk: {fileID: 6792631176631313089}
-  cheats: {fileID: 4808263581202097973}
   playerAnimationsHandler: {fileID: 0}
-  slamCanDoDamage: 0
-  attackCounter: 0
-  tailDoDamage: 0
-  isSlamming: 0
-  activeAttackCooldown: 0
   canDodgeRoll: 1
   currentJumps: 0
-  horizontalInput: 0
-  verticalInput: 0
   movementInput: {x: 0, y: 0}
   collidersEnemy: []
   groundCheckDistance: 0.70628166
   targetVelocity: {x: 0, y: -0.9044733, z: 0}
-  timeLeftGrounded: 0
   timeLastDodge: 0
   currentWalkingPenalty: 1
-  awaitingNewState: 0
-  maxWalkingPenalty: 0.5
-  recentHits: 0
-  succesfullHitCounter: 0
+  isCooldownActive: 0
   lastDamageCause: 0
   roomInvulnerability: 0
+  maxWalkingPenalty: 0.5
+  recentHits: 0
+  lastHitTime: 0
+  hitCooldown: 4
   isGrounded: 1
   debug_currentStateName: IdleState
-  isKnockedBack: 0
   debug_lineColor: {r: 1, g: 0, b: 0, a: 1}
+  isKnockedBack: 0
   isHoldingJump: 0
   isHoldingDodge: 0
-  isAttacking: 0
   AirComboDone: 0
   hitDirection: {x: 0, y: 0, z: 0}
-  fadeImage: {fileID: 0}
-  crossfadeController: {fileID: 0}
   isInvulnerable: 0
+  vfxPrefab: {fileID: 4929330476642805250, guid: 9d1debc28de28734e933b2923a9deeda, type: 3}
 --- !u!114 &2974869042834182435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5230,22 +5219,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 641cd816-40e6-41b4-8c3d-04687c349290
     m_ActionName: 'Player/Sprint[/Keyboard/leftShift]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1671110380266321935}
-        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnGlide
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 17e61bdc-a060-44b9-8eb5-fae4199a3c88
-    m_ActionName: 'Player/Glide[/Keyboard/c]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1671110380266321935}
@@ -5425,7 +5398,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxComboTime: 6
-  InvulnerableCheatActivated: 0
   currentSequence: 
   LastInvokedCheat: none
 --- !u!1 &773626285719660731
@@ -11006,7 +10978,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a05f99259c41c478c4f384a4abbf7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 9011818481302874963}
 --- !u!1 &6926886560290022610
 GameObject:
   m_ObjectHideFlags: 0
@@ -16060,31 +16031,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.288431
+      value: 24.436478
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 105.2684
+      value: 104.72318
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.391907
+      value: 11.862883
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.3615651
+      value: -0.75975895
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.06521001
+      value: -0.110137306
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9129814
+      value: 0.6269616
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.17743532
+      value: -0.13249683
       objectReference: {fileID: 0}
     - target: {fileID: 1850711288717789347, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_Name
@@ -16096,31 +16067,31 @@ PrefabInstance:
       objectReference: {fileID: 381798920794511632}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.288431
+      value: 24.436478
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 105.2684
+      value: 104.72318
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.391907
+      value: 11.862883
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.3615651
+      value: -0.75975895
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.06521001
+      value: -0.110137306
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9129814
+      value: 0.6269616
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.17743532
+      value: -0.13249683
       objectReference: {fileID: 0}
     - target: {fileID: 7368220910572632056, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16184,7 +16155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8857500744521078035, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: HorizontalAxis.Value
-      value: -64.02096
+      value: -6.7767396
       objectReference: {fileID: 0}
     - target: {fileID: 8857500744521078035, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: HorizontalAxis.Recentering.Enabled

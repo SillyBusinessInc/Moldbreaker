@@ -207,7 +207,7 @@ namespace EnemiesNS
         {
             SetCelebrateModel(false);
             maxHealth = health;
-            spawnPos = this.transform.position;
+            spawnPos = transform.position;
             setReferences();
             SetupStateMachine();
             GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);

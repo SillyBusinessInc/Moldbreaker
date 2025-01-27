@@ -94,6 +94,8 @@ public class Loader : MonoBehaviour
     {
         message.text = "Rising the bread world...";
         SceneManager.LoadScene("BaseScene", LoadSceneMode.Additive);
+        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
+        Time.timeScale = 0;
         return Phase.LOADROOM;
     }
 
@@ -122,15 +124,14 @@ public class Loader : MonoBehaviour
     {
         message.text = "Eating the bread world...";
         GlobalReference.GetReference<GameManagerReference>().Initialize();
-        GlobalReference.AttemptInvoke(Events.INPUT_IGNORE);
         return Phase.COMPLETE;
     }
 
     private Phase CompleteLoading()
     {
-        Time.timeScale = 1;
         SceneManager.UnloadSceneAsync("Loading");
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
+        Time.timeScale = 1;
         UILogic.HideCursor();
         return Phase.NONE;
     }
