@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -20,27 +21,31 @@ public class ScreenMode : MonoBehaviour
     void Start()
     {
         int mode = GlobalReference.Settings.Get<int>("screen_mode");
+        int fpsMode = GlobalReference.Settings.Get<int>("framerate_mode");
         ChangeScreenMode(mode);
+        ChangeFpsMode(fpsMode);
+
     }
 
     public void ChangeScreenMode(int mode)
     {
-        switch (mode)
+        Screen.fullScreenMode = mode switch
         {
-            case 0: // Windowed
-                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-                break;
-
-            case 1: // Borderless Fullscreen
-                Screen.fullScreenMode = FullScreenMode.Windowed;
-                break;
-
-            case 2: // Fullscreen
-                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-                break;
-
-            default:
-                break;
-        }
+            0 => FullScreenMode.FullScreenWindow,
+            1 => FullScreenMode.Windowed,
+            2 => FullScreenMode.ExclusiveFullScreen,
+            _ => Screen.fullScreenMode
+        };
+    }
+    
+    public void ChangeFpsMode(int fpsMode)
+    {
+        Application.targetFrameRate = fpsMode switch
+        {
+            0 => 30,
+            1 => 60,
+            2 => 120,
+            3 or _ => -1, // Unlimited
+        };
     }
 }

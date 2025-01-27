@@ -24,7 +24,11 @@ namespace EnemiesNS
             base.Exit();
         }
 
-        public override void Update() => base.Update();
+        public override void Update()
+        {
+            if (enemy.isPathBlocked && enemy.agent.remainingDistance < 1f) enemy.toggleIsPathblocked(false);
+            base.Update();
+        }
 
         private Vector3 GetDestination()
         {
