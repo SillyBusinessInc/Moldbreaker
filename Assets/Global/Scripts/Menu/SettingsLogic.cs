@@ -13,7 +13,8 @@ public class SettingsLogic : MonoBehaviour
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
     [SerializeField] private Slider musicVolume;
-
+    [SerializeField] private Toggle disableMouseLock;  
+    
     [SerializeField] private Button cancel;
     [SerializeField] private Button confirm;
     [SerializeField] private Button back;
@@ -39,7 +40,8 @@ public class SettingsLogic : MonoBehaviour
         masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
         effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
         musicVolume.value = GlobalReference.GetReference<AudioManager>().GetMusicVolume() / 8;
-
+        disableMouseLock.isOn = GlobalReference.Settings.Get<bool>("disable_mouse_lock");
+        
         GlobalReference.GetReference<AudioManager>().LoadFromLocal();
 
         GlobalReference.Settings.IsLocked = false;

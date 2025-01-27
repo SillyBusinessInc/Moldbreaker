@@ -975,7 +975,7 @@ GameObject:
   - component: {fileID: 1619169707}
   - component: {fileID: 1619169706}
   m_Layer: 0
-  m_Name: ScreenModeManager
+  m_Name: SettingsInitializer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,18 +1,16 @@
-using System;
 using UnityEngine;
 
-public class ScreenMode : MonoBehaviour
+public class SettingsInitializer : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
         int mode = GlobalReference.Settings.Get<int>("screen_mode");
         int fpsMode = GlobalReference.Settings.Get<int>("framerate_mode");
         ChangeScreenMode(mode);
         ChangeFpsMode(fpsMode);
-
     }
 
-    public void ChangeScreenMode(int mode)
+    private void ChangeScreenMode(int mode)
     {
         Screen.fullScreenMode = mode switch
         {
@@ -23,7 +21,7 @@ public class ScreenMode : MonoBehaviour
         };
     }
     
-    public void ChangeFpsMode(int fpsMode)
+    private void ChangeFpsMode(int fpsMode)
     {
         Application.targetFrameRate = fpsMode switch
         {
