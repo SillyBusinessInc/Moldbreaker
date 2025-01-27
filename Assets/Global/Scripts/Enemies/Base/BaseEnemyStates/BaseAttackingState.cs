@@ -25,7 +25,15 @@ namespace EnemiesNS
         {
             if (enemy.target == null) enemy.ChangeState(enemy.states.Idle);
 
-            
+
+            // If path is invalid or partial, fallback to roaming/idling
+            if (enemy.agent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete)
+            {
+                TransitionToPathBlockedRoaming();
+                return;
+            }
+
+
 
             // check if we can still attack, then early return so we dont run the base update and dont trigger attack cooldown.
             if (attacksThisState < enemy.attacksPerCooldown && IsWithinAttackRange()) return;
@@ -57,7 +65,7 @@ namespace EnemiesNS
                 enemy.agent.angularSpeed * Time.deltaTime
             );
         }
-        
+
 
         protected bool IsFacingPlayer()
         {
@@ -77,6 +85,7 @@ namespace EnemiesNS
             if (enemy.isRecovering) canATK = false;
             if (enemy.target == null) canATK = false;
             if (enemy.inAttackAnim) canATK = false;
+            if (enemy.agent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete) return false;
             return canATK;
         }
     }
