@@ -25,6 +25,9 @@ public class FetchAnnouncements : MonoBehaviour
     private string newsUrl => $"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid={appID}&count={fetchLimit}";
     private const string SteamClanImageRoot = "https://clan.fastly.steamstatic.com/images/";
 
+    private string sideloadUrl => $"https://raw.githubusercontent.com/SillyBusinessInc/ingame-announcements/refs/heads/main/announcements.json";
+    private const string SideloadImageRoot = "https://raw.githubusercontent.com/SillyBusinessInc/ingame-announcements/refs/heads/main/images/";
+
     private List<NewsItem> newsItems = new List<NewsItem>();
     private Dictionary<string, Sprite> imageCache = new Dictionary<string, Sprite>();
     private List<DotIndicator> dotIndicators = new List<DotIndicator>();
@@ -40,25 +43,37 @@ public class FetchAnnouncements : MonoBehaviour
 
     IEnumerator FetchSteamNews()
     {
+        bool steamSucces = false;
+        bool sideloadSucces = false;
         UnityWebRequest request = UnityWebRequest.Get(newsUrl);
         yield return request.SendWebRequest();
+        UnityWebRequest sideloadRequest = UnityWebRequest.Get(sideloadUrl);
+        yield return sideloadRequest.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            ProcessNews(request.downloadHandler.text);
-        }
-        else
-        {
-            Debug.LogError("Failed to fetch news: " + request.error);
-        }
+        if (request.result == UnityWebRequest.Result.Success) steamSucces = true;
+        if (sideloadRequest.result == UnityWebRequest.Result.Success) sideloadSucces = true;
+        if (!steamSucces || !sideloadSucces) Debug.Log($"Steam fetch success: {steamSucces} | Sideload fetch succes: {sideloadSucces}");
+        ProcessNews(steamSucces ? request.downloadHandler.text : null, sideloadSucces ? sideloadRequest.downloadHandler.text : null);
+
     }
 
-    void ProcessNews(string json)
+    void ProcessNews(string json, string sideloadJson)
     {
         SteamNewsResponse newsData = JsonConvert.DeserializeObject<SteamNewsResponse>(json);
+        SteamNewsResponse sideloadData = JsonConvert.DeserializeObject<SteamNewsResponse>(sideloadJson);
+        if (sideloadData?.appnews?.newsitems != null)
+        {
+            foreach (NewsItem item in sideloadData?.appnews?.newsitems)
+            {
+                Debug.Log(item.title);
+                newsData?.appnews?.newsitems.Add(item);
+            }
+        }
         if (newsData?.appnews?.newsitems != null)
         {
             newsItems = newsData.appnews.newsitems;
+            Debug.Log(newsItems[^1].title);
+            Debug.Log(newsItems.Count);
             CreateDotIndicators();
             StartCoroutine(PrefetchImages(newsItems));
         }
@@ -69,6 +84,7 @@ public class FetchAnnouncements : MonoBehaviour
         foreach (NewsItem item in items)
         {
             string imageUrl = ExtractFirstImageUrl(item.contents);
+            Debug.Log(imageUrl);
             if (!string.IsNullOrEmpty(imageUrl) && !imageCache.ContainsKey(imageUrl))
             {
                 UnityWebRequest imageRequest = UnityWebRequestTexture.GetTexture(imageUrl);
@@ -146,6 +162,10 @@ public class FetchAnnouncements : MonoBehaviour
             if (imageUrl.Contains("{STEAM_CLAN_IMAGE}"))
             {
                 imageUrl = imageUrl.Replace("{STEAM_CLAN_IMAGE}", SteamClanImageRoot);
+            }
+            else if (imageUrl.Contains("{EXTERNAL_IMG_HOST}"))
+            {
+                imageUrl = imageUrl.Replace("{EXTERNAL_IMG_HOST}", SideloadImageRoot);
             }
             return imageUrl;
         }
