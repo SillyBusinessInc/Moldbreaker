@@ -1623,6 +1623,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 82e76f3d90673dd4782b9655dbe70a9e, type: 3}
     randomSampleClips: []
     audioSource: {fileID: 5818642557769213397}
+  - name: BradleyIdleSpecial
+    description: When you stand idle, this sounds sometimes plays
+    clip: {fileID: 0}
+    randomSampleClips:
+    - {fileID: 8300000, guid: 6897c3469d4d13e4aadc13f9a6b74ee9, type: 3}
+    - {fileID: 8300000, guid: d498668a1cdbbfc4083cee573e0d5f67, type: 3}
+    - {fileID: 8300000, guid: 8c3f572a53d4c2d4fbd86cf61a6e1ed1, type: 3}
+    - {fileID: 8300000, guid: 5b7ed881394fc8341b3648bdda6a3895, type: 3}
+    - {fileID: 8300000, guid: dee071cf325952a48b277b37c0a18561, type: 3}
+    - {fileID: 8300000, guid: ab0d468370bcaaa4ba63fa37558748a2, type: 3}
+    - {fileID: 8300000, guid: d62972ddc9b13ff4096d8350e0cbef0f, type: 3}
+    audioSource: {fileID: 2232925727419599539}
   audioMixer: {fileID: 24100000, guid: 682b143027433d44ca9e7b7306538519, type: 2}
 --- !u!1 &4297160509346846320
 GameObject:
@@ -1805,6 +1817,7 @@ Transform:
   - {fileID: 8829353441297865480}
   - {fileID: 4787760003510910093}
   - {fileID: 1882285697493850777}
+  - {fileID: 2600133521372174160}
   m_Father: {fileID: 5710593203348284918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4918235303778724988
@@ -3697,6 +3710,135 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!1 &8234304264180276382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2600133521372174160}
+  - component: {fileID: 2232925727419599539}
+  m_Layer: 0
+  m_Name: BradleyIdleSpecial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2600133521372174160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234304264180276382}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1850381097572990999}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &2232925727419599539
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234304264180276382}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 3110542879426238386, guid: 682b143027433d44ca9e7b7306538519, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

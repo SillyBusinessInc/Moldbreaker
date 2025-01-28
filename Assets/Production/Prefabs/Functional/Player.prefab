@@ -5035,8 +5035,8 @@ MonoBehaviour:
   dodgeRollDuration: 0.5
   dodgeRollDeceleration: 1
   groundCheckAngle: 50
-  maxIdleAnimTime: 20
-  MinIdleAnimTime: 5
+  maxIdleAnimTime: 10
+  MinIdleAnimTime: 3
   invulnerabilityTime: 0.5
   cameraTarget: {fileID: 2562900229708890194}
   playerStatistic:
