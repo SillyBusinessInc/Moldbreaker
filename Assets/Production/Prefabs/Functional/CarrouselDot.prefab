@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 2165768996881625340}
   - component: {fileID: 7199320681344251125}
   - component: {fileID: 6064063958920938945}
+  - component: {fileID: 1744909604579728336}
   m_Layer: 5
   m_Name: CarrouselDot
   m_TagString: Untagged
@@ -166,3 +167,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoScale: 1
   padding: 7
+--- !u!114 &1744909604579728336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3385771899838843594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0e00b0fce7c324ea18bfb2b75a6145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImage: {fileID: 7199320681344251125}
+  fillImage: {fileID: 1418109940163610982}

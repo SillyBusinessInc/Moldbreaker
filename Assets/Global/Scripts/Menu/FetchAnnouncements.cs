@@ -16,9 +16,9 @@ public class FetchAnnouncements : MonoBehaviour
     [SerializeField] private float displayTime = 5f;
     [SerializeField] private int fetchLimit = 3;
     [SerializeField] private string appID = "480";
-    // New serialized fields for dot indicators
-    [SerializeField] private GameObject dotPrefab; // Assign a prefab with an Image component
-    [SerializeField] private Transform dotContainer; // Parent transform for the dots
+
+    [SerializeField] private GameObject dotPrefab;
+    [SerializeField] private Transform dotContainer;
     [SerializeField] private Color activeDotColor = Color.white;
     [SerializeField] private Color inactiveDotColor = new Color(1, 1, 1, 0.5f);
     [SerializeField] private Color progressColor = Color.white;
@@ -30,20 +30,6 @@ public class FetchAnnouncements : MonoBehaviour
     private List<DotIndicator> dotIndicators = new List<DotIndicator>();
     private int currentNewsIndex = 0;
     private Coroutine cycleNewsCoroutine;
-
-    // into class in prefab
-    private class DotIndicator
-    {
-        public Image backgroundImage;
-        public Image fillImage;
-
-        public DotIndicator(Image background, Image fill)
-        {
-            backgroundImage = background;
-            fillImage = fill;
-        }
-    }
-    // into class in prefab
 
     void Start()
     {
@@ -69,19 +55,18 @@ public class FetchAnnouncements : MonoBehaviour
 
     void ProcessNews(string json)
     {
-        var newsData = JsonConvert.DeserializeObject<SteamNewsResponse>(json);
+        SteamNewsResponse newsData = JsonConvert.DeserializeObject<SteamNewsResponse>(json);
         if (newsData?.appnews?.newsitems != null)
         {
             newsItems = newsData.appnews.newsitems;
             CreateDotIndicators();
-
-
             StartCoroutine(PrefetchImages(newsItems));
         }
     }
+
     IEnumerator PrefetchImages(List<NewsItem> items)
     {
-        foreach (var item in items)
+        foreach (NewsItem item in items)
         {
             string imageUrl = ExtractFirstImageUrl(item.contents);
             if (!string.IsNullOrEmpty(imageUrl) && !imageCache.ContainsKey(imageUrl))
@@ -117,7 +102,6 @@ public class FetchAnnouncements : MonoBehaviour
 
         while (true)
         {
-            // Display current news item and update dots
             DisplayNews(newsItems[currentNewsIndex]);
             UpdateDotIndicators();
 
@@ -133,7 +117,6 @@ public class FetchAnnouncements : MonoBehaviour
                 yield return null;
             }
 
-            // Move to next news item
             currentNewsIndex = (currentNewsIndex + 1) % newsItems.Count;
         }
     }
@@ -152,6 +135,7 @@ public class FetchAnnouncements : MonoBehaviour
             bannerImage.sprite = fallbackImage;
         }
     }
+
     string ExtractFirstImageUrl(string contents)
     {
         // Regex to find [img] tags and extract the image URL
@@ -179,6 +163,7 @@ public class FetchAnnouncements : MonoBehaviour
             }
         }
     }
+
     void CreateDotIndicators()
     {
         // Deactivate the dot container initially
@@ -196,16 +181,16 @@ public class FetchAnnouncements : MonoBehaviour
 
             // Get both the background and fill images
             Image backgroundImage = dot.GetComponent<Image>();
-            Image fillImage = dot.transform.GetChild(0).GetComponent<Image>(); // Assumes first child is the fill image
+            Image fillImage = dot.transform.GetChild(0).GetComponent<Image>();
 
             dotIndicators.Add(new DotIndicator(backgroundImage, fillImage));
 
-            // Set initial colors
             backgroundImage.color = inactiveDotColor;
             fillImage.color = progressColor;
-            fillImage.fillAmount = 0f; // Start with empty fill
+            fillImage.fillAmount = 0f;
         }
     }
+
     void UpdateDotIndicators()
     {
         for (int i = 0; i < dotIndicators.Count; i++)
