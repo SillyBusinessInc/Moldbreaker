@@ -31,6 +31,7 @@ public class FetchAnnouncements : MonoBehaviour
     private int currentNewsIndex = 0;
     private Coroutine cycleNewsCoroutine;
 
+    // into class in prefab
     private class DotIndicator
     {
         public Image backgroundImage;
@@ -42,6 +43,7 @@ public class FetchAnnouncements : MonoBehaviour
             fillImage = fill;
         }
     }
+    // into class in prefab
 
     void Start()
     {
@@ -71,7 +73,9 @@ public class FetchAnnouncements : MonoBehaviour
         if (newsData?.appnews?.newsitems != null)
         {
             newsItems = newsData.appnews.newsitems;
-            CreateDotIndicators(); // Create dots after getting news items
+            CreateDotIndicators();
+
+
             StartCoroutine(PrefetchImages(newsItems));
         }
     }
@@ -102,6 +106,7 @@ public class FetchAnnouncements : MonoBehaviour
             {
                 StopCoroutine(cycleNewsCoroutine);
             }
+            dotContainer.gameObject.SetActive(true);
             cycleNewsCoroutine = StartCoroutine(CycleNews());
         }
     }
@@ -176,6 +181,9 @@ public class FetchAnnouncements : MonoBehaviour
     }
     void CreateDotIndicators()
     {
+        // Deactivate the dot container initially
+        dotContainer.gameObject.SetActive(false);
+
         foreach (Transform child in dotContainer)
         {
             Destroy(child.gameObject);
@@ -196,11 +204,6 @@ public class FetchAnnouncements : MonoBehaviour
             backgroundImage.color = inactiveDotColor;
             fillImage.color = progressColor;
             fillImage.fillAmount = 0f; // Start with empty fill
-        }
-
-        if (dotIndicators.Count > 0)
-        {
-            dotIndicators[0].backgroundImage.color = activeDotColor;
         }
     }
     void UpdateDotIndicators()
