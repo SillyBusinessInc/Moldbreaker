@@ -44,7 +44,10 @@ public class AudioManager : Reference
     private void UpdateAudio(string mixerString, float volume)
     {
         var normalizedVolume = Mathf.Clamp01(volume / 8.0f);
-        var dB = normalizedVolume > 0 ? Mathf.Lerp(-80, 0, Mathf.Log10(1 + 9 * normalizedVolume) / Mathf.Log10(10)) : -80;
+        var dB = normalizedVolume > 0 ? Mathf.Lerp(
+            -80, 0,
+            Mathf.Log10(1 + 9 * normalizedVolume) / Mathf.Log10(10)
+            ) : -80;
         audioMixer.SetFloat(mixerString, dB);
         AudioSettingSave audioSettingSave = GlobalReference.AudioSettingSave;
 
@@ -60,19 +63,11 @@ public class AudioManager : Reference
 
     private void PlaySound(string name, bool repeat, bool music, Vector3? location = null)
     {
-
         var s = Array.Find(music ? musicSounds : sfxSounds, x => x.name == name);
         if (s?.audioSource == null || s?.clip == null) return;
-        if (location == null)
-        {
-            s.audioSource.spatialBlend = 0.0f;
-            s.audioSource.transform.position = Vector3.zero;
-        }
-        else
-        {
-            s.audioSource.transform.position = (Vector3)location;
-            s.audioSource.spatialBlend = 1.0f;
-        }
+        
+        s.audioSource.transform.position = location ?? Vector3.zero;
+        s.audioSource.spatialBlend = location != null ? 1.0f : 0f;
         s.audioSource.clip = s.clip;
         s.audioSource.loop = repeat;
         s.audioSource.Play();
