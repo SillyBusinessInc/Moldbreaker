@@ -7,6 +7,7 @@ using System.Linq;
 public class CheatCodeSystem : MonoBehaviour
 {
     private PlayerInput playerInput;
+    private Player player;
     public float maxComboTime = 4f;
     private float comboTimer;
     public static bool InvulnerableCheatActivated = false;
@@ -32,6 +33,7 @@ public class CheatCodeSystem : MonoBehaviour
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        player = GetComponent<Player>();
     }
 
     private void OnEnable()
@@ -80,6 +82,7 @@ public class CheatCodeSystem : MonoBehaviour
             var player = GlobalReference.GetReference<PlayerReference>().Player;
             player.PlayVFX();
             GlobalReference.GetReference<AudioManager>().PlaySFX("Cheat");
+            player.isCheating = true;
 
             ResetCombo();
             return;

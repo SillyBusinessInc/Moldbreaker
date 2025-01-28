@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using Steamworks;
-using UnityEngine;
 
 public static class AchievementManager
 {
@@ -35,6 +33,7 @@ public static class AchievementManager
     }
 
     public static void Grant(string name) {
+        if (GlobalReference.GetReference<PlayerReference>().Player.isCheating) return;
         if (!SteamManager.Initialized) return;
         if (progression == null) Init();
 
