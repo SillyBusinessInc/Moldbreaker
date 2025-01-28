@@ -10,7 +10,7 @@ public class AnimEventsHandler : MonoBehaviour
     {
         if (!enemy)
         {
-            enemy = this.GetComponentInParent<EnemiesNS.EnemyBase>();
+            enemy = GetComponentInParent<EnemiesNS.EnemyBase>();
         }
     }
 

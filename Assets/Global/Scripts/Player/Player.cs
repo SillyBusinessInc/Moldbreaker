@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     public ParticleSystem particleSystemDash;
     public ParticleSystem particleSystemWalk;
 
-    [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
+    public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool canDodgeRoll = true;
     [HideInInspector] public int currentJumps = 0;
     [HideInInspector] public PlayerStates states;
@@ -99,7 +99,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        playerAnimationsHandler = GetComponent<PlayerAnimationsHandler>();
         states = new PlayerStates(this);
         SetState(states.Idle);
 

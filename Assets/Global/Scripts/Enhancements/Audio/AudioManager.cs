@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 public class AudioManager : Reference
 {
     [Header("Audio Sounds")]
-    public Sound[] musicSounds, sfxSounds;
+    public Audio[] musicSounds, sfxSounds;
     public AudioMixer audioMixer;
 
     protected override void Awake()
@@ -24,6 +24,7 @@ public class AudioManager : Reference
     public float GetMusicVolume() => GetVolume("Music");
     public float GetSFXVolume() => GetVolume("SFX");
     public float GetMasterVolume() => GetVolume("Master");
+    
     public void PlayMusic(string name, Vector3? location = null) => PlaySound(name, false, true, location);
     public void PlayMusicOnRepeat(string name, Vector3? location = null) => PlaySound(name, true, true, location);
     public void PlaySFX(string name, Vector3? location = null) => PlaySound(name, false, false, location);
@@ -54,7 +55,6 @@ public class AudioManager : Reference
         audioSettingSave.Set(mixerString, volume);
     }
 
-
     private float GetVolume(string param)
     {
         var audioSettingSave = GlobalReference.AudioSettingSave;
@@ -64,11 +64,13 @@ public class AudioManager : Reference
     private void PlaySound(string name, bool repeat, bool music, Vector3? location = null)
     {
         var s = Array.Find(music ? musicSounds : sfxSounds, x => x.name == name);
-        if (s?.audioSource == null || s?.clip == null) return;
+        if (s?.audioSource == null) return;
+        var clip = s?.GetAudioClip();
+        if (clip == null) return;
         
         s.audioSource.transform.position = location ?? Vector3.zero;
         s.audioSource.spatialBlend = location != null ? 1.0f : 0f;
-        s.audioSource.clip = s.clip;
+        s.audioSource.clip = clip;
         s.audioSource.loop = repeat;
         s.audioSource.Play();
     }

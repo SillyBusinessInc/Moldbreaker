@@ -2,19 +2,10 @@ using UnityEngine;
 
 public class WalkingState : StateBase
 {
-    public bool playSound;
-    public float activesoundAfterTime;
     public WalkingState(Player player) : base(player) { }
 
     public override void Update()
     {
-        if (activesoundAfterTime >= Player.InitialStepSoundDelay && playSound)
-        {
-            playSound = false;
-            GlobalReference.GetReference<AudioManager>().PlaySFXOnRepeat("Footstep");
-        }
-
-        activesoundAfterTime += Time.deltaTime;
         Player.playerAnimationsHandler.ResetStates();
         Player.playerAnimationsHandler.SetBool("IsRunning", true);
 
@@ -45,14 +36,11 @@ public class WalkingState : StateBase
 
     public override void Enter()
     {
-        activesoundAfterTime = 0.0f;
-        playSound = true;
         Player.particleSystemWalk.Play();
     }
 
     public override void Exit()
     {
-        GlobalReference.GetReference<AudioManager>().StopSFXSound("Footstep");
         Player.particleSystemWalk.Stop();
     }
 }
