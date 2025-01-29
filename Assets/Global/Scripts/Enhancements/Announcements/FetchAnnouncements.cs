@@ -59,21 +59,31 @@ public class FetchAnnouncements : MonoBehaviour
 
     void ProcessNews(string json, string sideloadJson)
     {
-        SteamNewsResponse newsData = JsonConvert.DeserializeObject<SteamNewsResponse>(json);
-        SteamNewsResponse sideloadData = JsonConvert.DeserializeObject<SteamNewsResponse>(sideloadJson);
-        if (sideloadData?.appnews?.newsitems != null)
+        SteamNewsResponse newsData = CreateEmptyResponse(), sideloadData = CreateEmptyResponse();
+
+        json = null;
+        if (json != null)
+        {
+            newsData = JsonConvert.DeserializeObject<SteamNewsResponse>(json);
+        }
+
+        if (sideloadJson != null)
+        {
+            sideloadData = JsonConvert.DeserializeObject<SteamNewsResponse>(sideloadJson);
+        }
+
+        if (sideloadData?.appnews?.newsitems != null && sideloadData?.appnews.newsitems?.Count > 0)
         {
             foreach (NewsItem item in sideloadData?.appnews?.newsitems)
             {
-                Debug.Log(item.title);
                 newsData?.appnews?.newsitems.Add(item);
             }
         }
-        if (newsData?.appnews?.newsitems != null)
+
+        if (newsData?.appnews?.newsitems != null && newsData?.appnews?.newsitems?.Count > 0)
         {
             newsItems = newsData.appnews.newsitems;
-            Debug.Log(newsItems[^1].title);
-            Debug.Log(newsItems.Count);
+
             CreateDotIndicators();
             StartCoroutine(PrefetchImages(newsItems));
         }
@@ -84,7 +94,7 @@ public class FetchAnnouncements : MonoBehaviour
         foreach (NewsItem item in items)
         {
             string imageUrl = ExtractFirstImageUrl(item.contents);
-            Debug.Log(imageUrl);
+
             if (!string.IsNullOrEmpty(imageUrl) && !imageCache.ContainsKey(imageUrl))
             {
                 UnityWebRequest imageRequest = UnityWebRequestTexture.GetTexture(imageUrl);
@@ -98,7 +108,7 @@ public class FetchAnnouncements : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("Failed to prefetch image: " + imageRequest.error);
+                    Debug.LogWarning("Failed to prefetch image: " + imageRequest.error);
                     imageCache[imageUrl] = fallbackImage;
                 }
             }
@@ -222,6 +232,13 @@ public class FetchAnnouncements : MonoBehaviour
             }
         }
     }
+    private SteamNewsResponse CreateEmptyResponse() => new SteamNewsResponse
+    {
+        appnews = new AppNews
+        {
+            newsitems = new List<NewsItem>()
+        }
+    };
 }
 
 [System.Serializable]
