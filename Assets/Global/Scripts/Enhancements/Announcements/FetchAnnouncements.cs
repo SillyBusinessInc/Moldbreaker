@@ -61,7 +61,6 @@ public class FetchAnnouncements : MonoBehaviour
     {
         SteamNewsResponse newsData = CreateEmptyResponse(), sideloadData = CreateEmptyResponse();
 
-        json = null;
         if (json != null)
         {
             newsData = JsonConvert.DeserializeObject<SteamNewsResponse>(json);
