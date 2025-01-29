@@ -20,7 +20,7 @@ public class CheatCodeSystem : MonoBehaviour
         { "DDRLU", InvokeRestoreFullHp },
         { "UDLRUD", InvokeToggleInvulnerability },
         { "UDLRRLDD", InvokeEnableAllLevels },
-        { "UUDDLRLR", () => AchievementManager.Grant("KONAMI_CODE") }
+        { "UUDDLRLR", () => AchievementManager.Grant("KONAMI_CODE", true) }
     }; 
     
     [Header("Debugging")]
