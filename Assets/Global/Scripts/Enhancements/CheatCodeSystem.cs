@@ -76,13 +76,13 @@ public class CheatCodeSystem : MonoBehaviour
     {
         if (cheatCodes.ContainsKey(currentSequence))
         {
+            var player = GlobalReference.GetReference<PlayerReference>().Player;
+            player.isCheating = true;
             LastInvokedCheat = currentSequence;
             cheatCodes[currentSequence].Invoke();
             
-            var player = GlobalReference.GetReference<PlayerReference>().Player;
             player.PlayVFX();
             GlobalReference.GetReference<AudioManager>().PlaySFX("Cheat");
-            player.isCheating = true;
 
             ResetCombo();
             return;
