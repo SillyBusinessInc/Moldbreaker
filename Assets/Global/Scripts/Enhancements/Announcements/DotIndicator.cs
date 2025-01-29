@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DotIndicator : MonoBehaviour
+public class DotIndicator
 {
     public Image backgroundImage;
     public Image fillImage;
