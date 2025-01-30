@@ -15,10 +15,10 @@ public class GameManagerReference : Reference
         GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_INACTIVE, DeActivateSpeedrun);
         GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_ACTIVE, ActivateSpeedrun);
         // calling Initialize if scene was loaded directly (without loading screen)
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        for (var i = 0; i < SceneManager.sceneCount; i++)
         {
-            Scene scene = SceneManager.GetSceneAt(i);
-            if (!(scene.name == "Loading")) continue;
+            var scene = SceneManager.GetSceneAt(i);
+            if (scene.name != "Loading") continue;
             if (!scene.isLoaded) Initialize();
             return;
         }
