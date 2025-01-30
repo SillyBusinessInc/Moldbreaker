@@ -9,11 +9,11 @@ public class GameManagerReference : Reference
 
     void Start()
     {
-        GlobalReference.SubscribeTo(Events.INPUT_ACKNOWLEDGE, () => ignoreInput = false);
-        GlobalReference.SubscribeTo(Events.INPUT_IGNORE, () => ignoreInput = true);
+        GlobalReference.SubscribeTo(Events.INPUT_ACKNOWLEDGE, AcknowledgeInput);
+        GlobalReference.SubscribeTo(Events.INPUT_IGNORE, IgnoreInput);
 
-        GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_INACTIVE, () => speedrunTimerRun = false);
-        GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_ACTIVE, () => speedrunTimerRun = true);
+        GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_INACTIVE, DeActivateSpeedrun);
+        GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_ACTIVE, ActivateSpeedrun);
         // calling Initialize if scene was loaded directly (without loading screen)
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
@@ -30,8 +30,8 @@ public class GameManagerReference : Reference
         GlobalReference.UnsubscribeTo(Events.INPUT_ACKNOWLEDGE, AcknowledgeInput);
         GlobalReference.UnsubscribeTo(Events.INPUT_IGNORE, IgnoreInput);
 
-        GlobalReference.UnsubscribeTo(Events.SPEEDRUN_MODE_INACTIVE, () => speedrunTimerRun = false);
-        GlobalReference.UnsubscribeTo(Events.SPEEDRUN_MODE_ACTIVE, () => speedrunTimerRun = true);
+        GlobalReference.UnsubscribeTo(Events.SPEEDRUN_MODE_INACTIVE, DeActivateSpeedrun);
+        GlobalReference.UnsubscribeTo(Events.SPEEDRUN_MODE_ACTIVE, ActivateSpeedrun);
         base.OnDestroy();
     }
 
@@ -47,14 +47,11 @@ public class GameManagerReference : Reference
         GlobalReference.GetReference<DoorManager>().Initialize();
     }
 
-    private void AcknowledgeInput()
-    {
-        ignoreInput = false;
-    }
-    private void IgnoreInput()
-    {
-        ignoreInput = true;
-    }
+    private void AcknowledgeInput() => ignoreInput = false;
+    private void IgnoreInput() => ignoreInput = true;
+    
+    private void ActivateSpeedrun() => speedrunTimerRun = true;
+    private void DeActivateSpeedrun() => speedrunTimerRun = false;
 
 #region rooms
 
