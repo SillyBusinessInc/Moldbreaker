@@ -217,7 +217,6 @@ public class Interactable : MonoBehaviour
 
     private void SetBillboardText(bool regenerate = false)
     {
-        Debug.Log("SetBillboardText");
         if (hudElement == null || hudText == null) return;
 
         // if device didn't change, just return the cached string
