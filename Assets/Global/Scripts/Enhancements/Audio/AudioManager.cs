@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 public class AudioManager : Reference
 {
     [Header("Audio Sounds")]
-    public Sound[] musicSounds, sfxSounds;
+    public Audio[] musicSounds, sfxSounds;
     public AudioMixer audioMixer;
 
     protected override void Awake()
@@ -24,6 +24,7 @@ public class AudioManager : Reference
     public float GetMusicVolume() => GetVolume("Music");
     public float GetSFXVolume() => GetVolume("SFX");
     public float GetMasterVolume() => GetVolume("Master");
+    
     public void PlayMusic(string name, Vector3? location = null) => PlaySound(name, false, true, location);
     public void PlayMusicOnRepeat(string name, Vector3? location = null) => PlaySound(name, true, true, location);
     public void PlaySFX(string name, Vector3? location = null) => PlaySound(name, false, false, location);
@@ -44,13 +45,15 @@ public class AudioManager : Reference
     private void UpdateAudio(string mixerString, float volume)
     {
         var normalizedVolume = Mathf.Clamp01(volume / 8.0f);
-        var dB = normalizedVolume > 0 ? Mathf.Lerp(-80, 0, Mathf.Log10(1 + 9 * normalizedVolume) / Mathf.Log10(10)) : -80;
+        var dB = normalizedVolume > 0 ? Mathf.Lerp(
+            -80, 0,
+            Mathf.Log10(1 + 9 * normalizedVolume) / Mathf.Log10(10)
+            ) : -80;
         audioMixer.SetFloat(mixerString, dB);
         AudioSettingSave audioSettingSave = GlobalReference.AudioSettingSave;
 
         audioSettingSave.Set(mixerString, volume);
     }
-
 
     private float GetVolume(string param)
     {
@@ -60,20 +63,14 @@ public class AudioManager : Reference
 
     private void PlaySound(string name, bool repeat, bool music, Vector3? location = null)
     {
-
         var s = Array.Find(music ? musicSounds : sfxSounds, x => x.name == name);
-        if (s?.audioSource == null || s?.clip == null) return;
-        if (location == null)
-        {
-            s.audioSource.spatialBlend = 0.0f;
-            s.audioSource.transform.position = Vector3.zero;
-        }
-        else
-        {
-            s.audioSource.transform.position = (Vector3)location;
-            s.audioSource.spatialBlend = 1.0f;
-        }
-        s.audioSource.clip = s.clip;
+        if (s?.audioSource == null) return;
+        var clip = s?.GetAudioClip();
+        if (clip == null) return;
+        
+        s.audioSource.transform.position = location ?? Vector3.zero;
+        s.audioSource.spatialBlend = location != null ? 1.0f : 0f;
+        s.audioSource.clip = clip;
         s.audioSource.loop = repeat;
         s.audioSource.Play();
     }
