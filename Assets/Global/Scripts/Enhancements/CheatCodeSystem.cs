@@ -77,7 +77,7 @@ public class CheatCodeSystem : MonoBehaviour
         if (cheatCodes.ContainsKey(currentSequence))
         {
             var player = GlobalReference.GetReference<PlayerReference>().Player;
-            player.isCheating = true;
+            if (currentSequence != "UUDDLRLR") player.isCheating = true;
             LastInvokedCheat = currentSequence;
             cheatCodes[currentSequence].Invoke();
             
