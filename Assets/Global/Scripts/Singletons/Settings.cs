@@ -5,12 +5,14 @@ public class Settings : SaveSystem
     public override void Init() {
         Add("screen_mode", 0);
         Add("resolution", 7);
-        Add("framerate_mode", 4);
+        Add("framerate_mode", 0);
 
         Add("master_volume", 0.5f);
         Add("effects_volume", 0.5f);
         Add("music_volume", 0.5f);
         
-        Add("brightness", 0.5f);
+        Add("disable_mouse_lock", false);
     }
+    
+    
 }

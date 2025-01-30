@@ -7,6 +7,6 @@ public class DeathLogic : MonoBehaviour
     private void Start()
     {
         deathMenu.isDead = true;
-        UILogic.ShowCursor();
+        UILogic.SetCursor(true);
     }
 }

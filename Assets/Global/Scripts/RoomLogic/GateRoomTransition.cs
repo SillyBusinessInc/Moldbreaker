@@ -51,7 +51,7 @@ public class GateRoomTransition : Interactable
         IsDisabled = false;
     }
 
-    public override void OnInteract(ActionMetaData _)
+    public override void OnInteract(ActionMetaData metaData)
     {
         // Intentionally put the sound above guard clause. Even though interacting does nothing when spamming it.
         // It is still to give the player feedback that the interaction is being registered.
@@ -68,7 +68,7 @@ public class GateRoomTransition : Interactable
         p.SetCameraHeight(null); // height reset to default
         p.Heal(p.playerStatistic.MaxHealth.GetValue());
         
-        base.OnInteract(_);
+        base.OnInteract(metaData);
     }
     
     private IEnumerator LoadNextRoom()

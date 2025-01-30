@@ -26,33 +26,28 @@ namespace EnemiesNS
         {
             base.Update();
             if (enemy.distanceToPlayer >= 2)
-            {
                 FacePlayer();
-            }
-            if (CheckingInRange()){
-                if (canshoot && currentTime > enemy.attackRecoveryTime && CheckingInRange())
-                {
-                    StartAttack();
-                }
-                // If attacking, handle the animation progress
-                if (isAttacking)
-                {
-                    HandleAttackProgress();
-                    return; // Exit Update while handling attack animation
-                }
 
-                // Check if the enemy can attack
+            if (!CheckingInRange()) return;
+            
+            if (canshoot && currentTime > enemy.attackRecoveryTime && CheckingInRange())
+                StartAttack();
+                
+            // If attacking, handle the animation progress
+            if (isAttacking)
+            {
+                HandleAttackProgress();
+                return; // Exit Update while handling attack animation
+            }
+
+            // Check if the enemy can attack
                 
 
-                // Increment recovery time if not attacking
-                if (canshoot)
-                {
-                    currentTime += Time.deltaTime;
-                }
+            // Increment recovery time if not attacking
+            if (canshoot)
+                currentTime += Time.deltaTime;
 
-                // Face the player if needed
-                
-            }
+            // Face the player if needed
         }
 
         private void StartAttack()
@@ -81,9 +76,7 @@ namespace EnemiesNS
 
             // Wait for the animation to finish
             if ( stateInfo.normalizedTime >= 1f)
-            {
                 EndAttack();
-            }
         }
 
         private void EndAttack()
@@ -92,24 +85,21 @@ namespace EnemiesNS
             enemy.inAttackAnim = false;
 
             if (currentAttack < enemy.attacksPerCooldown)
-            {
                 enemy.animator.SetBool("AttackIdle", true);
-            }
 
             canshoot = true; // Allow for next attack
         }
 
         public bool CheckingInRange()
         {
-            if (!IsWithinAttackRange() || currentAttack >= enemy.attacksPerCooldown)
-            {
-                enemy.animator.SetBool("AttackIdle", false);
-                currentAttack = 5000;
-                enemy.inAttackAnim = false;
-                CheckState();
-                return false;
-            }
-            return true;
+            if (IsWithinAttackRange() && currentAttack < enemy.attacksPerCooldown) 
+                return true;
+            
+            enemy.animator.SetBool("AttackIdle", false);
+            currentAttack = 5000;
+            enemy.inAttackAnim = false;
+            CheckState();
+            return false;
         }
 
 
@@ -121,28 +111,25 @@ namespace EnemiesNS
 
         protected override void Attack()
         {
-            if (CheckingInRange())
+            if (!CheckingInRange()) return;
+            
+            currentAttack += 1;
+            GlobalReference.GetReference<AudioManager>().PlaySFX("RangedShot", enemy.transform.position);
+
+            // enemy.animator.SetTrigger("AttackStart");
+            GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
+
+            // Assign the forward direction of the enemy to the bullet
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            if (bulletScript != null)
             {
-                currentAttack += 1;
-                GlobalReference.GetReference<AudioManager>().PlaySFX("RangedShot", enemy.transform.position);
-
-                // enemy.animator.SetTrigger("AttackStart");
-                GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
-
-                // Assign the forward direction of the enemy to the bullet
-                Bullet bulletScript = bullet.GetComponent<Bullet>();
-                if (bulletScript != null)
-                {
-                    bulletScript.bulletDirection = (GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget.transform.position - enemy.bulletSpawnPoint.position).normalized;
-                }
-
-                // Reset the timer and increment the shot count
-                enemy.inAttackAnim = true;
-                enemy.toggleIsRecovering(true);
-                canshoot = true;
-
+                bulletScript.bulletDirection = (GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget.transform.position - enemy.bulletSpawnPoint.position).normalized;
             }
-        }
 
+            // Reset the timer and increment the shot count
+            enemy.inAttackAnim = true;
+            enemy.toggleIsRecovering(true);
+            canshoot = true;
+        }
     }
 }

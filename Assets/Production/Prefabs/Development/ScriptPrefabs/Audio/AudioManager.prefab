@@ -258,135 +258,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &870123092411347166
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 653572535746079156}
-  - component: {fileID: 4215133495213597189}
-  m_Layer: 0
-  m_Name: PanClick2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &653572535746079156
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870123092411347166}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1850381097572990999}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &4215133495213597189
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870123092411347166}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 3110542879426238386, guid: 682b143027433d44ca9e7b7306538519, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.3
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1131930017064546320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,134 +1469,172 @@ MonoBehaviour:
   - name: Main Menu
     description: Main menu music
     clip: {fileID: 8300000, guid: a235db8064a28cf4abb646dbdf2fdd84, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 4109986542057694572}
   - name: Level 1
     description: Level 1 background music
     clip: {fileID: 8300000, guid: 31e0b7b2228a7d14580685bf0acd7246, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 4777479696637091232}
   - name: Level 2
     description: Level 2 background music
     clip: {fileID: 8300000, guid: ebc715ebc52e08546b070bae6cae56fb, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 2619508722328902667}
   - name: Level 3
     description: Level 3 background music
     clip: {fileID: 8300000, guid: 4130948901f17aa4f861d33449030afc, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 7719527601109303650}
   - name: Credits
     description: Credits Music
     clip: {fileID: 8300000, guid: 04276a0ba2eaf6843991bd69c4c04278, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 6654040182726106841}
   - name: Hub
     description: Hub world music
     clip: {fileID: 8300000, guid: 91c011802fd1cc944a332a8979abc15b, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 7771248832524332059}
   - name: Title
     description: Title screen music
     clip: {fileID: 8300000, guid: 9b137f25c1fd6b444a33f316598a6429, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 5288782371007795743}
   sfxSounds:
   - name: AttackVOX1
     description: Bradley sweep attack 1 voice
     clip: {fileID: 8300000, guid: e8cdf96a67ca467468c2332319797ef9, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 2345578216143214555}
   - name: AttackVOX2
     description: Bradley sweep attack 2 voice
     clip: {fileID: 8300000, guid: 71fbd3967f97c4d4887d92d4e768d736, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 5090178541446420242}
   - name: AttackVOX3
     description: Bradley sweep attack 3 voice
     clip: {fileID: 8300000, guid: 53c750c25557cee47bdc5cc810213ea9, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 8814866317102586371}
   - name: CrumbPickup
     description: Pickin up a crumb collectable
     clip: {fileID: 8300000, guid: d866e57a47be3254bb27c7d66844b2dc, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 6948538073730267529}
   - name: HitEnemy
     description: when your attack connects with an enemy they make this sound
     clip: {fileID: 8300000, guid: 98d3fffad1e19764793a306c3dc01306, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 1771592161609862102}
   - name: Hit1
     description: When your attack collides with an enemy
     clip: {fileID: 8300000, guid: c39dc3aea8c7f0e429570cd2dfd8fe3f, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 1074483204997947397}
   - name: Hit2
     description: When your attack collides with an enemy 2nd variant, so its not
       the exact same sound every time
     clip: {fileID: 8300000, guid: a78c2bf73ee35e44aaa003ab17b292f5, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 6999049440385087990}
   - name: Hit3
     description: Final attack in combo chain
     clip: {fileID: 8300000, guid: 08fcf9072d96e1340987bbf924f630c4, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 6434679419589349400}
   - name: PainSFX
     description: Bradley when he gets hit
     clip: {fileID: 8300000, guid: 311b4678350e8c34eb70db95f608255c, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 4133201804756491184}
   - name: PowerupPickup
     description: When you pick up a Yeast of Power
     clip: {fileID: 8300000, guid: 64c2164be47908b4e867f6c38a32f11a, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 2431700423444985847}
   - name: Dash
     description: Dash sound effect
     clip: {fileID: 8300000, guid: 1352eeafa9469e343bc47eb800c5d4de, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 3300228981163347084}
   - name: CaloriePickup
     description: Pickin up a calorie sound effect
     clip: {fileID: 8300000, guid: cc73d52aecf31d04eba005b894ff6911, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 4907332700914179586}
   - name: EnemyThx
     description: Sound effect acfter succesfully cleanin an enemy
     clip: {fileID: 8300000, guid: 606300814462dce4e9079961e1c38906, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 9190088490974615093}
   - name: JumpSFX
     description: Jumpin sound effect (also on double jump)
     clip: {fileID: 8300000, guid: bb59642d6100e0b4c832cd6fb9e488e2, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 2823542663741564953}
   - name: RangedShot
     description: Ranged enemy when firing a shot
     clip: {fileID: 8300000, guid: b79409fd1e2b31c469d9add07c9e2985, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 777344080812498906}
   - name: ShotExplosion
     description: When the enemy bullet explodes
     clip: {fileID: 8300000, guid: eca463e90f7556d4a8925a764c6617f5, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 447595356790801273}
   - name: PortalSFX
     description: When you go through a portal
     clip: {fileID: 8300000, guid: ea2dfd1f4e10419469c8325209f691a4, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 6512590488983505199}
   - name: Footstep
     description: Bradley footsteps, maybe find a way to play it quicker and at random
       pitch (look up how to make footstep sounds Unity on youtube or somethin)
-    clip: {fileID: 8300000, guid: 1e565dad17a2a1a43af7a2a1bf947d19, type: 3}
+    clip: {fileID: 0}
+    randomSampleClips:
+    - {fileID: 8300000, guid: 1e565dad17a2a1a43af7a2a1bf947d19, type: 3}
     audioSource: {fileID: 869637203150181107}
   - name: Death
     description: 'Death (rip) '
     clip: {fileID: 8300000, guid: 531b0290167005248babe7fb83fb7209, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 2086467657918934837}
   - name: Button
     description: Button interact sound
     clip: {fileID: 8300000, guid: 82e76f3d90673dd4782b9655dbe70a9e, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 7463619683019742492}
   - name: fart
     description: fart sfx
     clip: {fileID: 8300000, guid: 9e788a9ca5ca87048b78a9faef92bd1f, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 7912120577279220583}
-  - name: PanClick1
+  - name: PanClick
     description: Panchan interaction sfx
-    clip: {fileID: 8300000, guid: a73892e65d2bc3e47b6511839691b353, type: 3}
+    clip: {fileID: 0}
+    randomSampleClips:
+    - {fileID: 8300000, guid: a73892e65d2bc3e47b6511839691b353, type: 3}
+    - {fileID: 8300000, guid: 4c4a0857a82820b42ad968de0d649cc3, type: 3}
+    - {fileID: 8300000, guid: 5dd8ae90c35fab54d9b83c406af15984, type: 3}
     audioSource: {fileID: 4572149182041243828}
-  - name: PanClick2
-    description: Panchan interaction sfx
-    clip: {fileID: 8300000, guid: 4c4a0857a82820b42ad968de0d649cc3, type: 3}
-    audioSource: {fileID: 4215133495213597189}
-  - name: PanClick3
-    description: Panchan interaction sfx
-    clip: {fileID: 8300000, guid: 5dd8ae90c35fab54d9b83c406af15984, type: 3}
-    audioSource: {fileID: 7462632482803552483}
   - name: Cheat
     description: When you activate a cheat
     clip: {fileID: 8300000, guid: 82e76f3d90673dd4782b9655dbe70a9e, type: 3}
+    randomSampleClips: []
     audioSource: {fileID: 5818642557769213397}
+  - name: BradleyIdleSpecial
+    description: When you stand idle, this sounds sometimes plays
+    clip: {fileID: 0}
+    randomSampleClips:
+    - {fileID: 8300000, guid: 6897c3469d4d13e4aadc13f9a6b74ee9, type: 3}
+    - {fileID: 8300000, guid: d498668a1cdbbfc4083cee573e0d5f67, type: 3}
+    - {fileID: 8300000, guid: 8c3f572a53d4c2d4fbd86cf61a6e1ed1, type: 3}
+    - {fileID: 8300000, guid: 5b7ed881394fc8341b3648bdda6a3895, type: 3}
+    - {fileID: 8300000, guid: dee071cf325952a48b277b37c0a18561, type: 3}
+    - {fileID: 8300000, guid: ab0d468370bcaaa4ba63fa37558748a2, type: 3}
+    - {fileID: 8300000, guid: d62972ddc9b13ff4096d8350e0cbef0f, type: 3}
+    audioSource: {fileID: 2232925727419599539}
   audioMixer: {fileID: 24100000, guid: 682b143027433d44ca9e7b7306538519, type: 2}
 --- !u!1 &4297160509346846320
 GameObject:
@@ -1908,139 +1817,9 @@ Transform:
   - {fileID: 8829353441297865480}
   - {fileID: 4787760003510910093}
   - {fileID: 1882285697493850777}
-  - {fileID: 653572535746079156}
-  - {fileID: 7778581139179936676}
+  - {fileID: 2600133521372174160}
   m_Father: {fileID: 5710593203348284918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4737762353121307976
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7778581139179936676}
-  - component: {fileID: 7462632482803552483}
-  m_Layer: 0
-  m_Name: PanClick3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7778581139179936676
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4737762353121307976}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1850381097572990999}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7462632482803552483
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4737762353121307976}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 3110542879426238386, guid: 682b143027433d44ca9e7b7306538519, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.3
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &4918235303778724988
 GameObject:
   m_ObjectHideFlags: 0
@@ -3084,7 +2863,7 @@ GameObject:
   - component: {fileID: 1882285697493850777}
   - component: {fileID: 4572149182041243828}
   m_Layer: 0
-  m_Name: PanClick1
+  m_Name: PanClick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3931,6 +3710,135 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!1 &8234304264180276382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2600133521372174160}
+  - component: {fileID: 2232925727419599539}
+  m_Layer: 0
+  m_Name: BradleyIdleSpecial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2600133521372174160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234304264180276382}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1850381097572990999}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &2232925727419599539
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234304264180276382}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 3110542879426238386, guid: 682b143027433d44ca9e7b7306538519, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

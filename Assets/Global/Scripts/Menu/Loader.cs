@@ -132,7 +132,7 @@ public class Loader : MonoBehaviour
         SceneManager.UnloadSceneAsync("Loading");
         GlobalReference.AttemptInvoke(Events.INPUT_ACKNOWLEDGE);
         Time.timeScale = 1;
-        UILogic.HideCursor();
+        UILogic.SetCursor(false);
         return Phase.NONE;
     }
 }
