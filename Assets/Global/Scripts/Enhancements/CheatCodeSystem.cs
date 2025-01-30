@@ -77,6 +77,7 @@ public class CheatCodeSystem : MonoBehaviour
         if (cheatCodes.ContainsKey(currentSequence))
         {
             var player = GlobalReference.GetReference<PlayerReference>().Player;
+            // if konami code, isCheating will stay the same value
             if (currentSequence != "UUDDLRLR") player.isCheating = true;
             LastInvokedCheat = currentSequence;
             cheatCodes[currentSequence].Invoke();
