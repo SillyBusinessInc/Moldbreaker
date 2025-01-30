@@ -23,7 +23,7 @@ public class Statistics : SecureSaveSystem
         Set("level_2_time", "00:00:00");
         Set("level_3_time", "00:00:00");
         Set("total_time", "00:00:00");
-        Set("deaths", 0);
+        // Set("deaths", 0);
 
         SaveAll();
     }
