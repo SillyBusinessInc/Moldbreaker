@@ -19,11 +19,11 @@ public class SpeedrunMode : MonoBehaviour
 
     void Update()
     {
-        if (GlobalReference.GetReference<GameManagerReference>().speedrunTimerRun) {
-            currentTimePerLevel += Time.unscaledDeltaTime;
-            currentTime += Time.unscaledDeltaTime;
-            timerText.text = GetTimerText(currentTime);
-        }
+        if (!GlobalReference.GetReference<GameManagerReference>().speedrunTimerRun) return;
+        
+        currentTimePerLevel += Time.unscaledDeltaTime;
+        currentTime += Time.unscaledDeltaTime;
+        timerText.text = GetTimerText(currentTime);
     }
 
     void ResetTimerPerLevel(bool resetTotalTime = false) {
@@ -31,27 +31,28 @@ public class SpeedrunMode : MonoBehaviour
         if (resetTotalTime) currentTime = 0;
     }
 
-    public void SaveTimeCurrentLevel() {
-        if (GlobalReference.GetReference<GameManagerReference>().speedrunTimerRun) {
-            string timeOfLevel = GetTimerText(currentTimePerLevel);
-            switch (GlobalReference.GetReference<GameManagerReference>().activeRoom.id) {
-                case 1:
-                    GlobalReference.Statistics.Set("level_1_time", timeOfLevel);
-                    break;
-                case 2:
-                    GlobalReference.Statistics.Set("level_2_time", timeOfLevel);
-                    break;
-                case 3:
-                    GlobalReference.Statistics.Set("level_3_time", timeOfLevel);
-                    break;
-                default: // when player is in hub it has to reset
-                    ResetTimerPerLevel();
-                    break;
-            }
-
-            GlobalReference.Statistics.Set("total_time", GetTimerText(currentTime));
-            GlobalReference.Statistics.SaveAll();
+    public void SaveTimeCurrentLevel()
+    {
+        if (!GlobalReference.GetReference<GameManagerReference>().speedrunTimerRun) return;
+        
+        string timeOfLevel = GetTimerText(currentTimePerLevel);
+        switch (GlobalReference.GetReference<GameManagerReference>().activeRoom.id) {
+            case 1:
+                GlobalReference.Statistics.Set("level_1_time", timeOfLevel);
+                break;
+            case 2:
+                GlobalReference.Statistics.Set("level_2_time", timeOfLevel);
+                break;
+            case 3:
+                GlobalReference.Statistics.Set("level_3_time", timeOfLevel);
+                break;
+            default: // when player is in hub it has to reset
+                ResetTimerPerLevel();
+                break;
         }
+
+        GlobalReference.Statistics.Set("total_time", GetTimerText(currentTime));
+        GlobalReference.Statistics.SaveAll();
     }
 
     string GetTimerText(float time) {
