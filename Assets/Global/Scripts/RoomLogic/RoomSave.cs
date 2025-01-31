@@ -6,5 +6,6 @@ public class RoomSave : SecureSaveSystem
 
     public override void Init() { 
         Add("finishedLevels", new List<int>()); 
+        Add( "posters", new List<int>()); // each poster has its designated id
     }
 }

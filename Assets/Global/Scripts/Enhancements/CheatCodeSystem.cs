@@ -139,6 +139,7 @@ public class CheatCodeSystem : MonoBehaviour
         
         RoomSave saveRoomData = new();
         saveRoomData.Set("finishedLevels", myList);
+        saveRoomData.Set("posters", myList); // might aswell unlock all posters :P
         saveRoomData.SaveAll();
         GlobalReference.AttemptInvoke(Events.LEVELS_CHANGED_BY_CHEAT);
     }
