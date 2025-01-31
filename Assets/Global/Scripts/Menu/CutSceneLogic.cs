@@ -6,7 +6,6 @@ using UnityEngine.Video;
 public class CutSceneLogic : MonoBehaviour
 {
     [SerializeField] private VideoPlayer videoPlayer;
-    [SerializeField] private Image fadeImage;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +22,6 @@ public class CutSceneLogic : MonoBehaviour
     public void OnExit() 
     {
         GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
-        UILogic.FadeToScene("Loading", fadeImage, this);
+        VideoEnded(videoPlayer);
     }
 }
