@@ -15,6 +15,8 @@ public class MenuLogic : MonoBehaviour
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button quitButton;
 
+    
+
     void Start()
     {
         UILogic.SetCursor(true);
@@ -36,6 +38,7 @@ public class MenuLogic : MonoBehaviour
 
     public void NewGame()
     {
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         if (ContinueButtonActive())
         {
             confirmation.RequestConfirmation(
@@ -46,9 +49,9 @@ public class MenuLogic : MonoBehaviour
         }
         else
         {
+            CheckPlayerFirstTime();
             Continue();
         }
-        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
     }
 
     public void ResetAllLevels()
@@ -59,7 +62,8 @@ public class MenuLogic : MonoBehaviour
             foreach (var file in Directory.GetFiles(directoryPath))
                 File.Delete(file);
         }
-        Continue();
+
+        CheckPlayerFirstTime();
     }
 
     public void OnAchievements()
@@ -87,4 +91,14 @@ public class MenuLogic : MonoBehaviour
             () => Application.Quit(), 
             EventSystem.current.currentSelectedGameObject);
     }
+
+    void CheckPlayerFirstTime() {
+        if (PlayerPrefs.GetInt("CutScenePlayed", 0) == 1) {
+            Continue();
+        } else {
+            PlayVideo();
+        }
+    }
+
+    void PlayVideo() => UILogic.FadeToScene("OpeningScene", fadeImage, this);
 }
