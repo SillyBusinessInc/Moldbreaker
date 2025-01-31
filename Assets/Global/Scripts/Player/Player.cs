@@ -110,6 +110,8 @@ public class Player : MonoBehaviour
         defaultCameraTarget = cameraTarget.localPosition;
         
         AlreadyRecievedUpgrades();
+        var sensitivity = GlobalReference.Settings.Get<float>("sensitivity");
+        SettingsHelper.ChangeSensitivity(sensitivity);
     }
 
     private void AlreadyRecievedUpgrades()

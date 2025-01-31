@@ -9,14 +9,14 @@ public class CrossFadeController : Reference
 
     public IEnumerator CrossFadeStart()
     {
-        this.gameObject.SetActive(true);
+        // this.gameObject.SetActive(true);
         yield return FadeAnim("start");
     }
 
     public IEnumerator CrossFadeEnd()
     {
         yield return FadeAnim("end");
-        this.gameObject.SetActive(false);
+        // this.gameObject.SetActive(false);
     }
     
     private IEnumerator FadeAnim(string state)

@@ -16,7 +16,7 @@ public static class UILogic
         if (listening) listening = false;
         else return;
         SetAlpha(0, fadeImage);
-        fadeImage.gameObject.SetActive(true);
+        if (fadeImage != null) fadeImage.gameObject.SetActive(true);
         target.StartCoroutine(Fade(sceneName, fadeImage));
     }
 
@@ -38,6 +38,7 @@ public static class UILogic
 
     private static void SetAlpha(float alpha, Image fadeImage)
     {
+        if (fadeImage == null) return;
         fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, alpha);
     }
 
