@@ -70,6 +70,7 @@ public class SettingsLogic : MonoBehaviour
     public void OnSensitivityChange()
     {
         var newValue = sensitivity.value;
+        SettingsHelper.ChangeSensitivity(newValue);
         GlobalReference.Settings.Set("sensitivity", newValue);
     }
     public void OnMasterVolumeChange(float value)
