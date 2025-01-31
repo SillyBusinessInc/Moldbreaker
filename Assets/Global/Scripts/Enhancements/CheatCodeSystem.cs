@@ -7,6 +7,7 @@ using System.Linq;
 public class CheatCodeSystem : MonoBehaviour
 {
     private PlayerInput playerInput;
+    private Player player;
     public float maxComboTime = 4f;
     private float comboTimer;
     public static bool InvulnerableCheatActivated = false;
@@ -19,7 +20,7 @@ public class CheatCodeSystem : MonoBehaviour
         { "DDRLU", InvokeRestoreFullHp },
         { "UDLRUD", InvokeToggleInvulnerability },
         { "UDLRRLDD", InvokeEnableAllLevels },
-        { "UUDDLRLR", () => AchievementManager.Grant("KONAMI_CODE") }
+        { "UUDDLRLR", () => AchievementManager.Grant("KONAMI_CODE", true) }
     }; 
     
     [Header("Debugging")]
@@ -32,6 +33,7 @@ public class CheatCodeSystem : MonoBehaviour
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        player = GetComponent<Player>();
     }
 
     private void OnEnable()
@@ -74,10 +76,12 @@ public class CheatCodeSystem : MonoBehaviour
     {
         if (cheatCodes.ContainsKey(currentSequence))
         {
+            var player = GlobalReference.GetReference<PlayerReference>().Player;
+            // if konami code, isCheating will stay the same value
+            if (currentSequence != "UUDDLRLR") player.isCheating = true;
             LastInvokedCheat = currentSequence;
             cheatCodes[currentSequence].Invoke();
             
-            var player = GlobalReference.GetReference<PlayerReference>().Player;
             player.PlayVFX();
             GlobalReference.GetReference<AudioManager>().PlaySFX("Cheat");
 

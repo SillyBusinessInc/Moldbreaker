@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 public class FetchAnnouncements : MonoBehaviour
 {
+    [SerializeField] private AnnouncementsCache announcementsCache;
     [SerializeField] private GameObject newsPanel;
     [SerializeField] private TMPro.TextMeshProUGUI newsText;
     [SerializeField] private Image bannerImage;
@@ -29,32 +30,54 @@ public class FetchAnnouncements : MonoBehaviour
     private const string SideloadImageRoot = "https://raw.githubusercontent.com/SillyBusinessInc/ingame-announcements/refs/heads/main/images/";
 
     private List<NewsItem> newsItems = new List<NewsItem>();
-    private Dictionary<string, Sprite> imageCache = new Dictionary<string, Sprite>();
     private List<DotIndicator> dotIndicators = new List<DotIndicator>();
     private int currentNewsIndex = 0;
     private Coroutine cycleNewsCoroutine;
 
     void Start()
     {
+        if (announcementsCache == null)
+        {
+            Debug.LogError("AnnouncementsCache ScriptableObject not assigned!");
+            return;
+        }
+
         newsPanel.SetActive(false);
         if (openLinkButton) openLinkButton.onClick.AddListener(OpenCurrentNewsLink);
-        StartCoroutine(FetchSteamNews());
+
+        if (announcementsCache.NeedsRefresh())
+        {
+            Debug.Log("cache needs refresh", this.announcementsCache);
+            StartCoroutine(FetchSteamNews());
+        }
+        else
+        {
+            ProcessNews(announcementsCache.steamNewsJson, announcementsCache.sideloadJson);
+        }
     }
 
     IEnumerator FetchSteamNews()
     {
-        bool steamSucces = false;
-        bool sideloadSucces = false;
+        bool steamSuccess = false;
+        bool sideloadSuccess = false;
+        Debug.Log("Fetching steam");
         UnityWebRequest request = UnityWebRequest.Get(newsUrl);
         yield return request.SendWebRequest();
+        Debug.Log("Fetching Sideload");
         UnityWebRequest sideloadRequest = UnityWebRequest.Get(sideloadUrl);
         yield return sideloadRequest.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.Success) steamSucces = true;
-        if (sideloadRequest.result == UnityWebRequest.Result.Success) sideloadSucces = true;
-        if (!steamSucces || !sideloadSucces) Debug.Log($"Steam fetch success: {steamSucces} | Sideload fetch succes: {sideloadSucces}");
-        ProcessNews(steamSucces ? request.downloadHandler.text : null, sideloadSucces ? sideloadRequest.downloadHandler.text : null);
-
+        if (request.result == UnityWebRequest.Result.Success) steamSuccess = true;
+        if (sideloadRequest.result == UnityWebRequest.Result.Success) sideloadSuccess = true;
+        if (!steamSuccess || !sideloadSuccess) Debug.Log($"Steam fetch success: {steamSuccess} | Sideload fetch succes: {sideloadSuccess}");
+        if (steamSuccess || sideloadSuccess)
+        {
+            announcementsCache.SaveNewsData(
+                steamSuccess ? request.downloadHandler.text : null,
+                sideloadSuccess ? sideloadRequest.downloadHandler.text : null
+            );
+        }
+        ProcessNews(steamSuccess ? request.downloadHandler.text : null, sideloadSuccess ? sideloadRequest.downloadHandler.text : null);
     }
 
     void ProcessNews(string json, string sideloadJson)
@@ -93,32 +116,41 @@ public class FetchAnnouncements : MonoBehaviour
         foreach (NewsItem item in items)
         {
             string imageUrl = ExtractFirstImageUrl(item.contents);
-
-            if (!string.IsNullOrEmpty(imageUrl) && !imageCache.ContainsKey(imageUrl))
+            Sprite cachedSprite = announcementsCache.GetCachedImage(imageUrl ?? "null");
+            if (cachedSprite != null)
             {
-                UnityWebRequest imageRequest = UnityWebRequestTexture.GetTexture(imageUrl);
-                yield return imageRequest.SendWebRequest();
-
-                if (imageRequest.result == UnityWebRequest.Result.Success)
-                {
-                    Texture2D texture = ((DownloadHandlerTexture)imageRequest.downloadHandler).texture;
-                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                    imageCache[imageUrl] = sprite;
-                }
-                else
-                {
-                    Debug.LogWarning("Failed to prefetch image: " + imageRequest.error);
-                    imageCache[imageUrl] = fallbackImage;
-                }
+                Debug.Log("image found in cache");
+                continue;
             }
-
-            if (cycleNewsCoroutine != null)
+            if (string.IsNullOrEmpty(imageUrl))
             {
-                StopCoroutine(cycleNewsCoroutine);
+                Debug.Log($"imageURL: {imageUrl} | Falling back to fallback image");
+                announcementsCache.SaveImage("null", fallbackImage);
+                continue;
             }
-            dotContainer.gameObject.SetActive(true);
-            cycleNewsCoroutine = StartCoroutine(CycleNews());
+            Debug.Log($"fetching Image: {imageUrl}");
+            UnityWebRequest imageRequest = UnityWebRequestTexture.GetTexture(imageUrl);
+            yield return imageRequest.SendWebRequest();
+
+            if (imageRequest.result == UnityWebRequest.Result.Success)
+            {
+                Texture2D texture = ((DownloadHandlerTexture)imageRequest.downloadHandler).texture;
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                announcementsCache.SaveImage(imageUrl, sprite);
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to fetch image: {imageRequest.error}");
+                announcementsCache.SaveImage(imageUrl, fallbackImage);
+            }
         }
+
+        if (cycleNewsCoroutine != null)
+        {
+            StopCoroutine(cycleNewsCoroutine);
+        }
+        dotContainer.gameObject.SetActive(true);
+        cycleNewsCoroutine = StartCoroutine(CycleNews());
     }
 
     IEnumerator CycleNews()
@@ -151,14 +183,8 @@ public class FetchAnnouncements : MonoBehaviour
         newsText.text = $"{newsItem.title}";
 
         string imageUrl = ExtractFirstImageUrl(newsItem.contents);
-        if (!string.IsNullOrEmpty(imageUrl) && imageCache.ContainsKey(imageUrl))
-        {
-            bannerImage.sprite = imageCache[imageUrl];
-        }
-        else
-        {
-            bannerImage.sprite = fallbackImage;
-        }
+        Sprite cachedSprite = announcementsCache.GetCachedImage(imageUrl ?? "null");
+        bannerImage.sprite = cachedSprite != null ? cachedSprite : fallbackImage;
     }
 
     string ExtractFirstImageUrl(string contents)

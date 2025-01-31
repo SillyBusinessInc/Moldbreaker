@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
     private bool IsLanding = false;
     [HideInInspector] public bool isInvulnerable = false;
     [SerializeField] private GameObject vfxPrefab;
+    [HideInInspector] public bool isCheating;
 
     void Awake()
     {

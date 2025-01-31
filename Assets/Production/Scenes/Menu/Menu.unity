@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 112517502}
   - component: {fileID: 112517500}
   - component: {fileID: 112517501}
+  - component: {fileID: 112517504}
   m_Layer: 5
   m_Name: Overlay
   m_TagString: Untagged
@@ -245,8 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AspectMode: 1
-  m_AspectRatio: 1
+  m_AspectMode: 4
+  m_AspectRatio: 1.7777778
 --- !u!222 &112517502
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -272,8 +273,20 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 517.2501}
+  m_SizeDelta: {x: 0, y: 24.84375}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &112517504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112517499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c185e3f741f604440b6090572568138d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &119579622
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +771,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.05
+  m_fontSize: 64.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2080,6 +2093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cbb614f16a692478c250724c1ff8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  announcementsCache: {fileID: 11400000, guid: 099259e041715ef4cbc6a5c2ef942baf, type: 2}
   newsPanel: {fileID: 1091025312}
   newsText: {fileID: 683198509}
   bannerImage: {fileID: 1091025314}
@@ -2469,7 +2483,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.05
+  m_fontSize: 64.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2605,7 +2619,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.05
+  m_fontSize: 64.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3013,7 +3027,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.05
+  m_fontSize: 64.5
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3526,7 +3540,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 6.569718
+  m_PixelsPerUnitMultiplier: 6.820604
 --- !u!222 &1705561387
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3898,7 +3912,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56.1
+  m_fontSize: 90.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3962,6 +3976,7 @@ GameObject:
   - component: {fileID: 1981469088}
   - component: {fileID: 1981469087}
   - component: {fileID: 1981469086}
+  - component: {fileID: 1981469089}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -3984,7 +3999,7 @@ RectTransform:
   m_Father: {fileID: 813655945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4000,8 +4015,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AspectMode: 1
-  m_AspectRatio: 1
+  m_AspectMode: 4
+  m_AspectRatio: 1.7777778
 --- !u!114 &1981469087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4040,6 +4055,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981469084}
   m_CullTransparentMesh: 1
+--- !u!114 &1981469089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981469084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c185e3f741f604440b6090572568138d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1988971377
 GameObject:
   m_ObjectHideFlags: 0

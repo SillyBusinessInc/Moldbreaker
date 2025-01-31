@@ -10,6 +10,8 @@ public class BackgroundRandomizer : MonoBehaviour
     [SerializeField] private List<string> tips;
     private Image background;
     private Image overlay;
+    private BackgroundAutoScale overlayAutoScaler;
+    private BackgroundAutoScale backgroundAutoScaler;
     private TMP_Text tip_title;
     private TMP_Text tip_text;
 
@@ -26,6 +28,8 @@ public class BackgroundRandomizer : MonoBehaviour
         if (overlay == null) overlay = transform.GetChild(1).GetComponent<Image>();
         if (tip_title == null) tip_title = transform.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
         if (tip_text == null) tip_text = transform.GetChild(2).GetChild(1).GetComponent<TMP_Text>();
+        if (overlayAutoScaler == null) overlayAutoScaler = overlay.GetComponent<BackgroundAutoScale>();
+        if (backgroundAutoScaler == null) backgroundAutoScaler = background.GetComponent<BackgroundAutoScale>();
 
         lastTimeSwitched = -1;
 
@@ -39,6 +43,7 @@ public class BackgroundRandomizer : MonoBehaviour
 
         Sprite sprite = backgrounds[index];
         overlay.sprite = sprite;
+        overlayAutoScaler.ResetScale();
         SetAlpha(0);
         StartCoroutine(Fade());
     }
@@ -55,6 +60,7 @@ public class BackgroundRandomizer : MonoBehaviour
     private void PostFade() {
         lastTimeSwitched = Time.unscaledTime;
         background.sprite = overlay.sprite;
+        backgroundAutoScaler.ResetScale();
         SetAlpha(0);
     }
 
