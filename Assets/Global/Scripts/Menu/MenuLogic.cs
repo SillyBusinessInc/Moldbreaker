@@ -15,8 +15,6 @@ public class MenuLogic : MonoBehaviour
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button quitButton;
 
-    
-
     void Start()
     {
         UILogic.SetCursor(true);
