@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public static class SettingsHelper
@@ -85,5 +86,18 @@ public static class SettingsHelper
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
         else 
             Debug.LogWarning($"Resolution mode {mode} not found");
+    }
+    
+    public static void ChangeSensitivity(float sensitivity)
+    {
+        var cam = GlobalReference.GetReference<PlayerReference>()?.CinemachineCamera;
+        if (cam == null) return;
+        
+        var ciac = cam.GetComponent<CinemachineInputAxisController>();
+        if (ciac?.Controllers == null) return;
+        if (ciac.Controllers.Count <= 1) return;
+        
+        ciac.Controllers[0].Input.Gain = sensitivity * 2f;
+        ciac.Controllers[1].Input.Gain = -sensitivity * 2f;
     }
 }

@@ -25,10 +25,10 @@ public class SmoothTarget : MonoBehaviour
 
         // Draw the smoothed target position
         Gizmos.color = Color.cyan;
-        Gizmos.DrawSphere(this.transform.position, 0.1f);
+        Gizmos.DrawSphere(transform.position, 0.1f);
 
         // Draw a line between the player and the smoothed target
         Gizmos.color = Color.gray;
-        Gizmos.DrawLine(target.position, this.transform.position);
+        Gizmos.DrawLine(target.position, transform.position);
     }
 }
