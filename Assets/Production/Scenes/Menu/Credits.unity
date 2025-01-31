@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 112517502}
   - component: {fileID: 112517500}
   - component: {fileID: 112517501}
+  - component: {fileID: 112517504}
   m_Layer: 5
   m_Name: Overlay
   m_TagString: Untagged
@@ -284,6 +285,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 527.25}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &112517504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112517499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c185e3f741f604440b6090572568138d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &233895267
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,7 +855,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.4
+  m_fontSize: 53.8
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6179,7 +6192,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 5.6804733
+  m_PixelsPerUnitMultiplier: 4.5283017
 --- !u!222 &1421482708
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6333,7 +6346,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.1
+  m_fontSize: 32.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
