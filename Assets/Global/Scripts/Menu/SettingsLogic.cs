@@ -67,7 +67,7 @@ public class SettingsLogic : MonoBehaviour
     }
 
     
-    public void OnSensitivityChange(float value)
+    public void OnSensitivityChange()
     {
         var newValue = sensitivity.value;
         GlobalReference.Settings.Set("sensitivity", newValue);
