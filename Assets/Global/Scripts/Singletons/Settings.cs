@@ -15,6 +15,4 @@ public class Settings : SaveSystem
         
         Add("disable_mouse_lock", false);
     }
-    
-    
 }
