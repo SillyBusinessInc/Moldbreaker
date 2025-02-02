@@ -855,7 +855,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.8
+  m_fontSize: 45.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6192,7 +6192,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 4.5283017
+  m_PixelsPerUnitMultiplier: 5.592233
 --- !u!222 &1421482708
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6346,7 +6346,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.75
+  m_fontSize: 26.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6825,6 +6825,7 @@ MonoBehaviour:
   secret: {fileID: 10565753}
   line: {fileID: 7933404193956447169, guid: 6becd4ee977053349a6b2f532670d8d5, type: 3}
   inverseLine: {fileID: 7933404193956447169, guid: 51b34c99aaae8e94d9434b060599ff0d, type: 3}
+  speed: 0.08
 --- !u!1 &2062018850
 GameObject:
   m_ObjectHideFlags: 0
