@@ -17,6 +17,7 @@ public class SettingsLogic : MonoBehaviour
     [SerializeField] private Slider musicVolume;
 
     [SerializeField] private Toggle speedrunMode;
+    [SerializeField] private Slider sensitivity;
     [SerializeField] private Toggle disableMouseLock;  
     
     [SerializeField] private Button cancel;
@@ -32,7 +33,6 @@ public class SettingsLogic : MonoBehaviour
     }
 
     void Update() => UpdateButtonState();
-
 
     private void LoadFromLocal()
     {
@@ -51,6 +51,7 @@ public class SettingsLogic : MonoBehaviour
         musicVolume.value = GlobalReference.GetReference<AudioManager>().GetMusicVolume() / 8;
 
         speedrunMode.isOn = GlobalReference.Settings.Get<bool>("speedrun_mode");
+        sensitivity.value = GlobalReference.Settings.Get<float>("sensitivity");
         disableMouseLock.isOn = GlobalReference.Settings.Get<bool>("disable_mouse_lock");
         
         GlobalReference.GetReference<AudioManager>().LoadFromLocal();
@@ -66,6 +67,13 @@ public class SettingsLogic : MonoBehaviour
         back.interactable = !(GlobalReference.Settings.IsDirty || GlobalReference.AudioSettingSave.IsDirty);
     }
 
+    
+    public void OnSensitivityChange()
+    {
+        var newValue = sensitivity.value;
+        SettingsHelper.ChangeSensitivity(newValue);
+        GlobalReference.Settings.Set("sensitivity", newValue);
+    }
     public void OnMasterVolumeChange(float value)
     {
         GlobalReference.GetReference<AudioManager>().UpdateMasterVolume(value * 8);

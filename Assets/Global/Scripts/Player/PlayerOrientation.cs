@@ -7,12 +7,10 @@ public class PlayerOrientation : MonoBehaviour
 
     private void Update()
     {
-        if (player.movementInput.magnitude > 0)
-        {
-            // align the player with the camera's forward direction if forward movement is initiated
-            AlignPlayerWithCamera();
-            transform.position = player.rb.transform.position;
-        }
+        if (!(player.movementInput.magnitude > 0)) return;
+        // align the player with the camera's forward direction if forward movement is initiated
+        AlignPlayerWithCamera();
+        transform.position = player.rb.transform.position;
     }
 
     private void AlignPlayerWithCamera()
@@ -23,11 +21,9 @@ public class PlayerOrientation : MonoBehaviour
         cameraForward.Normalize();
 
         // update the player's rotation to face the camera's horizontal direction
-        if (cameraForward != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
-            transform.rotation = targetRotation;
-        }
+        if (cameraForward == Vector3.zero) return;
+        Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
+        transform.rotation = targetRotation;
     }
 
     private void OnDrawGizmos()
