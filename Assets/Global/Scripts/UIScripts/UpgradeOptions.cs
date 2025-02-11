@@ -43,6 +43,7 @@ public class UpgradeOptions : Reference
     {
         SetUIState(true);
         UILogic.SelectButton(confirmButton);
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_ACTIVE);
 
         if (option != null)
         {

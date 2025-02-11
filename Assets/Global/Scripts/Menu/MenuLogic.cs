@@ -59,6 +59,7 @@ public class MenuLogic : MonoBehaviour
             foreach (var file in Directory.GetFiles(directoryPath))
                 File.Delete(file);
         }
+        GlobalReference.Statistics.ResetTimers();
         Continue();
     }
 
