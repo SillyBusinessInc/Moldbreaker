@@ -19,7 +19,7 @@ public class TitleLogic : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKey){
+        if (Input.anyKey) {
             GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
             UILogic.FadeToScene("Menu", fadeImage, this);
         } 

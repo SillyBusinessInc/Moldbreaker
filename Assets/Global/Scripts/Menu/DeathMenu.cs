@@ -39,6 +39,7 @@ public class DeathMenu : MonoBehaviour
         // reset the current level
         Menu.SetActive(!Menu.activeSelf);
         UILogic.SetCursor(false);
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         if (PreviousLevel.Instance) UILogic.FadeToScene("Loading", fadeImage, this);
     }
 
@@ -46,6 +47,7 @@ public class DeathMenu : MonoBehaviour
     {
         isDead = false;
         UILogic.SetCursor(true);
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         Menu.SetActive(!Menu.activeSelf);
         if (PreviousLevel.Instance) PreviousLevel.Instance.ResetLevelForRetry();
 

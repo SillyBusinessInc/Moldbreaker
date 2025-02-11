@@ -154,6 +154,7 @@ public class CreditLogic : MonoBehaviour
 
     public void OnExit() 
     {
+        GlobalReference.GetReference<AudioManager>().PlaySFX("Button");
         UILogic.FadeToScene("Menu", fadeImage, this);
     }
 
