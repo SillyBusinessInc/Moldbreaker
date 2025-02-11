@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     public ParticleSystem particleSystemJump;
     public ParticleSystem particleSystemDash;
     public ParticleSystem particleSystemWalk;
+    public SpeedrunMode speedrunMode;
 
     public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool canDodgeRoll = true;
@@ -369,6 +370,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator DeathScreen()
     {
+        speedrunMode.SaveTimeCurrentLevel();
         var crossfadeController = GlobalReference.GetReference<CrossFadeController>();
         yield return StartCoroutine(crossfadeController.CrossFadeStart());
         SceneManager.LoadScene("Death");

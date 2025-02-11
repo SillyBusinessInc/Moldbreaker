@@ -11,6 +11,7 @@ public class CreditLogic : MonoBehaviour
     [SerializeField] private Image secret;
     [SerializeField] private GameObject line;
     [SerializeField] private GameObject inverseLine;
+    [SerializeField] private float speed = 0.080f;
 
     private RectTransform teamImage;
     private RectTransform brandImage;
@@ -55,8 +56,8 @@ public class CreditLogic : MonoBehaviour
 
         totalHeight = spacingTotal * Screen.height;
 
-        rt.anchorMin = new(0.5f, 0.080f * (Time.time - timeSinceStart));
-        rt.anchorMax = new(0.9f, 0.080f * (Time.time - timeSinceStart) + 1);
+        rt.anchorMin = new(0.5f, speed * (Time.time - timeSinceStart));
+        rt.anchorMax = new(0.9f, speed * (Time.time - timeSinceStart) + 1);
         rt.offsetMin = new(0f, 0f);
         rt.offsetMax = new(0f, 0f);
 
@@ -81,7 +82,7 @@ public class CreditLogic : MonoBehaviour
 
         RectTransform firstObj = rt.GetChild(0) as RectTransform;
         // Debug.Log($"{firstObj.anchorMin.y}, {-0.075f * (Time.time - timeSinceStart - delay) + 1}");
-        if (firstObj.anchorMin.y > -0.080f * (Time.time - timeSinceStart - delay) + 1) {
+        if (firstObj.anchorMin.y > -speed * (Time.time - timeSinceStart - delay) + 1) {
 
             Destroy(firstObj.gameObject);
             AddNext();
@@ -110,7 +111,7 @@ public class CreditLogic : MonoBehaviour
         brandImage.SetAsLastSibling();
 
         next++;
-        if (next < entries.Count() && newLineTransform.anchorMin.y >= -0.080f * (Time.time - timeSinceStart - delay)) AddNext();
+        if (next < entries.Count() && newLineTransform.anchorMin.y >= -speed * (Time.time - timeSinceStart - delay)) AddNext();
     }
 
     private void SetPosition(RectTransform obj, float position, float size) 
@@ -127,8 +128,8 @@ public class CreditLogic : MonoBehaviour
         if (Time.time < timeSinceStart + delay) return;
 
         if (rt.anchorMin.y < brandImage.anchorMin.y * -1) {
-            rt.anchorMin = new(0.5f, 0.080f * (Time.time - timeSinceStart - delay));
-            rt.anchorMax = new(0.9f, 0.080f * (Time.time - timeSinceStart - delay) + 1);
+            rt.anchorMin = new(0.5f, speed * (Time.time - timeSinceStart - delay));
+            rt.anchorMax = new(0.9f, speed * (Time.time - timeSinceStart - delay) + 1);
             rt.offsetMin = new(0f, 0f);
             rt.offsetMax = new(0f, 0f);
         }

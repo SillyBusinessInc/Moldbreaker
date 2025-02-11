@@ -48,5 +48,7 @@ public enum RoomType
     COMBAT,     // room with a focus on combat
     PARKOUR,    // room with a focus on movement
     MOLDORB,    // room that contains mold orbs that will need to be destroyed
-    WAVESURVIVAL// room that spawn several waves of enemies
+    WAVESURVIVAL,// room that spawn several waves of enemies
+    SPEEDRUNRESULTS,
+    CREDITS
 }

@@ -33,7 +33,7 @@ public static class AchievementManager
     }
 
     public static void Grant(string name, bool playerCanCheat = false) {
-        if (!playerCanCheat && GlobalReference.GetReference<PlayerReference>().Player.isCheating) return;
+        if (!playerCanCheat && GlobalReference.GetReference<PlayerReference>()?.Player?.isCheating == true) return;
         if (!SteamManager.Initialized) return;
         if (progression == null) Init();
 

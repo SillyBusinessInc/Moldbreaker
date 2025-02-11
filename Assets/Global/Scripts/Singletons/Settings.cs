@@ -10,9 +10,9 @@ public class Settings : SaveSystem
         Add("master_volume", 0.5f);
         Add("effects_volume", 0.5f);
         Add("music_volume", 0.5f);
-        
+       
+        Add("speedrun_mode", false);
         Add("sensitivity", 0.5f);
-        
         Add("disable_mouse_lock", false);
     }
 }

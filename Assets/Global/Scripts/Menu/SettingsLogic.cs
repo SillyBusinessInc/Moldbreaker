@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +15,8 @@ public class SettingsLogic : MonoBehaviour
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider effectsVolume;
     [SerializeField] private Slider musicVolume;
-    
+
+    [SerializeField] private Toggle speedrunMode;
     [SerializeField] private Slider sensitivity;
     [SerializeField] private Toggle disableMouseLock;  
     
@@ -49,7 +49,8 @@ public class SettingsLogic : MonoBehaviour
         masterVolume.value = GlobalReference.GetReference<AudioManager>().GetMasterVolume() / 8;
         effectsVolume.value = GlobalReference.GetReference<AudioManager>().GetSFXVolume() / 8;
         musicVolume.value = GlobalReference.GetReference<AudioManager>().GetMusicVolume() / 8;
-        
+
+        speedrunMode.isOn = GlobalReference.Settings.Get<bool>("speedrun_mode");
         sensitivity.value = GlobalReference.Settings.Get<float>("sensitivity");
         disableMouseLock.isOn = GlobalReference.Settings.Get<bool>("disable_mouse_lock");
         
@@ -103,6 +104,7 @@ public class SettingsLogic : MonoBehaviour
     {
         GlobalReference.Settings.SaveAll();
         GlobalReference.AudioSettingSave.SaveAll();
+        GlobalReference.AttemptInvoke(Events.SPEEDRUN_MODE_TOGGLED);
     }
 
     public void OnCancel()
@@ -126,6 +128,7 @@ public class SettingsLogic : MonoBehaviour
         GlobalReference.Settings.Set("resolution", mode);  
     }
 
+    public void OnSpeedRunModeChange() => GlobalReference.Settings.Set("speedrun_mode", speedrunMode.isOn);
     public void OnFramerateChange()
     {
         var mode = frameRateDropdown.value;

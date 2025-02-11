@@ -5,16 +5,20 @@ using UnityEngine.SceneManagement;
 public class GameManagerReference : Reference
 {
     public bool ignoreInput = true;
+    public bool speedrunTimerRun = false;
 
     void Start()
     {
-        GlobalReference.SubscribeTo(Events.INPUT_ACKNOWLEDGE, () => ignoreInput = false);
-        GlobalReference.SubscribeTo(Events.INPUT_IGNORE, () => ignoreInput = true);
+        GlobalReference.SubscribeTo(Events.INPUT_ACKNOWLEDGE, AcknowledgeInput);
+        GlobalReference.SubscribeTo(Events.INPUT_IGNORE, IgnoreInput);
+
+        GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_INACTIVE, DeActivateSpeedrun);
+        GlobalReference.SubscribeTo(Events.SPEEDRUN_MODE_ACTIVE, ActivateSpeedrun);
         // calling Initialize if scene was loaded directly (without loading screen)
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        for (var i = 0; i < SceneManager.sceneCount; i++)
         {
-            Scene scene = SceneManager.GetSceneAt(i);
-            if (!(scene.name == "Loading")) continue;
+            var scene = SceneManager.GetSceneAt(i);
+            if (scene.name != "Loading") continue;
             if (!scene.isLoaded) Initialize();
             return;
         }
@@ -25,6 +29,9 @@ public class GameManagerReference : Reference
     {
         GlobalReference.UnsubscribeTo(Events.INPUT_ACKNOWLEDGE, AcknowledgeInput);
         GlobalReference.UnsubscribeTo(Events.INPUT_IGNORE, IgnoreInput);
+
+        GlobalReference.UnsubscribeTo(Events.SPEEDRUN_MODE_INACTIVE, DeActivateSpeedrun);
+        GlobalReference.UnsubscribeTo(Events.SPEEDRUN_MODE_ACTIVE, ActivateSpeedrun);
         base.OnDestroy();
     }
 
@@ -40,14 +47,11 @@ public class GameManagerReference : Reference
         GlobalReference.GetReference<DoorManager>().Initialize();
     }
 
-    private void AcknowledgeInput()
-    {
-        ignoreInput = false;
-    }
-    private void IgnoreInput()
-    {
-        ignoreInput = true;
-    }
+    private void AcknowledgeInput() => ignoreInput = false;
+    private void IgnoreInput() => ignoreInput = true;
+    
+    private void ActivateSpeedrun() => speedrunTimerRun = true;
+    private void DeActivateSpeedrun() => speedrunTimerRun = false;
 
 #region rooms
 
