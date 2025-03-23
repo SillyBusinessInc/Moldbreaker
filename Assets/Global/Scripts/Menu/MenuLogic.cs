@@ -47,7 +47,7 @@ public class MenuLogic : MonoBehaviour
         }
         else
         {
-            CheckPlayerFirstTime();
+            PlayVideo();
             Continue();
         }
     }
@@ -60,7 +60,7 @@ public class MenuLogic : MonoBehaviour
             foreach (var file in Directory.GetFiles(directoryPath))
                 File.Delete(file);
         }
-        CheckPlayerFirstTime();
+        PlayVideo();
         GlobalReference.Statistics.ResetTimers();
         Continue();
     }
@@ -89,13 +89,6 @@ public class MenuLogic : MonoBehaviour
             "Unsaved progress will be lost if you quit now", 
             () => Application.Quit(), 
             EventSystem.current.currentSelectedGameObject);
-    }
-
-    void CheckPlayerFirstTime() {
-        if (PlayerPrefs.GetInt("CutScenePlayed", 0) == 1) 
-            Continue();
-        else 
-            PlayVideo();
     }
 
     void PlayVideo() => UILogic.FadeToScene("OpeningScene", fadeImage, this);
