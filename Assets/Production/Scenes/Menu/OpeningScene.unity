@@ -381,7 +381,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 6.227027
+  m_PixelsPerUnitMultiplier: 6.1211476
 --- !u!222 &382002622
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67.15
+  m_fontSize: 54.25
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -987,7 +987,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610229730}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: eedb09187641a9044a5d018c96b45017, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: aab70ac30ba3ad543a578aae0bd9c8ee, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 413641884}
