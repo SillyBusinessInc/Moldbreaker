@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class CutSceneLogic : MonoBehaviour
+public class EntranceCutSceneLogic : MonoBehaviour
 {
     [SerializeField] private VideoPlayer videoPlayer;
 
@@ -14,8 +14,6 @@ public class CutSceneLogic : MonoBehaviour
     }
 
     void VideoEnded(VideoPlayer vp) {
-        PlayerPrefs.SetInt("CutScenePlayed", 1);
-        PlayerPrefs.Save();
         SceneManager.LoadScene("Loading");
     }
 

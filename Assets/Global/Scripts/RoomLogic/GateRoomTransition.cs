@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GateRoomTransition : Interactable
 {
     [Header("Materials")]
+    [SerializeField] private Image fadeImage;
     [SerializeField] private GameObject portalEffect;
     [Header("References")]
     [SerializeField] private Animator animator;
@@ -96,7 +98,7 @@ public class GateRoomTransition : Interactable
         
         if (showCredits)
         {
-            SceneManager.LoadScene("Credits");
+            SceneManager.LoadScene("EndingCutScene");
         }
         else if (showSpeedRunResults) {
             SceneManager.LoadScene("SpeedrunResults");

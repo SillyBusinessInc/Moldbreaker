@@ -89,6 +89,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Production/Scenes/Menu/OpeningScene.unity
     guid: 0b07c1b3670909b478a89b23428a9c37
+  - enabled: 1
+    path: Assets/Production/Scenes/Menu/EndingCutScene.unity
+    guid: cc7e9de068bccc24d9fe330485913ade
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5ee5558464c699340918ebc2380ce47a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
